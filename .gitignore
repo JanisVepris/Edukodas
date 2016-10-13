@@ -1,6 +1,5 @@
+/.docker
 /app/config/parameters.yml
-/build/
-/phpunit.xml
 /var/*
 !/var/cache
 /var/cache/*
@@ -14,4 +13,9 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-.idea/
+/web/css
+/web/js
+/web/fonts
+/node_modules
+/bin/*
+/.idea

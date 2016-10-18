@@ -1,3 +1,11 @@
+genn_test_name:
+    path:      /gb/name/{name}
+    defaults:  { _controller: GennTestBundle:Some:name, name: 'anonimous' }
+
+genn_test_number:
+    path:      /gb/number/{max}
+    defaults:  { _controller: GennTestBundle:Some:number, max: 1 }
+
 app:
     resource: "@AppBundle/Controller"
     type: annotation

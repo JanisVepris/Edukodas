@@ -8,11 +8,11 @@ use Symfony\Component\HttpFoundation\Response;
 class SomeController extends Controller
 {
 
-    public function nameAction($name)
+    public function nameAction($yourname)
     {
         return $this->render('GennTestBundle:Default:index.html.twig', array(
-            'name' => $name
-,        ));
+            'yourname' => $yourname
+        ));
     }
 
     public function numberAction($max)

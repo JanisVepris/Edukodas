@@ -1,0 +1,7 @@
+{% extends 'WeatherBundle:Default:index.html.twig' %}
+
+{% block title %}Weather in {{ city|capitalize }}{% endblock %}
+
+{% block body %}
+    <div class="weather-report">Current temperature in <strong>{{ city|capitalize }}</strong> is <strong>{{ temperature }}</strong> °C</div>
+{% endblock %}

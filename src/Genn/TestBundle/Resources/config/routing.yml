@@ -1,7 +1,0 @@
-genn_test_number:
-    path:      /number/{max}
-    defaults:  { _controller: GennTestBundle:Some:number, max: 1 }
-
-genn_test_name:
-    path:      /yourname/{yourname}
-    defaults:  { _controller: GennTestBundle:Some:name, yourname: "anonimous" }

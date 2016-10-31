@@ -1,7 +1,8 @@
+weather:
+    resource: "@WeatherBundle/Controller/"
+    type:     annotation
+    prefix:   /weather/
+
 app:
     resource: "@AppBundle/Controller"
     type: annotation
-
-gb:
-    resource: '@GennTestBundle/Resources/config/routing.yml'
-    prefix:   /gb

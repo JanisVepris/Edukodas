@@ -19,3 +19,5 @@
 /node_modules
 /bin/*
 /.idea
+.DS_Store
+src/.DS_Store

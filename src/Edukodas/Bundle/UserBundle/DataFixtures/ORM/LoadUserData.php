@@ -20,91 +20,102 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $this->container = $container;
     }
 
+    private function getUserData()
+    {
+        return [
+            [
+                'username' => 'genadijb',
+                'firstName' => 'Genadij',
+                'lastName' => 'Bojev',
+                'password' => 'admin',
+                'email' => 'genadij.bojev@gmail.com',
+                'roles' => ['ROLE_ADMIN'],
+                'enabled' => true
+            ],
+            [
+                'username' => 'domantasp',
+                'firstName' => 'Domantas',
+                'lastName' => 'Petrauskas',
+                'password' => 'admin',
+                'email' => 'domantas.pet@gmail.com',
+                'roles' => ['ROLE_ADMIN'],
+                'enabled' => true
+            ],
+            [
+                'username' => 'lukasc',
+                'firstName' => 'Lukas',
+                'lastName' => 'Ceplikas',
+                'password' => 'admin',
+                'email' => 'lukasceplikas@gmail.com',
+                'roles' => ['ROLE_ADMIN'],
+                'enabled' => true
+            ],
+            [
+                'username' => 'mokytojasa',
+                'firstName' => 'Mokytojas',
+                'lastName' => 'A',
+                'password' => 'password',
+                'email' => 'mokytojasa@pastas.com',
+                'roles' => ['ROLE_TEACHER'],
+                'enabled' => true
+            ],
+            [
+                'username' => 'mokytojasb',
+                'firstName' => 'Mokytojas',
+                'lastName' => 'B',
+                'password' => 'password',
+                'email' => 'mokytojasb@pastas.com',
+                'roles' => ['ROLE_TEACHER'],
+                'enabled' => true
+            ],
+            [
+                'username' => 'mokinysa',
+                'firstName' => 'Mokinys',
+                'lastName' => 'A',
+                'password' => 'password',
+                'email' => 'mokinysa@pastas.com',
+                'roles' => ['ROLE_USER'],
+                'enabled' => true
+            ],
+            [
+                'username' => 'mokinysb',
+                'firstName' => 'Mokinys',
+                'lastName' => 'B',
+                'password' => 'password',
+                'email' => 'mokinysb@pastas.com',
+                'roles' => ['ROLE_USER'],
+                'enabled' => true
+            ],            [
+                'username' => 'mokinysc',
+                'firstName' => 'Mokinys',
+                'lastName' => 'C',
+                'password' => 'password',
+                'email' => 'mokinysc@pastas.com',
+                'roles' => ['ROLE_USER'],
+                'enabled' => true
+            ],
+        ];
+    }
+
     public function load(ObjectManager $manager)
     {
-        //Genadij
-        $user = new User();
-        $user->setUsername('genadijb');
-        $user->getSalt(md5(uniqid()));
+        $data = $this->getUserData();
 
-        $encoder = $this->container->get('security.password_encoder');
-        $password = $encoder->encodePassword($user, 'admin');
-        $user->setPassword($password);
-        $user->setEmail('genadij.bojev@gmail.com');
-        $user->setFirstName('Genadij');
-        $user->setLastName('Bojev');
-        $user->setRoles(['ROLE_ADMIN']);
-        $user->setEnabled(true);
+        foreach ($data as $userData)
+        {
+            $user = new User();
+            $user
+                ->setUsername($userData['username'])
+                ->setFirstName($userData['firstName'])
+                ->setLastName($userData['lastName'])
+                ->setPlainPassword($userData['password'])
+                ->setEmail($userData['email'])
+                ->setRoles($userData['roles'])
+                ->setEnabled($userData['enabled']);
+            $manager->persist($user);
+        }
 
-        $manager->persist($user);
         $manager->flush();
 
-        //Lukas
-        $user = new User();
-        $user->setUsername('lukasc');
-        $user->getSalt(md5(uniqid()));
-
-        $encoder = $this->container->get('security.password_encoder');
-        $password = $encoder->encodePassword($user, 'admin');
-        $user->setPassword($password);
-        $user->setEmail('lukasceplikas@gmail.com');
-        $user->setFirstName('Lukas');
-        $user->setLastName('Ceplikas');
-        $user->setRoles(['ROLE_ADMIN']);
-        $user->setEnabled(true);
-
-        $manager->persist($user);
-        $manager->flush();
-
-        //Domantas
-        $user = new User();
-        $user->setUsername('domantasp');
-        $user->getSalt(md5(uniqid()));
-
-        $encoder = $this->container->get('security.password_encoder');
-        $password = $encoder->encodePassword($user, 'admin');
-        $user->setPassword($password);
-        $user->setEmail('domantas.pet@gmail.com');
-        $user->setFirstName('Domantas');
-        $user->setLastName('Petrauskas');
-        $user->setRoles(['ROLE_ADMIN']);
-        $user->setEnabled(true);
-
-        $manager->persist($user);
-        $manager->flush();
-
-        //Mokytojas1
-        $user = new User();
-        $user->setUsername('teacher');
-        $user->getSalt(md5(uniqid()));
-
-        $encoder = $this->container->get('security.password_encoder');
-        $password = $encoder->encodePassword($user, 'teacher');
-        $user->setPassword($password);
-        $user->setEmail('mokytojas@mokytojas.com');
-        $user->setFirstName('Mokytojas');
-        $user->setLastName('Mokytojauskas');
-        $user->setRoles(['ROLE_TEACHER']);
-        $user->setEnabled(true);
-
-        $manager->persist($user);
-        $manager->flush();
-
-        //Mokinys
-        $user = new User();
-        $user->setUsername('student');
-        $user->getSalt(md5(uniqid()));
-
-        $encoder = $this->container->get('security.password_encoder');
-        $password = $encoder->encodePassword($user, 'student');
-        $user->setPassword($password);
-        $user->setEmail('mokinys@mokinys.com');
-        $user->setFirstName('Mokinys');
-        $user->setLastName('Mokiniauskas');
-        $user->setRoles(['ROLE_STUDENT']);
-        $user->setEnabled(true);
-
-        $manager->persist($user);
-        $manager->flush();
     }
 }

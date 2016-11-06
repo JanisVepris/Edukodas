@@ -11,18 +11,6 @@
     {% block canonical_meta %}{% endblock %}
 </head>
 <body>
-    {% block header %}
-        {% include "inc/header.html.twig" %}
-    {% endblock %}
-
-    {% block content %}
-        {% include "inc/content.html.twig" %}
-    {% endblock %}
-
-    {% block footer %}
-        {% include "inc/footer.html.twig" %}
-    {% endblock %}
-
     {% block javascripts %}
         <script src="{{ asset('js/script.js') }}"></script>
     {% endblock %}

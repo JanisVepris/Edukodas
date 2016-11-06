@@ -1,0 +1,4 @@
+services:
+#    edukodas_user.example:
+#        class: Edukodas\Bundle\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

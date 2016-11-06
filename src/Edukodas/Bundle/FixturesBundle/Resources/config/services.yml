@@ -1,0 +1,4 @@
+services:
+#    edukodas_fixtures.example:
+#        class: Edukodas\Bundle\FixturesBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

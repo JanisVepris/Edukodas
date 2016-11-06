@@ -1,3 +1,7 @@
+edukodas_fixtures:
+    resource: "@EdukodasFixturesBundle/Resources/config/routing.yml"
+    prefix:   /
+
 edukodas_tasks:
     resource: "@EdukodasTasksBundle/Resources/config/routing.yml"
     prefix:   /

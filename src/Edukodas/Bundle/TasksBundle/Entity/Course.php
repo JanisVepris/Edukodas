@@ -3,6 +3,7 @@
 namespace Edukodas\Bundle\TasksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Course
@@ -22,7 +23,8 @@ class Course
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User", mappedBy="course")
+     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User", inversedBy="courses")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 

@@ -1,0 +1,3 @@
+edukodas_fixtures_homepage:
+    path:     /
+    defaults: { _controller: EdukodasFixturesBundle:Default:index }

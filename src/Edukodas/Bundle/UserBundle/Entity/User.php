@@ -4,6 +4,7 @@ namespace Edukodas\Bundle\UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -23,10 +24,15 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Edukodas\Bundle\TasksBundle\Entity\Course", inversedBy="user")
-     * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="Edukodas\Bundle\TasksBundle\Entity\Course", mappedBy="user" )
      */
-    private $course;
+    private $courses;
+
+    public function __construct()
+    {
+        $this->courses = new ArrayCollection();
+        parent::__construct();
+    }
 
     /**
      * @var string
@@ -122,5 +128,39 @@ class User extends BaseUser
     public function getCourse()
     {
         return $this->course;
+    }
+
+    /**
+     * Add course
+     *
+     * @param \Edukodas\Bundle\TasksBundle\Entity\Course $course
+     *
+     * @return User
+     */
+    public function addCourse(\Edukodas\Bundle\TasksBundle\Entity\Course $course)
+    {
+        $this->courses[] = $course;
+
+        return $this;
+    }
+
+    /**
+     * Remove course
+     *
+     * @param \Edukodas\Bundle\TasksBundle\Entity\Course $course
+     */
+    public function removeCourse(\Edukodas\Bundle\TasksBundle\Entity\Course $course)
+    {
+        $this->courses->removeElement($course);
+    }
+
+    /**
+     * Get courses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCourses()
+    {
+        return $this->courses;
     }
 }

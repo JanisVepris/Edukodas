@@ -1,17 +1,16 @@
 <?php
 
-namespace Edukodas\Bundle\UserBundle\Entity;
+namespace Edukodas\Bundle\TasksBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * User
+ * Task
  *
- * @ORM\Table(name="fos_user")
- * @ORM\Entity(repositoryClass="Edukodas\Bundle\UserBundle\Repository\UserRepository")
+ * @ORM\Table(name="task")
+ * @ORM\Entity(repositoryClass="Edukodas\Bundle\TasksBundle\Repository\TaskRepository")
  */
-class User extends BaseUser
+class Task
 {
     /**
      * @var int
@@ -20,10 +19,10 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Edukodas\Bundle\TasksBundle\Entity\Course", inversedBy="user")
+     * @ORM\ManyToOne(targetEntity="Course", inversedBy="tasks")
      * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
      */
     private $course;
@@ -31,16 +30,17 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="first_name", type="string", length=255)
+     * @ORM\Column(name="task_descr", type="string", length=255)
      */
-    private $firstName;
+    private $taskDescr;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="last_name", type="string", length=255)
+     * @ORM\Column(name="task_points", type="integer")
      */
-    private $lastName;
+    private $taskPoints;
+
 
     /**
      * Get id
@@ -53,51 +53,51 @@ class User extends BaseUser
     }
 
     /**
-     * Set firstName
+     * Set taskDescr
      *
-     * @param string $firstName
+     * @param string $taskDescr
      *
-     * @return User
+     * @return Task
      */
-    public function setFirstName($firstName)
+    public function setTaskDescr($taskDescr)
     {
-        $this->firstName = $firstName;
+        $this->taskDescr = $taskDescr;
 
         return $this;
     }
 
     /**
-     * Get firstName
+     * Get taskDescr
      *
      * @return string
      */
-    public function getFirstName()
+    public function getTaskDescr()
     {
-        return $this->firstName;
+        return $this->taskDescr;
     }
 
     /**
-     * Set lastName
+     * Set taskPoints
      *
-     * @param string $lastName
+     * @param integer $taskPoints
      *
-     * @return User
+     * @return Task
      */
-    public function setLastName($lastName)
+    public function setTaskPoints($taskPoints)
     {
-        $this->lastName = $lastName;
+        $this->taskPoints = $taskPoints;
 
         return $this;
     }
 
     /**
-     * Get lastName
+     * Get taskPoints
      *
-     * @return string
+     * @return int
      */
-    public function getLastName()
+    public function getTaskPoints()
     {
-        return $this->lastName;
+        return $this->taskPoints;
     }
 
     /**
@@ -105,7 +105,7 @@ class User extends BaseUser
      *
      * @param \Edukodas\Bundle\TasksBundle\Entity\Course $course
      *
-     * @return User
+     * @return Task
      */
     public function setCourse(\Edukodas\Bundle\TasksBundle\Entity\Course $course = null)
     {

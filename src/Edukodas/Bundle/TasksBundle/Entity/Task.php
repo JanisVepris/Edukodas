@@ -30,6 +30,13 @@ class Task
     /**
      * @var string
      *
+     * @ORM\Column(name="task_name", type="string", length=255)
+     */
+    private $taskName;
+    
+    /**
+     * @var string
+     *
      * @ORM\Column(name="task_descr", type="string", length=255)
      */
     private $taskDescr;
@@ -122,5 +129,29 @@ class Task
     public function getCourse()
     {
         return $this->course;
+    }
+
+    /**
+     * Set taskName
+     *
+     * @param string $taskName
+     *
+     * @return Task
+     */
+    public function setTaskName($taskName)
+    {
+        $this->taskName = $taskName;
+
+        return $this;
+    }
+
+    /**
+     * Get taskName
+     *
+     * @return string
+     */
+    public function getTaskName()
+    {
+        return $this->taskName;
     }
 }

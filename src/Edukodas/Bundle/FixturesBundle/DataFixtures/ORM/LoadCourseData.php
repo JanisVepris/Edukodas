@@ -27,15 +27,15 @@ class LoadCourseData extends AbstractFixture implements FixtureInterface, Contai
         return [
             [
                 'username' => 'mokytojasa',
-                'courseName' => 'Anglu k.',
+                'courseName' => 'Anglų kalba 1',
             ],
             [
                 'username' => 'mokytojasa',
-                'courseName' => 'Vokieciu k.',
+                'courseName' => 'Vokiečių kalba 1',
             ],
             [
                 'username' => 'mokytojasb',
-                'courseName' => 'Matematika',
+                'courseName' => 'Matematika 3',
             ],
         ];
     }

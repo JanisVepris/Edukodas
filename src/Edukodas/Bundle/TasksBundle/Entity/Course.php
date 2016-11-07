@@ -41,7 +41,7 @@ class Course
     /**
      * @var string
      *
-     * @ORM\Column(name="course_name", type="string", length=255)
+     * @ORM\Column(name="course_name", type="string", length=255, unique=true)
      */
     private $courseName;
 

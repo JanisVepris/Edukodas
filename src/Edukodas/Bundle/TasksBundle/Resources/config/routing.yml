@@ -1,3 +1,0 @@
-edukodas_tasks_homepage:
-    path:     /
-    defaults: { _controller: EdukodasTasksBundle:Default:index }

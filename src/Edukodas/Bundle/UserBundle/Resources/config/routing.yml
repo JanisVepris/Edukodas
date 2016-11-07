@@ -1,3 +1,0 @@
-edukodas_user_homepage:
-    path:     /
-    defaults: { _controller: EdukodasUserBundle:Default:index }

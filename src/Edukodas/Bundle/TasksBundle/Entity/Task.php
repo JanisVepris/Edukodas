@@ -23,7 +23,7 @@ class Task
 
     /**
      * @ORM\ManyToOne(targetEntity="Course", inversedBy="tasks")
-     * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="course_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $course;
 

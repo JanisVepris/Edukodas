@@ -1,0 +1,9 @@
+<nav>
+    <div class="nav-wrapper">
+        <ul>
+            {% for item in navigation %}
+                <li><a href="{{ item.route }}">{{ item.label }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</nav>

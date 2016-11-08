@@ -13,7 +13,12 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:Home:index.html.twig', []);
+        $securityContext = $this->container->get('security.authorization_checker');
+
+        if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY'))
+            return $this->redirectToRoute('edukodas_user_homepage');
+
+        return $this->redirectToRoute('fos_user_security_login');
     }
 
     /**

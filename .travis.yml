@@ -1,5 +1,10 @@
 sudo: false
 
+notifications:
+  email: false
+  slack: nfqakademija:a7LHhhzYoKqdEIMICIRqOVaE
+    on_success: change
+
 language: php
 
 php:

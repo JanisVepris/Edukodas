@@ -5,6 +5,7 @@ namespace Edukodas\Bundle\UserBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Edukodas\Bundle\TasksBundle\Entity\Course;
 
 /**
  * User
@@ -113,7 +114,7 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function setCourse(\Edukodas\Bundle\TasksBundle\Entity\Course $course = null)
+    public function setCourse(Course $course = null)
     {
         $this->course = $course;
 
@@ -137,7 +138,7 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function addCourse(\Edukodas\Bundle\TasksBundle\Entity\Course $course)
+    public function addCourse(Course $course)
     {
         $this->courses[] = $course;
 
@@ -149,7 +150,7 @@ class User extends BaseUser
      *
      * @param \Edukodas\Bundle\TasksBundle\Entity\Course $course
      */
-    public function removeCourse(\Edukodas\Bundle\TasksBundle\Entity\Course $course)
+    public function removeCourse(Course $course)
     {
         $this->courses->removeElement($course);
     }

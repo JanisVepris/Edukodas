@@ -120,7 +120,6 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         }
 
         $manager->flush();
-
     }
 
     public function getOrder()

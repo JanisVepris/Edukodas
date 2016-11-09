@@ -125,4 +125,3 @@ class Post
         return $this->createdAt;
     }
 }
-

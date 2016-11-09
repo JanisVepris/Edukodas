@@ -2,7 +2,9 @@ sudo: false
 
 notifications:
   email: false
-  slack: nfqakademija:a7LHhhzYoKqdEIMICIRqOVaE
+  slack:
+    rooms:
+      - nfqakademija:a7LHhhzYoKqdEIMICIRqOVaE
     on_success: change
 
 language: php

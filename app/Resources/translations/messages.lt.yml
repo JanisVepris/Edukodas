@@ -1,8 +1,0 @@
-title: Prisijungimas
-
-security:
-  login:
-    username: Prisijungimo vardas:
-    password: Slaptažodis
-    remember_me: Prisiminti?
-    submit: Prisijungti

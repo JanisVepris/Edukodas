@@ -36,11 +36,6 @@ class Course
      */
     private $tasks;
 
-    public function __construct()
-    {
-        $this->tasks = new ArrayCollection();
-    }
-
     /**
      * @var string
      *
@@ -48,6 +43,10 @@ class Course
      */
     private $courseName;
 
+    public function __construct()
+    {
+        $this->tasks = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -108,15 +107,41 @@ class Course
     }
 
     /**
+     * Set tasks
+     * 
+     * @param $tasks
+     *
+     * @return $this
+     */
+    public function setTasks($tasks)
+    {
+        $this->tasks = $tasks;
+
+        return $this;
+    }
+
+    /**
+     * Get tasks
+     *
+     * @return ArrayCollection
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
+
+    /**
      * Add task
      *
      * @param Task $task
      *
-     * @return Course
+     * @return $this
      */
     public function addTask(Task $task)
     {
-        $this->tasks[] = $task;
+        if (!$this->tasks->contains($task)) {
+            $this->tasks->add($task);
+        }
 
         return $this;
     }
@@ -125,19 +150,15 @@ class Course
      * Remove task
      *
      * @param Task $task
+     *
+     * @return $this
      */
     public function removeTask(Task $task)
     {
-        $this->tasks->removeElement($task);
-    }
+        if ($this->tasks->contains($task)) {
+            $this->tasks->remove($task);
+        }
 
-    /**
-     * Get tasks
-     *
-     * @return Collection
-     */
-    public function getTasks()
-    {
-        return $this->tasks;
+        return $this;
     }
 }

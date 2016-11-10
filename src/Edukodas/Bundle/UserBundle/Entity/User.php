@@ -30,12 +30,6 @@ class User extends BaseUser
      */
     private $courses;
 
-    public function __construct()
-    {
-        $this->courses = new ArrayCollection();
-        parent::__construct();
-    }
-
     /**
      * @var string
      *
@@ -49,6 +43,12 @@ class User extends BaseUser
      * @ORM\Column(name="last_name", type="string", length=255)
      */
     private $lastName;
+
+    public function __construct()
+    {
+        $this->courses = new ArrayCollection();
+        parent::__construct();
+    }
 
     /**
      * Get id
@@ -109,28 +109,27 @@ class User extends BaseUser
     }
 
     /**
-     * Set course
+     * Set courses
      *
-     * @param Course $course
+     * @param $courses
      *
-     * @return User
+     * @return $this
      */
-    public function setCourse(Course $course = null)
+    public function setCourses($courses)
     {
-        $this->course = $course;
+        $this->courses = $courses;
 
         return $this;
     }
 
     /**
-     * Get course
+     * Get courses
      *
-     * @return Course
+     * @return ArrayCollection
      */
-
-    public function getCourse()
+    public function getCourses()
     {
-        return $this->course;
+        return $this->courses;
     }
 
     /**
@@ -138,11 +137,13 @@ class User extends BaseUser
      *
      * @param Course $course
      *
-     * @return User
+     * @return $this
      */
     public function addCourse(Course $course)
     {
-        $this->courses[] = $course;
+        if (!$this->courses->contains($course)) {
+            $this->courses->add($course);
+        }
 
         return $this;
     }
@@ -151,19 +152,15 @@ class User extends BaseUser
      * Remove course
      *
      * @param Course $course
+     *
+     * @return $this
      */
     public function removeCourse(Course $course)
     {
-        $this->courses->removeElement($course);
-    }
+        if ($this->courses->contains($course)) {
+            $this->courses->remove($course);
+        }
 
-    /**
-     * Get courses
-     *
-     * @return Collection
-     */
-    public function getCourses()
-    {
-        return $this->courses;
+        return $this;
     }
 }

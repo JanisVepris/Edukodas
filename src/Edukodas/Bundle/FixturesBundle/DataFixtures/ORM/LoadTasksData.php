@@ -17,11 +17,23 @@ class LoadTasksData extends AbstractFixture implements FixtureInterface, Contain
      */
     private $container;
 
+    /**
+     * Set container
+     *
+     * @param ContainerInterface|null $container
+     *
+     * @return void
+     */
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }
 
+    /**
+     * Get tasksData
+     *
+     * @return array
+     */
     private function getTasksData()
     {
         return [
@@ -70,6 +82,13 @@ class LoadTasksData extends AbstractFixture implements FixtureInterface, Contain
         ];
     }
 
+    /**
+     * Loads tasks fixtures into database
+     *
+     * @param ObjectManager $manager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager)
     {
         $data = $this->getTasksData();
@@ -88,9 +107,13 @@ class LoadTasksData extends AbstractFixture implements FixtureInterface, Contain
         }
 
         $manager->flush();
-
     }
 
+    /**
+     * Get order
+     *
+     * @return int
+     */
     public function getOrder()
     {
         return 3;

@@ -4,6 +4,9 @@ namespace Edukodas\Bundle\TasksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Edukodas\Bundle\TasksBundle\Entity\Task;
+use Edukodas\Bundle\UserBundle\Entity\User;
 
 /**
  * Course
@@ -23,8 +26,8 @@ class Course
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User", inversedBy="courses")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="courses")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
@@ -83,11 +86,11 @@ class Course
     /**
      * Set user
      *
-     * @param \Edukodas\Bundle\UserBundle\Entity\User $user
+     * @param User $user
      *
      * @return Course
      */
-    public function setUser(\Edukodas\Bundle\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -97,7 +100,7 @@ class Course
     /**
      * Get user
      *
-     * @return \Edukodas\Bundle\UserBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {
@@ -107,11 +110,11 @@ class Course
     /**
      * Add task
      *
-     * @param \Edukodas\Bundle\TasksBundle\Entity\Task $task
+     * @param Task $task
      *
      * @return Course
      */
-    public function addTask(\Edukodas\Bundle\TasksBundle\Entity\Task $task)
+    public function addTask(Task $task)
     {
         $this->tasks[] = $task;
 
@@ -121,9 +124,9 @@ class Course
     /**
      * Remove task
      *
-     * @param \Edukodas\Bundle\TasksBundle\Entity\Task $task
+     * @param Task $task
      */
-    public function removeTask(\Edukodas\Bundle\TasksBundle\Entity\Task $task)
+    public function removeTask(Task $task)
     {
         $this->tasks->removeElement($task);
     }
@@ -131,7 +134,7 @@ class Course
     /**
      * Get tasks
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getTasks()
     {

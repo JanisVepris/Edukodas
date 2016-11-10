@@ -17,11 +17,23 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
      */
     private $container;
 
+    /**
+     * Set container
+     *
+     * @param ContainerInterface|null $container
+     *
+     * @return void
+     */
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }
 
+    /**
+     * Get userData
+     *
+     * @return array
+     */
     private function getUserData()
     {
         return [
@@ -99,6 +111,13 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         ];
     }
 
+    /**
+     * Loads user entities into database
+     *
+     * @param ObjectManager $manager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager)
     {
         $data = $this->getUserData();
@@ -122,6 +141,11 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $manager->flush();
     }
 
+    /**
+     * Get order
+     *
+     * @return integer
+     */
     public function getOrder()
     {
         return 1;

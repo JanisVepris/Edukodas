@@ -2,6 +2,7 @@
 
 namespace Edukodas\Bundle\UserBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -25,7 +26,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Edukodas\Bundle\TasksBundle\Entity\Course", mappedBy="user" )
+     * @ORM\OneToMany(targetEntity="Course", mappedBy="user" )
      */
     private $courses;
 
@@ -110,7 +111,7 @@ class User extends BaseUser
     /**
      * Set course
      *
-     * @param \Edukodas\Bundle\TasksBundle\Entity\Course $course
+     * @param Course $course
      *
      * @return User
      */
@@ -124,8 +125,9 @@ class User extends BaseUser
     /**
      * Get course
      *
-     * @return \Edukodas\Bundle\TasksBundle\Entity\Course
+     * @return Course
      */
+
     public function getCourse()
     {
         return $this->course;
@@ -134,7 +136,7 @@ class User extends BaseUser
     /**
      * Add course
      *
-     * @param \Edukodas\Bundle\TasksBundle\Entity\Course $course
+     * @param Course $course
      *
      * @return User
      */
@@ -148,7 +150,7 @@ class User extends BaseUser
     /**
      * Remove course
      *
-     * @param \Edukodas\Bundle\TasksBundle\Entity\Course $course
+     * @param Course $course
      */
     public function removeCourse(Course $course)
     {
@@ -158,7 +160,7 @@ class User extends BaseUser
     /**
      * Get courses
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getCourses()
     {

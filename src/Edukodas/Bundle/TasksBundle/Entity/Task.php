@@ -3,6 +3,7 @@
 namespace Edukodas\Bundle\TasksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Edukodas\Bundle\TasksBundle\Entity\Course;
 
 /**
  * Task
@@ -23,7 +24,7 @@ class Task
 
     /**
      * @ORM\ManyToOne(targetEntity="Course", inversedBy="tasks")
-     * @ORM\JoinColumn(name="course_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
      */
     private $course;
 
@@ -110,11 +111,11 @@ class Task
     /**
      * Set course
      *
-     * @param \Edukodas\Bundle\TasksBundle\Entity\Course $course
+     * @param Course $course
      *
      * @return Task
      */
-    public function setCourse(\Edukodas\Bundle\TasksBundle\Entity\Course $course = null)
+    public function setCourse(Course $course = null)
     {
         $this->course = $course;
 
@@ -124,7 +125,7 @@ class Task
     /**
      * Get course
      *
-     * @return \Edukodas\Bundle\TasksBundle\Entity\Course
+     * @return Course
      */
     public function getCourse()
     {

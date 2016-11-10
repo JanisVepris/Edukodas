@@ -17,11 +17,23 @@ class LoadCourseData extends AbstractFixture implements FixtureInterface, Contai
      */
     private $container;
 
+    /**
+     * Set container
+     *
+     * @param ContainerInterface|null $container
+     *
+     * @return void
+     */
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }
 
+    /**
+     * Get courseData
+     *
+     * @return array
+     */
     private function getCourseData()
     {
         return [
@@ -40,6 +52,13 @@ class LoadCourseData extends AbstractFixture implements FixtureInterface, Contai
         ];
     }
 
+    /**
+     * Loads course fixtures into database
+     *
+     * @param ObjectManager $manager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager)
     {
         $data = $this->getCourseData();
@@ -58,9 +77,13 @@ class LoadCourseData extends AbstractFixture implements FixtureInterface, Contai
         }
 
         $manager->flush();
-
     }
 
+    /**
+     * Get order
+     *
+     * @return int
+     */
     public function getOrder()
     {
         return 2;

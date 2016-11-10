@@ -101,9 +101,9 @@ class LoadTasksData extends AbstractFixture implements
 
             $task = new Task();
             $task
-                ->setTaskName($tasksData['taskName'])
-                ->setTaskDescr($tasksData['taskDescr'])
-                ->setTaskPoints($tasksData['taskPoints'])
+                ->setName($tasksData['taskName'])
+                ->setDescription($tasksData['taskDescr'])
+                ->setPoints($tasksData['taskPoints'])
                 ->setCourse($course);
             $manager->persist($task);
         }

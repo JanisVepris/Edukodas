@@ -71,7 +71,7 @@ class LoadCourseData extends AbstractFixture implements
 
             $course = new Course();
             $course
-                ->setCourseName($courseData['courseName'])
+                ->setName($courseData['courseName'])
                 ->setUser($user);
             $manager->persist($course);
 

@@ -39,9 +39,9 @@ class Course
     /**
      * @var string
      *
-     * @ORM\Column(name="course_name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
-    private $courseName;
+    private $name;
 
     public function __construct()
     {
@@ -59,27 +59,27 @@ class Course
     }
 
     /**
-     * Set courseName
+     * Set name
      *
-     * @param string $courseName
+     * @param string $name
      *
      * @return Course
      */
-    public function setCourseName($courseName)
+    public function setName($name)
     {
-        $this->courseName = $courseName;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get courseName
+     * Get name
      *
      * @return string
      */
-    public function getCourseName()
+    public function getName()
     {
-        return $this->courseName;
+        return $this->name;
     }
 
     /**

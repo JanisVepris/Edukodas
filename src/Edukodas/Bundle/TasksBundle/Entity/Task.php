@@ -31,23 +31,23 @@ class Task
     /**
      * @var string
      *
-     * @ORM\Column(name="task_name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    private $taskName;
+    private $name;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="task_descr", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255)
      */
-    private $taskDescr;
+    private $description;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="task_points", type="integer")
+     * @ORM\Column(name="points", type="integer")
      */
-    private $taskPoints;
+    private $points;
 
 
     /**
@@ -61,51 +61,51 @@ class Task
     }
 
     /**
-     * Set taskDescr
+     * Set description
      *
-     * @param string $taskDescr
+     * @param string $description
      *
      * @return Task
      */
-    public function setTaskDescr($taskDescr)
+    public function setDescription($description)
     {
-        $this->taskDescr = $taskDescr;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Get taskDescr
+     * Get description
      *
      * @return string
      */
-    public function getTaskDescr()
+    public function getDescription()
     {
-        return $this->taskDescr;
+        return $this->description;
     }
 
     /**
-     * Set taskPoints
+     * Set points
      *
-     * @param integer $taskPoints
+     * @param integer $points
      *
      * @return Task
      */
-    public function setTaskPoints($taskPoints)
+    public function setPoints($points)
     {
-        $this->taskPoints = $taskPoints;
+        $this->points = $points;
 
         return $this;
     }
 
     /**
-     * Get taskPoints
+     * Get points
      *
      * @return int
      */
-    public function getTaskPoints()
+    public function getPoints()
     {
-        return $this->taskPoints;
+        return $this->points;
     }
 
     /**
@@ -133,26 +133,26 @@ class Task
     }
 
     /**
-     * Set taskName
+     * Set name
      *
-     * @param string $taskName
+     * @param string $name
      *
      * @return Task
      */
-    public function setTaskName($taskName)
+    public function setName($name)
     {
-        $this->taskName = $taskName;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get taskName
+     * Get name
      *
      * @return string
      */
-    public function getTaskName()
+    public function getName()
     {
-        return $this->taskName;
+        return $this->name;
     }
 }

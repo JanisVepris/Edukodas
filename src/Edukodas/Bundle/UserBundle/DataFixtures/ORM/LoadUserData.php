@@ -101,8 +101,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
     {
         $data = $this->getUserData();
 
-        foreach ($data as $userData)
-        {
+        foreach ($data as $userData) {
             $user = new User();
             $user
                 ->setUsername($userData['username'])
@@ -116,6 +115,5 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         }
 
         $manager->flush();
-
     }
 }

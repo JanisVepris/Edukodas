@@ -6,3 +6,10 @@ security:
     password: Slaptažodis
     remember_me: Prisiminti?
     submit: Prisijungti
+
+menu:
+  navigation:
+    profile: Profilis
+    tasks: Užduotys
+    stats: Statistika
+    settings: Nustatymai

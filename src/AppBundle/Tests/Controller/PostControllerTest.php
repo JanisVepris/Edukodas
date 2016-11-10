@@ -19,5 +19,4 @@ class PostControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/show');
     }
-
 }

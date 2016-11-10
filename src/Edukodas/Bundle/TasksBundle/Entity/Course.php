@@ -108,7 +108,7 @@ class Course
 
     /**
      * Set tasks
-     * 
+     *
      * @param $tasks
      *
      * @return $this

@@ -10,7 +10,10 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Edukodas\Bundle\UserBundle\Entity\User;
 
-class LoadUserData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
+class LoadUserData extends AbstractFixture implements
+    FixtureInterface,
+    ContainerAwareInterface,
+    OrderedFixtureInterface
 {
     /**
      * @var ContainerInterface
@@ -122,8 +125,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
     {
         $data = $this->getUserData();
 
-        foreach ($data as $userData)
-        {
+        foreach ($data as $userData) {
             $user = new User();
             $user
                 ->setUsername($userData['username'])

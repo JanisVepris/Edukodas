@@ -10,7 +10,10 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Edukodas\Bundle\TasksBundle\Entity\Task;
 
-class LoadTasksData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
+class LoadTasksData extends AbstractFixture implements
+    FixtureInterface,
+    ContainerAwareInterface,
+    OrderedFixtureInterface
 {
     /**
      * @var ContainerInterface
@@ -93,8 +96,7 @@ class LoadTasksData extends AbstractFixture implements FixtureInterface, Contain
     {
         $data = $this->getTasksData();
 
-        foreach ($data as $tasksData)
-        {
+        foreach ($data as $tasksData) {
             $course = $this->getReference($tasksData['courseName']);
 
             $task = new Task();

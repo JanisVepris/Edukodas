@@ -4,7 +4,6 @@ namespace Edukodas\Bundle\TasksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Edukodas\Bundle\TasksBundle\Entity\Task;
 use Edukodas\Bundle\UserBundle\Entity\User;
 

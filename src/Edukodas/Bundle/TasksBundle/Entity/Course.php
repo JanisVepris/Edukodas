@@ -26,7 +26,7 @@ class Course
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="courses")
+     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User", inversedBy="courses")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;

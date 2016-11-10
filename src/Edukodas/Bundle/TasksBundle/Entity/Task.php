@@ -23,7 +23,7 @@ class Task
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Course", inversedBy="tasks")
+     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\TasksBundle\Entity\Course", inversedBy="tasks")
      * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
      */
     private $course;

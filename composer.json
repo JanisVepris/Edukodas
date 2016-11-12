@@ -24,7 +24,8 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "sensio/generator-bundle": "^3.0"
+        "sensio/generator-bundle": "^3.0",
+        "stof/doctrine-extensions-bundle": "^1.2"
     },
     "require-dev": {
         "fzaninotto/faker": "*",

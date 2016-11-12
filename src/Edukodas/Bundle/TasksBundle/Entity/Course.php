@@ -42,6 +42,13 @@ class Course
      */
     private $name;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
@@ -159,5 +166,25 @@ class Course
         }
 
         return $this;
+    }
+
+    /**
+     * Set deleted at
+     *
+     * @param mixed $deletedAt
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    }
+
+    /**
+     * Get deleted ar
+     *
+     * @return mixed
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }

@@ -43,6 +43,13 @@ class User extends BaseUser
      */
     private $lastName;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
@@ -161,5 +168,25 @@ class User extends BaseUser
         }
 
         return $this;
+    }
+
+    /**
+     * Set deleted at
+     *
+     * @param mixed $deletedAt
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    }
+
+    /**
+     * Get deleted ar
+     *
+     * @return mixed
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }

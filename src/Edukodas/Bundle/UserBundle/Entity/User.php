@@ -30,7 +30,7 @@ class User extends BaseUser
     private $courses;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\StudentClass", inversedBy="students")
+     * @ORM\ManyToOne(targetEntity="StudentClass", inversedBy="students")
      * @ORM\JoinColumn(name="student_class_id", referencedColumnName="id")
      */
     private $studentClass;

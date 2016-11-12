@@ -31,7 +31,7 @@ class StudentClass
     private $title;
 
     /**
-     * @ORM\OneToMany(targetEntity="Edukodas\Bundle\UserBundle\Entity\User", mappedBy="studentClass")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="studentClass")
      */
     private $students;
 
@@ -161,4 +161,3 @@ class StudentClass
         return $this->deletedAt;
     }
 }
-

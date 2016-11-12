@@ -31,7 +31,7 @@ class Course
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="Edukodas\Bundle\TasksBundle\Entity\Task", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="course")
      */
     private $tasks;
 

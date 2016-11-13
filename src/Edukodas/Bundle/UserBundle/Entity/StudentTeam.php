@@ -10,7 +10,6 @@ use Edukodas\Bundle\UserBundle\Entity\User;
  * StudentTeam
  *
  * @ORM\Table(name="student_team")
- * @ORM\Entity(repositoryClass="Edukodas\Bundle\UserBundle\Repository\StudentTeamRepository")
  */
 class StudentTeam
 {
@@ -26,7 +25,7 @@ class StudentTeam
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=40)
+     * @ORM\Column(name="title", type="string", length=128)
      */
     private $title;
 
@@ -108,7 +107,7 @@ class StudentTeam
     /**
      * Get students
      *
-     * @return string
+     * @return ArrayCollection
      */
     public function getStudents()
     {

@@ -5,6 +5,8 @@ namespace Edukodas\Bundle\UserBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Edukodas\Bundle\TasksBundle\Entity\Course;
 
 /**
@@ -12,9 +14,12 @@ use Edukodas\Bundle\TasksBundle\Entity\Course;
  *
  * @ORM\Table(name="fos_user")
  * @ORM\Entity(repositoryClass="Edukodas\Bundle\UserBundle\Repository\UserRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class User extends BaseUser
 {
+    use SoftDeleteableEntity;
+
     /**
      * @var int
      *
@@ -49,6 +54,9 @@ class User extends BaseUser
      */
     private $lastName;
 
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         $this->courses = new ArrayCollection();

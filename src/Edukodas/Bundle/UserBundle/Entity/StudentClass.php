@@ -4,6 +4,8 @@ namespace Edukodas\Bundle\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Edukodas\Bundle\UserBundle\Entity\User;
 
 /**
@@ -11,9 +13,12 @@ use Edukodas\Bundle\UserBundle\Entity\User;
  *
  * @ORM\Table(name="student_class")
  * @ORM\Entity(repositoryClass="Edukodas\Bundle\UserBundle\Repository\StudentClassRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class StudentClass
 {
+    use SoftDeleteableEntity;
+
     /**
      * @var int
      *
@@ -36,12 +41,8 @@ class StudentClass
     private $students;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     * StudentClass constructor.
      */
-    private $deletedAt;
-
     public function __construct()
     {
         $this->students = new ArrayCollection();
@@ -135,29 +136,5 @@ class StudentClass
         }
 
         return $this;
-    }
-
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     *
-     * @return StudentClass
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 }

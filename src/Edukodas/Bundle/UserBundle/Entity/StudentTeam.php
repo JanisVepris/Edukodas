@@ -8,11 +8,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Edukodas\Bundle\UserBundle\Entity\User;
 
-
 /**
  * StudentTeam
  *
  * @ORM\Table(name="student_team")
+ * @ORM\Entity
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class StudentTeam
@@ -48,8 +48,7 @@ class StudentTeam
     private $color;
 
     /**
-     * Student team constructor
-     * Set students data type to ArrayCollection
+     * StudentTeam constructor.
      */
     public function __construct()
     {

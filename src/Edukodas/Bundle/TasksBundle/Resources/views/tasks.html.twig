@@ -1,16 +1,30 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    test
-    {#<div class="panel panel-default">#}
-        {#<table class="table">#}
-            {#{% for task in tasks %}#}
-                {#<tr>#}
-                    {#<td>#}
-                        {#{{ task.description }}#}
-                    {#</td>#}
-                {#</tr>#}
-            {#{% endfor %}#}
-        {#</table>#}
-    {#</div>#}
+    <div class="panel panel-default">
+        <table class="table">
+            {% for task in tasks %}
+                <tr>
+                    <td>
+                        {{ task.id }}
+                    </td>
+                    <td>
+                        {{ task.name }}
+                    </td>
+                    <td>
+                        {{ task.description }}
+                    </td>
+                    <td>
+                        {{ task.points }}
+                    </td>
+                    <td>
+                        {{ task.deletedat }}
+                    </td>
+                    <td>
+                        {{ task.isdeleted }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}

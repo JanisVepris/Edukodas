@@ -1,3 +1,7 @@
 edukodas_tasks_list:
     path:     /
     defaults: { _controller: EdukodasTasksBundle:Tasks:list }
+
+edukodas_tasks_remove:
+    path:     /{taskid}
+    defaults: { _controller: EdukodasTasksBundle:Tasks:remove, taskid: 1 }

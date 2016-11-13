@@ -3,6 +3,8 @@
 namespace Edukodas\Bundle\TasksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Edukodas\Bundle\TasksBundle\Entity\Course;
 
 /**
@@ -10,9 +12,12 @@ use Edukodas\Bundle\TasksBundle\Entity\Course;
  *
  * @ORM\Table(name="task")
  * @ORM\Entity(repositoryClass="Edukodas\Bundle\TasksBundle\Repository\TaskRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class Task
 {
+    use SoftDeleteableEntity;
+
     /**
      * @var int
      *
@@ -48,7 +53,6 @@ class Task
      * @ORM\Column(name="points", type="integer")
      */
     private $points;
-
 
     /**
      * Get id

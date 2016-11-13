@@ -1,0 +1,3 @@
+edukodas_tasks_list:
+    path:     /
+    defaults: { _controller: EdukodasTasksBundle:Tasks:list }

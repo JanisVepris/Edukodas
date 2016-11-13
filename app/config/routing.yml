@@ -13,6 +13,10 @@ edukodas_user:
     resource: "@EdukodasUserBundle/Resources/config/routing.yml"
     prefix: /
 
+edukodas_tasks:
+    resource: "@EdukodasTasksBundle/Resources/config/routing.yml"
+    prefix: /tasks
+
 root:
     path: /
     defaults:

@@ -4,7 +4,10 @@ namespace Edukodas\Bundle\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Edukodas\Bundle\UserBundle\Entity\User;
+
 
 /**
  * StudentTeam
@@ -13,6 +16,8 @@ use Edukodas\Bundle\UserBundle\Entity\User;
  */
 class StudentTeam
 {
+    use SoftDeleteableEntity;
+
     /**
      * @var int
      *
@@ -42,13 +47,7 @@ class StudentTeam
     private $color;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
-     */
-    private $deletedAt;
-
-    /**
+     * Student team constructor
      * Set students data type to ArrayCollection
      */
     public function __construct()
@@ -168,29 +167,5 @@ class StudentTeam
     public function getColor()
     {
         return $this->color;
-    }
-
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     *
-     * @return StudentTeam
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 }

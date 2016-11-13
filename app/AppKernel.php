@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Edukodas\Bundle\UserBundle\EdukodasUserBundle(),
             new Edukodas\Bundle\TasksBundle\EdukodasTasksBundle(),
             new Edukodas\Bundle\FixturesBundle\EdukodasFixturesBundle(),
+            new Edukodas\Bundle\TemplateBundle\EdukodasTemplateBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

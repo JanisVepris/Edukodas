@@ -1,0 +1,8 @@
+menu:
+  navigation:
+    profile: Profilis
+    tasks: Užduotys
+    ratings: Reitingai
+    users: Vartotojai
+    settings: Nustatymai
+    logout: Atsijungti

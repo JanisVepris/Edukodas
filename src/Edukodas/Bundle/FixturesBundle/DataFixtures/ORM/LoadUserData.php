@@ -2,24 +2,41 @@
 
 namespace UserBundle\DataFixture\ORM;
 
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Edukodas\Bundle\UserBundle\Entity\User;
 
-class LoadUserData implements FixtureInterface, ContainerAwareInterface
+class LoadUserData extends AbstractFixture implements
+    FixtureInterface,
+    ContainerAwareInterface,
+    OrderedFixtureInterface
 {
     /**
      * @var ContainerInterface
      */
     private $container;
 
+    /**
+     * Set container
+     *
+     * @param ContainerInterface|null $container
+     *
+     * @return void
+     */
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }
 
+    /**
+     * Get userData
+     *
+     * @return array
+     */
     private function getUserData()
     {
         return [
@@ -97,6 +114,13 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         ];
     }
 
+    /**
+     * Loads user entities into database
+     *
+     * @param ObjectManager $manager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager)
     {
         $data = $this->getUserData();
@@ -112,8 +136,20 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
                 ->setRoles($userData['roles'])
                 ->setEnabled($userData['enabled']);
             $manager->persist($user);
+
+            $this->addReference($userData['username'], $user);
         }
 
         $manager->flush();
+    }
+
+    /**
+     * Get order
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return 1;
     }
 }

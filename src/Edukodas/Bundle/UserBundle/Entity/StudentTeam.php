@@ -195,4 +195,3 @@ class StudentTeam
         return $this->deletedAt;
     }
 }
-

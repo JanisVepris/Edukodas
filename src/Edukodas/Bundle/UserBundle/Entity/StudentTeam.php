@@ -13,6 +13,7 @@ use Edukodas\Bundle\UserBundle\Entity\User;
  * StudentTeam
  *
  * @ORM\Table(name="student_team")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class StudentTeam
 {

@@ -30,6 +30,12 @@ class User extends BaseUser
     private $courses;
 
     /**
+     * @ORM\ManyToOne(targetEntity="StudentClass", inversedBy="students")
+     * @ORM\JoinColumn(name="student_class_id", referencedColumnName="id")
+     */
+    private $studentClass;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255)
@@ -42,13 +48,6 @@ class User extends BaseUser
      * @ORM\Column(name="last_name", type="string", length=255)
      */
     private $lastName;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
-     */
-    private $deletedAt;
 
     public function __construct()
     {
@@ -67,51 +66,23 @@ class User extends BaseUser
     }
 
     /**
-     * Set firstName
+     * Set student class
      *
-     * @param string $firstName
-     *
-     * @return User
+     * @param mixed $studentClass
      */
-    public function setFirstName($firstName)
+    public function setStudentClass($studentClass)
     {
-        $this->firstName = $firstName;
-
-        return $this;
+        $this->studentClass = $studentClass;
     }
 
     /**
-     * Get firstName
+     * Get student class
      *
-     * @return string
+     * @return mixed
      */
-    public function getFirstName()
+    public function getStudentClass()
     {
-        return $this->firstName;
-    }
-
-    /**
-     * Set lastName
-     *
-     * @param string $lastName
-     *
-     * @return User
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    /**
-     * Get lastName
-     *
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
+        return $this->studentClass;
     }
 
     /**
@@ -171,22 +142,50 @@ class User extends BaseUser
     }
 
     /**
-     * Set deleted at
+     * Set firstName
      *
-     * @param mixed $deletedAt
+     * @param string $firstName
+     *
+     * @return User
      */
-    public function setDeletedAt($deletedAt)
+    public function setFirstName($firstName)
     {
-        $this->deletedAt = $deletedAt;
+        $this->firstName = $firstName;
+
+        return $this;
     }
 
     /**
-     * Get deleted ar
+     * Get firstName
      *
-     * @return mixed
+     * @return string
      */
-    public function getDeletedAt()
+    public function getFirstName()
     {
-        return $this->deletedAt;
+        return $this->firstName;
+    }
+
+    /**
+     * Set lastName
+     *
+     * @param string $lastName
+     *
+     * @return User
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
     }
 }

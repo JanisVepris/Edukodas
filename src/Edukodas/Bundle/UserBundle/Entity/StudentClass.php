@@ -36,6 +36,8 @@ class StudentClass
     private $title;
 
     /**
+     * @var ArrayCollection|User[]
+     *
      * @ORM\OneToMany(targetEntity="User", mappedBy="studentClass")
      */
     private $students;
@@ -111,7 +113,7 @@ class StudentClass
      *
      * @param User $student
      *
-     * @return $this
+     * @return StudentClass
      */
     public function addStudent(User $student)
     {
@@ -127,7 +129,7 @@ class StudentClass
      *
      * @param User $student
      *
-     * @return $this
+     * @return StudentClass
      */
     public function removeStudent(User $student)
     {

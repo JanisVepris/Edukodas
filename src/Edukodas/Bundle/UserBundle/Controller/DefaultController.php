@@ -12,5 +12,3 @@ class DefaultController extends Controller
         return new Response('it\'s working');
     }
 }
-
-

@@ -36,6 +36,8 @@ class StudentTeam
     private $title;
 
     /**
+     * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="User", mappedBy="studentTeam")
      */
     private $students;

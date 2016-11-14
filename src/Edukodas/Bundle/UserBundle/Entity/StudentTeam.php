@@ -92,7 +92,7 @@ class StudentTeam
     /**
      * Set students
      *
-     * @param string $students
+     * @param ArrayCollection $students
      *
      * @return StudentTeam
      */

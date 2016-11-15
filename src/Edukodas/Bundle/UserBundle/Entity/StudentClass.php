@@ -101,7 +101,7 @@ class StudentClass
     /**
      * Get students
      *
-     * @return ArrayCollection
+     * @return ArrayCollection|User[]
      */
     public function getStudents()
     {

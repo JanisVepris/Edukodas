@@ -122,7 +122,7 @@ class Course
      *
      * @param $tasks
      *
-     * @return $this
+     * @return Course
      */
     public function setTasks($tasks)
     {
@@ -134,7 +134,7 @@ class Course
     /**
      * Get tasks
      *
-     * @return ArrayCollection
+     * @return ArrayCollection|Task[]
      */
     public function getTasks()
     {
@@ -146,7 +146,7 @@ class Course
      *
      * @param Task $task
      *
-     * @return $this
+     * @return Course
      */
     public function addTask(Task $task)
     {
@@ -162,7 +162,7 @@ class Course
      *
      * @param Task $task
      *
-     * @return $this
+     * @return Course
      */
     public function removeTask(Task $task)
     {

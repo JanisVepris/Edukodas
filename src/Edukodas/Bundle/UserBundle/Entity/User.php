@@ -25,11 +25,15 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var ArrayCollection|Course[]
+     *
      * @ORM\OneToMany(targetEntity="Edukodas\Bundle\TasksBundle\Entity\Course", mappedBy="user" )
      */
     private $courses;
 
     /**
+     * @var StudentClass
+     *
      * @ORM\ManyToOne(targetEntity="StudentClass", inversedBy="students")
      * @ORM\JoinColumn(name="student_class_id", referencedColumnName="id")
      */
@@ -71,9 +75,9 @@ class User extends BaseUser
     /**
      * Set student class
      *
-     * @param mixed $studentClass
+     * @param StudentClass $studentClass
      */
-    public function setStudentClass($studentClass)
+    public function setStudentClass(StudentClass $studentClass)
     {
         $this->studentClass = $studentClass;
     }
@@ -81,7 +85,7 @@ class User extends BaseUser
     /**
      * Get student class
      *
-     * @return mixed
+     * @return StudentClass
      */
     public function getStudentClass()
     {
@@ -93,7 +97,7 @@ class User extends BaseUser
      *
      * @param $courses
      *
-     * @return $this
+     * @return User
      */
     public function setCourses($courses)
     {
@@ -117,7 +121,7 @@ class User extends BaseUser
      *
      * @param Course $course
      *
-     * @return $this
+     * @return User
      */
     public function addCourse(Course $course)
     {
@@ -133,7 +137,7 @@ class User extends BaseUser
      *
      * @param Course $course
      *
-     * @return $this
+     * @return User
      */
     public function removeCourse(Course $course)
     {

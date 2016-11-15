@@ -30,12 +30,16 @@ class Course
     private $id;
 
     /**
+     * @var User
+     *
      * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User", inversedBy="courses")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
     /**
+     * @var ArrayCollection|Task[]
+     *
      * @ORM\OneToMany(targetEntity="Task", mappedBy="course")
      */
     private $tasks;

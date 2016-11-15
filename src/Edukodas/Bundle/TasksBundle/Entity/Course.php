@@ -30,12 +30,16 @@ class Course
     private $id;
 
     /**
+     * @var User
+     *
      * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User", inversedBy="courses")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
     /**
+     * @var ArrayCollection|Task[]
+     *
      * @ORM\OneToMany(targetEntity="Task", mappedBy="course")
      */
     private $tasks;
@@ -118,7 +122,7 @@ class Course
      *
      * @param $tasks
      *
-     * @return $this
+     * @return Course
      */
     public function setTasks($tasks)
     {
@@ -130,7 +134,7 @@ class Course
     /**
      * Get tasks
      *
-     * @return ArrayCollection
+     * @return ArrayCollection|Task[]
      */
     public function getTasks()
     {
@@ -142,7 +146,7 @@ class Course
      *
      * @param Task $task
      *
-     * @return $this
+     * @return Course
      */
     public function addTask(Task $task)
     {
@@ -158,7 +162,7 @@ class Course
      *
      * @param Task $task
      *
-     * @return $this
+     * @return Course
      */
     public function removeTask(Task $task)
     {

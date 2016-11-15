@@ -4,6 +4,7 @@ namespace Edukodas\Bundle\TasksBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TasksController extends Controller
 {
@@ -12,16 +13,35 @@ class TasksController extends Controller
      */
     public function listAction()
     {
+        $user = $this
+            ->getUser()
+            ->getId();
+
         $em = $this
             ->getDoctrine()
             ->getManager();
+
+        $courses = $em
+            ->getRepository('EdukodasTasksBundle:Course')
+            ->findBy(['user' => $user]);
+
         $tasks = $em
             ->getRepository('EdukodasTasksBundle:Task')
-            ->findAll();
+            ->findBy(['course' => $courses]);
+        $result = [];
 
-        return $this->render('EdukodasTasksBundle::tasks.html.twig', [
-            'tasks' => $tasks,
-        ]);
+        foreach ($tasks as $task) {
+            $result[] = [
+                'courseId' => $task->getCourse()->getId(),
+                'courseName' => $task->getCourse()->getName(),
+                'taskId' => $task->getId(),
+                'taskName' => $task->getName(),
+                'taskDescription' => $task->getDescription(),
+                'taskPoints' => $task->getPoints(),
+            ];
+        }
+
+        return new JsonResponse($result);
     }
 
     public function addAction()

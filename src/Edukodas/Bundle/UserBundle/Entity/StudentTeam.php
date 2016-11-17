@@ -9,13 +9,13 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Edukodas\Bundle\UserBundle\Entity\User;
 
 /**
- * Class
+ * StudentTeam
  *
- * @ORM\Table(name="student_class")
- * @ORM\Entity(repositoryClass="Edukodas\Bundle\UserBundle\Repository\StudentClassRepository")
+ * @ORM\Table(name="student_team")
+ * @ORM\Entity
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
-class StudentClass
+class StudentTeam
 {
     use SoftDeleteableEntity;
 
@@ -31,19 +31,26 @@ class StudentClass
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=128)
      */
     private $title;
 
     /**
-     * @var ArrayCollection|User[]
+     * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="User", mappedBy="studentClass")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="studentTeam")
      */
     private $students;
 
     /**
-     * StudentClass constructor.
+     * @var string
+     *
+     * @ORM\Column(name="color", type="string", length=6)
+     */
+    private $color;
+
+    /**
+     * StudentTeam constructor.
      */
     public function __construct()
     {
@@ -65,7 +72,7 @@ class StudentClass
      *
      * @param string $title
      *
-     * @return StudentClass
+     * @return StudentTeam
      */
     public function setTitle($title)
     {
@@ -87,9 +94,9 @@ class StudentClass
     /**
      * Set students
      *
-     * @param string $students
+     * @param ArrayCollection $students
      *
-     * @return StudentClass
+     * @return StudentTeam
      */
     public function setStudents($students)
     {
@@ -101,7 +108,7 @@ class StudentClass
     /**
      * Get students
      *
-     * @return ArrayCollection|User[]
+     * @return ArrayCollection
      */
     public function getStudents()
     {
@@ -113,7 +120,7 @@ class StudentClass
      *
      * @param User $student
      *
-     * @return StudentClass
+     * @return $this
      */
     public function addStudent(User $student)
     {
@@ -125,11 +132,11 @@ class StudentClass
     }
 
     /**
-     * Remove task
+     * Remove student
      *
      * @param User $student
      *
-     * @return StudentClass
+     * @return $this
      */
     public function removeStudent(User $student)
     {
@@ -138,5 +145,29 @@ class StudentClass
         }
 
         return $this;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     *
+     * @return StudentTeam
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
     }
 }

@@ -40,6 +40,14 @@ class User extends BaseUser
     private $studentClass;
 
     /**
+     * @var StudentTeam
+     *
+     * @ORM\ManyToOne(targetEntity="StudentTeam", inversedBy="students")
+     * @ORM\JoinColumn(name="student_team_id", referencedColumnName="id")
+     */
+    private $studentTeam;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255)
@@ -90,6 +98,29 @@ class User extends BaseUser
     public function getStudentClass()
     {
         return $this->studentClass;
+    }
+
+    /**
+     * Set student team
+     *
+     * @param StudentTeam $team
+     * @return ArrayCollection
+     */
+    public function setStudentTeam(StudentTeam $team)
+    {
+        $this->studentTeam = $team;
+
+        return $this;
+    }
+
+    /**
+     * Get student team
+     *
+     * @return StudentTeam
+     */
+    public function getStudentTeam()
+    {
+        return $this->studentTeam;
     }
 
     /**

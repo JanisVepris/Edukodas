@@ -30,15 +30,27 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var ArrayCollection|Course[]
+     *
      * @ORM\OneToMany(targetEntity="Edukodas\Bundle\TasksBundle\Entity\Course", mappedBy="user" )
      */
     private $courses;
 
     /**
+     * @var StudentClass
+     *
      * @ORM\ManyToOne(targetEntity="StudentClass", inversedBy="students")
      * @ORM\JoinColumn(name="student_class_id", referencedColumnName="id")
      */
     private $studentClass;
+
+    /**
+     * @var StudentTeam
+     *
+     * @ORM\ManyToOne(targetEntity="StudentTeam", inversedBy="students")
+     * @ORM\JoinColumn(name="student_team_id", referencedColumnName="id")
+     */
+    private $studentTeam;
 
     /**
      * @var string
@@ -76,9 +88,9 @@ class User extends BaseUser
     /**
      * Set student class
      *
-     * @param mixed $studentClass
+     * @param StudentClass $studentClass
      */
-    public function setStudentClass($studentClass)
+    public function setStudentClass(StudentClass $studentClass)
     {
         $this->studentClass = $studentClass;
     }
@@ -86,7 +98,7 @@ class User extends BaseUser
     /**
      * Get student class
      *
-     * @return mixed
+     * @return StudentClass
      */
     public function getStudentClass()
     {
@@ -94,11 +106,34 @@ class User extends BaseUser
     }
 
     /**
+     * Set student team
+     *
+     * @param StudentTeam $team
+     * @return ArrayCollection
+     */
+    public function setStudentTeam(StudentTeam $team)
+    {
+        $this->studentTeam = $team;
+
+        return $this;
+    }
+
+    /**
+     * Get student team
+     *
+     * @return StudentTeam
+     */
+    public function getStudentTeam()
+    {
+        return $this->studentTeam;
+    }
+
+    /**
      * Set courses
      *
      * @param $courses
      *
-     * @return $this
+     * @return User
      */
     public function setCourses($courses)
     {
@@ -122,7 +157,7 @@ class User extends BaseUser
      *
      * @param Course $course
      *
-     * @return $this
+     * @return User
      */
     public function addCourse(Course $course)
     {
@@ -138,7 +173,7 @@ class User extends BaseUser
      *
      * @param Course $course
      *
-     * @return $this
+     * @return User
      */
     public function removeCourse(Course $course)
     {

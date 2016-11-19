@@ -1,0 +1,15 @@
+{% extends "EdukodasTemplateBundle::base.html.twig" %}
+
+{% block body %}
+    {% for course in user.courses %}
+        {{ course.name }}
+        <ul>
+        {% for task in course.tasks %}
+            <li>
+            {{ task.name }}{{ task.points }}<br>
+            {{ task.description }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+{% endblock %}

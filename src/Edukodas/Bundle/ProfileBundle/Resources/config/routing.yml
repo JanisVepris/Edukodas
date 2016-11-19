@@ -1,0 +1,3 @@
+edukodas_teacher_profile:
+    path:     /
+    defaults: { _controller: EdukodasProfileBundle:TeacherProfile:index }

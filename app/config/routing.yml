@@ -17,6 +17,10 @@ edukodas_tasks:
     resource: "@EdukodasTasksBundle/Resources/config/routing.yml"
     prefix: /tasks
 
+edukodas_teacher_profile:
+    resource: "@EdukodasProfileBundle/Resources/config/routing.yml"
+    prefix: /teacherprofile
+
 root:
     path: /
     defaults:

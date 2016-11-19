@@ -58,6 +58,20 @@ class PointHistory
      */
     private $amount;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime("now");
+    }
 
     /**
      * Get id
@@ -177,5 +191,13 @@ class PointHistory
     public function getAmount()
     {
         return $this->amount;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }

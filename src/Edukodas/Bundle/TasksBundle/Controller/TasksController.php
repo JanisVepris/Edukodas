@@ -4,12 +4,8 @@ namespace Edukodas\Bundle\TasksBundle\Controller;
 
 use Edukodas\Bundle\TasksBundle\Entity\Course;
 use Edukodas\Bundle\TasksBundle\Entity\Task;
-use Edukodas\Bundle\TasksBundle\Repository\CourseRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Edukodas\Bundle\TasksBundle\Form\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -35,25 +31,17 @@ class TasksController extends Controller
         }, $courses->toArray()));
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function addAction(Request $request)
     {
         $task = new Task();
 
-        $form = $this->createFormBuilder($task)
-            ->add('course', EntityType::class, [
-                'class' => 'EdukodasTasksBundle:Course',
-                'query_builder' => function (CourseRepository $er) {
-                    return $er->createQueryBuilder('c')
-                        ->where('c.user = :user')
-                        ->orderBy('c.name', 'ASC')
-                        ->setParameter('user', $this->getUser());
-                },
-            ])
-            ->add('name', TextType::class)
-            ->add('description', TextType::class)
-            ->add('points', NumberType::class)
-            ->add('save', SubmitType::class, array('label' => 'Create task'))
-            ->getForm();
+        $user = $this->getUser();
+
+        $form = $this->createForm(TaskType::class, $task, ['user' => $user]);
 
         $form->handleRequest($request);
 

@@ -88,6 +88,7 @@ class LoadUserData extends AbstractFixture implements
             [
                 'username' => 'mokinysa',
                 'firstName' => 'Mokinys',
+                'studentClass' => '4c',
                 'lastName' => 'A',
                 'password' => 'password',
                 'email' => 'mokinysa@pastas.com',
@@ -97,6 +98,7 @@ class LoadUserData extends AbstractFixture implements
             [
                 'username' => 'mokinysb',
                 'firstName' => 'Mokinys',
+                'studentClass' => '4b',
                 'lastName' => 'B',
                 'password' => 'password',
                 'email' => 'mokinysb@pastas.com',
@@ -105,6 +107,7 @@ class LoadUserData extends AbstractFixture implements
             ],            [
                 'username' => 'mokinysc',
                 'firstName' => 'Mokinys',
+                'studentClass' => '4a',
                 'lastName' => 'C',
                 'password' => 'password',
                 'email' => 'mokinysc@pastas.com',
@@ -135,6 +138,12 @@ class LoadUserData extends AbstractFixture implements
                 ->setEmail($userData['email'])
                 ->setRoles($userData['roles'])
                 ->setEnabled($userData['enabled']);
+
+            if (isset($userData['studentClass'])) {
+                $studentClass = $this->getReference('class_' . $userData['studentClass']);
+                $user->setStudentClass($studentClass);
+            }
+
             $manager->persist($user);
 
             $this->addReference($userData['username'], $user);
@@ -150,6 +159,6 @@ class LoadUserData extends AbstractFixture implements
      */
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 }

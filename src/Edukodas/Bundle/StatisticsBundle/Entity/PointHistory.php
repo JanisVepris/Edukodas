@@ -3,18 +3,25 @@
 namespace Edukodas\Bundle\StatisticsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Edukodas\Bundle\TasksBundle\Entity\Task;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 /**
  * PointHistory
  *
  * @ORM\Table(name="point_history")
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class PointHistory
 {
+    use SoftDeleteableEntity;
+
     /**
      * @var int
-     *
+     *softdeleteable
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -24,7 +31,7 @@ class PointHistory
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User", inversedBy="pointHistory")
      * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id")
      */
     private $teacher;
@@ -38,9 +45,10 @@ class PointHistory
     private $student;
 
     /**
-     * @var string
+     * @var Task
      *
-     * @ORM\Column(name="task", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\TasksBundle\Entity\Task")
+     * @ORM\JoinColumn(name="task_id", referencedColumnName="id")
      */
     private $task;
 
@@ -70,7 +78,7 @@ class PointHistory
      */
     public function onPrePersist()
     {
-        $this->createdAt = new \DateTime("now");
+        $this->createdAt = new \DateTime('now');
     }
 
     /**
@@ -124,11 +132,11 @@ class PointHistory
     /**
      * Set task
      *
-     * @param string $task
+     * @param Task $task
      *
      * @return PointHistory
      */
-    public function setTask($task)
+    public function setTask(Task $task)
     {
         $this->task = $task;
 
@@ -138,7 +146,7 @@ class PointHistory
     /**
      * Get task
      *
-     * @return string
+     * @return Task
      */
     public function getTask()
     {

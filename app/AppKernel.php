@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Edukodas\Bundle\TemplateBundle\EdukodasTemplateBundle(),
             new Edukodas\Bundle\ProfileBundle\EdukodasProfileBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Edukodas\Bundle\StatisticsBundle\EdukodasStatisticsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

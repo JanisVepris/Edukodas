@@ -79,3 +79,4 @@ assetic:
         cssrewrite: ~
         scssphp:
             formatter: 'Leafo\ScssPhp\Formatter\Compressed'
+        jsqueeze: ~

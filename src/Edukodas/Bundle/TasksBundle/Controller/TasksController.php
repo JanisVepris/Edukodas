@@ -4,8 +4,14 @@ namespace Edukodas\Bundle\TasksBundle\Controller;
 
 use Edukodas\Bundle\TasksBundle\Entity\Course;
 use Edukodas\Bundle\TasksBundle\Entity\Task;
+use Edukodas\Bundle\TasksBundle\Repository\CourseRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class TasksController extends Controller
 {
@@ -29,25 +35,39 @@ class TasksController extends Controller
         }, $courses->toArray()));
     }
 
-    public function addAction()
+    public function addAction(Request $request)
     {
-
-    }
-
-    public function newAction(Request $request)
-    {
-        // create a task and give it some dummy data for this example
         $task = new Task();
-        $task->setTask('Write a blog post');
-        $task->setDueDate(new \DateTime('tomorrow'));
 
         $form = $this->createFormBuilder($task)
-            ->add('task', TextType::class)
-            ->add('dueDate', DateType::class)
-            ->add('save', SubmitType::class, array('label' => 'Create Post'))
+            ->add('course', EntityType::class, [
+                'class' => 'EdukodasTasksBundle:Course',
+                'query_builder' => function (CourseRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->where('c.user = :user')
+                        ->orderBy('c.name', 'ASC')
+                        ->setParameter('user', $this->getUser());
+                },
+            ])
+            ->add('name', TextType::class)
+            ->add('description', TextType::class)
+            ->add('points', NumberType::class)
+            ->add('save', SubmitType::class, array('label' => 'Create task'))
             ->getForm();
 
-        return $this->render('default/new.html.twig', array(
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $task = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($task);
+            $em->flush();
+
+            return $this->redirectToRoute('edukodas_tasks_list');
+        }
+
+        return $this->render('EdukodasTasksBundle::addtask.html.twig', array(
             'form' => $form->createView(),
         ));
     }

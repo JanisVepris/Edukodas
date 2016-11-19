@@ -9,6 +9,8 @@
             {{ task.name }}{{ task.points }}<br>
             {{ task.description }}
             </li>
+        {% else %}
+            No tasks
         {% endfor %}
         </ul>
     {% endfor %}

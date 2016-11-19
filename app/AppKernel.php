@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Edukodas\Bundle\TasksBundle\EdukodasTasksBundle(),
             new Edukodas\Bundle\FixturesBundle\EdukodasFixturesBundle(),
             new Edukodas\Bundle\TemplateBundle\EdukodasTemplateBundle(),
+            new Edukodas\Bundle\ProfileBundle\EdukodasProfileBundle(),
             new Edukodas\Bundle\StatisticsBundle\EdukodasStatisticsBundle(),
         );
 

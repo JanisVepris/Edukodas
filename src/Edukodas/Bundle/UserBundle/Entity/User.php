@@ -2,6 +2,7 @@
 
 namespace Edukodas\Bundle\UserBundle\Entity;
 
+use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -64,9 +65,18 @@ class User extends BaseUser
     /**
      * User constructor.
      */
+
+    /**
+     * @var ArrayCollection|PointHistory
+     *
+     * @ORM\OneToMany(targetEntity="Edukodas\Bundle\StatisticsBundle\Entity\PointHistory", mappedBy="teacher")
+     */
+    public $pointHistory;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
+        $this->pointHistory = new ArrayCollection();
         parent::__construct();
     }
 

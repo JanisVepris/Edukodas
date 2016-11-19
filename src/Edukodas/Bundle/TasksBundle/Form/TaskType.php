@@ -3,7 +3,6 @@
 namespace Edukodas\Bundle\TasksBundle\Form;
 
 use Edukodas\Bundle\TasksBundle\Repository\CourseRepository;
-use Edukodas\Bundle\UserBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -21,17 +20,18 @@ class TaskType extends AbstractType
     {
         $builder->add('course', EntityType::class, [
                 'class' => 'EdukodasTasksBundle:Course',
-                'query_builder' => function (CourseRepository $er) use ($options) {
-                    return $er->createQueryBuilder('c')
+                'query_builder' => function (CourseRepository $cr) use ($options) {
+                    return $cr->createQueryBuilder('c')
                         ->where('c.user = :user')
                         ->orderBy('c.name', 'ASC')
                         ->setParameter('user', $options['user']);
                 },
+                'label' => 'form.add_tasks.course',
             ])
-            ->add('name', TextType::class)
-            ->add('description', TextType::class)
-            ->add('points', NumberType::class)
-            ->add('save', SubmitType::class, array('label' => 'Create task'));
+            ->add('name', TextType::class, ['label' => 'form.add_tasks.name'])
+            ->add('description', TextType::class, ['label' => 'form.add_tasks.description'])
+            ->add('points', NumberType::class, ['label' => 'form.add_tasks.points'])
+            ->add('save', SubmitType::class, ['label' => 'form.add_tasks.submit']);
     }
     
     /**
@@ -52,6 +52,4 @@ class TaskType extends AbstractType
     {
         return 'edukodas_bundle_tasksbundle_task';
     }
-
-
 }

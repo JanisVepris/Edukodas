@@ -1,0 +1,7 @@
+form:
+  add_tasks:
+    course: Dalykas
+    name: Užduoties pavadinimas
+    description: Aprašymas
+    points: Taškai
+    submit: Pridėti

@@ -5,7 +5,6 @@ namespace Edukodas\Bundle\TasksBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-use Edukodas\Bundle\TasksBundle\Entity\Course;
 
 /**
  * Task

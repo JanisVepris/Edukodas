@@ -16,17 +16,17 @@ class TasksController extends Controller
     {
         $courses = $this->getUser()->getCourses();
 
-//        return new JsonResponse(array_map(function (Course $course) {
-//            return [
-//                'id' => $course->getId(),
-//                'tasks' => array_map(function (Task $task) {
-//                    return [
-//                        'id' => $task->getId(),
-//                        'name' => $task->getName(),
-//                    ];
-//                }, $course->getTasks()->toArray())
-//            ];
-//        }, $courses->toArray()));
+        return new JsonResponse(array_map(function (Course $course) {
+            return [
+                'id' => $course->getId(),
+                'tasks' => array_map(function (Task $task) {
+                    return [
+                        'id' => $task->getId(),
+                        'name' => $task->getName(),
+                    ];
+                }, $course->getTasks()->toArray())
+            ];
+        }, $courses->toArray()));
     }
 
     public function addAction()

@@ -5,9 +5,12 @@
     <title>{% block title %}{{ "PlsAtsiminkPakeist" }}{% endblock %}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico')}}">
-    {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
-    {% endblock %}
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% stylesheets filter="scssphp" output="css/app.css"
+    "bundles/edukodastemplate/sass/materialize.scss"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
     {% block canonical_meta %}{% endblock %}
 </head>
 <body>
@@ -17,8 +20,11 @@
     <div class="container">
         {% block body %}{% endblock %}
     </div>
-    {% block javascripts %}
-        <script src="{{ asset('js/script.js') }}"></script>
-    {% endblock %}
+    {% javascripts
+    'bundles/edukodastemplate/js/bin/materialize.js'
+    'bundles/edukodastemplate/js/jquery-2.2.4.min.js'
+    output='js/compiled/app.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 </body>
 </html>

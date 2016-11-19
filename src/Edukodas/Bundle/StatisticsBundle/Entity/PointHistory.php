@@ -179,4 +179,3 @@ class PointHistory
         return $this->amount;
     }
 }
-

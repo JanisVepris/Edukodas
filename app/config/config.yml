@@ -65,7 +65,17 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+# FosUser Configuration
 fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Edukodas\Bundle\UserBundle\Entity\User
+
+# Assetic Configuration
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
+        scssphp:
+            formatter: 'Leafo\ScssPhp\Formatter\Compressed'

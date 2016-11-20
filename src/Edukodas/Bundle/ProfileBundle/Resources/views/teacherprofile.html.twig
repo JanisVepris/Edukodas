@@ -1,30 +1,45 @@
 {% extends "EdukodasTemplateBundle::base.html.twig" %}
 
 {% block body %}
-    <!-- Modal Trigger -->
-    <a class="waves-effect waves-light btn" href="#modal1">Modal</a>
 
-    <!-- Modal Structure -->
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
+    <div class="row" style="clear: both;"><!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Modal Header</h4>
+                <p>A bunch of text</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
         </div>
-        <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-        </div>
-    </div>
-    {% for course in user.courses %}
-        {{ course.name }}
-        <ul>
-        {% for task in course.tasks %}
-            <li>
-            {{ task.name }}{{ task.points }}<br>
-            {{ task.description }}
-            </li>
+        {% for course in user.courses %}
+            <div class="divider"></div>
+            <div class="section">
+                <h4>{{ course.name }}</h4>
+                <table class="striped">
+                    <tbody>
+                        {% for task in course.tasks %}
+                            <tr>
+                                <td>
+                                    <h5>{{ task.name }}</h5>
+                                    {{ task.description }}
+                                </td>
+                                <td>
+                                    <h5>{{ task.points }}</h5>
+                                </td>
+                                <td>
+                                    <a class="btn-floating btn-large waves-effect waves-light red" href="#modal1"><i class="small material-icons">mode_edit</i></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            No tasks
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% else %}
-            No tasks
+            <div class="divider"></div>
+            No courses
         {% endfor %}
-        </ul>
-    {% endfor %}
+    </div>
 {% endblock %}

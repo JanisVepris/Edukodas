@@ -3,7 +3,7 @@
 {% block body %}
 
     <div class="row" style="clear: both;"><!-- Modal Structure -->
-        <div id="modal1" class="modal">
+        <div id="edit-task-modal" class="modal">
             <div class="modal-content">
                 <h4>Modal Header</h4>
                 <p>A bunch of text</p>
@@ -28,7 +28,7 @@
                                     <h5>{{ task.points }}</h5>
                                 </td>
                                 <td>
-                                    <a class="btn-floating btn-large waves-effect waves-light red" href="#modal1"><i class="small material-icons">mode_edit</i></a>
+                                    <a id="edit-task" class="btn-floating btn-small waves-effect waves-light red" href="#edit-task-modal"><i class="small material-icons">mode_edit</i></a>
                                 </td>
                             </tr>
                         {% else %}

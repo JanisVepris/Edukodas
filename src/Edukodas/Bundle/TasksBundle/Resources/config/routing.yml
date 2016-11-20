@@ -9,6 +9,8 @@ edukodas_tasks_add:
 edukodas_tasks_edit:
     path:     /edit/{taskId}
     defaults: { _controller: EdukodasTasksBundle:Tasks:editForm }
+    options:
+        expose: true
 
 edukodas_tasks_remove:
     path:     /{taskid}

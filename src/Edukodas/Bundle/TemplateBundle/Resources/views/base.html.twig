@@ -20,7 +20,9 @@
     <div class="container">
         {% block body %}{% endblock %}
     </div>
-    {% javascripts
+    {% javascripts filter='?yui_js'
+    'bundles/fosjsrouting/js/router.js'
+    'js/fos_js_routes.js'
     'bundles/edukodastemplate/js/jquery-2.2.4.min.js'
     'bundles/edukodastemplate/js/bin/materialize.js'
     'bundles/edukodastemplate/js/script.js'

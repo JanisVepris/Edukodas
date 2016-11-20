@@ -1,16 +1,28 @@
 $(document).ready(function(){
-    function editTaskButtonPressed(){
-        var url = Routing.generate('edukodas_tasks_edit', {taskId : 1});
-        // $.post(url, null, function (data) {
-        $('#edit-task-modal > .modal-content').html(url);
-        // });
+    function editTaskButtonPressed(trigger){
+        var taskId = trigger.attr('id').split('-')[2];
+        var url = Routing.generate('edukodas_tasks_edit', {taskId : taskId});
+
+        $.ajax({
+            url:   url,
+            type: 'POST',
+            beforeSend: function(){
+                $('#edit-task-modal > .modal-content').html('loading...');
+            },
+            success: function(data){
+                if (data) {
+                    $('#edit-task-modal > .modal-content').html(data);
+                }
+            }
+        });
+
     }
 
     $('#edit-task-modal').modal({
-            ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-                editTaskButtonPressed();
+            ready: function(modal, trigger) {
+                editTaskButtonPressed(trigger);
             },
-            complete: function() { } // Callback for Modal close
+            complete: function() { $('#edit-task-modal > .modal-content').html(''); }
         }
     );
 });

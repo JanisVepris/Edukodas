@@ -5,11 +5,8 @@
     <div class="row" style="clear: both;"><!-- Modal Structure -->
         <div id="edit-task-modal" class="modal">
             <div class="modal-content">
-                <h4>Modal Header</h4>
-                <p>A bunch of text</p>
             </div>
             <div class="modal-footer">
-                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
             </div>
         </div>
         {% for course in user.courses %}
@@ -28,7 +25,12 @@
                                     <h5>{{ task.points }}</h5>
                                 </td>
                                 <td>
-                                    <a id="edit-task" class="btn-floating btn-small waves-effect waves-light red" href="#edit-task-modal"><i class="small material-icons">mode_edit</i></a>
+                                    <a
+                                        id="edit-task-{{ task.id }}"
+                                        class="btn-floating btn-small waves-effect waves-light red"
+                                        href="#edit-task-modal">
+                                        <i class="small material-icons">mode_edit</i>
+                                    </a>
                                 </td>
                             </tr>
                         {% else %}

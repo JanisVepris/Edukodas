@@ -21,8 +21,9 @@
         {% block body %}{% endblock %}
     </div>
     {% javascripts
-    'bundles/edukodastemplate/js/bin/materialize.js'
     'bundles/edukodastemplate/js/jquery-2.2.4.min.js'
+    'bundles/edukodastemplate/js/bin/materialize.js'
+    'bundles/edukodastemplate/js/script.js'
     output='js/compiled/app.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}

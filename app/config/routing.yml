@@ -20,9 +20,9 @@ edukodas_tasks:
     resource: "@EdukodasTasksBundle/Resources/config/routing.yml"
     prefix: /tasks
 
-edukodas_teacher_profile:
+edukodas_profile:
     resource: "@EdukodasProfileBundle/Resources/config/routing.yml"
-    prefix: /teacherprofile
+    prefix: /profile
 
 root:
     path: /
@@ -30,7 +30,3 @@ root:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: /login
         permanent: true
-
-edukodas_student:
-    resource: "@EdukodasProfileBundle/Resources/config/routing.yml"
-    prefix: /student

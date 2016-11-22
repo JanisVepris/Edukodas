@@ -1,0 +1,12 @@
+<phpunit>
+    <php>
+        <server name="KERNEL_DIR" value="/var/www/app/" />
+    </php>
+
+    <testsuites>
+        <testsuite name="Tests">
+            <directory>tests/*</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>

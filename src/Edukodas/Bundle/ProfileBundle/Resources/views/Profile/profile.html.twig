@@ -5,7 +5,7 @@
 
     {% if app.user.id == user.id %}
         <div>
-            <a href="#">Redaguoti</a>
+            <a href="{{ path('edit_student_profile') }}">Redaguoti</a>
         </div>
     {% endif %}
 

@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Edukodas\Bundle\FixturesBundle\EdukodasFixturesBundle(),
             new Edukodas\Bundle\TemplateBundle\EdukodasTemplateBundle(),
             new Edukodas\Bundle\ProfileBundle\EdukodasProfileBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Edukodas\Bundle\StatisticsBundle\EdukodasStatisticsBundle(),
         );
 

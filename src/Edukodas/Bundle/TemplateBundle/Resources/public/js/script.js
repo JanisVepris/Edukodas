@@ -1,6 +1,6 @@
 $(document).ready(function(){
     function editTaskButtonPressed(trigger){
-        var taskId = trigger.attr('id').split('-')[2];
+        var taskId = trigger.data('task-id');
         var url = Routing.generate('edukodas_tasks_edit', {taskId : taskId});
 
         $.ajax({

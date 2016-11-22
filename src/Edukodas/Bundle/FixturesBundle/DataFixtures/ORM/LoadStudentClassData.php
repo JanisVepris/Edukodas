@@ -8,9 +8,9 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Edukodas\Bundle\TasksBundle\Entity\Course;
+use Edukodas\Bundle\UserBundle\Entity\StudentClass;
 
-class LoadCourseData extends AbstractFixture implements
+class LoadStudentClassData extends AbstractFixture implements
     FixtureInterface,
     ContainerAwareInterface,
     OrderedFixtureInterface
@@ -33,30 +33,36 @@ class LoadCourseData extends AbstractFixture implements
     }
 
     /**
-     * Get courseData
+     * Get studentClassData
      *
      * @return array
      */
-    private function getCourseData()
+    private function getStudentClassData()
     {
         return [
             [
-                'username' => 'mokytojasa',
-                'courseName' => 'Anglų kalba 1',
+                'title' => '1',
             ],
             [
-                'username' => 'mokytojasa',
-                'courseName' => 'Vokiečių kalba 1',
+                'title' => '2',
             ],
             [
-                'username' => 'mokytojasb',
-                'courseName' => 'Matematika 3',
+                'title' => '3',
+            ],
+            [
+                'title' => '4a',
+            ],
+            [
+                'title' => '4b',
+            ],
+            [
+                'title' => '4c'
             ],
         ];
     }
 
     /**
-     * Loads course fixtures into database
+     * Loads tasks fixtures into database
      *
      * @param ObjectManager $manager
      *
@@ -64,19 +70,16 @@ class LoadCourseData extends AbstractFixture implements
      */
     public function load(ObjectManager $manager)
     {
-        $data = $this->getCourseData();
+        $data = $this->getStudentClassData();
 
-        foreach ($data as $courseData) {
-            $user = $this->getReference($courseData['username']);
-
-            $course = new Course();
-            $course
-                ->setName($courseData['courseName'])
-                ->setUser($user);
-            $manager->persist($course);
-
-            $this->addReference($courseData['courseName'], $course);
+        foreach ($data as $row) {
+            $studentClass = new StudentClass();
+            $studentClass
+                ->setTitle($row['title']);
+            $manager->persist($studentClass);
+            $this->addReference('class_' . $row['title'], $studentClass);
         }
+
 
         $manager->flush();
     }
@@ -88,6 +91,6 @@ class LoadCourseData extends AbstractFixture implements
      */
     public function getOrder()
     {
-        return 3;
+        return 1;
     }
 }

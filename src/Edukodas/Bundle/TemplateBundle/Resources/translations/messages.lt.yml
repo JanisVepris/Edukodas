@@ -6,3 +6,7 @@ menu:
     users: Vartotojai
     settings: Nustatymai
     logout: Atsijungti
+
+profile:
+  point_history:
+    no_entries: Įrašų nerasta

@@ -13,6 +13,37 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TasksController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function addAction(Request $request)
+    {
+        $task = new Task();
+
+        $form = $this->createForm(TaskType::class, $task, ['user' => $this->getUser()]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $task = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($task);
+            $em->flush();
+
+            return $this->redirectToRoute('edukodas_teacher_profile');
+        }
+
+        return $this->render('EdukodasTasksBundle::addtask.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @param int $taskId
+     * @return Response
+     */
     public function editFormAction(int $taskId)
     {
         $task = $this->getDoctrine()->getRepository('EdukodasTasksBundle:Task')->find($taskId);
@@ -30,6 +61,7 @@ class TasksController extends Controller
 
     /**
      * @param int $taskId
+     * @return JsonResponse
      */
     public function deleteAction(int $taskId)
     {
@@ -64,32 +96,5 @@ class TasksController extends Controller
                 }, $course->getTasks()->toArray())
             ];
         }, $courses->toArray()));
-    }
-
-    /**
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     */
-    public function addAction(Request $request)
-    {
-        $task = new Task();
-
-        $form = $this->createForm(TaskType::class, $task, ['user' => $this->getUser()]);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $task = $form->getData();
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($task);
-            $em->flush();
-
-            return $this->redirectToRoute('edukodas_tasks_list');
-        }
-
-        return $this->render('EdukodasTasksBundle::addtask.html.twig', array(
-            'form' => $form->createView(),
-        ));
     }
 }

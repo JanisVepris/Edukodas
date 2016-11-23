@@ -1,7 +1,7 @@
 filter:
     paths: ["src/*"]
     excluded_paths:
-          - "src/TemplateBundle/Resources/public/*"
+          - "src/Edukodas/Bundle/TemplateBundle/Resources/public/*"
 checks:
     php: true
     javascript: true

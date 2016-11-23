@@ -33,30 +33,4 @@ class StudentProfileController extends Controller
             'pointHistory' => $pointHistory,
         ]);
     }
-
-    public function editAction($id, Request $request) {
-        // FOSUserBundle!!!!!!!
-        if ($id === null) {
-            $user = $this->getUser();
-        } else {
-            $user = $this->getDoctrine()->getRepository('EdukodasUserBundle:User')->find($id);
-        }
-
-        $form = $this->createFormBuilder($user)
-            ->add('old_password', PasswordType::class)
-            ->add('new_password', PasswordType::class)
-            ->add('email', EmailType::class)
-            ->add('subscribe', CheckboxType::class)
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            //$profile
-        }
-
-        return $this->render('EdukodasProfileBundle:Profile:editProfile.html.twig', [
-            'user' => $user,
-        ]);
-    }
 }

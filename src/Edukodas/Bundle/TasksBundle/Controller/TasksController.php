@@ -23,9 +23,9 @@ class TasksController extends Controller
 
         $form = $this->createForm(TaskType::class, $task, ['user' => $this->getUser()]);
 
-        return $this->render('EdukodasTemplateBundle:Task:form.html.twig', array(
-            'form' => $form->createView())
-        );
+        return $this->render('EdukodasTemplateBundle:Task:form.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**

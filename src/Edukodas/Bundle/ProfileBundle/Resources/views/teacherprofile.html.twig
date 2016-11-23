@@ -14,7 +14,7 @@
                 <table class="striped">
                     <tbody>
                         {% for task in course.tasks %}
-                            <tr>
+                            <tr id="task-{{ task.id }}">
                                 <td>
                                     <h5>{{ task.name }}</h5>
                                     {{ task.description }}
@@ -23,11 +23,17 @@
                                     <h5>{{ task.points }}</h5>
                                 </td>
                                 <td>
-                                    <a
-                                        data-task-id="{{ task.id }}"
+                                    <a data-task-id="{{ task.id }}"
                                         class="btn-floating btn-small waves-effect waves-light red"
                                         href="#edit-task-modal">
                                         <i class="small material-icons">mode_edit</i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-task-id="{{ task.id }}"
+                                       class="btn-floating btn-small waves-effect waves-light red delete-task"
+                                       href="#delete-task">
+                                        <i class="small material-icons">delete</i>
                                     </a>
                                 </td>
                             </tr>

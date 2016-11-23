@@ -43,7 +43,7 @@ class TasksController extends Controller
         $em->remove($task);
         $em->flush();
 
-        return new Response('done');
+        return new JsonResponse($taskId);
     }
 
     /**

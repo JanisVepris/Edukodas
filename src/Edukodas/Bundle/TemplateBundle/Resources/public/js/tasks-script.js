@@ -36,4 +36,31 @@ $(document).ready(function(){
             complete: function() { $('#edit-task-modal > .modal-content').html(''); }
         }
     );
+
+    $('.delete-task').click(function () {
+        var taskId = $(this).data('task-id');
+        var url = Routing.generate('edukodas_tasks_delete', {taskId : taskId});
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            beforeSend: function () {
+                $('.delete-task*[data-task-id="' + taskId + '"]')
+                    .replaceWith('<div class="preloader-wrapper small active">' +
+                    '<div class="spinner-layer spinner-red-only">' +
+                    '<div class="circle-clipper left">' +
+                    '<div class="circle"></div>' +
+                    '</div><div class="gap-patch">' +
+                    '<div class="circle"></div>' +
+                    '</div><div class="circle-clipper right">' +
+                    '<div class="circle"></div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
+            },
+            success: function (data) {
+                $('#task-' + data).remove();
+            }
+        });
+    });
 });

@@ -8,6 +8,7 @@ use Edukodas\Bundle\TasksBundle\Form\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TasksController extends Controller
@@ -25,6 +26,24 @@ class TasksController extends Controller
         return $this->render('EdukodasTemplateBundle:Task:form.html.twig', array(
             'form' => $form->createView())
         );
+    }
+
+    /**
+     * @param int $taskId
+     */
+    public function deleteAction(int $taskId)
+    {
+        $task = $this->getDoctrine()->getRepository('EdukodasTasksBundle:Task')->find($taskId);
+
+        if (!$task) {
+            throw new NotFoundHttpException('Task not found');
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($task);
+        $em->flush();
+
+        return new Response('done');
     }
 
     /**

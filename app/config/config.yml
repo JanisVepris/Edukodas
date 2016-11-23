@@ -75,6 +75,16 @@ fos_user:
 assetic:
     debug:          '%kernel.debug%'
     use_controller: '%kernel.debug%'
+    assets:
+        roboto-regular-woff2:
+            inputs: '@EdukodasTemplateBundle/Resources/public/fonts/roboto/Roboto-Regular.woff2'
+            output: 'fonts/roboto/Roboto-Regular.woff2'
+        roboto-regular-woff:
+            inputs: '@EdukodasTemplateBundle/Resources/public/fonts/roboto/Roboto-Regular.woff'
+            output: 'fonts/roboto/Roboto-Regular.woff'
+        roboto-regular-ttf:
+            inputs: '@EdukodasTemplateBundle/Resources/public/fonts/roboto/Roboto-Regular.ttf'
+            output: 'fonts/roboto/Roboto-Regular.ttf'
     filters:
         cssrewrite: ~
         scssphp:
@@ -82,4 +92,4 @@ assetic:
         jsqueeze: ~
 
 fos_js_routing:
-    routes_to_expose: [ edukodas_tasks_edit ]
+    routes_to_expose: [ edukodas_tasks_edit, edukodas_tasks_delete, edukodat_tasks_add ]

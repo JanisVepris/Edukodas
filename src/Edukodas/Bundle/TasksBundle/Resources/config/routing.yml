@@ -12,6 +12,6 @@ edukodas_tasks_edit:
     options:
         expose: true
 
-edukodas_tasks_remove:
-    path:     /{taskid}
-    defaults: { _controller: EdukodasTasksBundle:Tasks:remove, taskid: 1 }
+edukodas_tasks_delete:
+    path:     /delete/{taskId}
+    defaults: { _controller: EdukodasTasksBundle:Tasks:delete }

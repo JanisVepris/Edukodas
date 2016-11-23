@@ -7,7 +7,18 @@ $(document).ready(function(){
             url:   url,
             type: 'POST',
             beforeSend: function(){
-                $('#edit-task-modal > .modal-content').html('loading...');
+                $('#edit-task-modal > .modal-content').html('<div class="center-align">' +
+                    '<div class="preloader-wrapper big active">' +
+                        '<div class="spinner-layer spinner-blue-only">' +
+                            '<div class="circle-clipper left">' +
+                                '<div class="circle"></div>' +
+                            '</div><div class="gap-patch">' +
+                                '<div class="circle"></div>' +
+                            '</div><div class="circle-clipper right">' +
+                                '<div class="circle"></div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div></div>');
             },
             success: function(data){
                 if (data) {

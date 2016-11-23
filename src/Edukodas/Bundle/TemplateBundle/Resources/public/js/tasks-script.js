@@ -35,5 +35,5 @@ $(document).ready(function(){
             },
             complete: function() { $('#edit-task-modal > .modal-content').html(''); }
         }
-    )n;
+    );
 });

@@ -31,7 +31,10 @@ class TaskType extends AbstractType
             ->add('name', TextType::class, ['label' => 'form.add_tasks.name'])
             ->add('description', TextType::class, ['label' => 'form.add_tasks.description'])
             ->add('points', NumberType::class, ['label' => 'form.add_tasks.points'])
-            ->add('save', SubmitType::class, ['label' => 'form.add_tasks.submit']);
+            ->add('save', SubmitType::class, [
+                'label' => 'form.add_tasks.submit',
+                'attr' => ['class' => 'waves-effect waves-light btn'],
+            ]);
     }
     
     /**

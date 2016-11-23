@@ -1,9 +1,5 @@
-{% extends "EdukodasTemplateBundle::base.html.twig" %}
-
 {% block body %}
-    <div class="panel panel-default">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
-    </div>
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
 {% endblock %}

@@ -2,7 +2,6 @@
 
 namespace Edukodas\Bundle\TasksBundle\Controller;
 
-use Edukodas\Bundle\TasksBundle\Entity\Course;
 use Edukodas\Bundle\TasksBundle\Entity\Task;
 use Edukodas\Bundle\TasksBundle\Form\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,7 +14,7 @@ class TasksController extends Controller
 {
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse|Response
      */
     public function addAction(Request $request)
     {
@@ -32,19 +31,26 @@ class TasksController extends Controller
             $em->persist($task);
             $em->flush();
 
-            return $this->redirectToRoute('edukodas_teacher_profile');
+            return new JsonResponse([
+                'taskId' => $task->getId(),
+                'course' => $task->getCourse()->getId(),
+                'name' => $task->getName(),
+                'description' => $task->getDescription(),
+                'points' => $task->getPoints(),
+            ]);
         }
 
-        return $this->render('EdukodasTasksBundle::addtask.html.twig', array(
+        return $this->render('@EdukodasTasks/addtask.html.twig', [
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**
+     * @param Request $request
      * @param int $taskId
-     * @return Response
+     * @return JsonResponse|Response
      */
-    public function editFormAction(int $taskId)
+    public function editFormAction(Request $request, int $taskId)
     {
         $task = $this->getDoctrine()->getRepository('EdukodasTasksBundle:Task')->find($taskId);
 
@@ -54,7 +60,25 @@ class TasksController extends Controller
 
         $form = $this->createForm(TaskType::class, $task, ['user' => $this->getUser()]);
 
-        return $this->render('EdukodasTemplateBundle:Task:form.html.twig', [
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $task = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($task);
+            $em->flush();
+
+            return new JsonResponse([
+                'taskId' => $task->getId(),
+                'course' => $task->getCourse()->getId(),
+                'name' => $task->getName(),
+                'description' => $task->getDescription(),
+                'points' => $task->getPoints(),
+            ]);
+        }
+
+        return $this->render('@EdukodasTasks/edittask.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -79,22 +103,14 @@ class TasksController extends Controller
     }
 
     /**
-     * @return JsonResponse
+     * @return Response
      */
     public function listAction()
     {
-        $courses = $this->getUser()->getCourses();
+        $user = $this->getUser();
 
-        return new JsonResponse(array_map(function (Course $course) {
-            return [
-                'id' => $course->getId(),
-                'tasks' => array_map(function (Task $task) {
-                    return [
-                        'id' => $task->getId(),
-                        'name' => $task->getName(),
-                    ];
-                }, $course->getTasks()->toArray())
-            ];
-        }, $courses->toArray()));
+        return $this->render('@EdukodasTasks/listtasks.html.twig', [
+            'user' => $user,
+        ]);
     }
 }

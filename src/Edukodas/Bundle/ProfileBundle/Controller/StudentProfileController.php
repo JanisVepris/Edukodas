@@ -34,8 +34,7 @@ class StudentProfileController extends Controller
         ]);
     }
 
-    public function editAction($id, Request $request)
-    {
+    public function editAction($id, Request $request) {
         // FOSUserBundle!!!!!!!
         if ($id === null) {
             $user = $this->getUser();

@@ -1,5 +1,4 @@
-{% block body %}
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'id': 'add-task-form'}}) }}
 {{ form_widget(form) }}
+<button type="submit" class="waves-effect waves-light btn">{{ 'form.add_tasks.submit'|trans }}</button>
 {{ form_end(form) }}
-{% endblock %}

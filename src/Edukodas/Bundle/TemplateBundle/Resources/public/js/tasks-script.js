@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    function addTaskButtonPressed(trigger){
+    function addTaskButtonPressed(){
         var url = Routing.generate('edukodas_tasks_add');
 
         $.ajax({
@@ -23,6 +23,17 @@ $(document).ready(function(){
                 if (data) {
                     $('#add-task-modal > .modal-content').html(data);
                     $('select').material_select();
+                    $('#add-task-form').ajaxForm({
+                            url: url,
+                            type: 'POST',
+                            beforeSubmit: function(){
+                                $('#add-task-form > button').remove();
+                            },
+                            success: function(){
+                                refreshTaskList();
+                                $('#add-task-modal').modal('close');
+                            }
+                    });
                 }
             }
         });
@@ -61,6 +72,17 @@ $(document).ready(function(){
                 if (data) {
                     $('#edit-task-modal > .modal-content').html(data);
                     $('select').material_select();
+                    $('#edit-task-form').ajaxForm({
+                        url: url,
+                        type: 'POST',
+                        beforeSubmit: function(){
+                            $('#edit-task-form > button').remove();
+                        },
+                        success: function(){
+                            refreshTaskList();
+                            $('#edit-task-modal').modal('close');
+                        }
+                    });
                 }
             }
         });
@@ -74,7 +96,7 @@ $(document).ready(function(){
         }
     );
 
-    $('.delete-task').click(function () {
+    function deleteButton() {
         var taskId = $(this).data('task-id');
         var url = Routing.generate('edukodas_tasks_delete', {taskId : taskId});
 
@@ -84,20 +106,35 @@ $(document).ready(function(){
             beforeSend: function () {
                 $('.delete-task*[data-task-id="' + taskId + '"]')
                     .replaceWith('<div class="preloader-wrapper small active">' +
-                    '<div class="spinner-layer spinner-red-only">' +
-                    '<div class="circle-clipper left">' +
-                    '<div class="circle"></div>' +
-                    '</div><div class="gap-patch">' +
-                    '<div class="circle"></div>' +
-                    '</div><div class="circle-clipper right">' +
-                    '<div class="circle"></div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>');
+                        '<div class="spinner-layer spinner-red-only">' +
+                        '<div class="circle-clipper left">' +
+                        '<div class="circle"></div>' +
+                        '</div><div class="gap-patch">' +
+                        '<div class="circle"></div>' +
+                        '</div><div class="circle-clipper right">' +
+                        '<div class="circle"></div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>');
             },
-            success: function (data) {
-                $('#task-' + data).remove();
+            success: function () {
+                refreshTaskList();
             }
         });
-    });
+    }
+
+    $('.delete-task').on('click', deleteButton);
+
+    function refreshTaskList(){
+        var url = Routing.generate('edukodas_tasks_list');
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            success: function(data) {
+                $('#tasks-list').html(data);
+                $('.delete-task').on('click', deleteButton);
+            }
+        });
+    }
 });

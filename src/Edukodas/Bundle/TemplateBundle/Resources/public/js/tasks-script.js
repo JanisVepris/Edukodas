@@ -23,10 +23,10 @@ $(document).ready(function(){
             success: function(data){
                 if (data) {
                     $('#edit-task-modal > .modal-content').html(data);
+                    $('select').material_select();
                 }
             }
         });
-
     }
 
     $('#edit-task-modal').modal({
@@ -35,5 +35,5 @@ $(document).ready(function(){
             },
             complete: function() { $('#edit-task-modal > .modal-content').html(''); }
         }
-    );
+    )n;
 });

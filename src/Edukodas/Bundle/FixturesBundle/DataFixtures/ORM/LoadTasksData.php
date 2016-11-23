@@ -96,7 +96,7 @@ class LoadTasksData extends AbstractFixture implements
     {
         $data = $this->getTasksData();
 
-        foreach ($data as $tasksData) {
+        foreach ($data as $key => $tasksData) {
             $course = $this->getReference($tasksData['courseName']);
 
             $task = new Task();
@@ -106,6 +106,8 @@ class LoadTasksData extends AbstractFixture implements
                 ->setPoints($tasksData['taskPoints'])
                 ->setCourse($course);
             $manager->persist($task);
+
+            $this->addReference('task_' . $key, $task);
         }
 
         $manager->flush();
@@ -118,6 +120,6 @@ class LoadTasksData extends AbstractFixture implements
      */
     public function getOrder()
     {
-        return 3;
+        return 4;
     }
 }

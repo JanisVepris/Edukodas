@@ -7,3 +7,7 @@ form:
     submit: Pridėti
   edit_tasks:
     save: Išsaugoti
+
+list:
+  no_courses: Nėra dėstomų dalykų
+  no_tasks: Nėra užduočių

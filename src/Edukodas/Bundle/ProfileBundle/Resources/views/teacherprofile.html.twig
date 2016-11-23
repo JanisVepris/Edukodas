@@ -48,14 +48,14 @@
                                     </td>
                                 </tr>
                             {% else %}
-                                No tasks
+                                {{ 'list.no_tasks'|trans }}
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
             {% else %}
                 <div class="divider"></div>
-                No courses
+                {{ 'list.no_courses'|trans }}
             {% endfor %}
         </div>
     </div>

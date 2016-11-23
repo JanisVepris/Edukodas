@@ -1,4 +1,12 @@
 $(document).ready(function(){
+    $('#add-task-modal').modal({
+            ready: function(modal, trigger) {
+                addTaskButtonPressed(trigger);
+            },
+            complete: function() { $('#add-task-modal > .modal-content').html(''); }
+        }
+    );
+
     function addTaskButtonPressed(){
         var url = Routing.generate('edukodas_tasks_add');
 
@@ -39,11 +47,11 @@ $(document).ready(function(){
         });
     }
 
-    $('#add-task-modal').modal({
+    $('#edit-task-modal').modal({
             ready: function(modal, trigger) {
-                addTaskButtonPressed(trigger);
+                editTaskButtonPressed(trigger);
             },
-            complete: function() { $('#add-task-modal > .modal-content').html(''); }
+            complete: function() { $('#edit-task-modal > .modal-content').html(''); }
         }
     );
 
@@ -87,14 +95,6 @@ $(document).ready(function(){
             }
         });
     }
-
-    $('#edit-task-modal').modal({
-            ready: function(modal, trigger) {
-                editTaskButtonPressed(trigger);
-            },
-            complete: function() { $('#edit-task-modal > .modal-content').html(''); }
-        }
-    );
 
     function deleteButton() {
         var taskId = $(this).data('task-id');

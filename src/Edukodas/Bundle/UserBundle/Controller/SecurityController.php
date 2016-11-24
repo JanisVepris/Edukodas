@@ -8,12 +8,16 @@ class SecurityController extends BaseController
 {
     protected function renderLogin(array $data)
     {
-        $securityContext = $this->container->get('security.authorization_checker');
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            if ($this->getUser()->hasRole('ROLE_TEACHER')) {
+                return $this->redirectToRoute('edukodas_teacher_profile');
+            }
 
-        if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute('edukodas_user_homepage');
+            return $this->redirectToRoute('edukodas_student_profile');
         }
 
         return $this->render('FOSUserBundle:Security:login.html.twig', $data);
     }
+
+
 }

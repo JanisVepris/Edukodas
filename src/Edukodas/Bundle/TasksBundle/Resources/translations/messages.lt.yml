@@ -4,4 +4,10 @@ form:
     name: Užduoties pavadinimas
     description: Aprašymas
     points: Taškai
-    submit: Išsaugoti
+    submit: Pridėti
+  edit_tasks:
+    save: Išsaugoti
+
+list:
+  no_courses: Nėra dėstomų dalykų
+  no_tasks: Nėra užduočių

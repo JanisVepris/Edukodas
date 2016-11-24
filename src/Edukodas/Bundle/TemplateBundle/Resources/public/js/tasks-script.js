@@ -1,69 +1,22 @@
 $(document).ready(function(){
-    $('#add-task-modal').modal({
+    $('#manage-task-modal').modal({
             ready: function(modal, trigger) {
-                addTaskButtonPressed(trigger);
+                manageTaskButton(trigger);
             },
-            complete: function() { $('#add-task-modal > .modal-content').html(''); }
+            complete: function() { $('#manage-task-modal > .modal-content').html(''); }
         }
     );
 
-    function addTaskButtonPressed(){
-        var url = Routing.generate('edukodas_tasks_add');
-
-        $.ajax({
-            url:   url,
-            type: 'POST',
-            beforeSend: function(){
-                $('#add-task-modal > .modal-content').html('<div class="center-align">' +
-                    '<div class="preloader-wrapper big active">' +
-                    '<div class="spinner-layer spinner-blue-only">' +
-                    '<div class="circle-clipper left">' +
-                    '<div class="circle"></div>' +
-                    '</div><div class="gap-patch">' +
-                    '<div class="circle"></div>' +
-                    '</div><div class="circle-clipper right">' +
-                    '<div class="circle"></div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div></div>');
-            },
-            success: function(data){
-                if (data) {
-                    $('#add-task-modal > .modal-content').html(data);
-                    $('select').material_select();
-                    $('#add-task-form').ajaxForm({
-                            url: url,
-                            type: 'POST',
-                            beforeSubmit: function(){
-                                $('#add-task-form > button').remove();
-                            },
-                            success: function(){
-                                refreshTaskList();
-                                $('#add-task-modal').modal('close');
-                            }
-                    });
-                }
-            }
-        });
-    }
-
-    $('#edit-task-modal').modal({
-            ready: function(modal, trigger) {
-                editTaskButtonPressed(trigger);
-            },
-            complete: function() { $('#edit-task-modal > .modal-content').html(''); }
-        }
-    );
-
-    function editTaskButtonPressed(trigger){
+    function manageTaskButton(trigger){
+        var taskAction = trigger.data('task-action');
         var taskId = trigger.data('task-id');
-        var url = Routing.generate('edukodas_tasks_edit', {taskId : taskId});
+        var url = Routing.generate(taskAction, {taskId : taskId});
 
         $.ajax({
             url:   url,
             type: 'POST',
             beforeSend: function(){
-                $('#edit-task-modal > .modal-content').html('<div class="center-align">' +
+                $('#manage-task-modal > .modal-content').html('<div class="center-align">' +
                     '<div class="preloader-wrapper big active">' +
                         '<div class="spinner-layer spinner-blue-only">' +
                             '<div class="circle-clipper left">' +
@@ -78,17 +31,26 @@ $(document).ready(function(){
             },
             success: function(data){
                 if (data) {
-                    $('#edit-task-modal > .modal-content').html(data);
+                    $('#manage-task-modal > .modal-content').html(data);
                     $('select').material_select();
-                    $('#edit-task-form').ajaxForm({
+                    $('#manage-task-form').ajaxForm({
                         url: url,
                         type: 'POST',
                         beforeSubmit: function(){
-                            $('#edit-task-form > button').remove();
+                            $('#manage-task-form > button').replaceWith('<div class="preloader-wrapper small active">' +
+                                '<div class="spinner-layer spinner-green-only">' +
+                                '<div class="circle-clipper left">' +
+                                '<div class="circle"></div>' +
+                                '</div><div class="gap-patch">' +
+                                '<div class="circle"></div>' +
+                                '</div><div class="circle-clipper right">' +
+                                '<div class="circle"></div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>');
                         },
                         success: function(){
                             refreshTaskList();
-                            $('#edit-task-modal').modal('close');
                         }
                     });
                 }
@@ -96,7 +58,7 @@ $(document).ready(function(){
         });
     }
 
-    function deleteButton() {
+    function deleteTaskButton() {
         var taskId = $(this).data('task-id');
         var url = Routing.generate('edukodas_tasks_delete', {taskId : taskId});
 
@@ -123,7 +85,7 @@ $(document).ready(function(){
         });
     }
 
-    $('.delete-task').on('click', deleteButton);
+    $('.delete-task').on('click', deleteTaskButton);
 
     function refreshTaskList(){
         var url = Routing.generate('edukodas_tasks_list');
@@ -133,7 +95,8 @@ $(document).ready(function(){
             type: 'POST',
             success: function(data) {
                 $('#tasks-list').html(data);
-                $('.delete-task').on('click', deleteButton);
+                $('.delete-task').on('click', deleteTaskButton);
+                $('#manage-task-modal').modal('close');
             }
         });
     }

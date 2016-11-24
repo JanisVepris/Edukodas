@@ -14,7 +14,7 @@ class TasksController extends Controller
 {
     /**
      * @param Request $request
-     * @return JsonResponse|Response
+     * @return Response
      */
     public function addAction(Request $request)
     {
@@ -33,18 +33,18 @@ class TasksController extends Controller
             $em->persist($task);
             $em->flush();
 
-            return $this->render('@EdukodasTasks/listtasks.html.twig', [
+            return $this->render('EdukodasTemplateBundle:tasks:listtasks.html.twig', [
                 'user' => $user,
             ]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
-            $view = $this->renderView('@EdukodasTasks/addtask.html.twig', [
+            $view = $this->renderView('EdukodasTemplateBundle:tasks:addtask.html.twig', [
                 'form' => $form->createView(),
             ]);
 
             return new Response($view, Response::HTTP_BAD_REQUEST);
         }
 
-        return $this->render('@EdukodasTasks/addtask.html.twig', [
+        return $this->render('EdukodasTemplateBundle:tasks:addtask.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -52,7 +52,7 @@ class TasksController extends Controller
     /**
      * @param Request $request
      * @param int $taskId
-     * @return JsonResponse|Response
+     * @return Response
      */
     public function editFormAction(Request $request, int $taskId)
     {
@@ -75,25 +75,25 @@ class TasksController extends Controller
             $em->persist($task);
             $em->flush();
 
-            return $this->render('@EdukodasTasks/listtasks.html.twig', [
+            return $this->render('EdukodasTemplateBundle:tasks:listtasks.html.twig', [
                 'user' => $user,
             ]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
-            $view = $this->renderView('@EdukodasTasks/edittask.html.twig', [
+            $view = $this->renderView('EdukodasTemplateBundle:tasks:edittask.html.twig', [
                 'form' => $form->createView(),
             ]);
 
             return new Response($view, Response::HTTP_BAD_REQUEST);
         }
 
-        return $this->render('@EdukodasTasks/edittask.html.twig', [
+        return $this->render('EdukodasTemplateBundle:tasks:edittask.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
      * @param int $taskId
-     * @return JsonResponse
+     * @return Response
      */
     public function deleteAction(int $taskId)
     {
@@ -109,7 +109,7 @@ class TasksController extends Controller
         $em->remove($task);
         $em->flush();
 
-        return $this->render('@EdukodasTasks/listtasks.html.twig', [
+        return $this->render('EdukodasTemplateBundle:tasks:listtasks.html.twig', [
             'user' => $user,
         ]);
     }
@@ -121,7 +121,7 @@ class TasksController extends Controller
     {
         $user = $this->getUser();
 
-        return $this->render('@EdukodasTasks/listtasks.html.twig', [
+        return $this->render('EdukodasTemplateBundle:tasks:listtasks.html.twig', [
             'user' => $user,
         ]);
     }

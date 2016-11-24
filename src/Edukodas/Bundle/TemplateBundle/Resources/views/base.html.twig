@@ -17,9 +17,10 @@
     {% block header %}
         {% include 'EdukodasTemplateBundle:inc:header.html.twig' %}
     {% endblock %}
-    <div class="container">
-        {% block body %}{% endblock %}
-    </div>
+
+    {% block body %}
+    {% endblock %}
+
     {% javascripts filter='?yui_js'
     'bundles/fosjsrouting/js/router.js'
     'js/fos_js_routes.js'

@@ -1,0 +1,3 @@
+edukodas_point_history_list:
+    path:     /list
+    defaults: { _controller: EdukodasStatisticsBundle:PointHistory:list }

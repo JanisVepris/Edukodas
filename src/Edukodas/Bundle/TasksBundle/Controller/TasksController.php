@@ -36,6 +36,12 @@ class TasksController extends Controller
             return $this->render('@EdukodasTasks/listtasks.html.twig', [
                 'user' => $user,
             ]);
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            $view = $this->renderView('@EdukodasTasks/addtask.html.twig', [
+                'form' => $form->createView(),
+            ]);
+
+            return new Response($view, Response::HTTP_BAD_REQUEST);
         }
 
         return $this->render('@EdukodasTasks/addtask.html.twig', [
@@ -72,6 +78,12 @@ class TasksController extends Controller
             return $this->render('@EdukodasTasks/listtasks.html.twig', [
                 'user' => $user,
             ]);
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            $view = $this->renderView('@EdukodasTasks/edittask.html.twig', [
+                'form' => $form->createView(),
+            ]);
+
+            return new Response($view, Response::HTTP_BAD_REQUEST);
         }
 
         return $this->render('@EdukodasTasks/edittask.html.twig', [

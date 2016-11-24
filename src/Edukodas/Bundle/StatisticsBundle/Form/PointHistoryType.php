@@ -13,7 +13,7 @@ class PointHistoryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('comment')->add('amount')->add('teacher')->add('student')->add('task')        ;
+        $builder->add('comment')->add('amount')->add('teacher')->add('student')->add('task');
     }
     
     /**
@@ -33,6 +33,4 @@ class PointHistoryType extends AbstractType
     {
         return 'edukodas_bundle_statisticsbundle_pointhistory';
     }
-
-
 }

@@ -8,10 +8,10 @@
         {% for points in user.pointHistory %}
             <li class="row collection-item valign-wrapper">
                 <div class="col s1 center-align valign">
-                    <h4 class="{% if points.amount < 0 %}red{% else %}green{% endif %}">{{ points.amount }}</h4>
+                    <h4 class="{% if points.amount < 0 %}red-text{% else %}green-text{% endif %}">{{ points.amount }}</h4>
                 </div>
                 <div class="col s5 left-align">
-                    {{ points.student.firstName }} {{ points.student.lastName }}<br>
+                    <h5>{{ points.student.firstName }} {{ points.student.lastName }}</h5><br>
                     {{ points.task.name }}
                 </div>
                 <div class="col s5 right-align">

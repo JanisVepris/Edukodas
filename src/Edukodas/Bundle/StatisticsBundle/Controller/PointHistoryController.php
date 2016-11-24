@@ -17,5 +17,4 @@ class PointHistoryController extends Controller
             'user' => $user,
         ]);
     }
-
 }

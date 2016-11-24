@@ -6,3 +6,8 @@ security:
     password: Slaptažodis
     remember_me: Prisiminti?
     submit: Prisijungti
+
+profile:
+  edit:
+    change_password_success: Slaptažodis pakeistas
+    change_info_success: Profilio informacija atnaujinta

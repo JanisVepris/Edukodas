@@ -1,0 +1,36 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+    </div>
+{{ form_end(form) }}
+
+{{ form_start(form2, { 'action': path('fos_user_change_password'), 'attr': { 'class': 'fos_user_change_password' } }) }}
+    {{ form_widget(form2) }}
+    <div>
+        <input type="submit" id="submit_change_password" disabled value="{{ 'change_password.submit'|trans }}" />
+        <span id="change_password_message"></span>
+    </div>
+{{ form_end(form2) }}
+
+<script>
+    var submit = document.getElementById("submit_change_password");
+    var password = document.getElementById("fos_user_change_password_form_plainPassword_first");
+    var confirm_password = document.getElementById("fos_user_change_password_form_plainPassword_second");
+    var change_password_message = document.getElementById("change_password_message");
+
+    function validatePassword(){
+        if(password.value != confirm_password.value) {
+            change_password_message.innerHTML = 'Slaptažodžiai nesutampa';
+            submit.disabled = true;
+        } else {
+            change_password_message.innerHTML = '';
+            submit.disabled = false;
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+</script>

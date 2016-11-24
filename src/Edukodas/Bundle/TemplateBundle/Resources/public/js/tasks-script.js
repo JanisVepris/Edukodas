@@ -8,27 +8,20 @@ $(document).ready(function() {
             url:   url,
             type: 'POST',
             beforeSend: function() {
-                $('#manage-task-modal > .modal-content').html('<div class="center-align">' +
-                    '<div class="preloader-wrapper big active">' +
-                    '<div class="spinner-layer spinner-blue-only">' +
-                    '<div class="circle-clipper left">' +
-                    '<div class="circle"></div>' +
-                    '</div><div class="gap-patch">' +
-                    '<div class="circle"></div>' +
-                    '</div><div class="circle-clipper right">' +
-                    '<div class="circle"></div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div></div>');
+                $('#manage-task-modal > .modal-content > .form-content').html('');
+                $('#task-form-preload').removeClass('hide');
             },
             success: function(data) {
                 if (data) {
-                    $('#manage-task-modal > .modal-content').html(data);
+                    $('#task-form-preload').addClass('hide');
+                    $('#manage-task-modal > .modal-content > .form-content').html(data);
                     manageTaskForm(url);
                 }
             },
             error: function() {
-            //    TODO: add error handling
+                Materialize.toast('Nepavyko užkrauti formos', 4000);
+                $('#manage-task-modal').modal('close');
+                $('#task-form-preload').addClass('hide');
             }
         });
     }
@@ -41,18 +34,8 @@ $(document).ready(function() {
             url: url,
             type: 'POST',
             beforeSend: function() {
-                $('.delete-task*[data-task-id="' + taskId + '"]')
-                    .replaceWith('<div class="preloader-wrapper small active">' +
-                        '<div class="spinner-layer spinner-red-only">' +
-                        '<div class="circle-clipper left">' +
-                        '<div class="circle"></div>' +
-                        '</div><div class="gap-patch">' +
-                        '<div class="circle"></div>' +
-                        '</div><div class="circle-clipper right">' +
-                        '<div class="circle"></div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>');
+                $('.delete-task*[data-task-id="' + taskId + '"]').prop('disabled',true).hide();
+                $('#delete-task-preload-' + taskId).removeClass('hide');
             },
             success: function(data) {
                 if (data) {
@@ -60,7 +43,9 @@ $(document).ready(function() {
                 }
             },
             error: function() {
-                //    TODO: add error handling
+                Materialize.toast('Nepavyko ištrinti užduoties', 4000);
+                $('#delete-task-preload-' + taskId).addClass('hide');
+                $('.delete-task*[data-task-id="' + taskId + '"]').prop('disabled',false).show();
             }
         });
     }
@@ -72,30 +57,24 @@ $(document).ready(function() {
             url: url,
             type: 'POST',
             beforeSubmit: function() {
-                $('#manage-task-form > button').replaceWith('<div class="preloader-wrapper small active">' +
-                    '<div class="spinner-layer spinner-green-only">' +
-                    '<div class="circle-clipper left">' +
-                    '<div class="circle"></div>' +
-                    '</div><div class="gap-patch">' +
-                    '<div class="circle"></div>' +
-                    '</div><div class="circle-clipper right">' +
-                    '<div class="circle"></div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>');
+                $('#manage-task-form > button').prop('disabled', true).hide();
+                $('#submit-preloader').removeClass('hide');
             },
             success: function(data) {
                 if (data) {
                     updateTasksList(data);
                     $('#manage-task-modal').modal('close');
+                    $('#submit-preloader').addClass('hide');
                 }
             },
             error: function(data) {
-                if (data['status'] = 400) {
-                    $('#manage-task-modal > .modal-content').html(data['responseText']);
+                $('#submit-preloader').addClass('hide');
+                if (data['status'] == 400) {
+                    $('#manage-task-modal > .modal-content > .form-content').html(data['responseText']);
                     manageTaskForm(url);
                 } else {
-                    // TODO: add error handling
+                    Materialize.toast('Klaida išsaugant užduotį', 4000);
+                    $('#manage-task-form > button').prop('disabled', false).show();
                 }
             }
         });
@@ -110,7 +89,7 @@ $(document).ready(function() {
             ready: function(modal, trigger) {
                 manageTaskButton(trigger);
             },
-            complete: function() { $('#manage-task-modal > .modal-content').html(''); }
+            complete: function() { $('#manage-task-modal > .modal-content > .form-content').html(''); }
         }
     );
 

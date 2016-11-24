@@ -4,10 +4,12 @@ namespace Edukodas\Bundle\TasksBundle\Controller;
 
 use Edukodas\Bundle\TasksBundle\Entity\Task;
 use Edukodas\Bundle\TasksBundle\Form\TaskType;
+use Edukodas\Bundle\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TasksController extends Controller
@@ -18,6 +20,8 @@ class TasksController extends Controller
      */
     public function addAction(Request $request)
     {
+        $this->checkTeacherOr403();
+
         $user = $this->getUser();
 
         $task = new Task();
@@ -56,13 +60,16 @@ class TasksController extends Controller
      */
     public function editFormAction(Request $request, int $taskId)
     {
-        $user = $this->getUser();
-
+        /** @var Task $task */
         $task = $this->getDoctrine()->getRepository('EdukodasTasksBundle:Task')->find($taskId);
 
         if (!$task) {
             throw new NotFoundHttpException('Task not found');
         }
+
+        $this->checkOwnerOr403($task);
+
+        $user = $this->getUser();
 
         $form = $this->createForm(TaskType::class, $task, ['user' => $this->getUser()]);
 
@@ -105,6 +112,8 @@ class TasksController extends Controller
             throw new NotFoundHttpException('Task not found');
         }
 
+        $this->checkOwnerOr403($task);
+
         $em = $this->getDoctrine()->getEntityManager();
         $em->remove($task);
         $em->flush();
@@ -124,5 +133,29 @@ class TasksController extends Controller
         return $this->render('EdukodasTemplateBundle:tasks:listtasks.html.twig', [
             'user' => $user,
         ]);
+    }
+
+    /**
+     * Checks if user owns a task
+     *
+     * @param Task $task
+     */
+    private function checkOwnerOr403(Task $task)
+    {
+        if ($task->getCourse()->getUser()->getId() !== $this->getUser()->getId()) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
+    }
+
+    /**
+     * Checks if user has teacher role
+     */
+    private function checkTeacherOr403()
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        if (!$user->hasRole('ROLE_TEACHER')) {
+            throw new AccessDeniedHttpException('Access denied');
+        }
     }
 }

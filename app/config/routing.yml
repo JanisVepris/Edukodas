@@ -28,6 +28,10 @@ edukodas_tasks:
     resource: "@EdukodasTasksBundle/Resources/config/routing.yml"
     prefix: /tasks
 
+edukodas_points:
+    resource: "@EdukodasStatisticsBundle/Resources/config/routing.yml"
+    prefix: /points
+
 edukodas_profile:
     resource: "@EdukodasProfileBundle/Resources/config/routing.yml"
     prefix: /profile

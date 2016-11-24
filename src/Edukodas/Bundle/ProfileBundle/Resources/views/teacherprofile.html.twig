@@ -1,0 +1,47 @@
+{% extends "EdukodasTemplateBundle::base.html.twig" %}
+
+{% block body %}
+
+    <div class="row" style="clear: both;"><!-- Modal Structure -->
+        <div id="edit-task-modal" class="modal">
+            <div class="modal-content">
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+        {% for course in user.courses %}
+            <div class="divider"></div>
+            <div class="section">
+                <h4>{{ course.name }}</h4>
+                <table class="striped">
+                    <tbody>
+                        {% for task in course.tasks %}
+                            <tr>
+                                <td>
+                                    <h5>{{ task.name }}</h5>
+                                    {{ task.description }}
+                                </td>
+                                <td>
+                                    <h5>{{ task.points }}</h5>
+                                </td>
+                                <td>
+                                    <a
+                                        id="edit-task-{{ task.id }}"
+                                        class="btn-floating btn-small waves-effect waves-light red"
+                                        href="#edit-task-modal">
+                                        <i class="small material-icons">mode_edit</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            No tasks
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="divider"></div>
+            No courses
+        {% endfor %}
+    </div>
+{% endblock %}

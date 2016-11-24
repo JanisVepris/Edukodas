@@ -80,3 +80,6 @@ assetic:
         scssphp:
             formatter: 'Leafo\ScssPhp\Formatter\Compressed'
         jsqueeze: ~
+
+fos_js_routing:
+    routes_to_expose: [ edukodas_tasks_edit ]

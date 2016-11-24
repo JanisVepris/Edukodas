@@ -5,7 +5,6 @@ namespace Edukodas\Bundle\TasksBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-use Edukodas\Bundle\TasksBundle\Entity\Course;
 
 /**
  * Task
@@ -53,6 +52,13 @@ class Task
      * @ORM\Column(name="points", type="integer")
      */
     private $points;
+
+    /**
+     * @return string
+     */
+    public function __toString() {
+        return $this->name;
+    }
 
     /**
      * Get id

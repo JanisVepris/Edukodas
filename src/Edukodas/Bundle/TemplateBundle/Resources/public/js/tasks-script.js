@@ -1,5 +1,5 @@
-$(document).ready(function(){
-    function manageTaskButton(trigger){
+$(document).ready(function() {
+    function manageTaskButton(trigger) {
         var taskAction = trigger.data('task-action');
         var taskId = trigger.data('task-id');
         var url = Routing.generate(taskAction, {taskId : taskId});
@@ -7,7 +7,7 @@ $(document).ready(function(){
         $.ajax({
             url:   url,
             type: 'POST',
-            beforeSend: function(){
+            beforeSend: function() {
                 $('#manage-task-modal > .modal-content').html('<div class="center-align">' +
                     '<div class="preloader-wrapper big active">' +
                     '<div class="spinner-layer spinner-blue-only">' +
@@ -21,13 +21,13 @@ $(document).ready(function(){
                     '</div>' +
                     '</div></div>');
             },
-            success: function(data){
+            success: function(data) {
                 if (data) {
                     $('#manage-task-modal > .modal-content').html(data);
                     manageTaskForm(url);
                 }
             },
-            error: function () {
+            error: function() {
             //    TODO: add error handling
             }
         });
@@ -40,7 +40,7 @@ $(document).ready(function(){
         $.ajax({
             url: url,
             type: 'POST',
-            beforeSend: function () {
+            beforeSend: function() {
                 $('.delete-task*[data-task-id="' + taskId + '"]')
                     .replaceWith('<div class="preloader-wrapper small active">' +
                         '<div class="spinner-layer spinner-red-only">' +
@@ -54,24 +54,24 @@ $(document).ready(function(){
                         '</div>' +
                         '</div>');
             },
-            success: function (data) {
+            success: function(data) {
                 if (data) {
                     updateTasksList(data);
                 }
             },
-            error: function () {
+            error: function() {
                 //    TODO: add error handling
             }
         });
     }
 
-    function manageTaskForm (url) {
+    function manageTaskForm(url) {
         $('select').material_select();
 
         $('#manage-task-form').ajaxForm({
             url: url,
             type: 'POST',
-            beforeSubmit: function(){
+            beforeSubmit: function() {
                 $('#manage-task-form > button').replaceWith('<div class="preloader-wrapper small active">' +
                     '<div class="spinner-layer spinner-green-only">' +
                     '<div class="circle-clipper left">' +
@@ -84,13 +84,13 @@ $(document).ready(function(){
                     '</div>' +
                     '</div>');
             },
-            success: function (data) {
+            success: function(data) {
                 if (data) {
                     updateTasksList(data);
                     $('#manage-task-modal').modal('close');
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 if (data['status'] = 400) {
                     $('#manage-task-modal > .modal-content').html(data['responseText']);
                     manageTaskForm(url);

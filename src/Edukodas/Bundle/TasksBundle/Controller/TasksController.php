@@ -76,7 +76,6 @@ class TasksController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $task = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
@@ -151,7 +150,8 @@ class TasksController extends Controller
     /**
      * Checks if user has teacher role
      */
-    private function checkTeacherOr403() {
+    private function checkTeacherOr403()
+    {
         /** @var User $user */
         $user = $this->getUser();
         if (!$user->hasRole('ROLE_TEACHER')) {

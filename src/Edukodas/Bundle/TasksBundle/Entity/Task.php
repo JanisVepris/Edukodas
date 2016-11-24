@@ -5,6 +5,7 @@ namespace Edukodas\Bundle\TasksBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Task
@@ -50,13 +51,16 @@ class Task
      * @var int
      *
      * @ORM\Column(name="points", type="integer")
+     *
+     * @Assert\Type(type="numeric")
      */
     private $points;
 
     /**
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->name;
     }
 

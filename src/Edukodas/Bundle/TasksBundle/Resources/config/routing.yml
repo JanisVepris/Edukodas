@@ -1,5 +1,5 @@
 edukodas_tasks_list:
-    path:     /
+    path:     /list
     defaults: { _controller: EdukodasTasksBundle:Tasks:list }
 
 edukodas_tasks_add:
@@ -9,9 +9,7 @@ edukodas_tasks_add:
 edukodas_tasks_edit:
     path:     /edit/{taskId}
     defaults: { _controller: EdukodasTasksBundle:Tasks:editForm }
-    options:
-        expose: true
 
-edukodas_tasks_remove:
-    path:     /{taskid}
-    defaults: { _controller: EdukodasTasksBundle:Tasks:remove, taskid: 1 }
+edukodas_tasks_delete:
+    path:     /delete/{taskId}
+    defaults: { _controller: EdukodasTasksBundle:Tasks:delete }

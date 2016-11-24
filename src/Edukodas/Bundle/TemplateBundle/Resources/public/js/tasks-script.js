@@ -49,8 +49,9 @@ $(document).ready(function(){
                                 '</div>' +
                                 '</div>');
                         },
-                        success: function(){
-                            refreshTaskList();
+                        success: function(data){
+                            updateTasksList(data);
+                            $('#manage-task-modal').modal('close');
                         }
                     });
                 }
@@ -79,25 +80,16 @@ $(document).ready(function(){
                         '</div>' +
                         '</div>');
             },
-            success: function () {
-                refreshTaskList();
+            success: function (data) {
+                updateTasksList(data);
             }
         });
     }
 
     $('.delete-task').on('click', deleteTaskButton);
 
-    function refreshTaskList(){
-        var url = Routing.generate('edukodas_tasks_list');
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            success: function(data) {
-                $('#tasks-list').html(data);
-                $('.delete-task').on('click', deleteTaskButton);
-                $('#manage-task-modal').modal('close');
-            }
-        });
+    function updateTasksList(data) {
+        $('#tasks-list').html(data);
+        $('.delete-task').on('click', deleteTaskButton);
     }
 });

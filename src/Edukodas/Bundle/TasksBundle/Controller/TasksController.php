@@ -18,6 +18,8 @@ class TasksController extends Controller
      */
     public function addAction(Request $request)
     {
+        $user = $this->getUser();
+
         $task = new Task();
 
         $form = $this->createForm(TaskType::class, $task, ['user' => $this->getUser()]);
@@ -31,12 +33,8 @@ class TasksController extends Controller
             $em->persist($task);
             $em->flush();
 
-            return new JsonResponse([
-                'taskId' => $task->getId(),
-                'course' => $task->getCourse()->getId(),
-                'name' => $task->getName(),
-                'description' => $task->getDescription(),
-                'points' => $task->getPoints(),
+            return $this->render('@EdukodasTasks/listtasks.html.twig', [
+                'user' => $user,
             ]);
         }
 
@@ -52,6 +50,8 @@ class TasksController extends Controller
      */
     public function editFormAction(Request $request, int $taskId)
     {
+        $user = $this->getUser();
+
         $task = $this->getDoctrine()->getRepository('EdukodasTasksBundle:Task')->find($taskId);
 
         if (!$task) {
@@ -69,12 +69,8 @@ class TasksController extends Controller
             $em->persist($task);
             $em->flush();
 
-            return new JsonResponse([
-                'taskId' => $task->getId(),
-                'course' => $task->getCourse()->getId(),
-                'name' => $task->getName(),
-                'description' => $task->getDescription(),
-                'points' => $task->getPoints(),
+            return $this->render('@EdukodasTasks/listtasks.html.twig', [
+                'user' => $user,
             ]);
         }
 
@@ -89,6 +85,8 @@ class TasksController extends Controller
      */
     public function deleteAction(int $taskId)
     {
+        $user = $this->getUser();
+
         $task = $this->getDoctrine()->getRepository('EdukodasTasksBundle:Task')->find($taskId);
 
         if (!$task) {
@@ -99,7 +97,9 @@ class TasksController extends Controller
         $em->remove($task);
         $em->flush();
 
-        return new JsonResponse($taskId);
+        return $this->render('@EdukodasTasks/listtasks.html.twig', [
+            'user' => $user,
+        ]);
     }
 
     /**

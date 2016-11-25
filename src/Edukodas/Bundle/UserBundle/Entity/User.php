@@ -5,6 +5,8 @@ namespace Edukodas\Bundle\UserBundle\Entity;
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Edukodas\Bundle\TasksBundle\Entity\Course;
 
@@ -13,9 +15,14 @@ use Edukodas\Bundle\TasksBundle\Entity\Course;
  *
  * @ORM\Table(name="fos_user")
  * @ORM\Entity(repositoryClass="Edukodas\Bundle\UserBundle\Repository\UserRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class User extends BaseUser
 {
+    use SoftDeleteableEntity;
+
+    const STUDENT_ROLE = 'ROLE_STUDENT';
+
     /**
      * @var int
      *

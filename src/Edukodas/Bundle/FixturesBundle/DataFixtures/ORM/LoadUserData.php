@@ -92,7 +92,7 @@ class LoadUserData extends AbstractFixture implements
                 'lastName' => 'A',
                 'password' => 'password',
                 'email' => 'mokinysa@pastas.com',
-                'roles' => ['ROLE_USER'],
+                'roles' => ['ROLE_STUDENT'],
                 'enabled' => true
             ],
             [
@@ -102,7 +102,7 @@ class LoadUserData extends AbstractFixture implements
                 'lastName' => 'B',
                 'password' => 'password',
                 'email' => 'mokinysb@pastas.com',
-                'roles' => ['ROLE_USER'],
+                'roles' => ['ROLE_STUDENT'],
                 'enabled' => true
             ],            [
                 'username' => 'mokinysc',
@@ -111,7 +111,7 @@ class LoadUserData extends AbstractFixture implements
                 'lastName' => 'C',
                 'password' => 'password',
                 'email' => 'mokinysc@pastas.com',
-                'roles' => ['ROLE_USER'],
+                'roles' => ['ROLE_STUDENT'],
                 'enabled' => true
             ],
         ];

@@ -17,4 +17,15 @@ class PointHistoryController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function addAction()
+    {
+        $points = new PointHistory();
+
+        $form = $this->createForm(PointHistoryType::class, $points, ['user' => $this->getUser()]);
+
+        return $this->render('EdukodasTemplateBundle:pointhistory:addpoints.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }

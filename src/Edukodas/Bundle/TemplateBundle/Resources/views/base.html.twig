@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>{% block title %}{{ "PlsAtsiminkPakeist" }}{% endblock %}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico')}}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    {% stylesheets filter="scssphp" output="css/app.css"
-    "bundles/edukodastemplate/sass/materialize.scss"
-    %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
+    {% block stylesheets %}
+        {% stylesheets "bundles/edukodastemplate/sass/materialize.scss" filter="scssphp" output="css/app.css" %}
+            <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock %}
     {% block canonical_meta %}{% endblock %}
 </head>
 <body>
@@ -22,12 +22,11 @@
     {% endblock %}
 
     {% javascripts filter='?yui_js'
-    'bundles/fosjsrouting/js/router.js'
-    'js/fos_js_routes.js'
     'bundles/edukodastemplate/js/jquery-2.2.4.min.js'
     'bundles/edukodastemplate/js/bin/materialize.js'
     'bundles/edukodastemplate/js/jquery.form.js'
-    'bundles/edukodastemplate/js/script.js'
+    'bundles/fosjsrouting/js/router.js'
+    'js/fos_js_routes.js'
     'bundles/edukodastemplate/js/tasks-script.js'
     output='js/compiled/app.js' %}
     <script src="{{ asset_url }}"></script>

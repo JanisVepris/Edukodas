@@ -7,8 +7,11 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {% block stylesheets %}
-        {% stylesheets "bundles/edukodastemplate/sass/materialize.scss" filter="scssphp" output="css/app.css" %}
-            <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% stylesheets
+        "bundles/edukodastemplate/sass/materialize.scss"
+        "bundles/edukodastemplate/sass/main.scss"
+        filter="scssphp" output="css/app.css" %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
     {% endblock %}
     {% block canonical_meta %}{% endblock %}

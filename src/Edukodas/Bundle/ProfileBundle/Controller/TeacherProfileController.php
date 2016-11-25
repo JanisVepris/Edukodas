@@ -10,7 +10,7 @@ class TeacherProfileController extends Controller
     {
         $user = $this->getUser();
 
-        return $this->render('EdukodasProfileBundle::teacherprofile.html.twig', [
+        return $this->render('EdukodasTemplateBundle:Profile:teacherprofile.html.twig', [
             'user' => $user
         ]);
     }

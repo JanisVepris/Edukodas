@@ -7,3 +7,13 @@ body {
 main {
   flex: 1 0 auto;
 }
+
+.search {
+  padding: 0 !important;
+}
+
+@media (max-width: 1043px) {
+  nav ul a {
+    padding: 0 10px;
+  }
+}

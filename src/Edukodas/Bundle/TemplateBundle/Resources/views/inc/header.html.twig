@@ -1,27 +1,45 @@
 {% block header %}
     <header>
         <nav>
-            <div class="nav-wrapper">
-                <form>
-                    <div class="input-field">
-                        <input id="search" type="search" required>
-                        <label for="search"><i class="material-icons">search</i></label>
-                        <i class="material-icons">close</i>
-                    </div>
-                </form>
-            </div>
-        </nav>
-        <nav class="nav-extended">
-            <div class="nav-wrapper">
-                <ul class="tabs tabs-transparent">
-                    <li class="tab"><a href="#"><i class="material-icons md-36">account_circle</i></a></li>
-                    <li class="tab"><a href="#"><i class="material-icons">list</i></a></li>
-                    <li class="tab"><a href="#"><i class="material-icons">timeline</i></a></li>
-                    <li class="tab"><a href="#"><i class="material-icons">group</i></a></li>
-                    <li class="tab"><a href="#"><i class="material-icons">settings</i></a></li>
-                    <li class="tab"><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons">exit_to_app</i></a>
-                    </li>
-                </ul>
+            <div class="nav-wrapper row">
+                <a href="#" data-activates="hamburger" class="button-collapse"><i class="material-icons">menu</i>
+                    <ul class="hide-on-med-and-down right">
+                        <li><a href="#"><i class="material-icons right">account_circle</i>Profilis</a></li>
+                        <li><a href="#"><i class="material-icons right">list</i>Užduotys</a></li>
+                        <li><a href="#"><i class="material-icons right">timeline</i>Statistika</a></li>
+                        <li><a href="#"><i class="material-icons right">group</i>Reitingai</a></li>
+                        <li><a href="#"><i class="material-icons right">settings</i>Nustatymai</a></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}"><i
+                                        class="material-icons right">exit_to_app</i>Atsijungti</a>
+                        </li>
+                    </ul>
+                    <form class="col s3 hide-on-med-and-down search">
+                        <div class="input-field">
+                            <input id="search" type="search" required>
+                            <label for="search"><i class="material-icons">search</i></label>
+                            <i class="material-icons">close</i>
+                        </div>
+                    </form>
+                    <ul class="side-nav" id="hamburger">
+                        <nav>
+                            <div class="nav-wrapper">
+                                <form>
+                                    <div class="input-field">
+                                        <input id="search" type="search" required>
+                                        <label for="search"><i class="material-icons">search</i></label>
+                                        <i class="material-icons">close</i>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                        <li><a href="#"><i class="material-icons">account_circle</i>Profilis</a></li>
+                        <li><a href="#"><i class="material-icons">list</i>Užduotys</a></li>
+                        <li><a href="#"><i class="material-icons">timeline</i>Statistika</a></li>
+                        <li><a href="#"><i class="material-icons">group</i>Reitingai</a></li>
+                        <li><a href="#"><i class="material-icons">settings</i>Nustatymai</a></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons">exit_to_app</i>Atsijungti</a>
+                        </li>
+                    </ul>
             </div>
         </nav>
     </header>

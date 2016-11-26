@@ -23,11 +23,15 @@
 
 {% block main %}{% endblock %}
 
-{% javascripts
-'bundles/edukodastemplate/js/jquery-2.2.4.min.js'
-'bundles/edukodastemplate/js/bin/materialize.js'
-output='js/compiled/app.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
+{% block javascripts %}
+    {% javascripts
+    'bundles/edukodastemplate/js/jquery-2.2.4.min.js'
+    'bundles/edukodastemplate/js/bin/materialize.js'
+    'bundles/edukodastemplate/js/bin/main.js'
+    output='js/compiled/app.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
 </body>
 </html>

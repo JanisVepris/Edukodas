@@ -1,6 +1,6 @@
 {% extends 'EdukodasTemplateBundle::base.html.twig' %}
 
-{% block body %}
+{% block main %}
     <h2>{{ user.firstName }} {{ user.lastName }} <small>{{ user.studentClass.title }}</small></h2>
 
     {% if app.user.id == user.id %}

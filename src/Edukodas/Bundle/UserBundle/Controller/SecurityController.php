@@ -12,7 +12,6 @@ class SecurityController extends BaseController
         $securityContext = $this->container->get('security.authorization_checker');
 
         if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-
             if ($this->getUser()->hasRole(User::TEACHER_ROLE)) {
                 return $this->redirectToRoute('edukodas_teacher_profile');
             }

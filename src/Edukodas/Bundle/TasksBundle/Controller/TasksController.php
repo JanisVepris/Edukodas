@@ -76,6 +76,7 @@ class TasksController extends AbstractTeacherController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $task = $form->getData();
 
             $em = $this->getDoctrine()->getManager();

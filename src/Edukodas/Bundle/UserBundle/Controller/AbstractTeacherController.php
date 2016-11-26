@@ -2,7 +2,10 @@
 
 namespace Edukodas\Bundle\UserBundle\Controller;
 
+use Edukodas\Bundle\TasksBundle\Entity\Task;
+use Edukodas\Bundle\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 abstract class AbstractTeacherController extends Controller
 {

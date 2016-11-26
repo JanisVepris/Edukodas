@@ -4,13 +4,22 @@
             <div class="nav-wrapper row">
                 <a href="#" data-activates="hamburger" class="button-collapse"><i class="material-icons">menu</i>
                     <ul class="hide-on-med-and-down right">
-                        <li><a href="#"><i class="material-icons right">account_circle</i>Profilis</a></li>
-                        <li><a href="#"><i class="material-icons right">list</i>Užduotys</a></li>
-                        <li><a href="#"><i class="material-icons right">timeline</i>Statistika</a></li>
-                        <li><a href="#"><i class="material-icons right">group</i>Reitingai</a></li>
-                        <li><a href="#"><i class="material-icons right">settings</i>Nustatymai</a></li>
+                        <li><a href="#"><i
+                                        class="material-icons right">account_circle</i>{{ 'menu.navigation.profile'|trans }}
+                            </a></li>
+                        <li><a href="#"><i class="material-icons right">list</i>{{ 'menu.navigation.tasks'|trans }}</a>
+                        </li>
+                        <li><a href="#"><i
+                                        class="material-icons right">timeline</i>{{ 'menu.navigation.ratings'|trans }}
+                            </a></li>
+                        <li><a href="#"><i class="material-icons right">group</i>{{ 'menu.navigation.users'|trans }}</a>
+                        </li>
+                        <li><a href="#"><i
+                                        class="material-icons right">settings</i>{{ 'menu.navigation.settings'|trans }}
+                            </a></li>
                         <li><a href="{{ path('fos_user_security_logout') }}"><i
-                                        class="material-icons right">exit_to_app</i>Atsijungti</a>
+                                        class="material-icons right">exit_to_app</i>{{ 'menu.navigation.logout'|trans }}
+                            </a>
                         </li>
                     </ul>
                     <form class="col s3 hide-on-med-and-down search">
@@ -32,12 +41,17 @@
                                 </form>
                             </div>
                         </nav>
-                        <li><a href="#"><i class="material-icons">account_circle</i>Profilis</a></li>
-                        <li><a href="#"><i class="material-icons">list</i>Užduotys</a></li>
-                        <li><a href="#"><i class="material-icons">timeline</i>Statistika</a></li>
-                        <li><a href="#"><i class="material-icons">group</i>Reitingai</a></li>
-                        <li><a href="#"><i class="material-icons">settings</i>Nustatymai</a></li>
-                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons">exit_to_app</i>Atsijungti</a>
+                        <li><a href="#"><i
+                                        class="material-icons">account_circle</i>{{ 'menu.navigation.profile'|trans }}
+                            </a></li>
+                        <li><a href="#"><i class="material-icons">list</i>{{ 'menu.navigation.tasks'|trans }}</a></li>
+                        <li><a href="#"><i class="material-icons">timeline</i>{{ 'menu.navigation.ratings'|trans }}</a>
+                        </li>
+                        <li><a href="#"><i class="material-icons">group</i>{{ 'menu.navigation.users'|trans }}</a></li>
+                        <li><a href="#"><i class="material-icons">settings</i>{{ 'menu.navigation.settings'|trans }}</a>
+                        </li>
+                        <li><a href="{{ path('fos_user_security_logout') }}"><i
+                                        class="material-icons">exit_to_app</i>{{ 'menu.navigation.logout'|trans }}</a>
                         </li>
                     </ul>
             </div>

@@ -1,0 +1,22 @@
+<li class="row collection-item valign-wrapper" id="history-points-{{ entryId }}">
+    <div class="col s1 center-align valign">
+        <h4 class="{% if amount < 0 %}red-text{% else %}green-text{% endif %}">{{ amount }}</h4>
+    </div>
+    <div class="col s5 left-align">
+        <h5>{{ studentName }}</h5><br>
+        {{ taskName }}
+    </div>
+    <div class="col s5 right-align">
+        {{ createdAt }}<br>
+        {{ comment }}
+    </div>
+    <div class="col s1 center-align valign">
+        <a data-points-id="{{ entryId }}"
+           data-points-action="edukodas_points_edit"
+           class="btn-floating btn-small waves-effect waves-light red"
+           href="#edit-points-modal">
+            <i class="small material-icons">mode_edit</i>
+        </a>
+    </div>
+</li>
+

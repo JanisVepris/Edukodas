@@ -7,31 +7,28 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {% block stylesheets %}
-        {% stylesheets
-        "bundles/edukodastemplate/sass/materialize.scss"
-        "bundles/edukodastemplate/sass/main.scss"
-        filter="scssphp" output="css/app.css" %}
-        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% stylesheets "bundles/edukodastemplate/sass/materialize.scss" filter="scssphp" output="css/app.css" %}
+            <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
     {% endblock %}
     {% block canonical_meta %}{% endblock %}
 </head>
 <body>
-{% block header %}
-    {% include 'EdukodasTemplateBundle:inc:header.html.twig' %}
-{% endblock %}
+    {% block header %}
+        {% include 'EdukodasTemplateBundle:inc:header.html.twig' %}
+    {% endblock %}
 
-{% block main %}{% endblock %}
+    {% block main %}{% endblock %}
 
-{% block javascripts %}
-    {% javascripts
+    {% javascripts filter='?yui_js'
     'bundles/edukodastemplate/js/jquery-2.2.4.min.js'
     'bundles/edukodastemplate/js/bin/materialize.js'
-    'bundles/edukodastemplate/js/bin/main.js'
+    'bundles/edukodastemplate/js/jquery.form.js'
+    'bundles/fosjsrouting/js/router.js'
+    'js/fos_js_routes.js'
+    'bundles/edukodastemplate/js/teacher-profile-script.js'
     output='js/compiled/app.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-{% endblock %}
-
 </body>
 </html>

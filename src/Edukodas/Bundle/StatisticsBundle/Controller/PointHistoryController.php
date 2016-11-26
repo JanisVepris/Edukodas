@@ -4,10 +4,10 @@ namespace Edukodas\Bundle\StatisticsBundle\Controller;
 
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use Edukodas\Bundle\StatisticsBundle\Form\PointHistoryType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Edukodas\Bundle\UserBundle\Controller\AbstractTeacherController;
+use Symfony\Component\HttpFoundation\Request;
 
-class PointHistoryController extends Controller
+class PointHistoryController extends AbstractTeacherController
 {
     public function listAction()
     {
@@ -18,14 +18,34 @@ class PointHistoryController extends Controller
         ]);
     }
 
-    public function addAction()
+    public function addAction(Request $request)
     {
+        $this->checkTeacherOr403();
+
         $points = new PointHistory();
 
         $form = $this->createForm(PointHistoryType::class, $points, ['user' => $this->getUser()]);
 
-        return $this->render('EdukodasTemplateBundle:pointhistory:addpoints.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var PointHistory $pointHistory */
+            $pointHistory = $form->getData();
+            $pointHistory->setTeacher($this->getUser());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($pointHistory);
+            $em->flush();
+
+            return $this->render('EdukodasTemplateBundle:pointhistory:listpoints.html.twig', [
+                'entryId' => $pointHistory->getId(),
+                'amount' => $pointHistory->getAmount(),
+                'studentName' => $pointHistory->getStudent()->getFullName(),
+                'teacherName' => $pointHistory->getTeacher()->getFullName(),
+                'taskName' => $pointHistory->getTask()->getName(),
+                'comment' => $pointHistory->getComment(),
+                'createdAt' => $pointHistory->getCreatedAt()->format('Y/m/d H:m')
+            ]);
+        }
     }
 }

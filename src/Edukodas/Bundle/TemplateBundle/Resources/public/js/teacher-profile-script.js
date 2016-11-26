@@ -1,4 +1,71 @@
 $(document).ready(function() {
+    function toggleAddPointsForm() {
+        if ($('.task-list-container').hasClass('hide')) {
+            $('.task-list-container').removeClass('hide');
+            $('#add-points-form-container').addClass('hide');
+        } else {
+            $('.task-list-container').addClass('hide');
+            $('#add-points-form-container').removeClass('hide');
+        }
+    }
+
+    function managePointsForm() {
+        $('select').material_select();
+
+        var url = Routing.generate('edukodas_points_add');
+
+        $('#add-points-form').ajaxForm({
+            url: url,
+            type: 'POST',
+            beforeSubmit: function() {
+                $('#add-points-submit').prop('disabled', true).hide();
+                $('#points-submit-preloader').removeClass('hide');
+            },
+            success: function(data) {
+                $('#points-history-list').prepend(data);
+                $('#manage-points-modal').modal('close');
+                $('#add-points-submit').prop('disabled', false).show();
+                $('#points-submit-preloader').addClass('hide');
+                toggleAddPointsForm();
+                $('#edukodas_bundle_statisticsbundle_pointhistory_comment').val('');
+            },
+            error: function(data) {
+                Materialize.toast('Klaida išsaugant taškus', 4000);
+                $('#add-points-submit').prop('disabled', false).show();
+                $('#points-submit-preloader').addClass('hide');
+            }
+        });
+    }
+
+    $('#add-points-form-back').click(function (e) {
+        e.preventDefault();
+        toggleAddPointsForm();
+    });
+
+    $('.points-task-select-button').click(function (e) {
+        e.preventDefault();
+
+        var taskId = $(this).data('taskId');
+        var amount = $(this).data('taskAmount');
+
+        toggleAddPointsForm();
+
+        $('#edukodas_bundle_statisticsbundle_pointhistory_task').val(taskId);
+        $('#edukodas_bundle_statisticsbundle_pointhistory_amount').val(amount);
+    });
+
+    $('#manage-points-modal').modal({
+            ready: function(modal, trigger) {
+                managePointsForm();
+            },
+            complete: function() {
+                // $('#manage-task-modal > .modal-content > .form-content').html('');
+            }
+        }
+    );
+
+
+//
     function manageTaskButton(trigger) {
         var taskAction = trigger.data('task-action');
         var taskId = trigger.data('task-id');

@@ -4,6 +4,7 @@ namespace Edukodas\Bundle\StatisticsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Edukodas\Bundle\TasksBundle\Entity\Task;
+use Edukodas\Bundle\UserBundle\Entity\User;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
@@ -11,7 +12,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
  * PointHistory
  *
  * @ORM\Table(name="point_history")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Edukodas\Bundle\StatisticsBundle\Entity\Repository\PointHistoryRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
@@ -29,7 +30,7 @@ class PointHistory
     private $id;
 
     /**
-     * @var int
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User", inversedBy="pointHistory")
      * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id")
@@ -37,7 +38,7 @@ class PointHistory
     private $teacher;
 
     /**
-     * @var int
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id")
@@ -55,7 +56,7 @@ class PointHistory
     /**
      * @var string
      *
-     * @ORM\Column(name="comment", type="text")
+     * @ORM\Column(name="comment", type="text", nullable=true)
      */
     private $comment;
 
@@ -92,7 +93,7 @@ class PointHistory
     }
 
     /**
-     * @return int
+     * @return User
      */
     public function getTeacher()
     {
@@ -100,7 +101,7 @@ class PointHistory
     }
 
     /**
-     * @param int $teacher
+     * @param User $teacher
      * @return PointHistory
      */
     public function setTeacher($teacher)
@@ -111,7 +112,7 @@ class PointHistory
     }
 
     /**
-     * @return int
+     * @return User
      */
     public function getStudent()
     {

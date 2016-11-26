@@ -92,4 +92,9 @@ assetic:
         jsqueeze: ~
 
 fos_js_routing:
-    routes_to_expose: [ edukodas_tasks_edit, edukodas_tasks_delete, edukodas_tasks_add, edukodas_tasks_list ]
+    routes_to_expose:
+        - edukodas_tasks_edit
+        - edukodas_tasks_delete
+        - edukodas_tasks_add
+        - edukodas_tasks_list
+        - edukodas_points_add

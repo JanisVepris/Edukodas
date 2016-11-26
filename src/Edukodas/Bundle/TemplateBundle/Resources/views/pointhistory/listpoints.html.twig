@@ -1,35 +1,21 @@
-{#{% extends '@EdukodasTemplate/base.html.twig' %}#}
-
-{#{% block body %}#}
-{#<div class="row" style="clear: both;">#}
-
-<div class="section">
-    <ul class="collection striped">
-        {% for points in user.pointHistory %}
-            <li class="row collection-item valign-wrapper">
-                <div class="col s1 center-align valign">
-                    <h4 class="{% if points.amount < 0 %}red-text{% else %}green-text{% endif %}">{{ points.amount }}</h4>
-                </div>
-                <div class="col s5 left-align">
-                    <h5>{{ points.student.firstName }} {{ points.student.lastName }}</h5><br>
-                    {{ points.task.name }}
-                </div>
-                <div class="col s5 right-align">
-                    {{ points.createdAt.date|date("Y/m/d h:m") }}<br>
-                    {{ points.comment }}
-                </div>
-                <div class="col s1 center-align valign">
-                    <a data-task-id="{{ points.id }}" data-task-action="edukodas_points_edit"
-                       class="btn-floating btn-small waves-effect waves-light red"
-                       href="#">
-                        <i class="small material-icons">mode_edit</i>
-                    </a>
-                </div>
-            </li>
-        {% else %}
-            nope
-        {% endfor %}
-    </ul>
-</div>
-{#{% endblock %}#}
+<li class="row collection-item valign-wrapper">
+    <div class="col s1 center-align valign">
+        <h4 class="{% if amount < 0 %}red-text{% else %}green-text{% endif %}">{{ amount }}</h4>
+    </div>
+    <div class="col s5 left-align">
+        <h5>{{ studentName }}</h5><br>
+        {{ taskName }}
+    </div>
+    <div class="col s5 right-align">
+        {{ createdAt }}<br>
+        {{ comment }}
+    </div>
+    <div class="col s1 center-align valign">
+        <a data-task-id="{{ entryId }}" data-task-action="edukodas_points_edit"
+           class="btn-floating btn-small waves-effect waves-light red"
+           href="#">
+            <i class="small material-icons">mode_edit</i>
+        </a>
+    </div>
+</li>
 

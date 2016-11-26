@@ -19,7 +19,10 @@ class PointHistoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('teacher')
+            ->add('teacher', EntityType::class, [
+                'required' => false,
+                'class' => 'EdukodasUserBundle:User'
+            ])
             ->add('task', EntityType::class, [
                 'class' => 'EdukodasTasksBundle:Task',
                 'query_builder' => function (TaskRepository $tr) use ($options) {

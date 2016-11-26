@@ -23,6 +23,8 @@ class User extends BaseUser
 
     const STUDENT_ROLE = 'ROLE_STUDENT';
 
+    const TEACHER_ROLE = 'ROLE_TEACHER';
+
     /**
      * @var int
      *
@@ -242,5 +244,13 @@ class User extends BaseUser
     public function getLastName()
     {
         return $this->lastName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return sprintf('%s %s', $this->getFirstName(), $this->getLastName());
     }
 }

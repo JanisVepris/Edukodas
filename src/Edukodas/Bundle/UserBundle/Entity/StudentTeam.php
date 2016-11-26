@@ -45,7 +45,7 @@ class StudentTeam
     /**
      * @var string
      *
-     * @ORM\Column(name="color", type="string", length=6)
+     * @ORM\Column(name="color", type="string", length=20)
      */
     private $color;
 

@@ -45,69 +45,76 @@ class ProfileController extends BaseController
         /** @var $formFactory FactoryInterface */
         $formFactory = $this->get('fos_user.profile.form.factory');
 
-        $form = $formFactory->createForm();
-        $form->setData($user);
+        $form_profile = $formFactory->createForm();
+        $form_profile->setData($user);
 
-        $form->handleRequest($request);
+        $form_profile->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form_profile->isValid()) {
             /** @var $userManager UserManagerInterface */
             $userManager = $this->get('fos_user.user_manager');
 
-            $event = new FormEvent($form, $request);
+            $event = new FormEvent($form_profile, $request);
             $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
 
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
                 $this->addFlash(
-                    'notice',
-                    $this->get('translator')->trans('profile.edit.change_info_success')
+                    'success',
+                    $this->get('translator')->trans('profile.edit.update_success')
                 );
                 $url = $this->generateUrl('fos_user_profile_edit');
+
                 $response = new RedirectResponse($url);
             }
 
-            $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+            $dispatcher->dispatch(
+                FOSUserEvents::PROFILE_EDIT_COMPLETED,
+                new FilterUserResponseEvent($user, $request, $response)
+            );
 
             return $response;
         }
 
-        // Change password
         /** @var $formFactory FactoryInterface */
         $formFactory = $this->get('fos_user.change_password.form.factory');
 
-        $form2 = $formFactory->createForm();
-        $form2->setData($user);
+        $form_password = $formFactory->createForm();
+        $form_password->setData($user);
 
-        $form2->handleRequest($request);
+        $form_password->handleRequest($request);
 
-        if ($form2->isValid()) {
+        if ($form_password->isValid()) {
             /** @var $userManager UserManagerInterface */
             $userManager = $this->get('fos_user.user_manager');
 
-            $event = new FormEvent($form, $request);
+            $event = new FormEvent($form_password, $request);
             $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_SUCCESS, $event);
 
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
                 $this->addFlash(
-                    'notice',
-                    $this->get('translator')->trans('profile.edit.change_password_success')
+                    'success',
+                    $this->get('translator')->trans('profile.edit.update_success')
                 );
                 $url = $this->generateUrl('fos_user_profile_edit');
+
                 $response = new RedirectResponse($url);
             }
 
-            $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+            $dispatcher->dispatch(
+                FOSUserEvents::CHANGE_PASSWORD_COMPLETED,
+                new FilterUserResponseEvent($user, $request, $response)
+            );
 
             return $response;
         }
 
         return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
-            'form' => $form->createView(),
-            'form2' => $form2->createView(),
+            'form_profile' => $form_profile->createView(),
+            'form_password' => $form_password->createView(),
         ));
     }
 }

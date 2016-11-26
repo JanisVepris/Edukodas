@@ -1,6 +1,6 @@
 {% extends "EdukodasTemplateBundle::base.html.twig" %}
 
-{% block body %}
+{% block main %}
 
     <div class="row" style="clear: both;">
         <!-- Modal Structure -->
@@ -48,9 +48,38 @@
                 </div>
             </div>
             <div class="col s8">
-                {% include "EdukodasTemplateBundle:pointhistory:listpoints.html.twig" %}
+                <a
+                        class="btn-floating btn-small waves-effect waves-light red"
+                        data-points-action="edukodas_points_add"
+                        href="#manage-points-modal">
+                    <i class="small material-icons">library_add</i>
+                </a>
+                <div class="section">
+                    <ul class="collection" id="points-history-list">
+                        {% for pointHistoryEntry in pointHistory %}
+                            {# @var pointHistoryEntry \Edukodas\Bundle\StatisticsBundle\Entity\PointHistory #}
+                            {% include "EdukodasTemplateBundle:pointhistory:listpoints.html.twig" with {
+                                entryId: pointHistoryEntry.id,
+                                amount: pointHistoryEntry.amount,
+                                studentName: pointHistoryEntry.student.fullName,
+                                teacherName: pointHistoryEntry.teacher.fullName,
+                                taskName: pointHistoryEntry.task.name,
+                                comment: pointHistoryEntry.comment,
+                                createdAt: pointHistoryEntry.createdAt|date('Y/m/d H:m')
+                            } %}
+                        {% else %}
+                            No point history
+                        {% endfor %}
+                    </ul>
+                </div>
+
             </div>
         </div>
 
     </div>
+    {% include '@EdukodasTemplate/Profile/inc/_pointHistoryModal.html.twig' with {
+        'courses': user.courses,
+        'form': addPointsForm
+    } %}
+    {% include '@EdukodasTemplate/Profile/inc/_editPointHistoryModal.html.twig' %}
 {% endblock %}

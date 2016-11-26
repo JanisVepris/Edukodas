@@ -3,6 +3,8 @@
 namespace Edukodas\Bundle\TasksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Edukodas\Bundle\UserBundle\Entity\OwnedEntityInterface;
+use Edukodas\Bundle\UserBundle\Entity\User;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -14,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Edukodas\Bundle\TasksBundle\Repository\TaskRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
-class Task
+class Task implements OwnedEntityInterface
 {
     use SoftDeleteableEntity;
 
@@ -168,5 +170,13 @@ class Task
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return User
+     */
+    public function getOwner()
+    {
+        return $this->getCourse()->getUser();
     }
 }

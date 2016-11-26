@@ -1,36 +1,19 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
-    </div>
-{{ form_end(form) }}
+<h5>{{ 'profile.edit.header_info'|trans }}</h5>
 
-{{ form_start(form2, { 'action': path('fos_user_change_password'), 'attr': { 'class': 'fos_user_change_password' } }) }}
-    {{ form_widget(form2) }}
-    <div>
-        <input type="submit" id="submit_change_password" disabled value="{{ 'change_password.submit'|trans }}" />
-        <span id="change_password_message"></span>
-    </div>
-{{ form_end(form2) }}
+{{ form_start(form_profile, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+{{ form_widget(form_profile) }}
+<div>
+    <input type="submit" class="btn waves-effect waves-light" value="{{ 'profile.edit.submit'|trans }}" />
+</div>
+{{ form_end(form_profile) }}
 
-<script>
-    var submit = document.getElementById("submit_change_password");
-    var password = document.getElementById("fos_user_change_password_form_plainPassword_first");
-    var confirm_password = document.getElementById("fos_user_change_password_form_plainPassword_second");
-    var change_password_message = document.getElementById("change_password_message");
+<h5>{{ 'profile.edit.header_password'|trans }}</h5>
 
-    function validatePassword(){
-        if(password.value != confirm_password.value) {
-            change_password_message.innerHTML = 'Slaptažodžiai nesutampa';
-            submit.disabled = true;
-        } else {
-            change_password_message.innerHTML = '';
-            submit.disabled = false;
-        }
-    }
-
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
-</script>
+{{ form_start(form_password, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_change_password' } }) }}
+{{ form_widget(form_password) }}
+<div>
+    <input type="submit" class="btn waves-effect waves-light" value="{{ 'change_password.submit'|trans }}" />
+</div>
+{{ form_end(form_password) }}

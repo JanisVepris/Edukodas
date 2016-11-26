@@ -3,10 +3,6 @@
 namespace Edukodas\Bundle\ProfileBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Request;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class StudentProfileController extends Controller
@@ -28,7 +24,7 @@ class StudentProfileController extends Controller
             throw new NotFoundHttpException('User not found');
         }
 
-        return $this->render('EdukodasProfileBundle:Profile:profile.html.twig', [
+        return $this->render('EdukodasTemplateBundle:Profile:studentProfile.html.twig', [
             'user' => $user,
             'pointHistory' => $pointHistory,
         ]);

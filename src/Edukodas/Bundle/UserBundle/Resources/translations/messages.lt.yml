@@ -9,5 +9,4 @@ security:
 
 profile:
   edit:
-    change_password_success: Slaptažodis pakeistas
-    change_info_success: Profilio informacija atnaujinta
+    update_success: Profilis atnaujintas

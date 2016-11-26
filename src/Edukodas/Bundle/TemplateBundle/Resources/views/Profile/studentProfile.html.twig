@@ -1,27 +1,89 @@
-{% extends 'EdukodasTemplateBundle::base.html.twig' %}
+{% extends "EdukodasTemplateBundle::base.html.twig" %}
 
 {% block main %}
+    {% include "EdukodasTemplateBundle:Profile/inc:_modalStructure.html.twig" %}
+    {% include '@EdukodasTemplate/Profile/inc/_pointHistoryModal.html.twig' with {
+        'courses': teacher.courses,
+        'form': addPointsForm
+    } %}
+    {% include '@EdukodasTemplate/Profile/inc/_editPointHistoryModal.html.twig' %}
+
     <div class="container">
-        <h2>{{ user.firstName }} {{ user.lastName }} <small>{{ user.studentClass.title }}</small></h2>
-
-        {% if app.user.id == user.id %}
-            <div>
-                <a href="{{ path('fos_user_profile_edit') }}">Redaguoti</a>
+        <div class="row" style="clear: both;">
+            {# Student info #}
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">
+                                {{ user.fullName }} <small>({{ user.studentClass.title }})</small>
+                                {% if app.user.id == user.id %}
+                                    <a class="btn-floating btn-small waves-effect waves-light red"
+                                       href="{{ path('fos_user_profile_edit') }}">
+                                       <i class="small material-icons">edit</i>
+                                    </a>
+                                {% endif %}
+                            </span>
+                            {#<p>{{ user.studentTeam.title }}</p>#}
+                            <p>Taškai: {{ points | number_format }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        {% endif %}
 
-        {% if is_granted('TEACHER_ROLE') %}
-            <div>
-                <a href="#">Pridėti taškus</a> |
-                <a href="#">Minusuoti taškus</a>
+            {# Point history #}
+            <div class="row">
+                <div class="col s12">
+                    {% if is_granted('ROLE_TEACHER') %}
+                        <h5>{{ 'profile.heading.teacher_points_history'|trans }}</h5>
+
+                        <a class="btn-floating btn-small waves-effect waves-light red"
+                           data-points-action="edukodas_points_add"
+                           href="#manage-points-modal">
+                           <i class="small material-icons">library_add</i>
+                        </a>
+                        <div class="section">
+                            <ul class="collection" id="teacher-points-history-list">
+                                {% for pointHistoryEntry in teacherPointHistory %}
+                                    {# @var pointHistoryEntry \Edukodas\Bundle\StatisticsBundle\Entity\PointHistory #}
+                                    {% include "EdukodasTemplateBundle:pointhistory:listpoints.html.twig" with {
+                                    entryId: pointHistoryEntry.id,
+                                    amount: pointHistoryEntry.amount,
+                                    studentName: pointHistoryEntry.teacher.fullName,
+                                    teacherName: pointHistoryEntry.teacher.fullName,
+                                    taskName: pointHistoryEntry.task.name,
+                                    comment: pointHistoryEntry.comment,
+                                    createdAt: pointHistoryEntry.createdAt|date('Y/m/d H:m')
+                                    } %}
+                                {% else %}
+                                    {{ 'profile.point_history.no_entries'|trans }}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <h5>{{ 'profile.heading.all_points_history'|trans }}</h5>
+                    <div class="section">
+                        <ul class="collection" id="points-history-list">
+                            {% for pointHistoryEntry in pointHistory %}
+                                {# @var pointHistoryEntry \Edukodas\Bundle\StatisticsBundle\Entity\PointHistory #}
+                                {% include "EdukodasTemplateBundle:pointhistory:listpoints.html.twig" with {
+                                entryId: pointHistoryEntry.id,
+                                amount: pointHistoryEntry.amount,
+                                studentName: pointHistoryEntry.teacher.fullName,
+                                teacherName: pointHistoryEntry.teacher.fullName,
+                                taskName: pointHistoryEntry.task.name,
+                                comment: pointHistoryEntry.comment,
+                                createdAt: pointHistoryEntry.createdAt|date('Y/m/d H:m')
+                                } %}
+                            {% else %}
+                                {{ 'profile.point_history.no_entries'|trans }}
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                </div>
             </div>
-        {% endif %}
-
-        {% for pointHistoryEntry in pointHistory %}
-            <b>{{ pointHistoryEntry.teacher.firstName }} {{ pointHistoryEntry.teacher.lastName }}: {{ pointHistoryEntry.task.name }} ({{ pointHistoryEntry.amount }})</b>
-            <p>{{ pointHistoryEntry.comment }}</p>
-        {% else %}
-            {{ 'profile.point_history.no_entries'|trans }}
-        {% endfor %}
+        </div>
     </div>
 {% endblock %}

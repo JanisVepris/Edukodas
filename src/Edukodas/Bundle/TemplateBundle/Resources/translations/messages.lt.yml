@@ -10,3 +10,10 @@ menu:
 profile:
   point_history:
     no_entries: Įrašų nerasta
+  heading:
+    teacher_points_history: Mano paskirti taškai
+    all_points_history: Visi taškai
+
+points:
+  edit:
+    different_teacher: Jūs galite redaguoti tik savo skirtus taškus

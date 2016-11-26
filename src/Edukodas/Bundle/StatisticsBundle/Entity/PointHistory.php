@@ -4,6 +4,7 @@ namespace Edukodas\Bundle\StatisticsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Edukodas\Bundle\TasksBundle\Entity\Task;
+use Edukodas\Bundle\UserBundle\Entity\OwnedEntityInterface;
 use Edukodas\Bundle\UserBundle\Entity\User;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -16,7 +17,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
  * @ORM\HasLifecycleCallbacks()
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
-class PointHistory
+class PointHistory implements OwnedEntityInterface
 {
     use SoftDeleteableEntity;
 
@@ -208,5 +209,13 @@ class PointHistory
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @return User
+     */
+    public function getOwner()
+    {
+        return $this->getTeacher();
     }
 }

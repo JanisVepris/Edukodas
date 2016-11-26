@@ -2,7 +2,7 @@
 
 namespace Edukodas\Bundle\UserBundle\Controller;
 
-use Edukodas\Bundle\TasksBundle\Entity\Task;
+use Edukodas\Bundle\UserBundle\Entity\OwnedEntityInterface;
 use Edukodas\Bundle\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -12,11 +12,11 @@ abstract class AbstractTeacherController extends Controller
     /**
      * Checks if user owns a task
      *
-     * @param Task $task
+     * @param OwnedEntityInterface $entity
      */
-    protected function checkOwnerOr403(Task $task)
+    protected function checkOwnerOr403(OwnedEntityInterface $entity)
     {
-        if ($task->getCourse()->getUser()->getId() !== $this->getUser()->getId()) {
+        if ($entity->getOwner()->getId() !== $this->getUser()->getId()) {
             throw new AccessDeniedHttpException('Access denied');
         }
     }

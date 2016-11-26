@@ -17,7 +17,9 @@ class PointHistoryRepository extends EntityRepository
      */
     public function getRecentEntriesByTeacher(User $teacher, $maxEntries = 10)
     {
-        return $this
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $result = $this
             ->createQueryBuilder('ph')
             ->where('ph.teacher = :teacher')
             ->orderBy('ph.createdAt', 'DESC')
@@ -25,5 +27,9 @@ class PointHistoryRepository extends EntityRepository
             ->setParameter('teacher', $teacher)
             ->getQuery()
             ->getResult();
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        return $result;
     }
 }

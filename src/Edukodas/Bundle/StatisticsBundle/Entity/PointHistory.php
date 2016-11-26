@@ -32,7 +32,7 @@ class PointHistory
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User", inversedBy="pointHistory")
+     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User", inversedBy="pointHistory", fetch="EAGER")
      * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id")
      */
     private $teacher;
@@ -40,7 +40,7 @@ class PointHistory
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\UserBundle\Entity\User", fetch="EAGER")
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id")
      */
     private $student;
@@ -48,7 +48,7 @@ class PointHistory
     /**
      * @var Task
      *
-     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\TasksBundle\Entity\Task")
+     * @ORM\ManyToOne(targetEntity="Edukodas\Bundle\TasksBundle\Entity\Task", fetch="EAGER")
      * @ORM\JoinColumn(name="task_id", referencedColumnName="id")
      */
     private $task;

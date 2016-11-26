@@ -24,7 +24,7 @@ class StudentProfileController extends Controller
             throw new NotFoundHttpException('User not found');
         }
 
-        return $this->render('EdukodasProfileBundle:Profile:profile.html.twig', [
+        return $this->render('EdukodasTemplateBundle:Profile:studentProfile.html.twig', [
             'user' => $user,
             'pointHistory' => $pointHistory,
         ]);

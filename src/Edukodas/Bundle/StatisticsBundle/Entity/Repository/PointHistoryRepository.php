@@ -40,7 +40,7 @@ class PointHistoryRepository extends EntityRepository
      *
      * @return Collection|PointHistory[]
      */
-    public function getRecentEntriesByStudent(User $student, $maxEntries = 10): Array
+    public function getRecentEntriesByStudent(User $student, $maxEntries = 10): array
     {
         $this->getEntityManager()->getFilters()->disable('softdeleteable');
 

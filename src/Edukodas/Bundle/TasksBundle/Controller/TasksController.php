@@ -5,11 +5,8 @@ namespace Edukodas\Bundle\TasksBundle\Controller;
 use Edukodas\Bundle\TasksBundle\Entity\Task;
 use Edukodas\Bundle\TasksBundle\Form\TaskType;
 use Edukodas\Bundle\UserBundle\Controller\AbstractTeacherController;
-use Edukodas\Bundle\UserBundle\Entity\User;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TasksController extends AbstractTeacherController
@@ -37,18 +34,18 @@ class TasksController extends AbstractTeacherController
             $em->persist($task);
             $em->flush();
 
-            return $this->render('EdukodasTemplateBundle:tasks:listtasks.html.twig', [
+            return $this->render('@EdukodasTemplate/Profile/inc/_listTasks.html.twig', [
                 'user' => $user,
             ]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
-            $view = $this->renderView('EdukodasTemplateBundle:tasks:addtask.html.twig', [
+            $view = $this->renderView('@EdukodasTemplate/Profile/inc/_addTaskForm.html.twig', [
                 'form' => $form->createView(),
             ]);
 
             return new Response($view, Response::HTTP_BAD_REQUEST);
         }
 
-        return $this->render('EdukodasTemplateBundle:tasks:addtask.html.twig', [
+        return $this->render('@EdukodasTemplate/Profile/inc/_addTaskForm.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -82,18 +79,18 @@ class TasksController extends AbstractTeacherController
             $em->persist($task);
             $em->flush();
 
-            return $this->render('EdukodasTemplateBundle:tasks:listtasks.html.twig', [
+            return $this->render('@EdukodasTemplate/Profile/inc/_listTasks.html.twig', [
                 'user' => $user,
             ]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
-            $view = $this->renderView('EdukodasTemplateBundle:tasks:edittask.html.twig', [
+            $view = $this->renderView('@EdukodasTemplate/Profile/inc/_editTaskForm.html.twig', [
                 'form' => $form->createView(),
             ]);
 
             return new Response($view, Response::HTTP_BAD_REQUEST);
         }
 
-        return $this->render('EdukodasTemplateBundle:tasks:edittask.html.twig', [
+        return $this->render('@EdukodasTemplate/Profile/inc/_editTaskForm.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -118,7 +115,7 @@ class TasksController extends AbstractTeacherController
         $em->remove($task);
         $em->flush();
 
-        return $this->render('EdukodasTemplateBundle:tasks:listtasks.html.twig', [
+        return $this->render('@EdukodasTemplate/Profile/inc/_listTasks.html.twig', [
             'user' => $user,
         ]);
     }
@@ -130,7 +127,7 @@ class TasksController extends AbstractTeacherController
     {
         $user = $this->getUser();
 
-        return $this->render('EdukodasTemplateBundle:tasks:listtasks.html.twig', [
+        return $this->render('@EdukodasTemplate/Profile/inc/_listTasks.html.twig', [
             'user' => $user,
         ]);
     }

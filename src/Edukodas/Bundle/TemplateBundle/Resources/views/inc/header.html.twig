@@ -1,27 +1,59 @@
 {% block header %}
     <header>
         <nav>
-            <div class="nav-wrapper">
-                <form>
-                    <div class="input-field">
-                        <input id="search" type="search" required>
-                        <label for="search"><i class="material-icons">search</i></label>
-                        <i class="material-icons">close</i>
-                    </div>
-                </form>
-            </div>
-        </nav>
-        <nav class="nav-extended">
-            <div class="nav-wrapper">
-                <ul class="tabs tabs-transparent">
-                    <li class="tab"><a href="">{{ 'menu.navigation.profile'|trans }}</a></li>
-                    <li class="tab"><a href="">{{ 'menu.navigation.tasks'|trans }}</a></li>
-                    <li class="tab"><a href="">{{ 'menu.navigation.ratings'|trans }}</a></li>
-                    <li class="tab"><a href="">{{ 'menu.navigation.users'|trans }}</a></li>
-                    <li class="tab"><a href="">{{ 'menu.navigation.settings'|trans }}</a></li>
-                    <li class="tab"><a href="{{ path('fos_user_security_logout') }}">{{ 'menu.navigation.logout'|trans }}</a>
-                    </li>
-                </ul>
+            <div class="nav-wrapper row {{ app.user.studentTeam ? app.user.studentTeam.color : 'blue-grey' }} lighten-1">
+                <a href="#" data-activates="hamburger" class="button-collapse"><i class="material-icons">menu</i>
+                    <ul class="hide-on-med-and-down right">
+                        <li><a href="#"><i
+                                        class="material-icons right">account_circle</i>{{ 'menu.navigation.profile'|trans }}
+                            </a></li>
+                        <li><a href="#"><i class="material-icons right">list</i>{{ 'menu.navigation.tasks'|trans }}</a>
+                        </li>
+                        <li><a href="#"><i
+                                        class="material-icons right">timeline</i>{{ 'menu.navigation.ratings'|trans }}
+                            </a></li>
+                        <li><a href="#"><i class="material-icons right">group</i>{{ 'menu.navigation.users'|trans }}</a>
+                        </li>
+                        <li><a href="#"><i
+                                        class="material-icons right">settings</i>{{ 'menu.navigation.settings'|trans }}
+                            </a></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}"><i
+                                        class="material-icons right">exit_to_app</i>{{ 'menu.navigation.logout'|trans }}
+                            </a>
+                        </li>
+                    </ul>
+                    <form class="col s3 hide-on-med-and-down search">
+                        <div class="input-field">
+                            <input id="search" type="search" required>
+                            <label for="search"><i class="material-icons">search</i></label>
+                            <i class="material-icons">close</i>
+                        </div>
+                    </form>
+                    <ul class="side-nav" id="hamburger">
+                        <nav>
+                            <div class="nav-wrapper">
+                                <form>
+                                    <div class="input-field">
+                                        <input id="search" type="search" required>
+                                        <label for="search"><i class="material-icons">search</i></label>
+                                        <i class="material-icons">close</i>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                        <li><a href="#"><i
+                                        class="material-icons">account_circle</i>{{ 'menu.navigation.profile'|trans }}
+                            </a></li>
+                        <li><a href="#"><i class="material-icons">list</i>{{ 'menu.navigation.tasks'|trans }}</a></li>
+                        <li><a href="#"><i class="material-icons">timeline</i>{{ 'menu.navigation.ratings'|trans }}</a>
+                        </li>
+                        <li><a href="#"><i class="material-icons">group</i>{{ 'menu.navigation.users'|trans }}</a></li>
+                        <li><a href="#"><i class="material-icons">settings</i>{{ 'menu.navigation.settings'|trans }}</a>
+                        </li>
+                        <li><a href="{{ path('fos_user_security_logout') }}"><i
+                                        class="material-icons">exit_to_app</i>{{ 'menu.navigation.logout'|trans }}</a>
+                        </li>
+                    </ul>
             </div>
         </nav>
     </header>

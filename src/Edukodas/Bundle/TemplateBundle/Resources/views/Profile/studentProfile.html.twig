@@ -48,7 +48,9 @@
 
                     {% if is_granted('ROLE_TEACHER') %}
                         <a class="btn-floating btn-small waves-effect waves-light red"
+                           id="edukodas_points_add"
                            data-points-action="edukodas_points_add"
+                           data-user-id="{{ user.id }}"
                            href="#manage-points-modal">
                             <i class="small material-icons">library_add</i>
                         </a>

@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Generation
  *
  * @ORM\Table(name="student_generation")
- * @ORM\Entity(repositoryClass="Edukodas\Bundle\UserBundle\Repository\GenerationRepository")
+ * @ORM\Entity
  */
 class StudentGeneration
 {
@@ -126,4 +126,3 @@ class StudentGeneration
         return $this;
     }
 }
-

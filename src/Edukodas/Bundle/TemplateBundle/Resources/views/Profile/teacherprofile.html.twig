@@ -2,8 +2,6 @@
 
 {% block main %}
 
-    <div class="row" style="clear: both;">
-        <!-- Modal Structure -->
         <div id="manage-task-modal" class="modal valign-wrapper">
             <div class="modal-content">
                 <div class="form-content">
@@ -44,7 +42,7 @@
                         <i class="small material-icons">note_add</i>
                     </a></h5>
                 <div id="tasks-list">
-                    {% include "EdukodasTemplateBundle:tasks:listtasks.html.twig" %}
+                    {% include "@EdukodasTemplate/Profile/inc/_listTasks.html.twig" %}
                 </div>
             </div>
             <div class="col s8">
@@ -58,7 +56,7 @@
                     <ul class="collection" id="points-history-list">
                         {% for pointHistoryEntry in pointHistory %}
                             {# @var pointHistoryEntry \Edukodas\Bundle\StatisticsBundle\Entity\PointHistory #}
-                            {% include "EdukodasTemplateBundle:pointhistory:listpoints.html.twig" with {
+                            {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.twig" with {
                                 entryId: pointHistoryEntry.id,
                                 amount: pointHistoryEntry.amount,
                                 studentName: pointHistoryEntry.student.fullName,
@@ -77,7 +75,7 @@
         </div>
 
     </div>
-    {% include '@EdukodasTemplate/Profile/inc/_pointHistoryModal.html.twig' with {
+    {% include '@EdukodasTemplate/Profile/inc/_addPointHistoryModal.html.twig' with {
         'courses': user.courses,
         'form': addPointsForm
     } %}

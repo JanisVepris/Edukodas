@@ -11,8 +11,7 @@ profile:
   point_history:
     no_entries: Įrašų nerasta
   heading:
-    teacher_points_history: Mano paskirti taškai
-    all_points_history: Visi taškai
+    points_history: Taškų istorija
 
 points:
   edit:

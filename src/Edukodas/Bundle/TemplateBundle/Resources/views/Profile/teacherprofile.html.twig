@@ -35,7 +35,7 @@
 
         <div class="row">
             <div class="col s4">
-                <h5>Add task <a
+                <h5>{{ 'form.add_tasks.add'|trans }} <a
                             class="btn-floating btn-small waves-effect waves-light red"
                             data-task-action="edukodas_tasks_add"
                             href="#manage-task-modal">
@@ -46,27 +46,29 @@
                 </div>
             </div>
             <div class="col s8">
-                <a
+                <h5>{{ 'form.add_points.add'|trans }} <a
                         class="btn-floating btn-small waves-effect waves-light red"
                         data-points-action="edukodas_points_add"
                         href="#manage-points-modal">
                     <i class="small material-icons">library_add</i>
-                </a>
+                </a></h5>
                 <div class="section">
-                    <ul class="collection" id="points-history-list">
+                    <ul class="collection" id="points-history-list"  data-is-student-profile="0">
                         {% for pointHistoryEntry in pointHistory %}
                             {# @var pointHistoryEntry \Edukodas\Bundle\StatisticsBundle\Entity\PointHistory #}
-                            {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.twig" with {
+                            {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig" with {
                                 entryId: pointHistoryEntry.id,
                                 amount: pointHistoryEntry.amount,
                                 studentName: pointHistoryEntry.student.fullName,
-                                teacherName: pointHistoryEntry.teacher.fullName,
+                                teacher: pointHistoryEntry.teacher,
+                                entryOwnerId: pointHistoryEntry.owner.id,
                                 taskName: pointHistoryEntry.task.name,
                                 comment: pointHistoryEntry.comment,
-                                createdAt: pointHistoryEntry.createdAt|date('Y/m/d H:m')
+                                createdAt: pointHistoryEntry.createdAt|date('Y/m/d H:m'),
+                                isStudentProfile: false
                             } %}
                         {% else %}
-                            No point history
+                            {{ 'list.no_points'|trans }}
                         {% endfor %}
                     </ul>
                 </div>

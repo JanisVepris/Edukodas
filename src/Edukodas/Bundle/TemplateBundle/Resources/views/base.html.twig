@@ -10,7 +10,9 @@
         {% stylesheets
         "bundles/edukodastemplate/sass/materialize.scss"
         "bundles/edukodastemplate/sass/main.scss"
-        filter="scssphp" output="css/app.css" %}
+        filter="scssphp"
+        filter="cssrewrite"
+        output="css/app.css" %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
     {% endblock %}
@@ -21,6 +23,31 @@
         {% include 'EdukodasTemplateBundle:inc:header.html.twig' %}
     {% endblock %}
 
+    {# Pranesimai #}
+    <div class="container">
+        {# Error #}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="card-panel red lighten-2">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {# Notice #}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="card-panel yellow lighten-2">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {# success #}
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="card-panel green lighten-2">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    </div>
+
+    {# O kodėl main blokas neįeina į div.container? #}
     {% block main %}{% endblock %}
 
     {% block javascripts %}

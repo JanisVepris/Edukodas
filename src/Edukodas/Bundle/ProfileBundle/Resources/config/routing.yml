@@ -3,9 +3,5 @@ edukodas_teacher_profile:
     defaults: { _controller: EdukodasProfileBundle:TeacherProfile:index }
 
 edukodas_student_profile:
-  path: /student/{id}
-  defaults: { _controller: EdukodasProfileBundle:StudentProfile:index, id: null }
-
-edukodas_edit_student_profile:
-  path: /student/edit/
-  defaults: { _controller: EdukodasProfileBundle:StudentProfile:edit }
+    path: /student/{id}
+    defaults: { _controller: EdukodasProfileBundle:StudentProfile:index, id: null }

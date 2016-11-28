@@ -10,3 +10,44 @@ menu:
 profile:
   point_history:
     no_entries: Įrašų nerasta
+  heading:
+    points_history: Taškų istorija
+
+points:
+  rating:
+    header: Reitingas
+    generation: Kartoje
+    team: Komandoje
+    school: Mokykloje
+    class: Klasėje
+  total_points: Taškų suma
+  team: komanda
+  edit:
+    different_teacher: Jūs galite redaguoti tik savo skirtus taškus
+
+form:
+  add_tasks:
+    add: Pridėti užduotį
+    course: Dalykas
+    name: Užduoties pavadinimas
+    description: Aprašymas
+    points: Taškai
+    submit: Pridėti
+  edit_tasks:
+    save: Išsaugoti
+  add_points:
+    add: Skirti taškus
+    teacher: Mokytojas
+    task: Užduotis
+    student: Mokinys
+    amount: Taškų skaičius
+    comment: Komentaras
+    submit: Skirti
+    back: Grįžti
+  edit_points:
+    save: Išsaugoti
+
+list:
+  no_courses: Nėra dėstomų dalykų
+  no_tasks: Nėra užduočių
+  no_points: Nėra taškų

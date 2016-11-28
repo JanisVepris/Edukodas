@@ -29,9 +29,14 @@ $(document).ready(function() {
     function editPointHistoryForm (url, pointHistoryId) {
         $('select').material_select();
 
+        var isStudentProfile = $('#points-history-list').data('is-student-profile');
+
         $('#edit-points-form').ajaxForm({
             url: url,
             type: 'POST',
+            data: {
+                isStudentProfile: isStudentProfile
+            },
             beforeSubmit: function() {
                 $('#edit-points-save').prop('disabled', true).hide();
                 $('#points-save-preloader').removeClass('hide');
@@ -77,13 +82,20 @@ $(document).ready(function() {
     }
 
     function managePointsForm() {
+        var user_id = $('#edukodas_points_add').data('user-id');
+        $('#edukodas_bundle_statisticsbundle_pointhistory_student').val(user_id);
         $('select').material_select();
 
         var url = Routing.generate('edukodas_points_add');
 
+        var isStudentProfile = $('#points-history-list').data('is-student-profile');
+
         $('#add-points-form').ajaxForm({
             url: url,
             type: 'POST',
+            data: {
+                isStudentProfile: isStudentProfile
+            },
             beforeSubmit: function() {
                 $('#add-points-submit').prop('disabled', true).hide();
                 $('#points-submit-preloader').removeClass('hide');

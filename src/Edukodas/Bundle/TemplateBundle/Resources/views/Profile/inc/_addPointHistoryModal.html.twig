@@ -20,13 +20,16 @@
         </div>
         <div class="hide" id="add-points-form-container">
             {{ form_start(form, {'attr': {'id': 'add-points-form'}}) }}
+                {{ form_label(form.student) }}
                 {{ form_widget(form.student) }}
+                {{ form_label(form.amount) }}
                 {{ form_widget(form.amount) }}
+                {{ form_label(form.comment) }}
                 {{ form_widget(form.comment) }}
                 {{ form_widget(form._token) }}
                 {{ form_widget(form.task, {'attr': {'class': 'hide'}}) }}
                 {% do form.teacher.setRendered %}
-            <button type="submit" class="waves-effect waves-light btn" id="add-points-submit">{{ 'form.add_tasks.submit'|trans }}</button>
+            <button type="submit" class="waves-effect waves-light btn" id="add-points-submit">{{ 'form.add_points.submit'|trans }}</button>
             <div class="preloader-wrapper small active hide" id="points-submit-preloader">
                 <div class="spinner-layer spinner-green-only">
                     <div class="circle-clipper left">
@@ -38,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            <a class="waves-effect waves-light btn right" id="add-points-form-back">back</a>
+            <a class="waves-effect waves-light btn right" id="add-points-form-back">{{ 'form.add_points.back'|trans }}</a>
             {{ form_end(form) }}
         </div>
         <div class="center-align hide" id="points-form-preloader">

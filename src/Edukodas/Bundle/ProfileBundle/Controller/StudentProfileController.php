@@ -2,11 +2,10 @@
 
 namespace Edukodas\Bundle\ProfileBundle\Controller;
 
+use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
+use Edukodas\Bundle\StatisticsBundle\Form\PointHistoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Request;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class StudentProfileController extends Controller
@@ -19,45 +18,50 @@ class StudentProfileController extends Controller
             $user = $this->getDoctrine()->getRepository('EdukodasUserBundle:User')->find($id);
         }
 
-        $pointHistory = $this
-            ->getDoctrine()
-            ->getRepository('EdukodasStatisticsBundle:PointHistory')
-            ->findBy(['student' => $user]);
-
         if (!$user) {
             throw new NotFoundHttpException('User not found');
         }
 
-        return $this->render('EdukodasProfileBundle:Profile:profile.html.twig', [
+        if (!in_array('ROLE_STUDENT', $user->getRoles())) {
+            throw new HttpException(400, 'User is not student');
+        }
+
+        $pointHistory = $this
+            ->getDoctrine()
+            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->getRecentEntriesByStudent($user);
+
+        $studentPoints = $this
+            ->getDoctrine()
+            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->getTotalPointsByStudent($user);
+
+        $statisticsService = $this->get('edukodas.statistics');
+
+        $points = new PointHistory();
+        $pointsForm = $this->createForm(PointHistoryType::class, $points, ['user' => $this->getUser()]);
+
+        $rankingTotal = $statisticsService->getStudentRanking($studentPoints);
+        $rankingByTeam = $statisticsService->getStudentRankingByTeam($user->getStudentTeam(), $studentPoints);
+        $rankingByGeneration = $statisticsService->getStudentRankingByGeneration(
+            $user->getStudentGeneration(),
+            $studentPoints
+        );
+        $rankingByClass = $statisticsService->getStudentRankingByClass(
+            $user->getStudentClass(),
+            $studentPoints
+        );
+
+        return $this->render('EdukodasTemplateBundle:Profile:studentProfile.html.twig', [
             'user' => $user,
+            'teacher' => $this->getUser(),
+            'points' => $studentPoints,
             'pointHistory' => $pointHistory,
-        ]);
-    }
-
-    public function editAction($id, Request $request)
-    {
-        // FOSUserBundle!!!!!!!
-        if ($id === null) {
-            $user = $this->getUser();
-        } else {
-            $user = $this->getDoctrine()->getRepository('EdukodasUserBundle:User')->find($id);
-        }
-
-        $form = $this->createFormBuilder($user)
-            ->add('old_password', PasswordType::class)
-            ->add('new_password', PasswordType::class)
-            ->add('email', EmailType::class)
-            ->add('subscribe', CheckboxType::class)
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            //$profile
-        }
-
-        return $this->render('EdukodasProfileBundle:Profile:editProfile.html.twig', [
-            'user' => $user,
+            'addPointsForm' => $pointsForm->createView(),
+            'positionTotal' => $rankingTotal,
+            'positionInTeam' => $rankingByTeam,
+            'positionInGeneration' => $rankingByGeneration,
+            'positionInClass' => $rankingByClass,
         ]);
     }
 }

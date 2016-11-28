@@ -1,11 +1,15 @@
 {{ form_start(form, {'attr': {'id': 'edit-points-form'}}) }}
+    {{ form_label(form.student) }}
     {{ form_widget(form.student) }}
+    {{ form_label(form.task) }}
     {{ form_widget(form.task) }}
+    {{ form_label(form.amount) }}
     {{ form_widget(form.amount) }}
+    {{ form_label(form.comment) }}
     {{ form_widget(form.comment) }}
     {{ form_widget(form._token) }}
     {% do form.teacher.setRendered %}
-<button type="submit" class="waves-effect waves-light btn" id="edit-points-save">{{ 'form.edit_tasks.save'|trans }}</button>
+<button type="submit" class="waves-effect waves-light btn" id="edit-points-save">{{ 'form.edit_points.save'|trans }}</button>
 <div class="preloader-wrapper small active hide" id="points-save-preloader">
     <div class="spinner-layer spinner-green-only">
         <div class="circle-clipper left">

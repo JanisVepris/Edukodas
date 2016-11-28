@@ -48,6 +48,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'genadij.bojev@gmail.com',
                 'roles' => ['ROLE_ADMIN'],
                 'enabled' => true,
+                'generation' => null,
                 'team' => $this->getReference('team_1')
             ],
             [
@@ -58,6 +59,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'domantas.pet@gmail.com',
                 'roles' => ['ROLE_ADMIN'],
                 'enabled' => true,
+                'generation' => null,
                 'team' => $this->getReference('team_1')
             ],
             [
@@ -68,6 +70,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'lukasceplikas@gmail.com',
                 'roles' => ['ROLE_ADMIN'],
                 'enabled' => true,
+                'generation' => null,
                 'team' => $this->getReference('team_1')
             ],
             [
@@ -78,6 +81,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'mokytojasa@pastas.com',
                 'roles' => ['ROLE_TEACHER'],
                 'enabled' => true,
+                'generation' => null,
                 'team' => null
             ],
             [
@@ -88,6 +92,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'mokytojasb@pastas.com',
                 'roles' => ['ROLE_TEACHER'],
                 'enabled' => true,
+                'generation' => null,
                 'team' => null
             ],
             [
@@ -99,6 +104,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'mokinysa@pastas.com',
                 'roles' => ['ROLE_STUDENT'],
                 'enabled' => true,
+                'generation' => $this->getReference('generation_2016'),
                 'team' => $this->getReference('team_1')
             ],
             [
@@ -110,6 +116,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'mokinysb@pastas.com',
                 'roles' => ['ROLE_STUDENT'],
                 'enabled' => true,
+                'generation' => $this->getReference('generation_2016'),
                 'team' => $this->getReference('team_2')
             ],
             [
@@ -121,6 +128,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'mokinysc@pastas.com',
                 'roles' => ['ROLE_STUDENT'],
                 'enabled' => true,
+                'generation' => $this->getReference('generation_2016'),
                 'team' => $this->getReference('team_3')
             ],
             [
@@ -132,6 +140,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'mokinysd@pastas.com',
                 'roles' => ['ROLE_STUDENT'],
                 'enabled' => true,
+                'generation' => $this->getReference('generation_2016'),
                 'team' => $this->getReference('team_4')
             ],
         ];
@@ -158,6 +167,10 @@ class LoadUserData extends AbstractFixture implements
                 ->setEmail($userData['email'])
                 ->setRoles($userData['roles'])
                 ->setEnabled($userData['enabled']);
+
+            if ($userData['generation']) {
+                $user->setStudentGeneration($userData['generation']);
+            }
 
             if ($userData['team']) {
                 $user->setStudentTeam($userData['team']);

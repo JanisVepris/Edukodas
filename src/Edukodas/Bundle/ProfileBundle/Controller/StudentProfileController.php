@@ -47,6 +47,10 @@ class StudentProfileController extends Controller
             $user->getStudentGeneration(),
             $studentPoints
         );
+        $rankingByClass = $statisticsService->getStudentRankingByClass(
+            $user->getStudentClass(),
+            $studentPoints
+        );
 
         return $this->render('EdukodasTemplateBundle:Profile:studentProfile.html.twig', [
             'user' => $user,
@@ -57,6 +61,7 @@ class StudentProfileController extends Controller
             'positionTotal' => $rankingTotal,
             'positionInTeam' => $rankingByTeam,
             'positionInGeneration' => $rankingByGeneration,
+            'positionInClass' => $rankingByClass,
         ]);
     }
 }

@@ -75,7 +75,7 @@ class StatisticsService
      */
     private function countHigherRankingEntries(ArrayCollection $entries, int $amount)
     {
-        $higherRankingEntries = $entries->filter(function($entry) use ($amount) {
+        $higherRankingEntries = $entries->filter(function ($entry) use ($amount) {
             return $entry['amount'] > $amount;
         });
 

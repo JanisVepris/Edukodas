@@ -41,15 +41,22 @@ class StudentProfileController extends Controller
         $points = new PointHistory();
         $pointsForm = $this->createForm(PointHistoryType::class, $points, ['user' => $this->getUser()]);
 
+        $rankingTotal = $statisticsService->getStudentRanking($studentPoints);
+        $rankingByTeam = $statisticsService->getStudentRankingByTeam($user->getStudentTeam(), $studentPoints);
+        $rankingByGeneration = $statisticsService->getStudentRankingByGeneration(
+            $user->getStudentGeneration(),
+            $studentPoints
+        );
+
         return $this->render('EdukodasTemplateBundle:Profile:studentProfile.html.twig', [
             'user' => $user,
             'teacher' => $this->getUser(),
             'points' => $studentPoints,
             'pointHistory' => $pointHistory,
             'addPointsForm' => $pointsForm->createView(),
-            'positionTotal' => $statisticsService->getStudentRanking($studentPoints),
-            'positionInTeam' => $statisticsService->getStudentRankingByTeam($user->getStudentTeam(), $studentPoints),
-            'positionInGeneration' => $statisticsService->getStudentRankingByGeneration($user->getStudentGeneration(), $studentPoints),
+            'positionTotal' => $rankingTotal,
+            'positionInTeam' => $rankingByTeam,
+            'positionInGeneration' => $rankingByGeneration,
         ]);
     }
 }

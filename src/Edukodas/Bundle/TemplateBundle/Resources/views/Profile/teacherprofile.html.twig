@@ -56,7 +56,7 @@
                     <ul class="collection" id="points-history-list">
                         {% for pointHistoryEntry in pointHistory %}
                             {# @var pointHistoryEntry \Edukodas\Bundle\StatisticsBundle\Entity\PointHistory #}
-                            {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.twig" with {
+                            {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig" with {
                                 entryId: pointHistoryEntry.id,
                                 amount: pointHistoryEntry.amount,
                                 studentName: pointHistoryEntry.student.fullName,

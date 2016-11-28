@@ -15,7 +15,7 @@ class PointHistoryController extends AbstractTeacherController
     {
         $user = $this->getUser();
 
-        return $this->render('@EdukodasTemplate/Profile/inc/_listPointHistory.twig', [
+        return $this->render('@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig', [
             'user' => $user,
         ]);
     }
@@ -39,7 +39,7 @@ class PointHistoryController extends AbstractTeacherController
             $em->persist($pointHistory);
             $em->flush();
 
-            return $this->render('@EdukodasTemplate/Profile/inc/_listPointHistory.twig', [
+            return $this->render('@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig', [
                 'entryId' => $pointHistory->getId(),
                 'amount' => $pointHistory->getAmount(),
                 'studentName' => $pointHistory->getStudent()->getFullName(),
@@ -81,7 +81,7 @@ class PointHistoryController extends AbstractTeacherController
             $em->persist($pointHistory);
             $em->flush();
 
-            return $this->render('@EdukodasTemplate/Profile/inc/_listPointHistory.twig', [
+            return $this->render('@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig', [
                 'entryId' => $pointHistory->getId(),
                 'amount' => $pointHistory->getAmount(),
                 'studentName' => $pointHistory->getStudent()->getFullName(),
@@ -98,7 +98,7 @@ class PointHistoryController extends AbstractTeacherController
             return new Response($view, Response::HTTP_BAD_REQUEST);
         }
 
-        return $this->render('@EdukodasTemplate/Profile/inc/_editPointHistoryForm.html.twig', [
+        return $this->render('EdukodasTemplateBundle:Profile/inc:_editPointHistoryForm.html.twig', [
             'form' => $form->createView(),
         ]);
     }

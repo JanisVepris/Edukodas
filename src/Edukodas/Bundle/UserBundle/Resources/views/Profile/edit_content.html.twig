@@ -1,0 +1,19 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<h5>{{ 'profile.edit.header_info'|trans }}</h5>
+
+{{ form_start(form_profile, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+{{ form_widget(form_profile) }}
+<div>
+    <input type="submit" class="btn waves-effect waves-light" value="{{ 'profile.edit.submit'|trans }}" />
+</div>
+{{ form_end(form_profile) }}
+
+<h5>{{ 'profile.edit.header_password'|trans }}</h5>
+
+{{ form_start(form_password, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_change_password' } }) }}
+{{ form_widget(form_password) }}
+<div>
+    <input type="submit" class="btn waves-effect waves-light" value="{{ 'change_password.submit'|trans }}" />
+</div>
+{{ form_end(form_password) }}

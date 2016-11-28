@@ -1,4 +1,28 @@
 $(document).ready(function() {
+    function deletePointsButton() {
+        var pointHistoryId = $(this).data('points-id');
+        var url = Routing.generate('edukodas_points_delete', {pointHistoryId : pointHistoryId});
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            beforeSend: function() {
+                $('.delete-points*[data-points-id="' + pointHistoryId + '"]').prop('disabled',true).hide();
+                $('#delete-points-preload-' + pointHistoryId).removeClass('hide');
+            },
+            success: function() {
+                $('#history-points-' + pointHistoryId).remove();
+            },
+            error: function() {
+                Materialize.toast('Nepavyko ištrinti taškų', 4000);
+                $('#delete-points-preload-' + pointHistoryId).addClass('hide');
+                $('.delete-points*[data-points-id="' + pointHistoryId + '"]').prop('disabled',false).show();
+            }
+        });
+    }
+
+    $('.delete-points').on('click', deletePointsButton);
+
 
     function editPointHistoryButton(trigger) {
         var pointHistoryId = trigger.data('points-id');
@@ -44,6 +68,7 @@ $(document).ready(function() {
             success: function(data) {
                 if (data) {
                     $('#history-points-' + pointHistoryId).replaceWith(data);
+                    $('.delete-points').on('click', deletePointsButton);
                     $('#edit-points-modal').modal('close');
                     $('#points-save-preloader').addClass('hide');
                 }
@@ -102,6 +127,7 @@ $(document).ready(function() {
             },
             success: function(data) {
                 $('#points-history-list').prepend(data);
+                $('.delete-points').on('click', deletePointsButton);
                 $('#add-points-modal').modal('close');
                 $('#add-points-submit').prop('disabled', false).show();
                 $('#points-submit-preloader').addClass('hide');

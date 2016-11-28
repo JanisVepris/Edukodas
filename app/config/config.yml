@@ -89,3 +89,4 @@ fos_js_routing:
         - edukodas_tasks_list
         - edukodas_points_add
         - edukodas_points_edit
+        - edukodas_points_delete

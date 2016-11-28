@@ -26,6 +26,7 @@ class PointHistoryRepository extends EntityRepository
         $result = $this
             ->createQueryBuilder('ph')
             ->where('ph.teacher = :teacher')
+            ->andWhere('ph.deletedAt IS NULL')
             ->orderBy('ph.createdAt', 'DESC')
             ->setMaxResults($maxEntries)
             ->setParameter('teacher', $teacher)

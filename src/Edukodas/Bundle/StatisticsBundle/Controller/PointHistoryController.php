@@ -114,4 +114,30 @@ class PointHistoryController extends AbstractTeacherController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @param int $pointHistoryId
+     * @return int
+     */
+    public function deleteAction(int $pointHistoryId)
+    {
+        $user = $this->getUser();
+
+        $pointHistory = $this
+            ->getDoctrine()
+            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->find($pointHistoryId);
+
+        if (!$pointHistory) {
+            throw new NotFoundHttpException('Point history not found');
+        }
+
+        $this->checkOwnerOr403($pointHistory);
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($pointHistory);
+        $em->flush();
+
+        return new Response('', Response::HTTP_OK);
+    }
 }

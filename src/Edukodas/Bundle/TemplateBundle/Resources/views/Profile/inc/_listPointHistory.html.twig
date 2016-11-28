@@ -19,7 +19,7 @@
             {{ comment }}
         </div>
     {% else %}
-        <div class="col s5 right-align">
+        <div class="col s4 right-align">
             {{ createdAt }}<br>
             {{ comment }}
         </div>
@@ -31,6 +31,26 @@
                    href="#edit-points-modal">
                     <i class="small material-icons">mode_edit</i>
                 </a>
+            {% endif %}
+        </div>
+        <div class="col s1 center-align valign">
+            {% if app.user.id == entryOwnerId %}
+            <a data-points-id="{{ entryId }}"
+               class="btn-floating btn-small waves-effect waves-light red delete-points"
+               href="#delete-points">
+                <i class="small material-icons">delete</i>
+            </a>
+            <div class="preloader-wrapper small active hide" id="delete-points-preload-{{ entryId }}">
+                <div class="spinner-layer spinner-red-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
             {% endif %}
         </div>
     {% endif %}

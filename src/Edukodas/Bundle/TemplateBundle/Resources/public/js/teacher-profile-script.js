@@ -108,10 +108,19 @@ $(document).ready(function() {
                 toggleAddPointsForm();
                 $('#edukodas_bundle_statisticsbundle_pointhistory_comment').val('');
             },
-            error: function() {
-                Materialize.toast('Klaida išsaugant taškus', 4000);
-                $('#add-points-submit').prop('disabled', false).show();
+            error: function(data) {
                 $('#points-submit-preloader').addClass('hide');
+                if(data['status'] == 400) {
+                    $('#add-points-form-container').html(data['responseText']);
+                    $('#add-points-form-back').click(function (e) {
+                        e.preventDefault();
+                        toggleAddPointsForm();
+                    });
+                    addPointsForm();
+                } else {
+                    Materialize.toast('Klaida išsaugant taškus', 4000);
+                    $('#add-points-submit').prop('disabled', false).show();
+                }
             }
         });
     }

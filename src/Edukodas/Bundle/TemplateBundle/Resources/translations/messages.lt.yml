@@ -40,6 +40,7 @@ form:
     teacher: Mokytojas
     task: Užduotis
     student: Mokinys
+    student_placeholder: Pasirinkite mokinį
     amount: Taškų skaičius
     comment: Komentaras
     submit: Skirti

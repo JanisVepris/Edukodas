@@ -3,7 +3,13 @@
         <h4 class="{% if amount < 0 %}red-text{% else %}green-text{% endif %}">{{ amount }}</h4>
     </div>
     <div class="col s5 left-align">
-        <h5>{{ studentName }}</h5>
+        <h5>
+            {% if app.request.attributes.get('_route') == 'edukodas_student_profile' %}
+                {{ teacherName }}
+            {% else %}
+                {{ studentName }}
+            {% endif %}
+        </h5>
         {{ taskName }}
     </div>
 

@@ -19,8 +19,6 @@ class SecurityController extends BaseController
             if ($this->getUser()->hasRole(User::STUDENT_ROLE)) {
                 return $this->redirectToRoute('edukodas_student_profile');
             }
-
-            return $this->redirectToRoute('edukodas_user_homepage');
         }
 
         return $this->render('FOSUserBundle:Security:login.html.twig', $data);

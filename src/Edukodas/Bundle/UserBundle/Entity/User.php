@@ -5,9 +5,9 @@ namespace Edukodas\Bundle\UserBundle\Entity;
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Edukodas\Bundle\TasksBundle\Entity\Course;
 
 /**
@@ -20,6 +20,10 @@ use Edukodas\Bundle\TasksBundle\Entity\Course;
 class User extends BaseUser
 {
     use SoftDeleteableEntity;
+
+    const STUDENT_ROLE = 'ROLE_STUDENT';
+
+    const TEACHER_ROLE = 'ROLE_TEACHER';
 
     /**
      * @var int
@@ -52,6 +56,14 @@ class User extends BaseUser
      * @ORM\JoinColumn(name="student_team_id", referencedColumnName="id")
      */
     private $studentTeam;
+
+    /**
+     * @var StudentGeneration
+     *
+     * @ORM\ManyToOne(targetEntity="StudentGeneration", inversedBy="students")
+     * @ORM\JoinColumn(name="student_generation_id", referencedColumnName="id")
+     */
+    private $studentGeneration;
 
     /**
      * @var string
@@ -119,7 +131,7 @@ class User extends BaseUser
      * Set student team
      *
      * @param StudentTeam $team
-     * @return ArrayCollection
+     * @return User
      */
     public function setStudentTeam(StudentTeam $team)
     {
@@ -136,6 +148,30 @@ class User extends BaseUser
     public function getStudentTeam()
     {
         return $this->studentTeam;
+    }
+
+    /**
+     * Set student generation
+     *
+     * @param StudentGeneration $generation
+     *
+     * @return User
+     */
+    public function setStudentGeneration(StudentGeneration $generation)
+    {
+        $this->studentGeneration = $generation;
+
+        return $this;
+    }
+
+    /**
+     * Get student generation
+     *
+     * @return StudentGeneration
+     */
+    public function getStudentGeneration()
+    {
+        return $this->studentGeneration;
     }
 
     /**
@@ -240,5 +276,13 @@ class User extends BaseUser
     public function getLastName()
     {
         return $this->lastName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return sprintf('%s %s', $this->getFirstName(), $this->getLastName());
     }
 }

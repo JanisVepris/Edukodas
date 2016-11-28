@@ -47,8 +47,7 @@ class LoadUserData extends AbstractFixture implements
                 'password' => 'admin',
                 'email' => 'genadij.bojev@gmail.com',
                 'roles' => ['ROLE_ADMIN'],
-                'enabled' => true,
-                'team' => $this->getReference('team_1')
+                'enabled' => true
             ],
             [
                 'username' => 'domantasp',
@@ -57,8 +56,7 @@ class LoadUserData extends AbstractFixture implements
                 'password' => 'admin',
                 'email' => 'domantas.pet@gmail.com',
                 'roles' => ['ROLE_ADMIN'],
-                'enabled' => true,
-                'team' => $this->getReference('team_1')
+                'enabled' => true
             ],
             [
                 'username' => 'lukasc',
@@ -67,8 +65,7 @@ class LoadUserData extends AbstractFixture implements
                 'password' => 'admin',
                 'email' => 'lukasceplikas@gmail.com',
                 'roles' => ['ROLE_ADMIN'],
-                'enabled' => true,
-                'team' => $this->getReference('team_1')
+                'enabled' => true
             ],
             [
                 'username' => 'mokytojasa',
@@ -77,8 +74,7 @@ class LoadUserData extends AbstractFixture implements
                 'password' => 'password',
                 'email' => 'mokytojasa@pastas.com',
                 'roles' => ['ROLE_TEACHER'],
-                'enabled' => true,
-                'team' => null
+                'enabled' => true
             ],
             [
                 'username' => 'mokytojasb',
@@ -87,8 +83,7 @@ class LoadUserData extends AbstractFixture implements
                 'password' => 'password',
                 'email' => 'mokytojasb@pastas.com',
                 'roles' => ['ROLE_TEACHER'],
-                'enabled' => true,
-                'team' => null
+                'enabled' => true
             ],
             [
                 'username' => 'mokinysa',
@@ -97,9 +92,8 @@ class LoadUserData extends AbstractFixture implements
                 'lastName' => 'A',
                 'password' => 'password',
                 'email' => 'mokinysa@pastas.com',
-                'roles' => ['ROLE_USER'],
-                'enabled' => true,
-                'team' => $this->getReference('team_1')
+                'roles' => ['ROLE_STUDENT'],
+                'enabled' => true
             ],
             [
                 'username' => 'mokinysb',
@@ -108,31 +102,17 @@ class LoadUserData extends AbstractFixture implements
                 'lastName' => 'B',
                 'password' => 'password',
                 'email' => 'mokinysb@pastas.com',
-                'roles' => ['ROLE_USER'],
-                'enabled' => true,
-                'team' => $this->getReference('team_2')
-            ],
-            [
+                'roles' => ['ROLE_STUDENT'],
+                'enabled' => true
+            ],            [
                 'username' => 'mokinysc',
                 'firstName' => 'Mokinys',
                 'studentClass' => '4a',
                 'lastName' => 'C',
                 'password' => 'password',
                 'email' => 'mokinysc@pastas.com',
-                'roles' => ['ROLE_USER'],
-                'enabled' => true,
-                'team' => $this->getReference('team_3')
-            ],
-            [
-                'username' => 'mokinysd',
-                'firstName' => 'Mokinys',
-                'studentClass' => '4a',
-                'lastName' => 'D',
-                'password' => 'password',
-                'email' => 'mokinysd@pastas.com',
-                'roles' => ['ROLE_USER'],
-                'enabled' => true,
-                'team' => $this->getReference('team_4')
+                'roles' => ['ROLE_STUDENT'],
+                'enabled' => true
             ],
         ];
     }
@@ -158,10 +138,6 @@ class LoadUserData extends AbstractFixture implements
                 ->setEmail($userData['email'])
                 ->setRoles($userData['roles'])
                 ->setEnabled($userData['enabled']);
-
-            if ($userData['team']) {
-                $user->setStudentTeam($userData['team']);
-            }
 
             if (isset($userData['studentClass'])) {
                 $studentClass = $this->getReference('class_' . $userData['studentClass']);

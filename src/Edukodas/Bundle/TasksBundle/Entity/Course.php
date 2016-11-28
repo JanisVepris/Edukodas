@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-use Edukodas\Bundle\TasksBundle\Entity\Task;
 use Edukodas\Bundle\UserBundle\Entity\User;
 
 /**
@@ -57,6 +56,14 @@ class Course
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
     }
 
     /**

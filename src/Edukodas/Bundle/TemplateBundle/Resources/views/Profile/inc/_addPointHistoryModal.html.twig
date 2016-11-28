@@ -1,4 +1,4 @@
-<div id="manage-points-modal" class="modal valign-wrapper">
+<div id="add-points-modal" class="modal valign-wrapper">
     <div class="modal-content">
         <div class="task-list-container">
             {% for course in courses %}
@@ -20,15 +20,21 @@
         </div>
         <div class="hide" id="add-points-form-container">
             {{ form_start(form, {'attr': {'id': 'add-points-form'}}) }}
+            <div>
                 {{ form_label(form.student) }}
                 {{ form_widget(form.student) }}
+            </div>
+            <div>
                 {{ form_label(form.amount) }}
                 {{ form_widget(form.amount) }}
+            </div>
+            <div>
                 {{ form_label(form.comment) }}
                 {{ form_widget(form.comment) }}
-                {{ form_widget(form._token) }}
-                {{ form_widget(form.task, {'attr': {'class': 'hide'}}) }}
-                {% do form.teacher.setRendered %}
+            </div>
+            {{ form_widget(form._token) }}
+            {{ form_widget(form.task, {'attr': {'class': 'hide'}}) }}
+            {% do form.teacher.setRendered %}
             <button type="submit" class="waves-effect waves-light btn" id="add-points-submit">{{ 'form.add_points.submit'|trans }}</button>
             <div class="preloader-wrapper small active hide" id="points-submit-preloader">
                 <div class="spinner-layer spinner-green-only">

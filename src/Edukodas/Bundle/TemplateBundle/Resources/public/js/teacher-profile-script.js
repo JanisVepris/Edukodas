@@ -81,7 +81,7 @@ $(document).ready(function() {
         }
     }
 
-    function managePointsForm() {
+    function addPointsForm() {
         var user_id = $('#edukodas_points_add').data('user-id');
         $('#edukodas_bundle_statisticsbundle_pointhistory_student').val(user_id);
         $('select').material_select();
@@ -102,13 +102,13 @@ $(document).ready(function() {
             },
             success: function(data) {
                 $('#points-history-list').prepend(data);
-                $('#manage-points-modal').modal('close');
+                $('#add-points-modal').modal('close');
                 $('#add-points-submit').prop('disabled', false).show();
                 $('#points-submit-preloader').addClass('hide');
                 toggleAddPointsForm();
                 $('#edukodas_bundle_statisticsbundle_pointhistory_comment').val('');
             },
-            error: function(data) {
+            error: function() {
                 Materialize.toast('Klaida išsaugant taškus', 4000);
                 $('#add-points-submit').prop('disabled', false).show();
                 $('#points-submit-preloader').addClass('hide');
@@ -132,16 +132,12 @@ $(document).ready(function() {
         $('#edukodas_bundle_statisticsbundle_pointhistory_amount').val(amount);
     });
 
-    $('#manage-points-modal').modal({
-            ready: function(modal, trigger) {
-                managePointsForm();
-            },
-            complete: function() {
-                // $('#manage-task-modal > .modal-content > .form-content').html('');
+    $('#add-points-modal').modal({
+            ready: function() {
+                addPointsForm();
             }
         }
     );
-
 
 //
     function manageTaskButton(trigger) {
@@ -206,11 +202,9 @@ $(document).ready(function() {
                 $('#submit-preloader').removeClass('hide');
             },
             success: function(data) {
-                if (data) {
-                    updateTasksList(data);
-                    $('#manage-task-modal').modal('close');
-                    $('#submit-preloader').addClass('hide');
-                }
+                updateTasksList(data);
+                $('#manage-task-modal').modal('close');
+                $('#submit-preloader').addClass('hide');
             },
             error: function(data) {
                 $('#submit-preloader').addClass('hide');

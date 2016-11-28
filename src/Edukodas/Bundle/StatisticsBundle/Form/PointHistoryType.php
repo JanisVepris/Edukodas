@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\CssSelector\Exception\InternalErrorException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,6 +36,7 @@ class PointHistoryType extends AbstractType
                         ->orderBy('t.name', 'ASC')
                         ->setParameter('user', $options['user']);
                 },
+                'group_by' => 'course',
                 'label' => 'form.add_points.task',
             ])
             ->add('student', EntityType::class, [

@@ -8,6 +8,9 @@ menu:
     logout: Atsijungti
 
 profile:
+  teacher:
+    gave_points: Davė taškų
+    took_points: Atėmė taškų
   point_history:
     no_entries: Įrašų nerasta
   heading:

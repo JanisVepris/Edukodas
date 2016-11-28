@@ -39,6 +39,62 @@ class PointHistoryRepository extends EntityRepository
     }
 
     /**
+     * @param User $teacher
+     *
+     * @return int
+     */
+    public function getTotalPositivePointsByTeacher(User $teacher): int
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $result = $this
+            ->createQueryBuilder('ph')
+            ->select('SUM(ph.amount)')
+            ->where('ph.teacher = :teacher')
+            ->andWhere('ph.amount > 0')
+            ->andWhere('ph.deletedAt IS NULL')
+            ->setParameter('teacher', $teacher)
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        if (!$result) {
+            return 0;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param User $teacher
+     *
+     * @return int
+     */
+    public function getTotalNegativePointsByTeacher(User $teacher): int
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $result = $this
+            ->createQueryBuilder('ph')
+            ->select('SUM(ph.amount)')
+            ->where('ph.teacher = :teacher')
+            ->andWhere('ph.amount < 0')
+            ->andWhere('ph.deletedAt IS NULL')
+            ->setParameter('teacher', $teacher)
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        if (!$result) {
+            return 0;
+        }
+
+        return $result;
+    }
+
+    /**
      * @param User $student
      * @param int $maxEntries
      *

@@ -19,10 +19,22 @@ class TeacherProfileController extends Controller
             ->getRepository('EdukodasStatisticsBundle:PointHistory')
             ->getRecentEntriesByTeacher($user);
 
+        $pointsTotalPositive = $this
+            ->getDoctrine()
+            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->getTotalPositivePointsByTeacher($user);
+
+        $pointsTotalNegative = $this
+            ->getDoctrine()
+            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->getTotalNegativePointsByTeacher($user);
+
         $form = $this->createForm(PointHistoryType::class, $points, ['user' => $this->getUser()]);
 
-        return $this->render('EdukodasTemplateBundle:Profile:teacherprofile.html.twig', [
+        return $this->render('@EdukodasTemplate/Profile/teacherProfile.html.twig', [
             'user' => $user,
+            'pointsTotalPositive' => $pointsTotalPositive,
+            'pointsTotalNegative' => $pointsTotalNegative,
             'pointHistory' => $pointHistory,
             'addPointsForm' => $form->createView()
         ]);

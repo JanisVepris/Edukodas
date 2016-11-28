@@ -18,13 +18,7 @@
                     <div class="card">
                         <div class="card-content">
                             <span class="card-title">
-                                {{ user.fullName }} <small>({{ user.studentClass.title }})</small
-                                {% if app.user.id == user.id %}
-                                    <a class="btn-floating btn-small waves-effect waves-light red"
-                                       href="{{ path('fos_user_profile_edit') }}">
-                                       <i class="small material-icons">edit</i>
-                                    </a>
-                                {% endif %}
+                                {{ user.fullName }} <small>({{ user.studentClass.title }})</small>
                             </span>
                             {% if user.studentTeam.title is defined %}
                                 <p>{{ user.studentTeam.title }} {{ 'points.team'|trans }}</p>

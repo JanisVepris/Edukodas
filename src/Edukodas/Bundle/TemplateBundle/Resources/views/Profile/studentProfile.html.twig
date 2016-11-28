@@ -3,7 +3,7 @@
 {% block main %}
     {% if is_granted('ROLE_TEACHER') %}
         {% include "EdukodasTemplateBundle:Profile/inc:_modalStructure.html.twig" %}
-        {% include '@EdukodasTemplate/Profile/inc/_pointHistoryModal.html.twig' with {
+        {% include '@EdukodasTemplate/Profile/inc/_addPointHistoryModal.html.twig' with {
             'courses': teacher.courses,
             'form': addPointsForm
         } %}
@@ -27,16 +27,16 @@
                                 {% endif %}
                             </span>
                             {% if user.studentTeam.title is defined %}
-                                <p>{{ user.studentTeam.title }} komanda</p>
+                                <p>{{ user.studentTeam.title }} {{ 'points.team'|trans }}</p>
                             {% endif %}
-                            <p>Taškų suma: {{ points | number_format }}</p>
+                            <p>{{ 'points.total_points'|trans }}: {{ points | number_format }}</p>
 
                             <ul class="collection with-header">
-                                <li class="collection-header"><h4>Reitingas</h4></li>
-                                <li class="collection-item">Kartoje: <b>#</b></li>
-                                <li class="collection-item">Komandoje: <b>#</b></li>
-                                <li class="collection-item">Mokykloje: <b>#</b></li>
-                                <li class="collection-item">Klasėje: <b>#</b></li>
+                                <li class="collection-header"><h4>{{ 'points.rating.header'|trans }}</h4></li>
+                                <li class="collection-item">{{ 'points.rating.generation'|trans }}: <b>#</b></li>
+                                <li class="collection-item">{{ 'points.rating.team'|trans }}: <b>#</b></li>
+                                <li class="collection-item">{{ 'points.rating.school'|trans }}: <b>#</b></li>
+                                <li class="collection-item">{{ 'points.rating.class'|trans }}: <b>#</b></li>
                             </ul>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                         <ul class="collection" id="points-history-list">
                             {% for pointHistoryEntry in pointHistory %}
                                 {# @var pointHistoryEntry \Edukodas\Bundle\StatisticsBundle\Entity\PointHistory #}
-                                {% include "EdukodasTemplateBundle:pointhistory:listpoints.html.twig" with {
+                                {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig" with {
                                 entryId: pointHistoryEntry.id,
                                 amount: pointHistoryEntry.amount,
                                 studentName: pointHistoryEntry.student.fullName,

@@ -14,5 +14,13 @@ profile:
     points_history: Taškų istorija
 
 points:
+  rating:
+    header: Reitingas
+    generation: Kartoje
+    team: Komandoje
+    school: Mokykloje
+    class: Klasėje
+  total_points: Taškų suma
+  team: komanda
   edit:
     different_teacher: Jūs galite redaguoti tik savo skirtus taškus

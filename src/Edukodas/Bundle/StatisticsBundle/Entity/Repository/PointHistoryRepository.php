@@ -51,6 +51,7 @@ class PointHistoryRepository extends EntityRepository
         $result = $this
             ->createQueryBuilder('ph')
             ->where('ph.student = :student')
+            ->andWhere('ph.deletedAt IS NULL')
             ->orderBy('ph.id', 'DESC')
             ->setMaxResults($maxEntries)
             ->setParameter('student', $student)
@@ -75,6 +76,7 @@ class PointHistoryRepository extends EntityRepository
             ->createQueryBuilder('ph')
             ->select('SUM(ph.amount)')
             ->where('ph.student = :student')
+            ->andWhere('ph.deletedAt IS NULL')
             ->setParameter('student', $student)
             ->getQuery()
             ->getSingleScalarResult();
@@ -100,6 +102,7 @@ class PointHistoryRepository extends EntityRepository
         $result = $qb
             ->select('s.id', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
+            ->where('ph.deletedAt IS NULL')
             ->groupBy('s.id')
             ->getQuery()
             ->getResult();
@@ -124,6 +127,7 @@ class PointHistoryRepository extends EntityRepository
             ->select('s.id', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
             ->where('s.studentTeam = :team')
+            ->andWhere('ph.deletedAt IS NULL')
             ->setParameter('team', $team)
             ->groupBy('s.id')
             ->getQuery()
@@ -149,6 +153,7 @@ class PointHistoryRepository extends EntityRepository
             ->select('s.id', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
             ->where('s.studentGeneration = :generation')
+            ->andWhere('ph.deletedAt IS NULL')
             ->setParameter('generation', $studentGeneration)
             ->groupBy('s.id')
             ->getQuery()
@@ -174,6 +179,7 @@ class PointHistoryRepository extends EntityRepository
             ->select('s.id', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
             ->where('s.studentClass = :class')
+            ->andWhere('ph.deletedAt IS NULL')
             ->setParameter('class', $studentClass)
             ->groupBy('s.id')
             ->getQuery()

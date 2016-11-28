@@ -38,37 +38,46 @@ class LoadPointHistoryData extends AbstractFixture implements
      *
      * @return array
      */
-    private function getPointHistoryData()
+    private function getStudents()
     {
         return [
             [
-                'teacher' => 'mokytojasa',
-                'student' => 'mokinysa',
-                'task'    => '1',
-                'comment' => 'Pirmas teigiamas irasas',
-                'amount'  => +2,
+                'student' => $this->getReference('mokinysa'),
+                'entryCount' => 25
             ],
             [
-                'teacher' => 'mokytojasa',
-                'student' => 'mokinysa',
-                'task'    => '2',
-                'comment' => 'Pirmas neigiamas irasas',
-                'amount'  => -2,
+                'student' => $this->getReference('mokinysb'),
+                'entryCount' => 25
             ],
             [
-                'teacher' => 'mokytojasb',
-                'student' => 'mokinysa',
-                'task'    => '3',
-                'comment' => 'Antras teigiamas irasas',
-                'amount'  => +1,
+                'student' => $this->getReference('mokinysc'),
+                'entryCount' => 25
             ],
             [
-                'teacher' => 'mokytojasa',
-                'student' => 'mokinysa',
-                'task'    => '1',
-                'comment' => 'Antras neigiamas irasas',
-                'amount'  => -3,
+                'student' => $this->getReference('mokinysd'),
+                'entryCount' => 25
             ],
+        ];
+    }
+
+    public function getTeachers()
+    {
+        return [
+            $this->getReference('mokytojasa'),
+            $this->getReference('mokytojasb'),
+        ];
+    }
+
+    public function getTasks()
+    {
+        return [
+            $this->getReference('task_0'),
+            $this->getReference('task_1'),
+            $this->getReference('task_2'),
+            $this->getReference('task_3'),
+            $this->getReference('task_4'),
+            $this->getReference('task_5'),
+            $this->getReference('task_6'),
         ];
     }
 
@@ -81,25 +90,24 @@ class LoadPointHistoryData extends AbstractFixture implements
      */
     public function load(ObjectManager $manager)
     {
-        $data = $this->getPointHistoryData();
+        $students = $this->getStudents();
+        $teachers = $this->getTeachers();
+        $tasks = $this->getTasks();
 
-        foreach ($data as $row) {
-            $teacher = $this->getReference($row['teacher']);
-            $student = $this->getReference($row['student']);
-            $task = $this->getReference('task_' . $row['task']);
+        foreach ($students as $student) {
+            for ($i = 0; $i < $student['entryCount']; $i++) {
+                $pointHistory = new PointHistory();
+                $pointHistory
+                    ->setTeacher($teachers[array_rand($teachers)])
+                    ->setStudent($student['student'])
+                    ->setTask($tasks[array_rand($tasks)])
+                    ->setComment('test comment')
+                    ->setAmount(rand(-50, 50));
+                $manager->persist($pointHistory);
+            }
 
-            $pointHistory = new PointHistory();
-            $pointHistory
-                ->setTeacher($teacher)
-                ->setStudent($student)
-                ->setTask($task)
-                ->setComment($row['comment'])
-                ->setAmount($row['amount']);
-
-            $manager->persist($pointHistory);
+            $manager->flush();
         }
-
-        $manager->flush();
     }
 
     /**

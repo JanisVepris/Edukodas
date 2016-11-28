@@ -10,7 +10,9 @@
         {% stylesheets
         "bundles/edukodastemplate/sass/materialize.scss"
         "bundles/edukodastemplate/sass/main.scss"
-        filter="scssphp" output="css/app.css" %}
+        filter="scssphp"
+        filter="cssrewrite"
+        output="css/app.css" %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
     {% endblock %}

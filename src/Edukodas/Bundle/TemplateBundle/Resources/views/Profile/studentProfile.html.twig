@@ -1,12 +1,14 @@
 {% extends "EdukodasTemplateBundle::base.html.twig" %}
 
 {% block main %}
-    {% include "EdukodasTemplateBundle:Profile/inc:_modalStructure.html.twig" %}
-    {% include '@EdukodasTemplate/Profile/inc/_pointHistoryModal.html.twig' with {
-        'courses': teacher.courses,
-        'form': addPointsForm
-    } %}
-    {% include '@EdukodasTemplate/Profile/inc/_editPointHistoryModal.html.twig' %}
+    {% if is_granted('ROLE_TEACHER') %}
+        {% include "EdukodasTemplateBundle:Profile/inc:_modalStructure.html.twig" %}
+        {% include '@EdukodasTemplate/Profile/inc/_pointHistoryModal.html.twig' with {
+            'courses': teacher.courses,
+            'form': addPointsForm
+        } %}
+        {% include '@EdukodasTemplate/Profile/inc/_editPointHistoryModal.html.twig' %}
+    {% endif %}
 
     <div class="container">
         <div class="row" style="clear: both;">
@@ -63,7 +65,7 @@
                                 {% include "EdukodasTemplateBundle:pointhistory:listpoints.html.twig" with {
                                 entryId: pointHistoryEntry.id,
                                 amount: pointHistoryEntry.amount,
-                                studentName: pointHistoryEntry.teacher.fullName,
+                                studentName: pointHistoryEntry.student.fullName,
                                 teacherName: pointHistoryEntry.teacher.fullName,
                                 taskName: pointHistoryEntry.task.name,
                                 comment: pointHistoryEntry.comment,

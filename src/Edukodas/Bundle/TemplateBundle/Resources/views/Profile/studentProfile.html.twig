@@ -59,17 +59,19 @@
                     {% endif %}
 
                     <div class="section">
-                        <ul class="collection" id="points-history-list">
+                        <ul class="collection" id="points-history-list" data-is-student-profile="1">
                             {% for pointHistoryEntry in pointHistory %}
                                 {# @var pointHistoryEntry \Edukodas\Bundle\StatisticsBundle\Entity\PointHistory #}
                                 {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig" with {
-                                entryId: pointHistoryEntry.id,
-                                amount: pointHistoryEntry.amount,
-                                studentName: pointHistoryEntry.student.fullName,
-                                teacherName: pointHistoryEntry.teacher.fullName,
-                                taskName: pointHistoryEntry.task.name,
-                                comment: pointHistoryEntry.comment,
-                                createdAt: pointHistoryEntry.createdAt|date('Y/m/d H:m')
+                                    entryId: pointHistoryEntry.id,
+                                    amount: pointHistoryEntry.amount,
+                                    studentName: pointHistoryEntry.student.fullName,
+                                    teacher: pointHistoryEntry.teacher,
+                                    entryOwnerId: pointHistoryEntry.owner.id,
+                                    taskName: pointHistoryEntry.task.name,
+                                    comment: pointHistoryEntry.comment,
+                                    createdAt: pointHistoryEntry.createdAt|date('Y/m/d H:m'),
+                                    isStudentProfile: true
                                 } %}
                             {% else %}
                                 {{ 'profile.point_history.no_entries'|trans }}

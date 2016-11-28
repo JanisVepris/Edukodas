@@ -39,14 +39,18 @@ class PointHistoryController extends AbstractTeacherController
             $em->persist($pointHistory);
             $em->flush();
 
+            $isStudentProfile = $request->request->get('isStudentProfile') ? true : false;
+
             return $this->render('@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig', [
                 'entryId' => $pointHistory->getId(),
                 'amount' => $pointHistory->getAmount(),
                 'studentName' => $pointHistory->getStudent()->getFullName(),
-                'teacherName' => $pointHistory->getTeacher()->getFullName(),
+                'teacher' => $pointHistory->getTeacher(),
+                'entryOwnerId' => $pointHistory->getOwner()->getId(),
                 'taskName' => $pointHistory->getTask()->getName(),
                 'comment' => $pointHistory->getComment(),
-                'createdAt' => $pointHistory->getCreatedAt()->format('Y/m/d H:m')
+                'createdAt' => $pointHistory->getCreatedAt()->format('Y/m/d H:m'),
+                'isStudentProfile' => $isStudentProfile,
             ]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
             return new Response($view, Response::HTTP_BAD_REQUEST);
@@ -81,14 +85,18 @@ class PointHistoryController extends AbstractTeacherController
             $em->persist($pointHistory);
             $em->flush();
 
+            $isStudentProfile = $request->request->get('isStudentProfile') ? true : false;
+
             return $this->render('@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig', [
                 'entryId' => $pointHistory->getId(),
                 'amount' => $pointHistory->getAmount(),
                 'studentName' => $pointHistory->getStudent()->getFullName(),
-                'teacherName' => $pointHistory->getTeacher()->getFullName(),
+                'teacher' => $pointHistory->getTeacher(),
+                'entryOwnerId' => $pointHistory->getOwner()->getId(),
                 'taskName' => $pointHistory->getTask()->getName(),
                 'comment' => $pointHistory->getComment(),
-                'createdAt' => $pointHistory->getCreatedAt()->format('Y/m/d H:m')
+                'createdAt' => $pointHistory->getCreatedAt()->format('Y/m/d H:m'),
+                'isStudentProfile' => $isStudentProfile,
             ]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
             $view = $this->renderView('@EdukodasTemplate/Profile/inc/_editPointHistoryForm.html.twig', [

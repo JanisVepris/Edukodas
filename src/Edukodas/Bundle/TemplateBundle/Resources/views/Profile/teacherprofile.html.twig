@@ -53,17 +53,19 @@
                     <i class="small material-icons">library_add</i>
                 </a>
                 <div class="section">
-                    <ul class="collection" id="points-history-list">
+                    <ul class="collection" id="points-history-list"  data-is-student-profile="0">
                         {% for pointHistoryEntry in pointHistory %}
                             {# @var pointHistoryEntry \Edukodas\Bundle\StatisticsBundle\Entity\PointHistory #}
                             {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig" with {
                                 entryId: pointHistoryEntry.id,
                                 amount: pointHistoryEntry.amount,
                                 studentName: pointHistoryEntry.student.fullName,
-                                teacherName: pointHistoryEntry.teacher.fullName,
+                                teacher: pointHistoryEntry.teacher,
+                                entryOwnerId: pointHistoryEntry.owner.id,
                                 taskName: pointHistoryEntry.task.name,
                                 comment: pointHistoryEntry.comment,
-                                createdAt: pointHistoryEntry.createdAt|date('Y/m/d H:m')
+                                createdAt: pointHistoryEntry.createdAt|date('Y/m/d H:m'),
+                                isStudentProfile: false
                             } %}
                         {% else %}
                             No point history

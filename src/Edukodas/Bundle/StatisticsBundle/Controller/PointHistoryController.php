@@ -11,6 +11,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PointHistoryController extends AbstractTeacherController
 {
+    /**
+     * @return Response
+     */
     public function listAction()
     {
         $user = $this->getUser();
@@ -20,6 +23,10 @@ class PointHistoryController extends AbstractTeacherController
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function addAction(Request $request)
     {
         $this->checkTeacherOr403();
@@ -61,6 +68,11 @@ class PointHistoryController extends AbstractTeacherController
         }
     }
 
+    /**
+     * @param Request $request
+     * @param int $pointHistoryId
+     * @return Response
+     */
     public function editAction(Request $request, int $pointHistoryId)
     {
         $pointHistory = $this
@@ -121,8 +133,6 @@ class PointHistoryController extends AbstractTeacherController
      */
     public function deleteAction(int $pointHistoryId)
     {
-        $user = $this->getUser();
-
         $pointHistory = $this
             ->getDoctrine()
             ->getRepository('EdukodasStatisticsBundle:PointHistory')

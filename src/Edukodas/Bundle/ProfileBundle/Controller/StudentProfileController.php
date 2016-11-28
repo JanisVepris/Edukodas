@@ -37,7 +37,7 @@ class StudentProfileController extends Controller
             ->getTotalPointsByStudent($user);
 
         $points = new PointHistory();
-        $pointsForm = $this->createForm(PointHistoryType::class, $points, ['user' => $user]);
+        $pointsForm = $this->createForm(PointHistoryType::class, $points, ['user' => $this->getUser()]);
 
         return $this->render('EdukodasTemplateBundle:Profile:studentProfile.html.twig', [
             'user' => $user,

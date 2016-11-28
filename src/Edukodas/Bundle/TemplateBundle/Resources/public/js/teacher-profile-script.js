@@ -115,8 +115,7 @@ $(document).ready(function() {
         e.preventDefault();
 
         var taskId = $(this).data('taskId');
-        var amount = $(this).data('taskAmount');
-
+        var amount = parseInt($(this).data('taskAmount'));
         toggleAddPointsForm();
 
         $('#edukodas_bundle_statisticsbundle_pointhistory_task').val(taskId);

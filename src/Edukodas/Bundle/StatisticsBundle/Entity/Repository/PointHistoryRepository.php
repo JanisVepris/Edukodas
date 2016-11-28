@@ -6,6 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
+use Edukodas\Bundle\UserBundle\Entity\StudentClass;
+use Edukodas\Bundle\UserBundle\Entity\StudentGeneration;
+use Edukodas\Bundle\UserBundle\Entity\StudentTeam;
 use Edukodas\Bundle\UserBundle\Entity\User;
 
 class PointHistoryRepository extends EntityRepository
@@ -82,5 +85,101 @@ class PointHistoryRepository extends EntityRepository
         }
 
         return $result;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getStudentPointTotals()
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $qb = $this->createQueryBuilder('ph');
+
+        $result = $qb
+            ->select('s.id', 'SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->groupBy('s.id')
+            ->getQuery()
+            ->getResult();
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        return new ArrayCollection($result);
+    }
+
+    /**
+     * @param StudentTeam $team
+     *
+     * @return ArrayCollection
+     */
+    public function getStudentPointTotalsByTeam(StudentTeam $team)
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $qb = $this->createQueryBuilder('ph');
+
+        $result = $qb
+            ->select('s.id', 'SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->where('s.studentTeam = :team')
+            ->setParameter('team', $team)
+            ->groupBy('s.id')
+            ->getQuery()
+            ->getResult();
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        return new ArrayCollection($result);
+    }
+
+    /**
+     * @param StudentGeneration $studentGeneration
+     *
+     * @return ArrayCollection
+     */
+    public function getStudentPointTotalsByGeneration(StudentGeneration $studentGeneration)
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $qb = $this->createQueryBuilder('ph');
+
+        $result = $qb
+            ->select('s.id', 'SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->where('s.studentGeneration = :generation')
+            ->setParameter('generation', $studentGeneration)
+            ->groupBy('s.id')
+            ->getQuery()
+            ->getResult();
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        return new ArrayCollection($result);
+    }
+
+    /**
+     * @param StudentClass $studentClass
+     *
+     * @return ArrayCollection
+     */
+    public function getStudentPointTotalsByClass(StudentClass $studentClass)
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $qb = $this->createQueryBuilder('ph');
+
+        $result = $qb
+            ->select('s.id', 'SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->where('s.studentClass = :class')
+            ->setParameter('class', $studentClass)
+            ->groupBy('s.id')
+            ->getQuery()
+            ->getResult();
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        return new ArrayCollection($result);
     }
 }

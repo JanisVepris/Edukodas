@@ -48,6 +48,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'genadij.bojev@gmail.com',
                 'roles' => ['ROLE_ADMIN'],
                 'enabled' => true,
+                'generation' => null,
                 'team' => $this->getReference('team_1')
             ],
             [
@@ -58,6 +59,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'domantas.pet@gmail.com',
                 'roles' => ['ROLE_ADMIN'],
                 'enabled' => true,
+                'generation' => null,
                 'team' => $this->getReference('team_1')
             ],
             [
@@ -68,6 +70,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'lukasceplikas@gmail.com',
                 'roles' => ['ROLE_ADMIN'],
                 'enabled' => true,
+                'generation' => null,
                 'team' => $this->getReference('team_1')
             ],
             [
@@ -78,6 +81,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'mokytojasa@pastas.com',
                 'roles' => ['ROLE_TEACHER'],
                 'enabled' => true,
+                'generation' => null,
                 'team' => null
             ],
             [
@@ -88,6 +92,7 @@ class LoadUserData extends AbstractFixture implements
                 'email' => 'mokytojasb@pastas.com',
                 'roles' => ['ROLE_TEACHER'],
                 'enabled' => true,
+                'generation' => null,
                 'team' => null
             ],
             [
@@ -162,6 +167,10 @@ class LoadUserData extends AbstractFixture implements
                 ->setEmail($userData['email'])
                 ->setRoles($userData['roles'])
                 ->setEnabled($userData['enabled']);
+
+            if ($userData['generation']) {
+                $user->setStudentGeneration($userData['generation']);
+            }
 
             if ($userData['team']) {
                 $user->setStudentTeam($userData['team']);

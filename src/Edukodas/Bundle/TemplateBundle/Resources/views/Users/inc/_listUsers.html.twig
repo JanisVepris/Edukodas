@@ -1,0 +1,9 @@
+{% for user in users %}
+    <div class="divider"></div>
+    <div class="section">
+        <h4>{{ user.id }} - {{ user.amount }}</h4>
+    </div>
+{% else %}
+    <div class="divider"></div>
+    {{ 'list.no_courses'|trans }}
+{% endfor %}

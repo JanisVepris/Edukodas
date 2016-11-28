@@ -1,0 +1,31 @@
+{% extends "EdukodasTemplateBundle::base.html.twig" %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="input-field col s2">
+                <select id="select-team">
+                    <option value="all" selected>{{  'users.all'|trans }}</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+                <label>{{ 'users.team'|trans }}</label>
+            </div>
+
+            <div class="input-field col s2">
+                <select id="select-class">
+                    <option value="all" selected>{{ 'users.all'|trans }}</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+                <label>{{ 'users.class'|trans }}</label>
+            </div>
+        </div>
+
+        <div class="row">
+            aa
+        </div>
+    </div>
+{% endblock %}

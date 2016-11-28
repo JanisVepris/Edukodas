@@ -24,3 +24,8 @@ points:
   team: komanda
   edit:
     different_teacher: Jūs galite redaguoti tik savo skirtus taškus
+
+users:
+  team: Komanda
+  class: Klasė
+  all: Visos

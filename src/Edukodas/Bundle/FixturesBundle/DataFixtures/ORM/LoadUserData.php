@@ -97,7 +97,7 @@ class LoadUserData extends AbstractFixture implements
                 'lastName' => 'A',
                 'password' => 'password',
                 'email' => 'mokinysa@pastas.com',
-                'roles' => ['ROLE_USER'],
+                'roles' => ['ROLE_STUDENT'],
                 'enabled' => true,
                 'team' => $this->getReference('team_1')
             ],
@@ -108,7 +108,7 @@ class LoadUserData extends AbstractFixture implements
                 'lastName' => 'B',
                 'password' => 'password',
                 'email' => 'mokinysb@pastas.com',
-                'roles' => ['ROLE_USER'],
+                'roles' => ['ROLE_STUDENT'],
                 'enabled' => true,
                 'team' => $this->getReference('team_2')
             ],
@@ -119,7 +119,7 @@ class LoadUserData extends AbstractFixture implements
                 'lastName' => 'C',
                 'password' => 'password',
                 'email' => 'mokinysc@pastas.com',
-                'roles' => ['ROLE_USER'],
+                'roles' => ['ROLE_STUDENT'],
                 'enabled' => true,
                 'team' => $this->getReference('team_3')
             ],
@@ -130,7 +130,7 @@ class LoadUserData extends AbstractFixture implements
                 'lastName' => 'D',
                 'password' => 'password',
                 'email' => 'mokinysd@pastas.com',
-                'roles' => ['ROLE_USER'],
+                'roles' => ['ROLE_STUDENT'],
                 'enabled' => true,
                 'team' => $this->getReference('team_4')
             ],

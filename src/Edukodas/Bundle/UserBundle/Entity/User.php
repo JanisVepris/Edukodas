@@ -5,9 +5,9 @@ namespace Edukodas\Bundle\UserBundle\Entity;
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Edukodas\Bundle\TasksBundle\Entity\Course;
 
 /**
@@ -20,6 +20,10 @@ use Edukodas\Bundle\TasksBundle\Entity\Course;
 class User extends BaseUser
 {
     use SoftDeleteableEntity;
+
+    const STUDENT_ROLE = 'ROLE_STUDENT';
+
+    const TEACHER_ROLE = 'ROLE_TEACHER';
 
     /**
      * @var int
@@ -240,5 +244,13 @@ class User extends BaseUser
     public function getLastName()
     {
         return $this->lastName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return sprintf('%s %s', $this->getFirstName(), $this->getLastName());
     }
 }

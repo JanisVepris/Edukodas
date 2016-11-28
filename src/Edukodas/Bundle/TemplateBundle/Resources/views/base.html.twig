@@ -17,21 +17,24 @@
     {% block canonical_meta %}{% endblock %}
 </head>
 <body>
-{% block header %}
-    {% include 'EdukodasTemplateBundle:inc:header.html.twig' %}
-{% endblock %}
+    {% block header %}
+        {% include 'EdukodasTemplateBundle:inc:header.html.twig' %}
+    {% endblock %}
 
-{% block main %}{% endblock %}
+    {% block main %}{% endblock %}
 
-{% block javascripts %}
-    {% javascripts
-    'bundles/edukodastemplate/js/jquery-2.2.4.min.js'
-    'bundles/edukodastemplate/js/bin/materialize.js'
-    'bundles/edukodastemplate/js/bin/main.js'
-    output='js/compiled/app.js' %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}
-
+    {% block javascripts %}
+        {% javascripts filter='?yui_js'
+        'bundles/edukodastemplate/js/jquery-2.2.4.min.js'
+        'bundles/edukodastemplate/js/bin/materialize.js'
+        'bundles/edukodastemplate/js/jquery.form.js'
+        'bundles/fosjsrouting/js/router.js'
+        'js/fos_js_routes.js'
+        'bundles/edukodastemplate/js/bin/main.js'
+        'bundles/edukodastemplate/js/teacher-profile-script.js'
+        output='js/compiled/app.js' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
 </body>
 </html>

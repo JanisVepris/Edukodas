@@ -3311,7 +3311,7 @@ $(document).ready(function(){
       // Wrap Elements
       $select.wrap(wrapper);
       // Add Select Display Element
-      var dropdownIcon = $('<span class="caret">&#9660;</span>');
+      var dropdownIcon = $('<span class="caret"></span>');
       if ($select.is(':disabled'))
         dropdownIcon.addClass('disabled');
 

@@ -46,7 +46,6 @@ class PointHistoryType extends AbstractType
                         ->orderBy('u.lastName', 'ASC')
                         ->setParameter('role', '%"' . User::STUDENT_ROLE . '"%');
                 },
-                'placeholder' => 'form.add_points.student_placeholder',
                 'label' => 'form.add_points.student'
             ])
             ->add('amount', IntegerType::class, [

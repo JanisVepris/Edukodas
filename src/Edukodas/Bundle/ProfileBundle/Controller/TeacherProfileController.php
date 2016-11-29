@@ -26,8 +26,6 @@ class TeacherProfileController extends Controller
             throw new HttpException(400, 'User is not teachers');
         }
 
-        $points = new PointHistory();
-
         $pointHistory = $this
             ->getDoctrine()
             ->getRepository('EdukodasStatisticsBundle:PointHistory')
@@ -43,7 +41,7 @@ class TeacherProfileController extends Controller
             ->getRepository('EdukodasStatisticsBundle:PointHistory')
             ->getTotalNegativePointsByTeacher($user);
 
-        $form = $this->createForm(PointHistoryType::class, $points, ['user' => $this->getUser()]);
+        $form = $this->createForm(PointHistoryType::class, new PointHistory(), ['user' => $this->getUser()]);
 
         return $this->render('@EdukodasTemplate/Profile/teacherProfile.html.twig', [
             'user' => $user,

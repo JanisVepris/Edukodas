@@ -15,8 +15,8 @@
     {{ form_widget(form.comment) }}
 </div>
 {{ form_widget(form._token) }}
-            {{ form_widget(form.task, {'attr': {'class': 'hide'}}) }}
-            {% do form.teacher.setRendered %}
+{{ form_widget(form.task, {'attr': {'class': 'hide'}}) }}
+{% do form.teacher.setRendered %}
 <button type="submit" class="waves-effect waves-light btn" id="add-points-submit">{{ 'form.add_points.submit'|trans }}</button>
 <div class="preloader-wrapper small active hide" id="points-submit-preloader">
     <div class="spinner-layer spinner-green-only">

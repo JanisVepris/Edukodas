@@ -107,13 +107,16 @@ $(document).ready(function() {
     }
 
     function addPointsForm() {
-        var user_id = $('#edukodas_points_add').data('user-id');
-        $('#edukodas_bundle_statisticsbundle_pointhistory_student').val(user_id);
+        var isStudentProfile = $('#points-history-list').data('is-student-profile');
+
+        if (isStudentProfile) {
+            var user_id = $('#edukodas_points_add').data('user-id');
+            $('#edukodas_bundle_statisticsbundle_pointhistory_student').val(user_id);
+        }
+
         $('select').material_select();
 
         var url = Routing.generate('edukodas_points_add');
-
-        var isStudentProfile = $('#points-history-list').data('is-student-profile');
 
         $('#add-points-form').ajaxForm({
             url: url,

@@ -8,9 +8,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TeacherProfileController extends Controller
 {
-    public function indexAction()
+    public function indexAction($id)
     {
-        $user = $this->getUser();
+        if ($id === null) {
+            $user = $this->getUser();
+        } else {
+            $user = $this->getDoctrine()->getRepository('EdukodasUserBundle:User')->find($id);
+        }
+
+        if (!$user) {
+            throw new NotFoundHttpException('User not found');
+        }
+
+        if (!in_array('ROLE_TEACHER', $user->getRoles())) {
+            throw new HttpException(400, 'User is not teachers');
+        }
 
         $points = new PointHistory();
 

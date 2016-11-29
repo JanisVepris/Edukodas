@@ -9,6 +9,7 @@ menu:
 
 profile:
   teacher:
+    tasks: Užduotys
     gave_points: Davė taškų
     took_points: Atėmė taškų
   point_history:

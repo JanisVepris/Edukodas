@@ -86,6 +86,10 @@ class PointHistoryController extends AbstractTeacherController
 
         $this->checkOwnerOr403($pointHistory);
 
+        $isStudentProfile = $request->request->get('isStudentProfile') ? true : false;
+
+        $currentStudentId = $pointHistory->getStudent()->getId();
+
         $user = $this->getUser();
 
         $form = $this->createForm(PointHistoryType::class, $pointHistory, ['user' => $user]);
@@ -94,24 +98,26 @@ class PointHistoryController extends AbstractTeacherController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var PointHistory $pointHistory */
-            $pointHistory = $form->getData();
-            $pointHistory->setTeacher($this->getUser());
+            $newPointHistory = $form->getData();
+            $newPointHistory->setTeacher($this->getUser());
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($pointHistory);
+            $em->persist($newPointHistory);
             $em->flush();
 
-            $isStudentProfile = $request->request->get('isStudentProfile') ? true : false;
+            if ($isStudentProfile && ($currentStudentId !== $newPointHistory->getStudent()->getId())) {
+                return new Response(' ');
+            }
 
             return $this->render('@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig', [
-                'entryId' => $pointHistory->getId(),
-                'amount' => $pointHistory->getAmount(),
-                'studentName' => $pointHistory->getStudent()->getFullName(),
-                'teacher' => $pointHistory->getTeacher(),
-                'entryOwnerId' => $pointHistory->getOwner()->getId(),
-                'taskName' => $pointHistory->getTask()->getName(),
-                'comment' => $pointHistory->getComment(),
-                'createdAt' => $pointHistory->getCreatedAt()->format('Y/m/d H:m'),
+                'entryId' => $newPointHistory->getId(),
+                'amount' => $newPointHistory->getAmount(),
+                'studentName' => $newPointHistory->getStudent()->getFullName(),
+                'teacher' => $newPointHistory->getTeacher(),
+                'entryOwnerId' => $newPointHistory->getOwner()->getId(),
+                'taskName' => $newPointHistory->getTask()->getName(),
+                'comment' => $newPointHistory->getComment(),
+                'createdAt' => $newPointHistory->getCreatedAt()->format('Y/m/d H:m'),
                 'isStudentProfile' => $isStudentProfile,
             ]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {

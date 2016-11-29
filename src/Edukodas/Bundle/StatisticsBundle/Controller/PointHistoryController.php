@@ -129,7 +129,7 @@ class PointHistoryController extends AbstractTeacherController
 
     /**
      * @param int $pointHistoryId
-     * @return int
+     * @return Response
      */
     public function deleteAction(int $pointHistoryId)
     {

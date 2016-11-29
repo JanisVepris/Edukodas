@@ -12,9 +12,9 @@
                         <li><a href="#"><i
                                         class="material-icons right">timeline</i>{{ 'menu.navigation.ratings'|trans }}
                             </a></li>
-                        <li><a href="#"><i class="material-icons right">group</i>{{ 'menu.navigation.users'|trans }}</a>
+                        <li><a href="{{ path('edukodas_user_list') }}"><i class="material-icons right">group</i>{{ 'menu.navigation.users'|trans }}</a>
                         </li>
-                        <li><a href="#"><i
+                        <li><a href="{{ path('fos_user_profile_edit') }}"><i
                                         class="material-icons right">settings</i>{{ 'menu.navigation.settings'|trans }}
                             </a></li>
                         <li><a href="{{ path('fos_user_security_logout') }}"><i
@@ -55,6 +55,7 @@
                                         class="material-icons red-text">exit_to_app</i>{{ 'menu.navigation.logout'|trans }}</a>
                         </li>
                     </ul>
+            </div>
         </nav>
     </header>
 {% endblock %}

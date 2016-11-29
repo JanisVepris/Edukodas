@@ -2,6 +2,7 @@
 
 namespace Edukodas\Bundle\UserBundle\Controller;
 
+use Edukodas\Bundle\UserBundle\Form\ProfileEditType;
 use FOS\UserBundle\Controller\ProfileController as BaseController;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
@@ -42,10 +43,7 @@ class ProfileController extends BaseController
             return $event->getResponse();
         }
 
-        /** @var $formFactory FactoryInterface */
-        $formFactory = $this->get('fos_user.profile.form.factory');
-
-        $form_profile = $formFactory->createForm();
+        $form_profile = $this->createForm(ProfileEditType::class, $user);
         $form_profile->setData($user);
 
         $form_profile->handleRequest($request);
@@ -60,10 +58,6 @@ class ProfileController extends BaseController
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
-                $this->addFlash(
-                    'success',
-                    $this->get('translator')->trans('profile.edit.update_success')
-                );
                 $url = $this->generateUrl('fos_user_profile_edit');
 
                 $response = new RedirectResponse($url);
@@ -95,10 +89,6 @@ class ProfileController extends BaseController
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
-                $this->addFlash(
-                    'success',
-                    $this->get('translator')->trans('profile.edit.update_success')
-                );
                 $url = $this->generateUrl('fos_user_profile_edit');
 
                 $response = new RedirectResponse($url);

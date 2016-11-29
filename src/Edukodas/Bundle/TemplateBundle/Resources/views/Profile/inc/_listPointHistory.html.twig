@@ -4,8 +4,8 @@
     </div>
     <div class="col s5 left-align">
         <h5>
-            {% if app.request.attributes.get('_route') == 'edukodas_student_profile' %}
-                {{ teacherName }}
+            {% if isStudentProfile %}
+                {{ teacher.fullName }}
             {% else %}
                 {{ studentName }}
             {% endif %}
@@ -23,26 +23,16 @@
             {{ createdAt }}<br>
             {{ comment }}
         </div>
-
-        {% if teacherName == app.user.fullName %}
-            <div class="col s1 center-align valign">
+        <div class="col s1 center-align valign">
+            {% if app.user.id == entryOwnerId %}
                 <a data-points-id="{{ entryId }}"
                    data-points-action="edukodas_points_edit"
                    class="btn-floating btn-small waves-effect waves-light red"
                    href="#edit-points-modal">
                     <i class="small material-icons">mode_edit</i>
                 </a>
-            </div>
-        {% else %}
-            <div class="col s1 center-align valign" title="{{ 'points.edit.different_teacher'|trans }}">
-                <a data-points-id="{{ entryId }}"
-                   data-points-action="edukodas_points_edit"
-                   class="btn-floating btn-small waves-effect waves-light red"
-                   disabled="disabled">
-                    <i class="small material-icons">mode_edit</i>
-                </a>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     {% endif %}
 </li>
 

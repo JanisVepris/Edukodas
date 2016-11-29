@@ -18,4 +18,8 @@ main {
   }
 }
 
-
+@media (min-width: 992px) {
+  header {
+    z-index: 2;
+  }
+}

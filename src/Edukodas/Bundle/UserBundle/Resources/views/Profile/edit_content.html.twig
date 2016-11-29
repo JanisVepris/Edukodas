@@ -1,19 +1,76 @@
 {% trans_default_domain 'FOSUserBundle' %}
-
-<h5>{{ 'profile.edit.header_info'|trans }}</h5>
-
-{{ form_start(form_profile, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-{{ form_widget(form_profile) }}
-<div>
-    <input type="submit" class="btn waves-effect waves-light" value="{{ 'profile.edit.submit'|trans }}" />
+<div class="row">
+    <div class="col s12">
+        <div class="card horizontal">
+            <div class="card-image">
+                {% if app.user.hasPicture %}
+                    <img src="{{ app.user|profile_pic }}" alt="{{ app.user.fullName }}" style="max-height: 200px;">
+                {% else %}
+                    <img src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}" alt="{{ app.user.fullName }}" style="max-height: 200px;">
+                {% endif %}
+            </div>
+            <div class="card-stacked">
+                {{ form_start(form_picture, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+                <div class="card-content">
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>{{ 'profile.edit.file'|trans }}</span>
+                            {{ form_widget(form_picture.picture) }}
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <div class="left">
+                        <input type="submit" class="btn waves-effect waves-light" value="{{ 'profile.edit.submit_picture'|trans }}" />
+                    </div>
+                    {% if app.user.hasPicture %}
+                        <div class="right">
+                            <a href="{{ path('edukodas_remove_picture') }}" class="waves-effect waves-light btn red darken-3">{{ 'profile.edit.remove'|trans }}</a>
+                        </div>
+                    {% endif %}
+                </div>
+                {{ form_end(form_picture) }}
+            </div>
+        </div>
+    </div>
 </div>
-{{ form_end(form_profile) }}
 
-<h5>{{ 'profile.edit.header_password'|trans }}</h5>
-
-{{ form_start(form_password, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_change_password' } }) }}
-{{ form_widget(form_password) }}
-<div>
-    <input type="submit" class="btn waves-effect waves-light" value="{{ 'change_password.submit'|trans }}" />
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            {{ form_start(form_profile, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+            <div class="card-content">
+                <div class="card-title">
+                    {{ 'profile.edit.header_info'|trans }}
+                </div>
+                {{ form_widget(form_profile) }}
+            </div>
+            <div class="card-action">
+                <div class="center-align">
+                    <input type="submit" class="btn waves-effect waves-light" value="{{ 'profile.edit.submit'|trans }}" />
+                </div>
+            </div>
+            {{ form_end(form_profile) }}
+        </div>
+    </div>
+    <div class="col s6">
+        {{ form_start(form_password, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_change_password' } }) }}
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    {{ 'profile.edit.header_password'|trans }}
+                </div>
+                {{ form_widget(form_password) }}
+            </div>
+            <div class="card-action">
+                <div class="center-align">
+                    <input type="submit" class="btn waves-effect waves-light" value="{{ 'change_password.submit'|trans }}" />
+                </div>
+            </div>
+        </div>
+        {{ form_end(form_password) }}
+    </div>
 </div>
-{{ form_end(form_password) }}

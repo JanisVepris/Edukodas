@@ -18,6 +18,14 @@ main {
   }
 }
 
+.profile-pic-container.student img {
+  max-height: 300px;
+}
+
+.profile-pic-container.teacher img {
+  max-height: 200px;
+}
+
 @media (min-width: 992px) {
   header {
     z-index: 2;

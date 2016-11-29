@@ -1,4 +1,4 @@
-<div id="manage-points-modal" class="modal valign-wrapper">
+<div id="add-points-modal" class="modal valign-wrapper">
     <div class="modal-content">
         <div class="task-list-container">
             {% for course in courses %}
@@ -12,6 +12,9 @@
                         <li data-task-id="{{ task.id }}" data-task-amount="{{ task.points }}" class="collection-item points-task-select-button" >
                             {{ task.name }}
                         </li>
+                        <li data-task-id="{{ task.id }}" class="hide points-task-description">
+                            {{ task.description }}
+                        </li>
                     {% else %}
                     {% endfor %}
                 </ul>
@@ -19,14 +22,25 @@
             {% endfor %}
         </div>
         <div class="hide" id="add-points-form-container">
+            <h5 id="add-points-task-name"></h5>
+            <h6 id="add-points-task-description"></h6>
             {{ form_start(form, {'attr': {'id': 'add-points-form'}}) }}
+            <div>
+                {{ form_label(form.student) }}
                 {{ form_widget(form.student) }}
+            </div>
+            <div>
+                {{ form_label(form.amount) }}
                 {{ form_widget(form.amount) }}
+            </div>
+            <div>
+                {{ form_label(form.comment) }}
                 {{ form_widget(form.comment) }}
-                {{ form_widget(form._token) }}
-                {{ form_widget(form.task, {'attr': {'class': 'hide'}}) }}
-                {% do form.teacher.setRendered %}
-            <button type="submit" class="waves-effect waves-light btn" id="add-points-submit">{{ 'form.add_tasks.submit'|trans }}</button>
+            </div>
+            {{ form_widget(form._token) }}
+            {{ form_widget(form.task, {'attr': {'class': 'hide'}}) }}
+            {% do form.teacher.setRendered %}
+            <button type="submit" class="waves-effect waves-light btn" id="add-points-submit">{{ 'form.add_points.submit'|trans }}</button>
             <div class="preloader-wrapper small active hide" id="points-submit-preloader">
                 <div class="spinner-layer spinner-green-only">
                     <div class="circle-clipper left">
@@ -38,7 +52,7 @@
                     </div>
                 </div>
             </div>
-            <a class="waves-effect waves-light btn right" id="add-points-form-back">back</a>
+            <a class="waves-effect waves-light btn right" id="add-points-form-back">{{ 'form.add_points.back'|trans }}</a>
             {{ form_end(form) }}
         </div>
         <div class="center-align hide" id="points-form-preloader">

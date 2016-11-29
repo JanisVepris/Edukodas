@@ -9,6 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Edukodas\Bundle\TasksBundle\Entity\Course;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -89,6 +90,17 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Edukodas\Bundle\StatisticsBundle\Entity\PointHistory", mappedBy="teacher")
      */
     public $pointHistory;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", name="picture", nullable=true)
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={"image/jpeg", "image/jpg", "image/png"}
+     * )
+     */
+    private $picture;
 
     public function __construct()
     {
@@ -284,5 +296,37 @@ class User extends BaseUser
     public function getFullName()
     {
         return sprintf('%s %s', $this->getFirstName(), $this->getLastName());
+    }
+
+    /**
+     * @return string
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param string $picture
+     *
+     * @return User
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasPicture()
+    {
+        if ($this->getPicture()) {
+            return true;
+        }
+
+        return false;
     }
 }

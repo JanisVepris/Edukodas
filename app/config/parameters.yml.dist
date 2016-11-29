@@ -18,3 +18,5 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            SuperSecretAcademyHashKeyDoNotTellAnyone
+    profile_pic_dir: '%kernel.root_dir%/../web/uploads/profile_pic'
+    profile_pic_web_dir: '/uploads/profile_pic'

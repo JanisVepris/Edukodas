@@ -3,8 +3,10 @@
 namespace Edukodas\Bundle\TasksBundle\Form;
 
 use Edukodas\Bundle\TasksBundle\Repository\CourseRepository;
+use Leafo\ScssPhp\Node\Number;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

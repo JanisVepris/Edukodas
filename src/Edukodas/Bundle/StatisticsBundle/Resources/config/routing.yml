@@ -9,3 +9,7 @@ edukodas_points_add:
 edukodas_points_edit:
     path:     /edit/{pointHistoryId}
     defaults: { _controller: EdukodasStatisticsBundle:PointHistory:edit }
+
+edukodas_points_delete:
+    path:     /delete/{pointHistoryId}
+    defaults: { _controller: EdukodasStatisticsBundle:PointHistory:delete }

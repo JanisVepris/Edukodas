@@ -5,3 +5,7 @@ edukodas_user_list:
 edukodas_user_list_update:
   path:     /list_users/update
   defaults: { _controller: EdukodasUserBundle:UserList:list, teamId: null, classId: null }
+
+edukodas_remove_picture:
+  path:     /picture/remove
+  defaults: { _controller: EdukodasUserBundle:Profile:removePicture }

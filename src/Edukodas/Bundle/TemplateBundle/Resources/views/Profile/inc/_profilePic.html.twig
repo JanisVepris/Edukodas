@@ -1,0 +1,5 @@
+{% if (app.user.hasPicture) %}
+    <img src="{{ app.user|profile_pic }}" alt="{{ app.user.fullName }}">
+{% else %}
+    <img src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}" alt="{{ app.user.fullName }}">
+{% endif %}

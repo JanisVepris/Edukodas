@@ -17,3 +17,11 @@ main {
     padding: 0 10px;
   }
 }
+
+.profile-pic-container.student img {
+  max-height: 300px;
+}
+
+.profile-pic-container.teacher img {
+  max-height: 200px;
+}

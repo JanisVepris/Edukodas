@@ -18,14 +18,14 @@ profile:
     points_history: Taškų istorija
 
 points:
+  header: Informacija
   rating:
-    header: Reitingas
     generation: Kartoje
     team: Komandoje
     school: Mokykloje
     class: Klasėje
   total_points: Taškų suma
-  team: komanda
+  team: Komanda
 
 user_list:
   team: Komanda

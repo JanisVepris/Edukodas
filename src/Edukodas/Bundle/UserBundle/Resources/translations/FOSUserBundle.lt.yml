@@ -22,7 +22,11 @@ profile:
     edit:
         header_info: Profilio informacijos keitimas
         header_password: Slaptažodžio keitimas
+        header_picture: Profilio nuotrauka
         submit: Atnaujinti
+        submit_picture: Atnaujinti nuotrauką
+        file: Parinkti nuotrauką
+        remove: Šalinti
     flash:
         updated: 'Profilis atnaujintas'
 change_password:

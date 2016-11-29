@@ -1,18 +1,22 @@
 {{ form_start(form, {'attr': {'id': 'edit-points-form'}}) }}
     <div>
         {{ form_label(form.student) }}
+        {{ form_errors(form.student) }}
         {{ form_widget(form.student) }}
     </div>
     <div>
         {{ form_label(form.task) }}
+        {{ form_errors(form.task) }}
         {{ form_widget(form.task) }}
     </div>
     <div>
         {{ form_label(form.amount) }}
+        {{ form_errors(form.amount) }}
         {{ form_widget(form.amount) }}
     </div>
     <div>
         {{ form_label(form.comment) }}
+        {{ form_errors(form.comment) }}
         {{ form_widget(form.comment) }}
     </div>
     {{ form_widget(form._token) }}

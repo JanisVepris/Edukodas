@@ -17,3 +17,23 @@ main {
     padding: 0 10px;
   }
 }
+
+@media (min-width: 992px) {
+  header {
+    z-index: 2;
+  }
+}
+
+.select-wrapper span.caret {
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  margin-top: -3px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 5px 0 5px;
+  border-color: #808080 transparent transparent transparent;
+}

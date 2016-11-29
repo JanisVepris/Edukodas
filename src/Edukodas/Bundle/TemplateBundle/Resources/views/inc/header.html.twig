@@ -31,7 +31,7 @@
                     </form>
                     <ul class="side-nav" id="hamburger">
                         <nav>
-                            <div class="nav-wrapper">
+                            <div class="nav-wrapper {{ app.user.studentTeam ? app.user.studentTeam.color : 'blue-grey' }}">
                                 <form>
                                     <div class="input-field">
                                         <input id="search" type="search" class="autocomplete" autocomplete="off"

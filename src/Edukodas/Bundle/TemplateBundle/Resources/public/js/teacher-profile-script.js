@@ -161,10 +161,15 @@ $(document).ready(function() {
 
         var taskId = $(this).data('taskId');
         var amount = parseInt($(this).data('taskAmount'));
-        toggleAddPointsForm();
+        var taskName = $('.points-task-select-button*[data-task-id="' + taskId + '"]').text();
+        var taskDescription = $('.points-task-description*[data-task-id="' + taskId + '"]').text();
 
+        $('#add-points-task-name').html(taskName);
+        $('#add-points-task-description').html(taskDescription);
         $('#edukodas_bundle_statisticsbundle_pointhistory_task').val(taskId);
         $('#edukodas_bundle_statisticsbundle_pointhistory_amount').val(amount);
+
+        toggleAddPointsForm();
     });
 
     $('#add-points-modal').modal({

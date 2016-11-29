@@ -12,6 +12,9 @@
                         <li data-task-id="{{ task.id }}" data-task-amount="{{ task.points }}" class="collection-item points-task-select-button" >
                             {{ task.name }}
                         </li>
+                        <li data-task-id="{{ task.id }}" class="hide points-task-description">
+                            {{ task.description }}
+                        </li>
                     {% else %}
                     {% endfor %}
                 </ul>
@@ -19,6 +22,8 @@
             {% endfor %}
         </div>
         <div class="hide" id="add-points-form-container">
+            <h5 id="add-points-task-name"></h5>
+            <h6 id="add-points-task-description"></h6>
             {{ form_start(form, {'attr': {'id': 'add-points-form'}}) }}
             <div>
                 {{ form_label(form.student) }}

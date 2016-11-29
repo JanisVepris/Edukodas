@@ -26,6 +26,7 @@ class PointHistoryRepository extends EntityRepository
         $result = $this
             ->createQueryBuilder('ph')
             ->where('ph.teacher = :teacher')
+            ->andWhere('ph.deletedAt IS NULL')
             ->orderBy('ph.createdAt', 'DESC')
             ->setMaxResults($maxEntries)
             ->setParameter('teacher', $teacher)
@@ -50,6 +51,7 @@ class PointHistoryRepository extends EntityRepository
         $result = $this
             ->createQueryBuilder('ph')
             ->where('ph.student = :student')
+            ->andWhere('ph.deletedAt IS NULL')
             ->orderBy('ph.id', 'DESC')
             ->setMaxResults($maxEntries)
             ->setParameter('student', $student)
@@ -74,6 +76,7 @@ class PointHistoryRepository extends EntityRepository
             ->createQueryBuilder('ph')
             ->select('SUM(ph.amount)')
             ->where('ph.student = :student')
+            ->andWhere('ph.deletedAt IS NULL')
             ->setParameter('student', $student)
             ->getQuery()
             ->getSingleScalarResult();
@@ -99,6 +102,7 @@ class PointHistoryRepository extends EntityRepository
         $result = $qb
             ->select('s.id', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
+            ->where('ph.deletedAt IS NULL')
             ->groupBy('s.id')
             ->getQuery()
             ->getResult();
@@ -123,6 +127,7 @@ class PointHistoryRepository extends EntityRepository
             ->select('s.id', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
             ->where('s.studentTeam = :team')
+            ->andWhere('ph.deletedAt IS NULL')
             ->setParameter('team', $team)
             ->groupBy('s.id')
             ->getQuery()
@@ -148,6 +153,7 @@ class PointHistoryRepository extends EntityRepository
             ->select('s.id', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
             ->where('s.studentGeneration = :generation')
+            ->andWhere('ph.deletedAt IS NULL')
             ->setParameter('generation', $studentGeneration)
             ->groupBy('s.id')
             ->getQuery()
@@ -173,8 +179,156 @@ class PointHistoryRepository extends EntityRepository
             ->select('s.id', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
             ->where('s.studentClass = :class')
+            ->andWhere('ph.deletedAt IS NULL')
             ->setParameter('class', $studentClass)
             ->groupBy('s.id')
+            ->getQuery()
+            ->getResult();
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        return new ArrayCollection($result);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getStudentList()
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $qb = $this->createQueryBuilder('ph');
+
+        $result = $qb
+            ->select(
+                's.id',
+                's.firstName',
+                's.lastName',
+                'st.title teamTitle',
+                'st.color teamColor',
+                'sc.title classTitle',
+                'SUM(ph.amount) amount'
+            )
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 'st')
+            ->join('s.studentClass', 'sc')
+            ->where('ph.deletedAt IS NULL')
+            ->orderBy('amount', 'desc')
+            ->groupBy('s.id')
+            ->getQuery()
+            ->getResult();
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        return new ArrayCollection($result);
+    }
+
+    /**
+     * @param StudentTeam $studentTeam
+     *
+     * @return ArrayCollection
+     */
+    public function getStudentListByTeam(StudentTeam $studentTeam)
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $qb = $this->createQueryBuilder('ph');
+
+        $result = $qb
+            ->select(
+                's.id',
+                's.firstName',
+                's.lastName',
+                'st.title teamTitle',
+                'st.color teamColor',
+                'sc.title classTitle',
+                'SUM(ph.amount) amount'
+            )
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 'st')
+            ->join('s.studentClass', 'sc')
+            ->where('s.studentTeam = :studentTeam')
+            ->andWhere('ph.deletedAt IS NULL')
+            ->orderBy('amount', 'desc')
+            ->groupBy('s.id')
+            ->setParameter('studentTeam', $studentTeam)
+            ->getQuery()
+            ->getResult();
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        return new ArrayCollection($result);
+    }
+
+    /**
+     * @param StudentClass $studentClass
+     *
+     * @return ArrayCollection
+     */
+    public function getStudentListByClass(StudentClass $studentClass)
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $qb = $this->createQueryBuilder('ph');
+
+        $result = $qb
+            ->select(
+                's.id',
+                's.firstName',
+                's.lastName',
+                'st.title teamTitle',
+                'st.color teamColor',
+                'sc.title classTitle',
+                'SUM(ph.amount) amount'
+            )
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 'st')
+            ->join('s.studentClass', 'sc')
+            ->where('s.studentClass = :studentClass')
+            ->andWhere('ph.deletedAt IS NULL')
+            ->orderBy('amount', 'desc')
+            ->groupBy('s.id')
+            ->setParameter('studentClass', $studentClass)
+            ->getQuery()
+            ->getResult();
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        return new ArrayCollection($result);
+    }
+
+    /**
+     * @param StudentTeam $studentTeam
+     * @param StudentClass $studentClass
+     *
+     * @return ArrayCollection
+     */
+    public function getStudentListByTeamAndClass(StudentTeam $studentTeam, StudentClass $studentClass)
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $qb = $this->createQueryBuilder('ph');
+
+        $result = $qb
+            ->select(
+                's.id',
+                's.firstName',
+                's.lastName',
+                'st.title teamTitle',
+                'st.color teamColor',
+                'sc.title classTitle',
+                'SUM(ph.amount) amount'
+            )
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 'st')
+            ->join('s.studentClass', 'sc')
+            ->where('s.studentTeam = :studentTeam')
+            ->andWhere('s.studentClass = :studentClass')
+            ->andWhere('ph.deletedAt IS NULL')
+            ->orderBy('amount', 'desc')
+            ->groupBy('s.id')
+            ->setParameter('studentTeam', $studentTeam)
+            ->setParameter('studentClass', $studentClass)
             ->getQuery()
             ->getResult();
 

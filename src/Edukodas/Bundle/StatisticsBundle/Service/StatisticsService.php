@@ -99,4 +99,59 @@ class StatisticsService
 
         return count($higherRankingEntries);
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getStudentList()
+    {
+        $allStudentList = $this
+            ->pointHistoryRepository
+            ->getStudentList();
+
+        return $allStudentList;
+    }
+
+    /**
+     * @param StudentTeam $studentTeam
+     *
+     * @return ArrayCollection
+     */
+    public function getStudentListByTeam(StudentTeam $studentTeam)
+    {
+        $studentListByTeam = $this
+            ->pointHistoryRepository
+            ->getStudentListByTeam($studentTeam);
+
+        return $studentListByTeam;
+    }
+
+    /**
+     * @param StudentClass $studentClass
+     *
+     * @return ArrayCollection
+     */
+    public function getStudentListByClass(StudentClass $studentClass)
+    {
+        $studentListByClass = $this
+            ->pointHistoryRepository
+            ->getStudentListByClass($studentClass);
+
+        return $studentListByClass;
+    }
+
+    /**
+     * @param StudentTeam $studentTeam
+     * @param StudentClass $studentClass
+     *
+     * @return ArrayCollection
+     */
+    public function getStudentListByTeamAndClass(StudentTeam $studentTeam, StudentClass $studentClass)
+    {
+        $studentListByTeamAndClass = $this
+            ->pointHistoryRepository
+            ->getStudentListByTeamAndClass($studentTeam, $studentClass);
+
+        return $studentListByTeamAndClass;
+    }
 }

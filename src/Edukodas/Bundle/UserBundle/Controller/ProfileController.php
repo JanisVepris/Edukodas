@@ -157,6 +157,9 @@ class ProfileController extends BaseController
         ));
     }
 
+    /**
+     * @return RedirectResponse
+     */
     public function removePictureAction()
     {
         $user = $this->getUser();
@@ -177,6 +180,6 @@ class ProfileController extends BaseController
         $em->persist($user);
         $em->flush();
 
-        new RedirectResponse($this->generateUrl('fos_user_profile_edit'));
+        return new RedirectResponse($this->generateUrl('fos_user_profile_edit'));
     }
 }

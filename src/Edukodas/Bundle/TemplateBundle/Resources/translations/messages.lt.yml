@@ -22,10 +22,9 @@ points:
     class: Klasėje
   total_points: Taškų suma
   team: komanda
-  edit:
-    different_teacher: Jūs galite redaguoti tik savo skirtus taškus
 
-users:
+user_list:
   team: Komanda
   class: Klasė
   all: Visos
+  no_users: Mokinių nėra

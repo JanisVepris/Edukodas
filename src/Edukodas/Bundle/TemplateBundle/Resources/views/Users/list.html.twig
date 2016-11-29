@@ -5,27 +5,29 @@
         <div class="row">
             <div class="input-field col s2">
                 <select id="select-team">
-                    <option value="all" selected>{{  'users.all'|trans }}</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    <option value="" selected>{{  'user_list.all'|trans }}</option>
+                    {% for team in teamList %}
+                        <option value="{{ team.id }}">{{ team.title }}</option>
+                    {% endfor %}
                 </select>
-                <label>{{ 'users.team'|trans }}</label>
+                <label>{{ 'user_list.team'|trans }}</label>
             </div>
 
             <div class="input-field col s2">
                 <select id="select-class">
-                    <option value="all" selected>{{ 'users.all'|trans }}</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    <option value="" selected>{{ 'user_list.all'|trans }}</option>
+                    {% for class in classList %}
+                        <option value="{{ class.id }}">{{ class.title }}</option>
+                    {% endfor %}
                 </select>
-                <label>{{ 'users.class'|trans }}</label>
+                <label>{{ 'user_list.class'|trans }}</label>
             </div>
         </div>
 
-        <div class="row">
-            aa
+        <div class="row" id="user-list">
+            {% include "@EdukodasTemplate/Users/inc/_listUsers.html.twig" with {
+                userList: userList
+            } %}
         </div>
     </div>
 {% endblock %}

@@ -1,9 +1,21 @@
-{% for user in users %}
-    <div class="divider"></div>
-    <div class="section">
-        <h4>{{ user.id }} - {{ user.amount }}</h4>
-    </div>
+{% for user in userList %}
+    <ul class="collection">
+        <li class="collection-item dismissable">
+            <div>
+                <div style="display: inline-block; width: 18%">
+                    {{ user.firstName }} {{ user.lastName }} <small>({{ user.classTitle }})</small>
+                </div>
+
+                <div style="display: inline-block; width: 76%">
+                    <div style="width: {{ 100 / (maxAmount / user.amount) }}%; height: 10px;" class="{{ user.teamColor ? user.teamColor : 'white' }} lighten-1"></div>
+                </div>
+
+                <div class="secondary-content{% if (user.amount <= 0) %} red-text{% endif %}">
+                    {{ user.amount }}
+                </div>
+            </div>
+        </li>
+    </ul>
 {% else %}
-    <div class="divider"></div>
-    {{ 'list.no_courses'|trans }}
+    {{ 'user_list.no_users'|trans }}
 {% endfor %}

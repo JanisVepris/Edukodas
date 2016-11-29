@@ -4,7 +4,7 @@
             <div class="nav-wrapper row {{ app.user.studentTeam ? app.user.studentTeam.color : 'blue-grey' }} lighten-1">
                 <a href="#" data-activates="hamburger" class="button-collapse"><i class="material-icons">menu</i>
                     <ul class="hide-on-med-and-down right">
-                        <li><a href="#"><i
+                        <li><a href="{{ path('root') }}"><i
                                         class="material-icons right">account_circle</i>{{ 'menu.navigation.profile'|trans }}
                             </a></li>
                         <li><a href="#"><i class="material-icons right">list</i>{{ 'menu.navigation.tasks'|trans }}</a>
@@ -31,7 +31,7 @@
                     </form>
                     <ul class="side-nav" id="hamburger">
                         <nav>
-                            <div class="nav-wrapper {{ app.user.studentTeam ? app.user.studentTeam.color : 'blue-grey' }}">
+                            <div class="nav-wrapper {{ app.user.studentTeam ? app.user.studentTeam.color : 'blue-grey' }} lighten-1">
                                 <form>
                                     <div class="input-field">
                                         <input id="search" type="search" class="autocomplete" autocomplete="off"
@@ -42,7 +42,7 @@
                                 </form>
                             </div>
                         </nav>
-                        <li><a href="#"><i
+                        <li><a href="{{ path('root') }}"><i
                                         class="material-icons">account_circle</i>{{ 'menu.navigation.profile'|trans }}
                             </a></li>
                         <li><a href="#"><i class="material-icons">list</i>{{ 'menu.navigation.tasks'|trans }}</a></li>
@@ -51,8 +51,8 @@
                         <li><a href="#"><i class="material-icons">group</i>{{ 'menu.navigation.users'|trans }}</a></li>
                         <li><a href="#"><i class="material-icons">settings</i>{{ 'menu.navigation.settings'|trans }}</a>
                         </li>
-                        <li><a href="{{ path('fos_user_security_logout') }}"><i
-                                        class="material-icons">exit_to_app</i>{{ 'menu.navigation.logout'|trans }}</a>
+                        <li><a class="red-text" href="{{ path('fos_user_security_logout') }}"><i
+                                        class="material-icons red-text">exit_to_app</i>{{ 'menu.navigation.logout'|trans }}</a>
                         </li>
                     </ul>
         </nav>

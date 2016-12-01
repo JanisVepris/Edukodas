@@ -193,11 +193,11 @@ $(document).ready(function() {
             type: 'POST',
             beforeSend: function() {
                 $('#manage-task-modal > .modal-content > .form-content').html('');
-                $('#task-form-preload').removeClass('hide');
+                $('#task-form-preloader').removeClass('hide');
             },
             success: function(data) {
                 if (data) {
-                    $('#task-form-preload').addClass('hide');
+                    $('#task-form-preloader').addClass('hide');
                     $('#manage-task-modal > .modal-content > .form-content').html(data);
                     manageTaskForm(url);
                 }
@@ -205,7 +205,7 @@ $(document).ready(function() {
             error: function() {
                 Materialize.toast('Nepavyko užkrauti formos', 4000);
                 $('#manage-task-modal').modal('close');
-                $('#task-form-preload').addClass('hide');
+                $('#task-form-preloader').addClass('hide');
             }
         });
     }

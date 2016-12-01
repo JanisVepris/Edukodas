@@ -45,3 +45,11 @@ main {
   border-width: 5px 5px 0 5px;
   border-color: #808080 transparent transparent transparent;
 }
+
+#task-form-preloader, #points-form-preloader, #edit-points-form-preloader {
+  height: 200px;
+}
+
+.form-preloader-center {
+  margin: auto;
+}

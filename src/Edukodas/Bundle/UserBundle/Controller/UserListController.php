@@ -22,12 +22,14 @@ class UserListController extends Controller
 
         $userList = $statisticsService->getStudentList();
         $maxAmount = $userList->first()['amount'];
+        $minAmount = $userList->last()['amount'];
 
         return $this->render('@EdukodasTemplate/Users/list.html.twig', [
             'teamList' => $teamList,
             'classList' => $classList,
             'userList' => $userList,
             'maxAmount' => $maxAmount,
+            'minAmount' => $minAmount,
         ]);
     }
 
@@ -54,10 +56,12 @@ class UserListController extends Controller
         }
 
         $maxAmount = $userList->first()['amount'];
+        $minAmount = $userList->last()['amount'];
 
         return $this->render('@EdukodasTemplate/Users/inc/_listUsers.html.twig', [
             'userList' => $userList,
             'maxAmount' => $maxAmount,
+            'minAmount' => $minAmount,
         ]);
     }
 }

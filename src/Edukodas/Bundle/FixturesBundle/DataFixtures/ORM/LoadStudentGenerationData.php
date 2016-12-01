@@ -20,10 +20,20 @@ class LoadStudentGenerationData extends AbstractFixture implements
         $generation = new StudentGeneration();
 
         $generation
+            ->setTitle('2015')
+            ->setYear(new \DateTime('-1 year'));
+
+        $this->setReference('generation_1', $generation);
+
+        $manager->persist($generation);
+
+        $generation = new StudentGeneration();
+
+        $generation
             ->setTitle('2016')
             ->setYear(new \DateTime('Y'));
 
-        $this->setReference('generation_2016', $generation);
+        $this->setReference('generation_2', $generation);
 
         $manager->persist($generation);
         $manager->flush();

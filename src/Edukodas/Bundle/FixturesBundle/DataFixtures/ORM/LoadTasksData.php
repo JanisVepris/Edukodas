@@ -41,46 +41,84 @@ class LoadTasksData extends AbstractFixture implements
     {
         return [
             [
-                'courseName' => 'Anglų kalba 1',
+                'refnum' => 1,
+                'course' => $this->getReference('course_1'),
                 'taskName' => 'Namų darbai',
-                'taskDescr' => 'Padaryti 10 namų darbų iš eilės',
-                'taskPoints' => 10,
             ],
             [
-                'courseName' => 'Anglų kalba 1',
-                'taskName' => 'Namų darbai',
-                'taskDescr' => 'Nepadaryti 5 namų darbų iš eilės',
-                'taskPoints' => -5,
+                'refnum' => 2,
+                'course' => $this->getReference('course_1'),
+                'taskName' => 'Aktyvumas',
             ],
             [
-                'courseName' => 'Vokiečių kalba 1',
+                'refnum' => 3,
+                'course' => $this->getReference('course_2'),
+                'taskName' => 'Namų darbai',
+            ],
+            [
+                'refnum' => 4,
+                'course' => $this->getReference('course_2'),
+                'taskName' => 'Aktyvumas',
+            ],
+            [
+                'refnum' => 5,
+                'course' => $this->getReference('course_3'),
+                'taskName' => 'Namų darbai',
+            ],
+            [
+                'refnum' => 6,
+                'course' => $this->getReference('course_3'),
+                'taskName' => 'Aktyvumas',
+            ],
+            [
+                'refnum' => 7,
+                'course' => $this->getReference('course_4'),
                 'taskName' => 'Nauji žodžiai',
-                'taskDescr' => 'Išmokti 10 naujų žodžių',
-                'taskPoints' => 3,
             ],
             [
-                'courseName' => 'Vokiečių kalba 1',
+                'refnum' => 8,
+                'course' => $this->getReference('course_4'),
+                'taskName' => 'Aktyvumas',
+            ],
+            [
+                'refnum' => 9,
+                'course' => $this->getReference('course_5'),
                 'taskName' => 'Pamokos praleidimas',
-                'taskDescr' => 'Praleisti pamoką be priežasties',
-                'taskPoints' => -15,
             ],
             [
-                'courseName' => 'Matematika 3',
+                'refnum' => 10,
+                'course' => $this->getReference('course_5'),
+                'taskName' => 'Aktyvumas',
+            ],
+            [
+                'refnum' => 11,
+                'course' => $this->getReference('course_6'),
                 'taskName' => 'Trigonometrija',
-                'taskDescr' => 'Supainioti tan ir ctg',
-                'taskPoints' => -1,
             ],
             [
-                'courseName' => 'Matematika 3',
-                'taskName' => 'Iniciatyva',
-                'taskDescr' => 'Sudalyvauti Kengūroje',
-                'taskPoints' => 17,
+                'refnum' => 12,
+                'course' => $this->getReference('course_6'),
+                'taskName' => 'Aktyvumas',
             ],
             [
-                'courseName' => 'Matematika 3',
+                'refnum' => 13,
+                'course' => $this->getReference('course_7'),
                 'taskName' => 'Iniciatyva',
-                'taskDescr' => 'Pasisiūlyti prie lentos',
-                'taskPoints' => 10,
+            ],
+            [
+                'refnum' => 14,
+                'course' => $this->getReference('course_7'),
+                'taskName' => 'Aktyvumas',
+            ],
+            [
+                'refnum' => 15,
+                'course' => $this->getReference('course_8'),
+                'taskName' => 'Iniciatyva',
+            ],
+            [
+                'refnum' => 16,
+                'course' => $this->getReference('course_8'),
+                'taskName' => 'Aktyvumas',
             ],
         ];
     }
@@ -94,20 +132,20 @@ class LoadTasksData extends AbstractFixture implements
      */
     public function load(ObjectManager $manager)
     {
+        $faker = \Faker\Factory::create();
+
         $data = $this->getTasksData();
 
-        foreach ($data as $key => $tasksData) {
-            $course = $this->getReference($tasksData['courseName']);
-
+        foreach ($data as $taskData) {
             $task = new Task();
             $task
-                ->setName($tasksData['taskName'])
-                ->setDescription($tasksData['taskDescr'])
-                ->setPoints($tasksData['taskPoints'])
-                ->setCourse($course);
+                ->setName($taskData['taskName'])
+                ->setDescription($faker->text)
+                ->setPoints($faker->numberBetween(-20, 40))
+                ->setCourse($taskData['course']);
             $manager->persist($task);
 
-            $this->addReference('task_' . $key, $task);
+            $this->addReference('task_' . $taskData['refnum'], $task);
         }
 
         $manager->flush();

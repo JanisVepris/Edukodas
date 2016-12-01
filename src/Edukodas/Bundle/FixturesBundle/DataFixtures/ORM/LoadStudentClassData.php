@@ -41,22 +41,36 @@ class LoadStudentClassData extends AbstractFixture implements
     {
         return [
             [
-                'title' => '1',
+                'refnum' => 1,
+                'title' => '1a',
             ],
             [
-                'title' => '2',
+                'refnum' => 2,
+                'title' => '1b',
             ],
             [
-                'title' => '3',
+                'refnum' => 3,
+                'title' => '2a'
             ],
             [
-                'title' => '4a',
+                'refnum' => 4,
+                'title' => '2b'
             ],
             [
-                'title' => '4b',
+                'refnum' => 5,
+                'title' => '3a'
             ],
             [
-                'title' => '4c'
+                'refnum' => 6,
+                'title' => '3b'
+            ],
+            [
+                'refnum' => 7,
+                'title' => '4a'
+            ],
+            [
+                'refnum' => 8,
+                'title' => '4b'
             ],
         ];
     }
@@ -77,7 +91,7 @@ class LoadStudentClassData extends AbstractFixture implements
             $studentClass
                 ->setTitle($row['title']);
             $manager->persist($studentClass);
-            $this->addReference('class_' . $row['title'], $studentClass);
+            $this->addReference('class_' . $row['refnum'], $studentClass);
         }
 
 

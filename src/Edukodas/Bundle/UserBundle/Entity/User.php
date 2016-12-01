@@ -123,10 +123,14 @@ class User extends BaseUser
      * Set student class
      *
      * @param StudentClass $studentClass
+     *
+     * @return User
      */
     public function setStudentClass(StudentClass $studentClass)
     {
         $this->studentClass = $studentClass;
+
+        return $this;
     }
 
     /**

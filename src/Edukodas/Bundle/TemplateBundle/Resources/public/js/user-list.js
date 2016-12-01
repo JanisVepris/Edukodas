@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    $('select').material_select();
+    $('#user_list_filter_team').material_select();
+    $('#user_list_filter_class').material_select();
 
     var selectTeam = $("#user_list_filter_team");
     var selectClass = $("#user_list_filter_class");

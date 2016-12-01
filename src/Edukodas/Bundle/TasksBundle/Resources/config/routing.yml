@@ -13,3 +13,11 @@ edukodas_tasks_edit:
 edukodas_tasks_delete:
     path:     /delete/{taskId}
     defaults: { _controller: EdukodasTasksBundle:Tasks:delete }
+
+edukodas_task_list:
+    path:     /list/all
+    defaults: { _controller: EdukodasTasksBundle:TaskList:showList }
+
+edukodas_task_list_get:
+    path:     /list/get/{id}
+    defaults: { _controller: EdukodasTasksBundle:TaskList:getList }

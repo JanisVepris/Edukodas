@@ -3,6 +3,7 @@
 namespace Edukodas\Bundle\TasksBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Edukodas\Bundle\TasksBundle\Entity\Course;
 
 /**
  * CourseRepository
@@ -12,4 +13,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class CourseRepository extends EntityRepository
 {
+    /**
+     * @return Course
+     */
+    public function getFirstCourse()
+    {
+        return $this
+            ->createQueryBuilder('c')
+            ->orderBy('c.id', 'asc')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleResult();
+    }
 }

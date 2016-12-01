@@ -1,0 +1,16 @@
+<ul class="collection" id="full-task-list-container">
+    {% for task in course.tasks %}
+        <li class="row collection-item valign-wrapper">
+            <div class="col s1 center-align valign">
+                <h4 class="{% if task.points < 0 %}red-text{% else %}green-text{% endif %}">{{ task.points }}</h4>
+            </div>
+            <div class="col s3 left-align">
+                <h5>{{ task.name }}</h5>
+            </div>
+
+            <div class="col s8">
+                {{ task.description }}
+            </div>
+        </li>
+    {% endfor %}
+</ul>

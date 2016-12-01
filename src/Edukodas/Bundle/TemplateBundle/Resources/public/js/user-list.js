@@ -1,34 +1,13 @@
 $(document).ready(function() {
     $('select').material_select();
 
-    var selectTeam = $("#select-team");
-    var selectClass = $("#select-class");
-    var userList = $("#user-list");
+    var selectTeam = $("#user_list_filter_team");
+    var selectClass = $("#user_list_filter_class");
 
-    var updateUserList = function() {
-        var url = Routing.generate('edukodas_user_list_update');
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: {
-                teamId: selectTeam.val(),
-                classId: selectClass.val()
-            },
-            beforeSend: function() {
-                //
-            },
-            success: function(data) {
-                if (data) {
-                    userList.html(data);
-                }
-            },
-            error: function() {
-                Materialize.toast('Nepavyko atnaujinti sąrašo', 4000);
-            }
-        });
-    };
-
-    selectTeam.on("change", updateUserList);
-    selectClass.on("change", updateUserList);
+    selectTeam.on("change", function () {
+        $('[name=user_list_filter]').submit();
+    });
+    selectClass.on("change", function () {
+        $('[name=user_list_filter]').submit();
+    });
 });

@@ -27,18 +27,15 @@ class TeacherProfileController extends Controller
         }
 
         $pointHistory = $this
-            ->getDoctrine()
-            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->get('edukodas.pointhistory.repository')
             ->getRecentEntriesByTeacher($user);
 
         $pointsTotalPositive = $this
-            ->getDoctrine()
-            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->get('edukodas.pointhistory.repository')
             ->getTotalPositivePointsByTeacher($user);
 
         $pointsTotalNegative = $this
-            ->getDoctrine()
-            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->get('edukodas.pointhistory.repository')
             ->getTotalNegativePointsByTeacher($user);
 
         $form = $this->createForm(PointHistoryType::class, new PointHistory(), ['user' => $this->getUser()]);

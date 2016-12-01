@@ -24,4 +24,20 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @param string $searchString
+     * @return User[]
+     */
+    public function findStudentByString(string $searchString)
+    {
+    }
+
+    /**
+     * @param string $searchString
+     * @return User[]
+     */
+    public function findTeacherByString(string $searchString)
+    {
+    }
 }

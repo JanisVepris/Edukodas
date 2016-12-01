@@ -9,7 +9,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Edukodas\Bundle\TasksBundle\Entity\Course;
+use Edukodas\Bundle\TasksBundle\Entity\Task;
+use Edukodas\Bundle\UserBundle\Entity\User;
 
 class LoadPointHistoryData extends AbstractFixture implements
     FixtureInterface,
@@ -34,33 +35,9 @@ class LoadPointHistoryData extends AbstractFixture implements
     }
 
     /**
-     * Get courseData
-     *
-     * @return array
+     * @return User[]
      */
-    private function getStudents()
-    {
-        return [
-            [
-                'student' => $this->getReference('mokinysa'),
-                'entryCount' => 25
-            ],
-            [
-                'student' => $this->getReference('mokinysb'),
-                'entryCount' => 25
-            ],
-            [
-                'student' => $this->getReference('mokinysc'),
-                'entryCount' => 25
-            ],
-            [
-                'student' => $this->getReference('mokinysd'),
-                'entryCount' => 25
-            ],
-        ];
-    }
-
-    public function getTeachers()
+    private function getTeachers()
     {
         return [
             $this->getReference('mokytojasa'),
@@ -68,16 +45,28 @@ class LoadPointHistoryData extends AbstractFixture implements
         ];
     }
 
-    public function getTasks()
+    /**
+     * @return Task[]
+     */
+    private function getTasks()
     {
         return [
-            $this->getReference('task_0'),
             $this->getReference('task_1'),
             $this->getReference('task_2'),
             $this->getReference('task_3'),
             $this->getReference('task_4'),
             $this->getReference('task_5'),
             $this->getReference('task_6'),
+            $this->getReference('task_7'),
+            $this->getReference('task_8'),
+            $this->getReference('task_9'),
+            $this->getReference('task_10'),
+            $this->getReference('task_11'),
+            $this->getReference('task_12'),
+            $this->getReference('task_13'),
+            $this->getReference('task_14'),
+            $this->getReference('task_15'),
+            $this->getReference('task_16'),
         ];
     }
 
@@ -90,19 +79,27 @@ class LoadPointHistoryData extends AbstractFixture implements
      */
     public function load(ObjectManager $manager)
     {
-        $students = $this->getStudents();
-        $teachers = $this->getTeachers();
+        $faker = \Faker\Factory::create();
+
+        $students = $this
+            ->container
+            ->get('doctrine.orm.default_entity_manager')
+            ->getRepository('EdukodasUserBundle:User')
+            ->findAllStudents();
+
         $tasks = $this->getTasks();
 
         foreach ($students as $student) {
-            for ($i = 0; $i < $student['entryCount']; $i++) {
+            for ($i = 0; $i < $faker->numberBetween(10, 25); $i++) {
+                $randomTask = $tasks[array_rand($tasks)];
+
                 $pointHistory = new PointHistory();
                 $pointHistory
-                    ->setTeacher($teachers[array_rand($teachers)])
-                    ->setStudent($student['student'])
-                    ->setTask($tasks[array_rand($tasks)])
-                    ->setComment('test comment')
-                    ->setAmount(rand(-50, 50));
+                    ->setTeacher($randomTask->getOwner())
+                    ->setStudent($student)
+                    ->setTask($randomTask)
+                    ->setComment($faker->sentence)
+                    ->setAmount($faker->numberBetween(-20, 40));
                 $manager->persist($pointHistory);
             }
 

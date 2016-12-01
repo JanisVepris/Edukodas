@@ -41,16 +41,44 @@ class LoadCourseData extends AbstractFixture implements
     {
         return [
             [
-                'username' => 'mokytojasa',
-                'courseName' => 'Anglų kalba 1',
+                'refnum' => 1,
+                'teacher' => $this->getReference('user_mokytojasa'),
+                'courseName' => 'Anglų kalba',
             ],
             [
-                'username' => 'mokytojasa',
-                'courseName' => 'Vokiečių kalba 1',
+                'refnum' => 2,
+                'teacher' => $this->getReference('user_mokytojasa'),
+                'courseName' => 'Vokiečių kalba ',
             ],
             [
-                'username' => 'mokytojasb',
-                'courseName' => 'Matematika 3',
+                'refnum' => 3,
+                'teacher' => $this->getReference('user_mokytojasa'),
+                'courseName' => 'Prancūzų kalba',
+            ],
+            [
+                'refnum' => 4,
+                'teacher' => $this->getReference('user_mokytojasa'),
+                'courseName' => 'Lietuvių kalba',
+            ],
+            [
+                'refnum' => 5,
+                'teacher' => $this->getReference('user_mokytojasb'),
+                'courseName' => 'Matematika',
+            ],
+            [
+                'refnum' => 6,
+                'teacher' => $this->getReference('user_mokytojasb'),
+                'courseName' => 'Fizika',
+            ],
+            [
+                'refnum' => 7,
+                'teacher' => $this->getReference('user_mokytojasb'),
+                'courseName' => 'Chemija',
+            ],
+            [
+                'refnum' => 8,
+                'teacher' => $this->getReference('user_mokytojasb'),
+                'courseName' => 'Geografija',
             ],
         ];
     }
@@ -67,15 +95,13 @@ class LoadCourseData extends AbstractFixture implements
         $data = $this->getCourseData();
 
         foreach ($data as $courseData) {
-            $user = $this->getReference($courseData['username']);
-
             $course = new Course();
             $course
                 ->setName($courseData['courseName'])
-                ->setUser($user);
+                ->setUser($courseData['teacher']);
             $manager->persist($course);
 
-            $this->addReference($courseData['courseName'], $course);
+            $this->addReference('course_' . $courseData['refnum'], $course);
         }
 
         $manager->flush();

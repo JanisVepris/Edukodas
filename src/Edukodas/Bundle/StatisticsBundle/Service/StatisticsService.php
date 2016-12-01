@@ -7,6 +7,7 @@ use Edukodas\Bundle\StatisticsBundle\Entity\Repository\PointHistoryRepository;
 use Edukodas\Bundle\UserBundle\Entity\StudentClass;
 use Edukodas\Bundle\UserBundle\Entity\StudentGeneration;
 use Edukodas\Bundle\UserBundle\Entity\StudentTeam;
+use Knp\Component\Pager\PaginatorInterface;
 
 class StatisticsService
 {
@@ -101,41 +102,45 @@ class StatisticsService
     }
 
     /**
-     * @return ArrayCollection
+     * @param int $page
+     *
+     * @return PaginatorInterface
      */
-    public function getStudentList()
+    public function getStudentList(int $page)
     {
         $allStudentList = $this
             ->pointHistoryRepository
-            ->getStudentList();
+            ->getStudentList($page);
 
         return $allStudentList;
     }
 
     /**
      * @param StudentTeam $studentTeam
+     * @param int $page
      *
-     * @return ArrayCollection
+     * @return PaginatorInterface
      */
-    public function getStudentListByTeam(StudentTeam $studentTeam)
+    public function getStudentListByTeam(StudentTeam $studentTeam, int $page)
     {
         $studentListByTeam = $this
             ->pointHistoryRepository
-            ->getStudentListByTeam($studentTeam);
+            ->getStudentListByTeam($studentTeam, $page);
 
         return $studentListByTeam;
     }
 
     /**
      * @param StudentClass $studentClass
+     * @param int $page
      *
-     * @return ArrayCollection
+     * @return PaginatorInterface
      */
-    public function getStudentListByClass(StudentClass $studentClass)
+    public function getStudentListByClass(StudentClass $studentClass, int $page)
     {
         $studentListByClass = $this
             ->pointHistoryRepository
-            ->getStudentListByClass($studentClass);
+            ->getStudentListByClass($studentClass, $page);
 
         return $studentListByClass;
     }
@@ -143,15 +148,24 @@ class StatisticsService
     /**
      * @param StudentTeam $studentTeam
      * @param StudentClass $studentClass
+     * @param int $page
      *
-     * @return ArrayCollection
+     * @return PaginatorInterface
      */
-    public function getStudentListByTeamAndClass(StudentTeam $studentTeam, StudentClass $studentClass)
+    public function getStudentListByTeamAndClass(StudentTeam $studentTeam, StudentClass $studentClass, int $page)
     {
         $studentListByTeamAndClass = $this
             ->pointHistoryRepository
-            ->getStudentListByTeamAndClass($studentTeam, $studentClass);
+            ->getStudentListByTeamAndClass($studentTeam, $studentClass, $page);
 
         return $studentListByTeamAndClass;
+    }
+
+    public function getMinMaxAmounts(StudentTeam $team = null, StudentClass $class = null)
+    {
+        return [
+            'min' => $this->pointHistoryRepository->findMinPointAmountByClassAndTeam($team, $class),
+            'max' => $this->pointHistoryRepository->findMaxPointAmountByClassAndTeam($team, $class),
+        ];
     }
 }

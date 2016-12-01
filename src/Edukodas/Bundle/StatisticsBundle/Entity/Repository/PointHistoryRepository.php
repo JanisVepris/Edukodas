@@ -5,14 +5,43 @@ namespace Edukodas\Bundle\StatisticsBundle\Entity\Repository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use Edukodas\Bundle\UserBundle\Entity\StudentClass;
 use Edukodas\Bundle\UserBundle\Entity\StudentGeneration;
 use Edukodas\Bundle\UserBundle\Entity\StudentTeam;
 use Edukodas\Bundle\UserBundle\Entity\User;
+use Knp\Component\Pager\Paginator;
+use Knp\Component\Pager\PaginatorInterface;
 
 class PointHistoryRepository extends EntityRepository
 {
+    /**
+     * @var integer
+     */
+    private $pageSize;
+
+    /**
+     * @var Paginator
+     */
+    private $paginator;
+
+    /**
+     * @param int $pageSize
+     */
+    public function setPageSize(int $pageSize)
+    {
+        $this->pageSize = $pageSize;
+    }
+
+    /**
+     * @param Paginator $paginator
+     */
+    public function setPaginator(Paginator $paginator)
+    {
+        $this->paginator = $paginator;
+    }
+
     /**
      * @param User $teacher
      * @param int $maxEntries
@@ -247,15 +276,15 @@ class PointHistoryRepository extends EntityRepository
     }
 
     /**
-     * @return ArrayCollection
+     * @param int $page
+     *
+     * @return PaginatorInterface
      */
-    public function getStudentList()
+    public function getStudentList(int $page = 1)
     {
-        $this->getEntityManager()->getFilters()->disable('softdeleteable');
-
         $qb = $this->createQueryBuilder('ph');
 
-        $result = $qb
+        $query = $qb
             ->select(
                 's.id',
                 's.firstName',
@@ -271,26 +300,22 @@ class PointHistoryRepository extends EntityRepository
             ->where('ph.deletedAt IS NULL')
             ->orderBy('amount', 'desc')
             ->groupBy('s.id')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
 
-        $this->getEntityManager()->getFilters()->enable('softdeleteable');
-
-        return new ArrayCollection($result);
+        return $this->getPagination($query, $page);
     }
 
     /**
      * @param StudentTeam $studentTeam
+     * @param int $page
      *
-     * @return ArrayCollection
+     * @return PaginatorInterface
      */
-    public function getStudentListByTeam(StudentTeam $studentTeam)
+    public function getStudentListByTeam(StudentTeam $studentTeam, int $page = 1)
     {
-        $this->getEntityManager()->getFilters()->disable('softdeleteable');
-
         $qb = $this->createQueryBuilder('ph');
 
-        $result = $qb
+        $query = $qb
             ->select(
                 's.id',
                 's.firstName',
@@ -308,26 +333,22 @@ class PointHistoryRepository extends EntityRepository
             ->orderBy('amount', 'desc')
             ->groupBy('s.id')
             ->setParameter('studentTeam', $studentTeam)
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
 
-        $this->getEntityManager()->getFilters()->enable('softdeleteable');
-
-        return new ArrayCollection($result);
+        return $this->getPagination($query, $page);
     }
 
     /**
      * @param StudentClass $studentClass
+     * @param int $page
      *
-     * @return ArrayCollection
+     * @return PaginatorInterface
      */
-    public function getStudentListByClass(StudentClass $studentClass)
+    public function getStudentListByClass(StudentClass $studentClass, int $page = 1)
     {
-        $this->getEntityManager()->getFilters()->disable('softdeleteable');
-
         $qb = $this->createQueryBuilder('ph');
 
-        $result = $qb
+        $query = $qb
             ->select(
                 's.id',
                 's.firstName',
@@ -345,27 +366,23 @@ class PointHistoryRepository extends EntityRepository
             ->orderBy('amount', 'desc')
             ->groupBy('s.id')
             ->setParameter('studentClass', $studentClass)
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
 
-        $this->getEntityManager()->getFilters()->enable('softdeleteable');
-
-        return new ArrayCollection($result);
+        return $this->getPagination($query, $page);
     }
 
     /**
      * @param StudentTeam $studentTeam
      * @param StudentClass $studentClass
+     * @param int $page
      *
-     * @return ArrayCollection
+     * @return PaginatorInterface
      */
-    public function getStudentListByTeamAndClass(StudentTeam $studentTeam, StudentClass $studentClass)
+    public function getStudentListByTeamAndClass(StudentTeam $studentTeam, StudentClass $studentClass, int $page = 1)
     {
-        $this->getEntityManager()->getFilters()->disable('softdeleteable');
-
         $qb = $this->createQueryBuilder('ph');
 
-        $result = $qb
+        $query = $qb
             ->select(
                 's.id',
                 's.firstName',
@@ -385,11 +402,105 @@ class PointHistoryRepository extends EntityRepository
             ->groupBy('s.id')
             ->setParameter('studentTeam', $studentTeam)
             ->setParameter('studentClass', $studentClass)
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
+
+        return $this->getPagination($query, $page);
+    }
+
+    /**
+     * @param StudentTeam|null $team
+     * @param StudentClass|null $class
+     *
+     * @return int
+     */
+    public function findMaxPointAmountByClassAndTeam(StudentTeam $team = null, StudentClass $class = null): int
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select('SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 'st')
+            ->join('s.studentClass', 'sc')
+            ->where('ph.deletedAt IS NULL')
+            ->orderBy('amount', 'desc')
+            ->groupBy('s.id')
+            ->setMaxResults(1);
+
+        if ($team) {
+            $qb->andWhere('s.studentTeam = :studentTeam')->setParameter('studentTeam', $team);
+        }
+
+        if ($class) {
+            $qb->andWhere('s.studentClass = :studentClass')->setParameter('studentClass', $class);
+        }
+
+        $result = $qb->getQuery()->getSingleScalarResult();
 
         $this->getEntityManager()->getFilters()->enable('softdeleteable');
 
-        return new ArrayCollection($result);
+        return $result;
+    }
+
+    /**
+     * @param StudentTeam|null $team
+     * @param StudentClass|null $class
+     *
+     * @return int
+     */
+    public function findMinPointAmountByClassAndTeam(StudentTeam $team = null, StudentClass $class = null): int
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select('SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 'st')
+            ->join('s.studentClass', 'sc')
+            ->where('ph.deletedAt IS NULL')
+            ->orderBy('amount', 'asc')
+            ->groupBy('s.id')
+            ->setMaxResults(1);
+
+        if ($team) {
+            $qb->andWhere('s.studentTeam = :studentTeam')->setParameter('studentTeam', $team);
+        }
+
+        if ($class) {
+            $qb->andWhere('s.studentClass = :studentClass')->setParameter('studentClass', $class);
+        }
+
+        $result = $qb->getQuery()->getSingleScalarResult();
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        return $result;
+    }
+
+    /**
+     * @param Query $query
+     * @param int $page
+     *
+     * @return PaginatorInterface
+     */
+    private function getPagination(Query $query, int $page)
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $result = $query->getResult();
+
+        $query->setHint('knp_paginator.count', sizeof($result));
+
+        $pagination = $this->paginator->paginate(
+            $query,
+            $page,
+            $this->pageSize
+        );
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        return $pagination;
     }
 }

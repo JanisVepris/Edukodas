@@ -20,3 +20,7 @@ parameters:
     secret:            SuperSecretAcademyHashKeyDoNotTellAnyone
     profile_pic_dir: '%kernel.root_dir%/../web/uploads/profile_pic'
     profile_pic_web_dir: '/uploads/profile_pic'
+
+    # Pagination
+    default_page_size: 10
+    user_list_page_size: 30

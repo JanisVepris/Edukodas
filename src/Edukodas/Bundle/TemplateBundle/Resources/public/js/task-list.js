@@ -17,7 +17,7 @@ $(document).ready(function () {
                 $('#full-task-list-container').html(data).show();
                 $('#full-task-list-preloader').hide();
             }).fail(function () {
-                Materialize.toast('Nepavyko atnaujinti užduočių sarašo.', 4000);
+                Materialize.toast('Nepavyko atnaujinti užduočių sąrašo.', 4000);
                 $('#full-task-list-container').show();
                 $('#full-task-list-preloader').hide();
             })

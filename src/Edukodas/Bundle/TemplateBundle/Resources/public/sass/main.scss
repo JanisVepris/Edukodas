@@ -42,8 +42,12 @@ main {
   width: 100%;
 }
 
-.card b {
+.card.information b {
   font-weight: 400;
+}
+
+.collection .collection-item.avatar .secondary-content {
+  top: 10px;
 }
 
 #task-form-preloader, #points-form-preloader, #edit-points-form-preloader {

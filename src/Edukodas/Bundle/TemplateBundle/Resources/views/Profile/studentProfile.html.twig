@@ -26,7 +26,7 @@
                     </a>
                 {% endif %}
 
-                <ul class="collection" id="points-history-list" data-is-student-profile="1">
+                <ul class="collection z-depth-2 id="points-history-list" data-is-student-profile="1">
                     {% for pointHistoryEntry in pointHistory %}
                         {# @var pointHistoryEntry \Edukodas\Bundle\StatisticsBundle\Entity\PointHistory #}
                         {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig" with {

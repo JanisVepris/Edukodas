@@ -3,6 +3,9 @@
     "license": "proprietary",
     "type": "project",
     "autoload": {
+        "psr-0": {
+            "Faker\\": "vendor/fzaninotto/faker/src/Faker"
+        },
         "psr-4": {
             "": "src/"
         },
@@ -29,10 +32,11 @@
         "symfony/assetic-bundle": "^2.8",
         "leafo/scssphp": "^0.6.6",
         "patchwork/jsqueeze": "^2.0",
-        "friendsofsymfony/jsrouting-bundle": "^1.6"
+        "friendsofsymfony/jsrouting-bundle": "^1.6",
+        "knplabs/knp-paginator-bundle": "^2.5",
+        "fzaninotto/faker": "^1.6"
     },
     "require-dev": {
-        "fzaninotto/faker": "*",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
         "symfony/phpunit-bridge": "^3.0",
         "squizlabs/php_codesniffer": "^2.0",

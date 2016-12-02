@@ -45,3 +45,11 @@ main {
 .card b {
   font-weight: 400;
 }
+
+#task-form-preloader, #points-form-preloader, #edit-points-form-preloader {
+  height: 200px;
+}
+
+.form-preloader-center {
+  margin: auto;
+}

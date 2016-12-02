@@ -4,6 +4,9 @@ services:
     factory: ['@doctrine.orm.default_entity_manager', getRepository]
     arguments:
       - Edukodas\Bundle\StatisticsBundle\Entity\PointHistory
+    calls:
+      - [setPageSize, ['%user_list_page_size%']]
+      - [setPaginator, ['@knp_paginator']]
 
   edukodas.statistics:
     class: Edukodas\Bundle\StatisticsBundle\Service\StatisticsService

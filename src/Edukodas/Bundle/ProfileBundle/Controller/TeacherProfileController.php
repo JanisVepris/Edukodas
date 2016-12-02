@@ -5,11 +5,16 @@ namespace Edukodas\Bundle\ProfileBundle\Controller;
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use Edukodas\Bundle\StatisticsBundle\Form\PointHistoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TeacherProfileController extends Controller
 {
+    /**
+     * @param $id
+     * @return Response
+     */
     public function indexAction($id)
     {
         if ($id === null) {
@@ -27,18 +32,15 @@ class TeacherProfileController extends Controller
         }
 
         $pointHistory = $this
-            ->getDoctrine()
-            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->get('edukodas.pointhistory.repository')
             ->getRecentEntriesByTeacher($user);
 
         $pointsTotalPositive = $this
-            ->getDoctrine()
-            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->get('edukodas.pointhistory.repository')
             ->getTotalPositivePointsByTeacher($user);
 
         $pointsTotalNegative = $this
-            ->getDoctrine()
-            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->get('edukodas.pointhistory.repository')
             ->getTotalNegativePointsByTeacher($user);
 
         $form = $this->createForm(PointHistoryType::class, new PointHistory(), ['user' => $this->getUser()]);

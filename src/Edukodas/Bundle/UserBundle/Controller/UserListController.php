@@ -4,64 +4,54 @@ namespace Edukodas\Bundle\UserBundle\Controller;
 
 use Edukodas\Bundle\UserBundle\Entity\StudentTeam;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Edukodas\Bundle\UserBundle\Form\UserListFilterType;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserListController extends Controller
 {
-    public function indexAction()
+    public function listAction(Request $request)
     {
-        $teamList = $this->getDoctrine()
+        $page = $request->get('page', '1');
+
+        $filterForm = $this->createForm(UserListFilterType::class);
+
+
+        $filterForm->handleRequest($request);
+
+        $class = $filterForm->get('class')->getData();
+        $team = $filterForm->get('team')->getData();
+
+        $teamList = $this
+            ->getDoctrine()
             ->getRepository('EdukodasUserBundle:StudentTeam')
             ->findAll();
 
-        $classList = $this->getDoctrine()
+        $classList = $this
+            ->getDoctrine()
             ->getRepository('EdukodasUserBundle:StudentClass')
             ->findAll();
 
         $statisticsService = $this->get('edukodas.statistics');
 
-        $userList = $statisticsService->getStudentList();
-        $maxAmount = $userList->first()['amount'];
-        $minAmount = $userList->last()['amount'];
+        if ($team && $class) {
+            $userList = $statisticsService->getStudentListByTeamAndClass($team, $class, $page);
+        } elseif ($team) {
+            $userList = $statisticsService->getStudentListByTeam($team, $page);
+        } elseif ($class) {
+            $userList = $statisticsService->getStudentListByClass($class, $page);
+        } else {
+            $userList = $statisticsService->getStudentList($page);
+        }
+
+        $amountRange = $statisticsService->getMinMaxAmounts($team, $class);
 
         return $this->render('@EdukodasTemplate/Users/list.html.twig', [
             'teamList' => $teamList,
             'classList' => $classList,
             'userList' => $userList,
-            'maxAmount' => $maxAmount,
-            'minAmount' => $minAmount,
-        ]);
-    }
-
-    public function listAction(Request $request)
-    {
-        $team = $this->getDoctrine()
-            ->getRepository('EdukodasUserBundle:StudentTeam')
-            ->find($request->request->get('teamId'));
-
-        $class = $this->getDoctrine()
-            ->getRepository('EdukodasUserBundle:StudentClass')
-            ->find($request->request->get('classId'));
-
-        $statisticsService = $this->get('edukodas.statistics');
-
-        if ($team && $class) {
-            $userList = $statisticsService->getStudentListByTeamAndClass($team, $class);
-        } elseif ($team) {
-            $userList = $statisticsService->getStudentListByTeam($team);
-        } elseif ($class) {
-            $userList = $statisticsService->getStudentListByClass($class);
-        } else {
-            $userList = $statisticsService->getStudentList();
-        }
-
-        $maxAmount = $userList->first()['amount'];
-        $minAmount = $userList->last()['amount'];
-
-        return $this->render('@EdukodasTemplate/Users/inc/_listUsers.html.twig', [
-            'userList' => $userList,
-            'maxAmount' => $maxAmount,
-            'minAmount' => $minAmount,
+            'filterForm' => $filterForm->createView(),
+            'maxAmount' => $amountRange['max'],
+            'minAmount' => $amountRange['min'],
         ]);
     }
 }

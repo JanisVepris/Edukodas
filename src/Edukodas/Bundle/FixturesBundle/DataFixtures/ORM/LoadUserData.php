@@ -9,16 +9,41 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Edukodas\Bundle\UserBundle\Entity\User;
+use Edukodas\Bundle\UserBundle\Entity\StudentClass;
+use Edukodas\Bundle\UserBundle\Entity\StudentGeneration;
+use Edukodas\Bundle\UserBundle\Entity\StudentTeam;
 
 class LoadUserData extends AbstractFixture implements
     FixtureInterface,
     ContainerAwareInterface,
     OrderedFixtureInterface
 {
+    const BATCH_SIZE = 20;
+
     /**
      * @var ContainerInterface
      */
     private $container;
+
+    /**
+     * @var StudentTeam[]
+     */
+    private $teams;
+
+    /**
+     * @var StudentClass[]
+     */
+    private $classes;
+
+    /**
+     * @var StudentGeneration[]
+     */
+    private $generations;
+
+    /**
+     * @var \Faker\Generator
+     */
+    private $faker;
 
     /**
      * Set container
@@ -33,115 +58,66 @@ class LoadUserData extends AbstractFixture implements
     }
 
     /**
+     * @return StudentTeam[]
+     */
+    private function getTeams()
+    {
+        return [
+            $this->getReference('team_1'),
+            $this->getReference('team_2'),
+            $this->getReference('team_3'),
+            $this->getReference('team_4'),
+        ];
+    }
+
+    /**
+     * @return StudentClass[]
+     */
+    private function getClasses()
+    {
+        return [
+            $this->getReference('class_1'),
+            $this->getReference('class_2'),
+            $this->getReference('class_3'),
+            $this->getReference('class_4'),
+            $this->getReference('class_5'),
+            $this->getReference('class_6'),
+            $this->getReference('class_7'),
+            $this->getReference('class_8'),
+        ];
+    }
+
+    private function getGenerations()
+    {
+        return [
+            $this->getReference('generation_1'),
+            $this->getReference('generation_2'),
+        ];
+    }
+
+    /**
      * Get userData
      *
      * @return array
      */
-    private function getUserData()
+    private function getDefaultUsers()
     {
         return [
             [
-                'username' => 'genadijb',
-                'firstName' => 'Genadij',
-                'lastName' => 'Bojev',
-                'password' => 'admin',
-                'email' => 'genadij.bojev@gmail.com',
-                'roles' => ['ROLE_ADMIN'],
-                'enabled' => true,
-                'generation' => null,
-                'team' => $this->getReference('team_1')
-            ],
-            [
-                'username' => 'domantasp',
-                'firstName' => 'Domantas',
-                'lastName' => 'Petrauskas',
-                'password' => 'admin',
-                'email' => 'domantas.pet@gmail.com',
-                'roles' => ['ROLE_ADMIN'],
-                'enabled' => true,
-                'generation' => null,
-                'team' => $this->getReference('team_1')
-            ],
-            [
-                'username' => 'lukasc',
-                'firstName' => 'Lukas',
-                'lastName' => 'Ceplikas',
-                'password' => 'admin',
-                'email' => 'lukasceplikas@gmail.com',
-                'roles' => ['ROLE_ADMIN'],
-                'enabled' => true,
-                'generation' => null,
-                'team' => $this->getReference('team_1')
-            ],
-            [
                 'username' => 'mokytojasa',
-                'firstName' => 'Mokytojas',
-                'lastName' => 'A',
-                'password' => 'password',
-                'email' => 'mokytojasa@pastas.com',
-                'roles' => ['ROLE_TEACHER'],
-                'enabled' => true,
-                'generation' => null,
-                'team' => null
+                'role' => 'ROLE_TEACHER',
             ],
             [
                 'username' => 'mokytojasb',
-                'firstName' => 'Mokytojas',
-                'lastName' => 'B',
-                'password' => 'password',
-                'email' => 'mokytojasb@pastas.com',
-                'roles' => ['ROLE_TEACHER'],
-                'enabled' => true,
-                'generation' => null,
-                'team' => null
+                'role' => 'ROLE_TEACHER',
             ],
             [
                 'username' => 'mokinysa',
-                'firstName' => 'Mokinys',
-                'studentClass' => '4c',
-                'lastName' => 'A',
-                'password' => 'password',
-                'email' => 'mokinysa@pastas.com',
-                'roles' => ['ROLE_STUDENT'],
-                'enabled' => true,
-                'generation' => $this->getReference('generation_2016'),
-                'team' => $this->getReference('team_1')
+                'role' => 'ROLE_STUDENT',
             ],
             [
                 'username' => 'mokinysb',
-                'firstName' => 'Mokinys',
-                'studentClass' => '4b',
-                'lastName' => 'B',
-                'password' => 'password',
-                'email' => 'mokinysb@pastas.com',
-                'roles' => ['ROLE_STUDENT'],
-                'enabled' => true,
-                'generation' => $this->getReference('generation_2016'),
-                'team' => $this->getReference('team_2')
-            ],
-            [
-                'username' => 'mokinysc',
-                'firstName' => 'Mokinys',
-                'studentClass' => '4a',
-                'lastName' => 'C',
-                'password' => 'password',
-                'email' => 'mokinysc@pastas.com',
-                'roles' => ['ROLE_STUDENT'],
-                'enabled' => true,
-                'generation' => $this->getReference('generation_2016'),
-                'team' => $this->getReference('team_3')
-            ],
-            [
-                'username' => 'mokinysd',
-                'firstName' => 'Mokinys',
-                'studentClass' => '4a',
-                'lastName' => 'D',
-                'password' => 'password',
-                'email' => 'mokinysd@pastas.com',
-                'roles' => ['ROLE_STUDENT'],
-                'enabled' => true,
-                'generation' => $this->getReference('generation_2016'),
-                'team' => $this->getReference('team_4')
+                'role' => 'ROLE_STUDENT',
             ],
         ];
     }
@@ -155,38 +131,64 @@ class LoadUserData extends AbstractFixture implements
      */
     public function load(ObjectManager $manager)
     {
-        $data = $this->getUserData();
+        $this->teams = $this->getTeams();
+        $this->classes = $this->getClasses();
+        $this->generations = $this->getGenerations();
+        $this->faker = \Faker\Factory::create('lt_LT');
 
-        foreach ($data as $userData) {
-            $user = new User();
-            $user
-                ->setUsername($userData['username'])
-                ->setFirstName($userData['firstName'])
-                ->setLastName($userData['lastName'])
-                ->setPlainPassword($userData['password'])
-                ->setEmail($userData['email'])
-                ->setRoles($userData['roles'])
-                ->setEnabled($userData['enabled']);
+        $defaultUsers = $this->getDefaultUsers();
 
-            if ($userData['generation']) {
-                $user->setStudentGeneration($userData['generation']);
-            }
-
-            if ($userData['team']) {
-                $user->setStudentTeam($userData['team']);
-            }
-
-            if (isset($userData['studentClass'])) {
-                $studentClass = $this->getReference('class_' . $userData['studentClass']);
-                $user->setStudentClass($studentClass);
-            }
-
+        foreach ($defaultUsers as $defaultUser) {
+            $user = $this->generateUser($defaultUser['username'], $defaultUser['role']);
+            $this->addReference('user_' . $user->getUsername(), $user);
             $manager->persist($user);
-
-            $this->addReference($userData['username'], $user);
         }
 
         $manager->flush();
+
+        for ($i = 1; $i <= 100; $i++) {
+            $user = $this->generateUser();
+
+            $this->addReference('user_' . $i, $user);
+
+            $manager->persist($user);
+
+            if (($i % static::BATCH_SIZE) === 0) {
+                $manager->flush();
+            }
+        }
+
+        $manager->flush();
+    }
+
+    /**
+     * @param null $username
+     * @param string $role
+     * @param string $password
+     * @param bool $enabled
+     *
+     * @return User
+     */
+    private function generateUser($username = null, $role = 'ROLE_STUDENT', $password = 'password', $enabled = true)
+    {
+        $user = new User();
+        $user
+            ->setUsername($username ?: $this->faker->unique()->username)
+            ->setRoles([$role])
+            ->setFirstName($this->faker->firstName)
+            ->setLastName($this->faker->lastName)
+            ->setEmail($this->faker->unique()->safeEmail)
+            ->setPlainPassword($password)
+            ->setEnabled($enabled);
+
+        if ($role === 'ROLE_STUDENT') {
+            $user
+                ->setStudentTeam($this->teams[array_rand($this->teams)])
+                ->setStudentClass($this->classes[array_rand($this->classes)])
+                ->setStudentGeneration($this->generations[array_rand($this->generations)]);
+        }
+
+        return $user;
     }
 
     /**

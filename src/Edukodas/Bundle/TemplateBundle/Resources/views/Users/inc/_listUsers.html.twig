@@ -28,3 +28,4 @@
 {% else %}
     {{ 'user_list.no_users'|trans }}
 {% endfor %}
+{{ knp_pagination_render(userList) }}

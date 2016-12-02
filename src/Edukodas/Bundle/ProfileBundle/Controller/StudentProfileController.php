@@ -27,13 +27,11 @@ class StudentProfileController extends Controller
         }
 
         $pointHistory = $this
-            ->getDoctrine()
-            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->get('edukodas.pointhistory.repository')
             ->getRecentEntriesByStudent($user);
 
         $studentPoints = $this
-            ->getDoctrine()
-            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->get('edukodas.pointhistory.repository')
             ->getTotalPointsByStudent($user);
 
         $statisticsService = $this->get('edukodas.statistics');

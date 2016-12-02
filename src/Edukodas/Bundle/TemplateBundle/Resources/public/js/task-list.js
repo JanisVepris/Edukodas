@@ -3,7 +3,9 @@ $(document).ready(function () {
 
     var taskListSelectize = $('#task_list_filter_course').selectize({
         onChange: function (value) {
-            if (!value.length) return;
+            if (!value.length || value == currentSelectizeValue) {
+                return;
+            }
 
             $.ajax({
                 url: Routing.generate('edukodas_task_list_get', {id: value}),

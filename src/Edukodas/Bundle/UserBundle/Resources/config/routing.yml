@@ -1,5 +1,5 @@
 edukodas_user_list:
-  path:     /list_users
+  path:     /user/list
   defaults: { _controller: EdukodasUserBundle:UserList:list }
 
 edukodas_remove_picture:

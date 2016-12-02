@@ -1,5 +1,7 @@
 $(document).ready(function () {
-    $('#task_list_filter_course').selectize({
+    var currentSelectizeValue;
+
+    var taskListSelectize = $('#task_list_filter_course').selectize({
         onChange: function (value) {
             if (!value.length) return;
 
@@ -15,10 +17,22 @@ $(document).ready(function () {
                 $('#full-task-list-container').html(data).show();
                 $('#full-task-list-preloader').hide();
             }).fail(function () {
-                Materialize.toast('Nepavyko atnaujinti užduočių sarašą.', 4000);
+                Materialize.toast('Nepavyko atnaujinti užduočių sarašo.', 4000);
                 $('#full-task-list-container').show();
                 $('#full-task-list-preloader').hide();
             })
+        },
+        onDropdownClose: function () {
+            var selectize = taskListSelectize[0].selectize;
+            if (selectize.getValue() === '') {
+                selectize.setValue(currentSelectizeValue);
+            }
         }
+    });
+
+    $(".selectize-control").on('click', function () {
+        var selectize = taskListSelectize[0].selectize;
+        currentSelectizeValue = selectize.getValue();
+        selectize.clear(true);
     });
 });

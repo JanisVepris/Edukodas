@@ -181,7 +181,7 @@ class Course
     }
 
     /**
-     * Get course name prepended with teacher name
+     * Get course name appended with teacher name
      *
      * @return string
      */

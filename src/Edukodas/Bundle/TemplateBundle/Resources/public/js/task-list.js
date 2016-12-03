@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var currentSelectizeValue;
 
-    var taskListSelectize = $('#task_list_filter_course').selectize({
+    $('#task_list_filter_course').selectize({
         plugins: {
             'no_results': { message: 'Nepavyko nieko rasti' }
         },

@@ -53,7 +53,8 @@
                             entryOwnerId: pointHistoryEntry.owner.id,
                             taskName: pointHistoryEntry.task.name,
                             comment: pointHistoryEntry.comment,
-                            createdAt: pointHistoryEntry.createdAt|date('Y/m/d H:m'),
+                            createdAtDate: pointHistoryEntry.createdAt|date('m/d'),
+                            createdAtTime: pointHistoryEntry.createdAt|date('H:m'),
                             isStudentProfile: false
                             } %}
                         {% else %}

@@ -7,11 +7,7 @@
         </div>
     </div>
     <div class="col s12">
-    {% if app.user.id == user.id %}
-        <div class="card valign-wrapper {{ app.user.studentTeam ? app.user.studentTeam.color : 'blue-grey' }} lighten-1">
-    {% else %}
         <div class="card valign-wrapper {{ user.studentTeam ? user.studentTeam.color : 'blue-grey' }} lighten-1">
-    {% endif %}
             <div class="card-content white-text center-align valign">
                 <h5>
                     {{ user.fullName }}
@@ -36,11 +32,7 @@
 </div>
 <div class="hide-on-small-and-down">
     <div class="col m12 l7">
-    {% if app.user.id == user.id %}
-        <div class="card horizontal valign-wrapper {{ app.user.studentTeam ? app.user.studentTeam.color : 'blue-grey' }} lighten-1">
-    {% else %}
         <div class="card horizontal valign-wrapper {{ user.studentTeam ? user.studentTeam.color : 'blue-grey' }} lighten-1">
-    {% endif %}
             <div class="card-image">
                 {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
             </div>

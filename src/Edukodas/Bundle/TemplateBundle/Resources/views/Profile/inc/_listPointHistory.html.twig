@@ -20,7 +20,8 @@
         </span>
     {% else %}
         <div class="col s4 right-align">
-            {{ createdAt }}<br>
+            {{ createdAtDate }}<br>
+            {{ createdAtTime }}<br>
             {{ comment }}
         </div>
         {% if app.user.id == entryOwnerId %}

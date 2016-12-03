@@ -2,6 +2,9 @@ $(document).ready(function () {
     var currentSelectizeValue;
 
     var taskListSelectize = $('#task_list_filter_course').selectize({
+        plugins: {
+            'no_results': { message: 'Nepavyko nieko rasti' }
+        },
         onChange: function (value) {
             if (!value.length || value == currentSelectizeValue) {
                 return;
@@ -24,17 +27,14 @@ $(document).ready(function () {
                 $('#full-task-list-preloader').hide();
             })
         },
-        onDropdownClose: function () {
-            var selectize = taskListSelectize[0].selectize;
-            if (selectize.getValue() === '') {
-                selectize.setValue(currentSelectizeValue);
+        onBlur: function () {
+            if (this.getValue() === '') {
+                this.setValue(currentSelectizeValue);
             }
+        },
+        onFocus: function () {
+            currentSelectizeValue = this.getValue();
+            this.clear(true);
         }
-    });
-
-    $(".selectize-control").on('click', function () {
-        var selectize = taskListSelectize[0].selectize;
-        currentSelectizeValue = selectize.getValue();
-        selectize.clear(true);
     });
 });

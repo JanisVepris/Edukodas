@@ -31,6 +31,7 @@ $(document).ready(function() {
                     success: function (data) {
                         $('.search-preloader-container').addClass('hide');
                         $('.autocomplete-content').html(data);
+                        searchResultLinks();
                         $('.autocomplete-content').removeClass('hide');
                     },
                     error: function () {
@@ -41,6 +42,14 @@ $(document).ready(function() {
             hideSearchResults();
         }
     });
+
+    function searchResultLinks() {
+        $('.search-result > a').on('click', function () {
+            $('#search').val($(this).text().trim());
+            $('#search').trigger('change');
+            hideSearchResults();
+        });
+    }
 
     $('.search').on('submit', function (e) {
         e.preventDefault();

@@ -70,5 +70,20 @@ main {
 .team-color-search {
   height: 40px;
   width: 40px;
-  margin: 0px 15px;
+  margin: 5px 15px;
+  display: inline-block;
+}
+#search-reasults > .search-result > a {
+  display: flex;
+  line-height: 22px;
+  padding: 14px 16px;
+  width: 100%;
+}
+
+.search-result > a > span {
+  font-size: 16px;
+  color: #26a69a;
+  display: block;
+  line-height: 22px;
+  padding: 14px 16px;
 }

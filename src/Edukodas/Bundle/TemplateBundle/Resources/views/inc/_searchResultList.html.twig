@@ -1,25 +1,32 @@
 {% for student in students %}
     {# @var student \Edukodas\Bundle\UserBundle\Entity\User #}
-    <li class="search-result valign-wrapper">
-        {% if (student.hasPicture) %}
-            <img src="{{ student|profile_pic }}" alt="{{ student.fullName }}" class="circle responsive-img">
-        {% else %}
-            <div class="circle team-color-search {{ student.studentTeam.color }}"></div>
-        {% endif %}
-        <span>{{ student.fullName }} {{ student.studentClass.title }}</span>
+    <li class="search-result">
+        <a href="{{ path('edukodas_student_profile', {'id': student.id}) }}" class="valign-wrapper">
+            {% if (student.hasPicture) %}
+                <img src="{{ student|profile_pic }}" alt="{{ student.fullName }}" class="circle responsive-img">
+            {% else %}
+                <div class="circle team-color-search {{ student.studentTeam.color }}"></div>
+            {% endif %}
+            <span>{{ student.fullName }} {{ student.studentClass.title }}</span>
+        </a>
     </li>
 {% endfor %}
+{% if (students and teachers) %}
+    <li class="divider"></li>
+{% endif %}
 {% for teacher in teachers %}
     {# @var teacher \Edukodas\Bundle\UserBundle\Entity\User #}
-    <li class="search-result valign-wrapper">
-        {% if (teacher.hasPicture) %}
-            <img src="{{ teacher|profile_pic }}" alt="{{ teacher.fullName }}" class="circle responsive-img">
-        {% else %}
-            <img
-                    src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}"
-                    alt="{{ teacher.fullName }}"
-                    class="circle responsive-img">
-        {% endif %}
-        <span>{{ teacher.fullName }}</span>
+    <li class="search-result">
+        <a href="{{ path('edukodas_teacher_profile', {'id': teacher.id}) }}" class="valign-wrapper">
+            {% if (teacher.hasPicture) %}
+                <img src="{{ teacher|profile_pic }}" alt="{{ teacher.fullName }}" class="circle responsive-img">
+            {% else %}
+                <img
+                        src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}"
+                        alt="{{ teacher.fullName }}"
+                        class="circle responsive-img">
+            {% endif %}
+            <span>{{ teacher.fullName }}</span>
+        </a>
     </li>
 {% endfor %}

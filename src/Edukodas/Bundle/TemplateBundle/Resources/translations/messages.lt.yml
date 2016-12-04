@@ -72,4 +72,6 @@ graph:
     all: Visas laikotarpis
   class: Klasė
   team: Komanda
+  teamGraph:
+    point_list_entry: Turėdami <b>%amount%</b> taškus užima %rank% vietą
 

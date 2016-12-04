@@ -480,6 +480,56 @@ class PointHistoryRepository extends EntityRepository
     }
 
     /**
+     * @param \DateTime|null $fromDate
+     *
+     * @return array
+     */
+    public function getTeamPointTotalSinceDate(\DateTime $fromDate = null)
+    {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select('t.id', 't.title', 't.color', 'SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->orderBy('ph.amount', 'desc')
+            ->groupBy('t.id');
+
+        if ($fromDate) {
+            $qb
+                ->where('ph.createdAt >= :dateTime')
+                ->setParameter('dateTime', $fromDate);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param StudentTeam $team
+     *
+     * @return array
+     */
+    public function getClassPointTotalByTeam(StudentTeam $team, \DateTime $fromDate = null)
+    {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select('SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->join('s.studentClass', 'sc')
+            ->where('s.studentTeam = :team')
+            ->setParameter('team', $team)
+            ->orderBy('ph.amount', 'desc')
+            ->groupBy('c.id');
+
+        if ($fromDate) {
+            $qb
+                ->where('ph.createdAt >= :dateTime')
+                ->setParameter('dateTime', $fromDate);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
      * @param Query $query
      * @param int $page
      *

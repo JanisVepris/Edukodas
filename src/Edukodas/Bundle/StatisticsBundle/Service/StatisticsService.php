@@ -161,11 +161,37 @@ class StatisticsService
         return $studentListByTeamAndClass;
     }
 
+    /**
+     * @param StudentTeam|null $team
+     * @param StudentClass|null $class
+     *
+     * @return array
+     */
     public function getMinMaxAmounts(StudentTeam $team = null, StudentClass $class = null)
     {
         return [
             'min' => $this->pointHistoryRepository->findMinPointAmountByClassAndTeam($team, $class),
             'max' => $this->pointHistoryRepository->findMaxPointAmountByClassAndTeam($team, $class),
         ];
+    }
+
+    /**
+     * @param \DateTime|null $fromDate
+     *
+     * @return array
+     */
+    public function getTeamPointTotals(\DateTime $fromDate = null)
+    {
+        return $this->pointHistoryRepository->getTeamPointTotalSinceDate($fromDate);
+    }
+
+    /**
+     * @param StudentTeam $studentTeam
+     *
+     * @return array
+     */
+    public function getClassPointTotals(StudentTeam $team, \DateTime $fromDate = null)
+    {
+        return $this->pointHistoryRepository->getClassPointTotalByTeam($team, $fromDate);
     }
 }

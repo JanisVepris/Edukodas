@@ -2,7 +2,6 @@
 
 namespace Edukodas\Bundle\StatisticsBundle\Form;
 
-use Doctrine\DBAL\Types\DateType;
 use Edukodas\Bundle\StatisticsBundle\Service\GraphService;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -18,7 +17,7 @@ class GraphType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('from', ChoiceType::class, [
+            ->add('timespan', ChoiceType::class, [
                 'choices' => [
                     'graph.from.year' => GraphService::FILTER_TIMESPAN_YEAR,
                     'graph.from.month' => GraphService::FILTER_TIMESPAN_MONTH,

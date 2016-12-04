@@ -69,6 +69,34 @@ class PointHistory implements OwnedEntityInterface
     private $amount;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="year", type="integer", length=4)
+     */
+    private $year;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="month", type="integer", length=2)
+     */
+    private $month;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="day_of_the_month", type="integer", length=2)
+     */
+    private $dayOfTheMonth;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="day_of_the_week", type="integer", length=1)
+     */
+    private $dayOfTheWeek;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -80,7 +108,16 @@ class PointHistory implements OwnedEntityInterface
      */
     public function onPrePersist()
     {
-        $this->createdAt = new \DateTime('now');
+        $date = new \DateTime('now');
+
+        if (!$this->createdAt) {
+            $this->createdAt = $date;
+        }
+
+        $this->setMonth((int) $date->format('m'));
+        $this->setDayOfTheMonth((int) $date->format('d'));
+        $this->setDayOfTheWeek((int) $date->format('N'));
+        $this->setYear((int) $date->format('Y'));
     }
 
     /**
@@ -204,12 +241,99 @@ class PointHistory implements OwnedEntityInterface
     }
 
     /**
+     * @return int
+     */
+    public function getYear(): int
+    {
+        return $this->year;
+    }
+
+    /**
+     * @param int $year
+     * @return PointHistory
+     */
+    public function setYear(int $year): PointHistory
+    {
+        $this->year = $year;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMonth(): int
+    {
+        return $this->month;
+    }
+
+    /**
+     * @param int $month
+     *
+     * @return PointHistory
+     */
+    public function setMonth(int $month): PointHistory
+    {
+        $this->month = $month;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDayOfTheMonth(): int
+    {
+        return $this->dayOfTheMonth;
+    }
+
+    /**
+     * @param int $dayOfTheMonth
+     *
+     * @return PointHistory
+     */
+    public function setDayOfTheMonth(int $dayOfTheMonth): PointHistory
+    {
+        $this->dayOfTheMonth = $dayOfTheMonth;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDayOfTheWeek(): int
+    {
+        return $this->dayOfTheWeek;
+    }
+
+    /**
+     * @param int $dayOfTheWeek
+     *
+     * @return PointHistory
+     */
+    public function setDayOfTheWeek(int $dayOfTheWeek): PointHistory
+    {
+        $this->dayOfTheWeek = $dayOfTheWeek;
+        return $this;
+    }
+
+    /**
      * @return \DateTime
      */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
+
+    /**
+     * @param \DateTime $createdAt
+     * @return PointHistory
+     */
+    public function setCreatedAt(\DateTime $createdAt): PointHistory
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
 
     /**
      * @return User

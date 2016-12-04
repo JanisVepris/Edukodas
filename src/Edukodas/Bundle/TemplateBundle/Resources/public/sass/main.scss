@@ -12,15 +12,25 @@ main {
   padding: 0 !important;
 }
 
-@media (max-width: 1064px) {
+@media only screen and (max-width: 1064px) {
   nav ul a {
     padding: 0 10px;
   }
 }
 
-@media (min-width: 992px) {
+@media only screen and (min-width: 992px) {
   header {
     z-index: 2;
+  }
+}
+
+@media only screen and (max-width: 1281px) {
+  #name-points {
+    padding: 0;
+  }
+
+  #name-points h1 {
+    line-height: 50%;
   }
 }
 

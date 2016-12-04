@@ -80,7 +80,8 @@ class GraphService
         }
 
 
-        dump($teamPoints); die;
+        dump($teamPoints);
+        die;
 
         // TODO: Paruost duomenis grafikam
     }

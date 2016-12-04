@@ -494,7 +494,7 @@ class PointHistoryRepository extends EntityRepository
         $query->setHint('knp_paginator.count', sizeof($result));
 
         $pagination = $this->paginator->paginate(
-            $query,
+            $result,
             $page,
             $this->pageSize
         );

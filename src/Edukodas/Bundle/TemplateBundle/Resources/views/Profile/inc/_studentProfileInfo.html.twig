@@ -9,9 +9,9 @@
     <div class="col s12">
         <div class="card valign-wrapper {{ user.studentTeam ? user.studentTeam.color : 'blue-grey' }} lighten-1">
             <div class="card-content white-text center-align valign">
-                <h5>
+                <h4>
                     {{ user.fullName }}
-                </h5>
+                </h4>
                 <h1>{{ points | number_format }}</h1>
             </div>
         </div>
@@ -36,10 +36,10 @@
             <div class="card-image">
                 {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
             </div>
-            <div class="card-content white-text center-align valign">
-                <h5>
+            <div class="card-content white-text center-align valign" id="name-points">
+                <h4>
                     {{ user.fullName }}
-                </h5>
+                </h4>
                 <h1>{{ points | number_format }}</h1>
             </div>
         </div>

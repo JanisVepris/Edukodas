@@ -12,18 +12,6 @@ main {
   padding: 0 !important;
 }
 
-@media (max-width: 1064px) {
-  nav ul a {
-    padding: 0 10px;
-  }
-}
-
-@media (min-width: 992px) {
-  header {
-    z-index: 2;
-  }
-}
-
 .select-wrapper span.caret {
   content: ' ';
   display: block;
@@ -38,6 +26,8 @@ main {
   border-color: #808080 transparent transparent transparent;
 }
 
+// Profile information
+
 .card .card-content {
   width: 100%;
 }
@@ -46,8 +36,14 @@ main {
   font-weight: 400;
 }
 
+// Profile point history
+
 .collection .collection-item.avatar .secondary-content {
+  > * {
+    margin-left: 5px;
+  }
   top: 10px;
+  display: inline-flex;
 }
 
 #task-form-preloader, #points-form-preloader, #edit-points-form-preloader {
@@ -56,4 +52,34 @@ main {
 
 .form-preloader-center {
   margin: auto;
+}
+
+// Media queries
+
+@media only screen and (min-width: 992px) {
+  header {
+    z-index: 2;
+  }
+}
+
+@media only screen and (max-width: 1064px) {
+  nav ul a {
+    padding: 0 10px;
+  }
+}
+
+@media only screen and (max-width: 1281px) {
+  #name-points {
+    padding: 0;
+  }
+
+  #name-points h1 {
+    line-height: 50%;
+  }
+
+  #name-points h2 {
+    line-height: 100%;
+    margin: 0.8rem 0;
+    font-size: 2.5rem;
+  }
 }

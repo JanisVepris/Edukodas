@@ -1,0 +1,15 @@
+edukodas_point_history_list:
+    path:     /list
+    defaults: { _controller: EdukodasStatisticsBundle:PointHistory:list }
+
+edukodas_points_add:
+    path:     /add
+    defaults: { _controller: EdukodasStatisticsBundle:PointHistory:add}
+
+edukodas_points_edit:
+    path:     /edit/{pointHistoryId}
+    defaults: { _controller: EdukodasStatisticsBundle:PointHistory:edit }
+
+edukodas_points_delete:
+    path:     /delete/{pointHistoryId}
+    defaults: { _controller: EdukodasStatisticsBundle:PointHistory:delete }

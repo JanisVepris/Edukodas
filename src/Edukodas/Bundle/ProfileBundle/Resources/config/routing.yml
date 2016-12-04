@@ -1,0 +1,7 @@
+edukodas_teacher_profile:
+    path:     /teacher/{id}
+    defaults: { _controller: EdukodasProfileBundle:TeacherProfile:index, id: null }
+
+edukodas_student_profile:
+    path: /student/{id}
+    defaults: { _controller: EdukodasProfileBundle:StudentProfile:index, id: null }

@@ -1,0 +1,63 @@
+menu:
+  navigation:
+    profile: Profilis
+    tasks: Užduotys
+    ratings: Reitingai
+    users: Vartotojai
+    settings: Nustatymai
+    logout: Atsijungti
+
+profile:
+  teacher:
+    tasks: Užduotys
+    gave_points: Davė taškų
+    took_points: Atėmė taškų
+  point_history:
+    no_entries: Įrašų nerasta
+  heading:
+    points_history: Taškų istorija
+
+points:
+  header: Informacija
+  rating:
+    generation: Kartoje
+    team: Komandoje
+    school: Mokykloje
+    class: Klasėje
+  total_points: Taškų suma
+
+user_list:
+  team: Komanda
+  class: Klasė
+  all: Visos
+  no_users: Mokinių nėra
+
+form:
+  add_tasks:
+    add: Pridėti užduotį
+    course: Dalykas
+    name: Užduoties pavadinimas
+    description: Aprašymas
+    points: Taškai
+    submit: Pridėti
+  edit_tasks:
+    save: Išsaugoti
+  add_points:
+    add: Skirti taškus
+    teacher: Mokytojas
+    task: Užduotis
+    student: Mokinys
+    student_placeholder: Pasirinkite mokinį
+    amount: Taškų skaičius
+    comment: Komentaras
+    submit: Skirti
+    back: Grįžti
+  edit_points:
+    save: Išsaugoti
+
+list:
+  no_courses: Nėra dėstomų dalykų
+  no_tasks: Nėra užduočių
+  no_points: Nėra taškų
+
+Course: Dalykas

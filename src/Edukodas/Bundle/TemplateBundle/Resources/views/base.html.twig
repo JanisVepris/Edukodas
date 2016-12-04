@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}{{ "PlsAtsiminkPakeist" }}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% block stylesheets %}
+        {% stylesheets
+        "bundles/edukodastemplate/sass/materialize.scss"
+        "bundles/edukodastemplate/sass/selectize.material.scss"
+        "bundles/edukodastemplate/sass/main.scss"
+        filter="scssphp"
+        filter="cssrewrite"
+        output="css/app.css" %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock %}
+    {% block canonical_meta %}{% endblock %}
+</head>
+<body class="grey lighten-4">
+    {% block header %}
+        {% include 'EdukodasTemplateBundle:inc:header.html.twig' %}
+    {% endblock %}
+
+    {# Notifications #}
+    <div class="container">
+        {# Error #}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="card-panel red lighten-2">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {# Notice #}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="card-panel yellow lighten-2">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {# Success #}
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="card-panel green lighten-2">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    </div>
+
+    {% block main %}{% endblock %}
+
+    {% block javascripts %}
+        {% javascripts filter='?yui_js'
+        'bundles/edukodastemplate/js/jquery-2.2.4.min.js'
+        'bundles/edukodastemplate/js/bin/materialize.js'
+        'bundles/edukodastemplate/js/jquery.form.js'
+        'bundles/edukodastemplate/js/selectize.js'
+        'bundles/edukodastemplate/js/selectize_no_results.js'
+        'bundles/fosjsrouting/js/router.js'
+        'js/fos_js_routes.js'
+        'bundles/edukodastemplate/js/bin/main.js'
+        'bundles/edukodastemplate/js/teacher-profile-script.js'
+        'bundles/edukodastemplate/js/user-list.js'
+        'bundles/edukodastemplate/js/task-list.js'
+        output='js/compiled/app.js' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+</body>
+</html>

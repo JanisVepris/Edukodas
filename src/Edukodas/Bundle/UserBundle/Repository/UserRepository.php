@@ -2,6 +2,8 @@
 
 namespace Edukodas\Bundle\UserBundle\Repository;
 
+use Edukodas\Bundle\UserBundle\Entity\User;
+
 /**
  * UserRepository
  *
@@ -10,4 +12,16 @@ namespace Edukodas\Bundle\UserBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return User[]
+     */
+    public function findAllStudents()
+    {
+        return $this
+            ->createQueryBuilder('u')
+            ->where('u.roles LIKE :studentRole')
+            ->setParameter('studentRole', '%' . User::STUDENT_ROLE . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -1,0 +1,23 @@
+edukodas_tasks_list:
+    path:     /list
+    defaults: { _controller: EdukodasTasksBundle:Tasks:list }
+
+edukodas_tasks_add:
+    path:     /add
+    defaults: { _controller: EdukodasTasksBundle:Tasks:add }
+
+edukodas_tasks_edit:
+    path:     /edit/{taskId}
+    defaults: { _controller: EdukodasTasksBundle:Tasks:editForm }
+
+edukodas_tasks_delete:
+    path:     /delete/{taskId}
+    defaults: { _controller: EdukodasTasksBundle:Tasks:delete }
+
+edukodas_task_list:
+    path:     /list/all
+    defaults: { _controller: EdukodasTasksBundle:TaskList:showList }
+
+edukodas_task_list_get:
+    path:     /list/get/{id}
+    defaults: { _controller: EdukodasTasksBundle:TaskList:getList }

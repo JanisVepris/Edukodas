@@ -15,9 +15,17 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new AppBundle\AppBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Edukodas\Bundle\UserBundle\EdukodasUserBundle(),
+            new Edukodas\Bundle\TasksBundle\EdukodasTasksBundle(),
+            new Edukodas\Bundle\FixturesBundle\EdukodasFixturesBundle(),
+            new Edukodas\Bundle\TemplateBundle\EdukodasTemplateBundle(),
+            new Edukodas\Bundle\ProfileBundle\EdukodasProfileBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Edukodas\Bundle\StatisticsBundle\EdukodasStatisticsBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

@@ -47,18 +47,16 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
-        # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
-        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
-        #   2. Uncomment database_path in parameters.yml.dist
-        #   3. Uncomment next line:
-        #     path:     "%database_path%"
-
+        server_version: "%database_server_version%"
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
+                
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -67,7 +65,42 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+# FosUser Configuration
 fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Edukodas\Bundle\UserBundle\Entity\User
+
+# Assetic Configuration
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
+        scssphp:
+            formatter: 'Leafo\ScssPhp\Formatter\Compressed'
+        jsqueeze: ~
+
+fos_js_routing:
+    routes_to_expose:
+        - edukodas_tasks_edit
+        - edukodas_tasks_delete
+        - edukodas_tasks_add
+        - edukodas_tasks_list
+        - edukodas_points_add
+        - edukodas_points_edit
+        - edukodas_points_delete
+        - edukodas_user_list_update
+        - edukodas_task_list_get
+
+# Paginator
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: EdukodasTemplateBundle:Pagination:sliding.html.twig # sliding pagination controls template
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template

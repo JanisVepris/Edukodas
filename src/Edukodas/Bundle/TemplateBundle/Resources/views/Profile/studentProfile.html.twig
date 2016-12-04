@@ -1,0 +1,51 @@
+{% extends "EdukodasTemplateBundle::base.html.twig" %}
+
+{% block main %}
+    {% if is_granted('ROLE_TEACHER') %}
+        {% include "EdukodasTemplateBundle:Profile/inc:_modalStructure.html.twig" %}
+        {% include '@EdukodasTemplate/Profile/inc/_addPointHistoryModal.html.twig' with {
+        'courses': teacher.courses,
+        'form': addPointsForm
+        } %}
+        {% include '@EdukodasTemplate/Profile/inc/_editPointHistoryModal.html.twig' %}
+    {% endif %}
+
+    <div class="container">
+        <div class="row">
+            {% include "@EdukodasTemplate/Profile/inc/_studentProfileInfo.html.twig" %}
+
+            {# Point history #}
+            <div class="col s12">
+                {% if is_granted('ROLE_TEACHER') %}
+                    <a class="btn-floating btn-small waves-effect waves-light red"
+                       id="edukodas_points_add"
+                       data-points-action="edukodas_points_add"
+                       data-user-id="{{ user.id }}"
+                       href="#add-points-modal">
+                        <i class="small material-icons">library_add</i>
+                    </a>
+                {% endif %}
+
+                <ul class="collection z-depth-2 id="points-history-list" data-is-student-profile="1">
+                    {% for pointHistoryEntry in pointHistory %}
+                        {# @var pointHistoryEntry \Edukodas\Bundle\StatisticsBundle\Entity\PointHistory #}
+                        {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig" with {
+                        entryId: pointHistoryEntry.id,
+                        amount: pointHistoryEntry.amount,
+                        studentName: pointHistoryEntry.student.fullName,
+                        teacher: pointHistoryEntry.teacher,
+                        entryOwnerId: pointHistoryEntry.owner.id,
+                        taskName: pointHistoryEntry.task.name,
+                        comment: pointHistoryEntry.comment,
+                        createdAtDate: pointHistoryEntry.createdAt|date('m/d'),
+                        createdAtTime: pointHistoryEntry.createdAt|date('H:m'),
+                        isStudentProfile: true
+                        } %}
+                    {% else %}
+                        {{ 'profile.point_history.no_entries'|trans }}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

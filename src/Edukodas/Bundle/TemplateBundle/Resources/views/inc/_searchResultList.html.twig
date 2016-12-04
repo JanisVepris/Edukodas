@@ -4,7 +4,7 @@
         {% if (student.hasPicture) %}
             <img src="{{ student|profile_pic }}" alt="{{ student.fullName }}" class="circle responsive-img">
         {% else %}
-            <img src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}" alt="{{ student.fullName }}" class="circle responsive-img">
+            <div class="circle team-color-search {{ student.studentTeam.color }}"></div>
         {% endif %}
         <span>{{ student.fullName }} {{ student.studentClass.title }}</span>
     </li>

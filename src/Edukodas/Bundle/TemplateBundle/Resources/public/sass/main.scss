@@ -54,6 +54,45 @@ main {
   margin: auto;
 }
 
+// Task list
+
+.collapsible-body p {
+  padding: 0;
+}
+
+.collapsible-body {
+  position: relative;
+  padding: 20px;
+  padding-top: 10px;
+}
+
+.collapsible-title {
+  line-height: 48px;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.task-buttons {
+  > * {
+    margin-left: 5px;
+  }
+  display: flex;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.task-points {
+  font-size: 18px;
+  line-height: 42px;
+  text-align: center;
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 // Media queries
 
 @media only screen and (min-width: 992px) {

@@ -26,27 +26,26 @@
                         <h5>{{ 'form.add_points.add'|trans }}</h5>
                     </a>
                 {% endif %}
-                <div class="section">
-                    <ul class="collection" id="points-history-list" data-is-student-profile="0">
-                        {% for pointHistoryEntry in pointHistory %}
-                            {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig" with {
-                            entryId: pointHistoryEntry.id,
-                            amount: pointHistoryEntry.amount,
-                            studentName: pointHistoryEntry.student.fullName,
-                            teacher: pointHistoryEntry.teacher,
-                            entryOwnerId: pointHistoryEntry.owner.id,
-                            taskName: pointHistoryEntry.task.name,
-                            comment: pointHistoryEntry.comment,
-                            createdAtDate: pointHistoryEntry.createdAt|date('m/d'),
-                            createdAtTime: pointHistoryEntry.createdAt|date('H:m'),
-                            isStudentProfile: false
-                            } %}
-                        {% else %}
-                            {{ 'list.no_points'|trans }}
-                        {% endfor %}
-                    </ul>
-                </div>
+                <ul class="collection z-depth-1" id="points-history-list" data-is-student-profile="0">
+                    {% for pointHistoryEntry in pointHistory %}
+                        {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig" with {
+                        entryId: pointHistoryEntry.id,
+                        amount: pointHistoryEntry.amount,
+                        studentName: pointHistoryEntry.student.fullName,
+                        teacher: pointHistoryEntry.teacher,
+                        entryOwnerId: pointHistoryEntry.owner.id,
+                        taskName: pointHistoryEntry.task.name,
+                        comment: pointHistoryEntry.comment,
+                        createdAtDate: pointHistoryEntry.createdAt|date('m/d'),
+                        createdAtTime: pointHistoryEntry.createdAt|date('H:m'),
+                        isStudentProfile: false
+                        } %}
+                    {% else %}
+                        {{ 'list.no_points'|trans }}
+                    {% endfor %}
+                </ul>
             </div>
+
             <div class="col s12 l5">
                 {% if app.user.id == user.id %}
                     <div class="card">
@@ -59,14 +58,7 @@
                         </a>
                     </div>
                 {% endif %}
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-title">{{ 'profile.teacher.tasks'|trans }}</span>
-                        <div id="tasks-list">
-                            {% include "@EdukodasTemplate/Profile/inc/_listTasks.html.twig" %}
-                        </div>
-                    </div>
-                </span>
+                {% include '@EdukodasTemplate/Profile/inc/_listTasks.html.twig' %}
             </div>
         </div>
     </div>

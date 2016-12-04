@@ -61,3 +61,15 @@ list:
   no_points: Nėra taškų
 
 Course: Dalykas
+
+graph:
+  from:
+    label: Nuo
+    year: Metai
+    month: Mėnuo
+    week: Savaitė
+    today: Šiandien
+    all: Visas laikotarpis
+  class: Klasė
+  team: Komanda
+

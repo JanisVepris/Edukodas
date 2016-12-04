@@ -108,16 +108,14 @@ class PointHistory implements OwnedEntityInterface
      */
     public function onPrePersist()
     {
-        $date = new \DateTime('now');
-
         if (!$this->createdAt) {
-            $this->createdAt = $date;
+            $this->createdAt = new \DateTime('now');
         }
 
-        $this->setMonth((int) $date->format('m'));
-        $this->setDayOfTheMonth((int) $date->format('d'));
-        $this->setDayOfTheWeek((int) $date->format('N'));
-        $this->setYear((int) $date->format('Y'));
+        $this->setMonth((int) $this->createdAt->format('m'));
+        $this->setDayOfTheMonth((int) $this->createdAt->format('d'));
+        $this->setDayOfTheWeek((int) $this->createdAt->format('N'));
+        $this->setYear((int) $this->createdAt->format('Y'));
     }
 
     /**

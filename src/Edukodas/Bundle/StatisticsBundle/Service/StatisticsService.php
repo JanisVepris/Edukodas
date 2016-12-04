@@ -186,12 +186,32 @@ class StatisticsService
     }
 
     /**
-     * @param StudentTeam $studentTeam
+     * @param \DateTime|null $fromDate
      *
      * @return array
      */
-    public function getClassPointTotals(StudentTeam $team, \DateTime $fromDate = null)
+    public function getTeamPointTotalsByYear(\DateTime $fromDate = null)
     {
-        return $this->pointHistoryRepository->getClassPointTotalByTeam($team, $fromDate);
+        return $this->pointHistoryRepository->getTeamPointTotalGroupedByYear($fromDate);
+    }
+
+    /**
+     * @param \DateTime|null $fromDate
+     *
+     * @return array
+     */
+    public function getTeamPointTotalsByMonth(\DateTime $fromDate = null)
+    {
+        return $this->pointHistoryRepository->getTeamPointTotalGroupedByMonth($fromDate);
+    }
+
+    /**
+     * @param \DateTime|null $fromDate
+     *
+     * @return array
+     */
+    public function getTeamPointTotalsByWeek(\DateTime $fromDate = null)
+    {
+        return $this->pointHistoryRepository->getTeamPointTotalGroupedByWeek($fromDate);
     }
 }

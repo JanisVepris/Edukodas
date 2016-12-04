@@ -15,6 +15,13 @@ class GraphController extends Controller
 
         $graphService = $this->get('edukodas.graph');
 
+        $timespan = $filterForm->get('timespan')->getData();
+        $team = $filterForm->get('team')->getData();
+        $class = $filterForm->get('class')->getData();
+
+        $a = $graphService->getTeamLineChartGraph(5);
+
+        //dump($year);die;
 
         $teamGraph = $graphService->getTeamPieChartGraph($filterForm->get('timespan')->getData());
 

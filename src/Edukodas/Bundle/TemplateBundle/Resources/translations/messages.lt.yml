@@ -63,6 +63,7 @@ list:
 Course: Dalykas
 
 graph:
+  heading: Statistika
   from:
     label: Nuo
     year: Metai

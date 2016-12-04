@@ -504,26 +504,75 @@ class PointHistoryRepository extends EntityRepository
     }
 
     /**
-     * @param StudentTeam $team
+     * @param int $fromYear
      *
      * @return array
      */
-    public function getClassPointTotalByTeam(StudentTeam $team, \DateTime $fromDate = null)
+    public function getTeamPointTotalGroupedByYear(\DateTime $fromDate = null)
     {
         $qb = $this
             ->createQueryBuilder('ph')
-            ->select('SUM(ph.amount) amount')
+            ->select('t.id', 't.title', 't.color', 'ph.month', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
-            ->join('s.studentClass', 'sc')
-            ->where('s.studentTeam = :team')
-            ->setParameter('team', $team)
-            ->orderBy('ph.amount', 'desc')
-            ->groupBy('c.id');
+            ->join('s.studentTeam', 't')
+            ->groupBy('ph.year')
+            ->addGroupBy('t.id')
+            ->orderBy('ph.amount', 'desc');
 
         if ($fromDate) {
             $qb
-                ->where('ph.createdAt >= :dateTime')
-                ->setParameter('dateTime', $fromDate);
+                ->where('ph.createdAt >= :fromDate')
+                ->setParameter('fromDate', $fromDate);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param int $fromYear
+     *
+     * @return array
+     */
+    public function getTeamPointTotalGroupedByMonth(\DateTime $fromDate = null)
+    {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select('t.id', 't.title', 't.color', 'ph.month', 'SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->groupBy('ph.month')
+            ->addGroupBy('t.id')
+            ->orderBy('ph.amount', 'desc');
+
+        if ($fromDate) {
+            $qb
+                ->where('ph.createdAt >= :fromDate')
+                ->setParameter('fromDate', $fromDate);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param int $fromYear
+     *
+     * @return array
+     */
+    public function getTeamPointTotalGroupedByWeek(\DateTime $fromDate = null)
+    {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select('t.id', 't.title', 't.color', 'ph.month', 'SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->groupBy('ph.dayOfTheWeek')
+            ->addGroupBy('t.id')
+            ->orderBy('ph.amount', 'desc');
+
+        if ($fromDate) {
+            $qb
+                ->where('ph.createdAt >= :fromDate')
+                ->setParameter('fromDate', $fromDate);
         }
 
         return $qb->getQuery()->getResult();

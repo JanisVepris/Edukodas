@@ -2,6 +2,9 @@
 
 namespace Edukodas\Bundle\StatisticsBundle\Service;
 
+use Edukodas\Bundle\UserBundle\Entity\StudentClass;
+use Edukodas\Bundle\UserBundle\Entity\StudentTeam;
+
 class GraphService
 {
     const FILTER_TIMESPAN_TODAY = 1;
@@ -55,6 +58,31 @@ class GraphService
             'data' => $teamTotalPoints,
             'graphData' => json_encode($graphData)
         ];
+    }
+
+    /**
+     * @param int $timespan
+     */
+    public function getTeamLineChartGraph(int $timespan)
+    {
+        $dateFrom = $this->getTimeSpanObj($timespan);
+
+        // TODO: Pabaigt
+        switch ($timespan) {
+            case self::FILTER_TIMESPAN_YEAR:
+                $teamPoints = $this->statisticsService->getTeamPointTotalsByMonth($dateFrom);
+                break;
+            case self::FILTER_TIMESPAN_WEEK:
+                $teamPoints = $this->statisticsService->getTeamPointTotalsByWeek($dateFrom);
+                break;
+            default:
+                $teamPoints = $this->statisticsService->getTeamPointTotalsByYear($dateFrom);
+        }
+
+
+        dump($teamPoints); die;
+
+        // TODO: Paruost duomenis grafikam
     }
 
     /**

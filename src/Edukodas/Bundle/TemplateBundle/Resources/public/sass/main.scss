@@ -53,3 +53,15 @@ main {
 .form-preloader-center {
   margin: auto;
 }
+
+.search-preloader-container {
+  background-color: #fff;
+  margin-top: -15px;
+  overflow-y: auto;
+  z-index: 999;
+  padding-top: 7%;
+}
+
+#search-preloader {
+  display: inline-block;
+}

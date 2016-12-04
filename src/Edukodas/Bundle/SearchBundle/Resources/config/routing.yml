@@ -1,7 +1,7 @@
-edukodas_search_teacher:
-    path:     /teacher/{searchString}
-    defaults: { _controller: EdukodasSearchBundle:Search:searchTeacher }
-
 edukodas_search_student:
     path:     /student/{searchString}
     defaults: { _controller: EdukodasSearchBundle:Search:searchStudent }
+
+edukodas_search_teacher:
+    path:     /teacher/{searchString}
+    defaults: { _controller: EdukodasSearchBundle:Search:searchTeacher }

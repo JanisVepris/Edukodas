@@ -1,0 +1,25 @@
+{% for student in students %}
+    {# @var student \Edukodas\Bundle\UserBundle\Entity\User #}
+    <li class="search-result valign-wrapper">
+        {% if (student.hasPicture) %}
+            <img src="{{ student|profile_pic }}" alt="{{ student.fullName }}" class="circle responsive-img">
+        {% else %}
+            <img src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}" alt="{{ student.fullName }}" class="circle responsive-img">
+        {% endif %}
+        <span>{{ student.fullName }} {{ student.studentClass.title }}</span>
+    </li>
+{% endfor %}
+{% for teacher in teachers %}
+    {# @var teacher \Edukodas\Bundle\UserBundle\Entity\User #}
+    <li class="search-result valign-wrapper">
+        {% if (teacher.hasPicture) %}
+            <img src="{{ teacher|profile_pic }}" alt="{{ teacher.fullName }}" class="circle responsive-img">
+        {% else %}
+            <img
+                    src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}"
+                    alt="{{ teacher.fullName }}"
+                    class="circle responsive-img">
+        {% endif %}
+        <span>{{ teacher.fullName }}</span>
+    </li>
+{% endfor %}

@@ -26,7 +26,8 @@
                         <div class="input-field">
                             <input id="search" type="search" class="autocomplete" autocomplete="off" required>
                             <label for="search"><i class="material-icons">search</i></label>
-                            <i class="material-icons">close</i>
+                            <i class="material-icons close-search">close</i>
+                            {% include 'EdukodasTemplateBundle:inc:_searchResults.html.twig' %}
                         </div>
                     </form>
                     <ul class="side-nav" id="hamburger">
@@ -34,10 +35,10 @@
                             <div class="nav-wrapper {{ app.user.studentTeam ? app.user.studentTeam.color : 'blue-grey' }} lighten-1">
                                 <form>
                                     <div class="input-field">
-                                        <input id="search" type="search" class="autocomplete" autocomplete="off"
+                                        <input id="search-mobile" type="search" class="autocomplete" autocomplete="off"
                                                required>
                                         <label for="search"><i class="material-icons">search</i></label>
-                                        <i class="material-icons">close</i>
+                                        <i class="material-icons close-search">close</i>
                                     </div>
                                 </form>
                             </div>

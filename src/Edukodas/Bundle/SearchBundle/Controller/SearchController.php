@@ -11,16 +11,29 @@ class SearchController extends Controller
      * @param string $searchString
      * @return JsonResponse
      */
-    public function searchTeacherAction(string $searchString)
+    public function searchStudentAction(string $searchString)
     {
-        return new JsonResponse();
+        $students = $this
+            ->getDoctrine()
+            ->getRepository('EdukodasUserBundle:User')
+            ->findStudentByString($searchString);
+
+        $teachers = $this
+            ->getDoctrine()
+            ->getRepository('EdukodasUserBundle:User')
+            ->findTeacherByString($searchString);
+
+        return $this->render('EdukodasTemplateBundle:inc:_searchResultList.html.twig', [
+            'students' => $students,
+            'teachers' => $teachers
+        ]);
     }
 
     /**
      * @param string $searchString
      * @return JsonResponse
      */
-    public function searchStudentAction(string $searchString)
+    public function searchTeacherAction(string $searchString)
     {
         return new JsonResponse();
     }

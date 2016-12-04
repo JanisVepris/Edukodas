@@ -7,13 +7,13 @@
                 </div>
 
                 <div style="display: inline-block; width: 76%">
-                    {% set maxAmount = minAmount|abs + maxAmount|abs %}
+                    {% set minMaxAmount = minAmount|abs + maxAmount|abs %}
                     {% set userAmount = user.amount + minAmount|abs %}
 
-                    {% if maxAmount == 0 %}
+                    {% if minMaxAmount == 0 %}
                         {% set percent = 100 %}
                     {% else %}
-                        {% set percent = userAmount / maxAmount * 100 %}
+                        {% set percent = userAmount / minMaxAmount * 100 %}
                     {% endif %}
 
                     <div style="width: {{ percent }}%; height: 10px;" class="{{ user.teamColor ? user.teamColor : 'white' }} lighten-1"></div>

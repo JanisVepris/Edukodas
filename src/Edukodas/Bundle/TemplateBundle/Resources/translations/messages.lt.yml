@@ -25,7 +25,6 @@ points:
     school: Mokykloje
     class: Klasėje
   total_points: Taškų suma
-  team: Komanda
 
 user_list:
   team: Komanda

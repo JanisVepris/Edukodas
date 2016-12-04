@@ -1,26 +1,27 @@
-<li class="row collection-item valign-wrapper" id="history-points-{{ entryId }}">
-    <div class="col s1 center-align valign">
-        <h4 class="{% if amount < 0 %}red-text{% else %}green-text{% endif %}">{{ amount }}</h4>
-    </div>
-    <div class="col s5 left-align">
-        <h5>
-            {% if isStudentProfile %}
-                {{ teacher.fullName }}
-            {% else %}
-                {{ studentName }}
-            {% endif %}
-        </h5>
-        {{ taskName }}
-    </div>
+<li class="collection-item avatar" id="history-points-{{ entryId }}">
+    <i class="circle white-text {% if amount < 0 %}red{% else %}green{% endif %}"
+       style="font-style: normal;">{{ amount }}</i>
+    <span class="title">
+        {% if isStudentProfile %}
+            {{ teacher.fullName }}
+        {% else %}
+            {{ studentName }}
+        {% endif %}
+    </span>
+    <p>
+        <i>{{ taskName }}</i><br>
+        {{ comment }}
+    </p>
 
     {% if not is_granted('ROLE_TEACHER') %}
-        <div class="col s6 right-align">
-            {{ createdAt }}<br>
-            {{ comment }}
-        </div>
+        <span class="secondary-content">
+            {{ createdAtDate }}<br>
+            {{ createdAtTime }}
+        </span>
     {% else %}
         <div class="col s4 right-align">
-            {{ createdAt }}<br>
+            {{ createdAtDate }}<br>
+            {{ createdAtTime }}<br>
             {{ comment }}
         </div>
         {% if app.user.id == entryOwnerId %}
@@ -42,9 +43,11 @@
                     <div class="spinner-layer spinner-red-only">
                         <div class="circle-clipper left">
                             <div class="circle"></div>
-                        </div><div class="gap-patch">
+                        </div>
+                        <div class="gap-patch">
                             <div class="circle"></div>
-                        </div><div class="circle-clipper right">
+                        </div>
+                        <div class="circle-clipper right">
                             <div class="circle"></div>
                         </div>
                     </div>

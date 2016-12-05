@@ -24,7 +24,7 @@
         {% include 'EdukodasTemplateBundle:inc:header.html.twig' %}
     {% endblock %}
 
-    {# Pranesimai #}
+    {# Notifications #}
     <div class="container">
         {# Error #}
         {% for flashMessage in app.session.flashbag.get('error') %}
@@ -40,7 +40,7 @@
             </div>
         {% endfor %}
 
-        {# success #}
+        {# Success #}
         {% for flashMessage in app.session.flashbag.get('success') %}
             <div class="card-panel green lighten-2">
                 {{ flashMessage }}
@@ -48,20 +48,22 @@
         {% endfor %}
     </div>
 
-    {# O kodėl main blokas neįeina į div.container? #}
     {% block main %}{% endblock %}
 
     {% block javascripts %}
         {% javascripts filter='?yui_js'
         'bundles/edukodastemplate/js/jquery-2.2.4.min.js'
         'bundles/edukodastemplate/js/bin/materialize.js'
+        'bundles/edukodastemplate/js/search-script.js'
         'bundles/edukodastemplate/js/jquery.form.js'
         'bundles/edukodastemplate/js/selectize.js'
+        'bundles/edukodastemplate/js/selectize_no_results.js'
         'bundles/fosjsrouting/js/router.js'
         'js/fos_js_routes.js'
         'bundles/edukodastemplate/js/bin/main.js'
         'bundles/edukodastemplate/js/teacher-profile-script.js'
         'bundles/edukodastemplate/js/user-list.js'
+        'bundles/edukodastemplate/js/task-list.js'
         output='js/compiled/app.js' %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}

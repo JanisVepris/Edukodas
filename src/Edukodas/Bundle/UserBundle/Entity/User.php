@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="fos_user")
  * @ORM\Entity(repositoryClass="Edukodas\Bundle\UserBundle\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class User extends BaseUser
@@ -81,6 +82,13 @@ class User extends BaseUser
     private $lastName;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="full_name", type="string", length=256)
+     */
+    private $fullName;
+
+    /**
      * User constructor.
      */
 
@@ -107,6 +115,16 @@ class User extends BaseUser
         $this->courses = new ArrayCollection();
         $this->pointHistory = new ArrayCollection();
         parent::__construct();
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function updateFullName()
+    {
+        $fullName = $this->getFirstName() . ' ' . $this->getLastName();
+        $this->setFullName($fullName);
     }
 
     /**
@@ -299,7 +317,18 @@ class User extends BaseUser
      */
     public function getFullName()
     {
-        return sprintf('%s %s', $this->getFirstName(), $this->getLastName());
+        return $this->fullName;
+    }
+
+    /**
+     * @param string $fullName
+     * @return User
+     */
+    public function setFullName(string $fullName)
+    {
+        $this->fullName = $fullName;
+
+        return $this;
     }
 
     /**

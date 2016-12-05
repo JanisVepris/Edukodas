@@ -287,12 +287,14 @@ class PointHistoryRepository extends EntityRepository
         $query = $qb
             ->select(
                 's.id',
+                's.fullName',
                 's.firstName',
                 's.lastName',
                 'st.title teamTitle',
                 'st.color teamColor',
                 'sc.title classTitle',
-                'SUM(ph.amount) amount'
+                'SUM(ph.amount) amount',
+                's.picture picture'
             )
             ->join('ph.student', 's')
             ->join('s.studentTeam', 'st')
@@ -318,12 +320,14 @@ class PointHistoryRepository extends EntityRepository
         $query = $qb
             ->select(
                 's.id',
+                's.fullName',
                 's.firstName',
                 's.lastName',
                 'st.title teamTitle',
                 'st.color teamColor',
                 'sc.title classTitle',
-                'SUM(ph.amount) amount'
+                'SUM(ph.amount) amount',
+                's.picture picture'
             )
             ->join('ph.student', 's')
             ->join('s.studentTeam', 'st')
@@ -351,12 +355,14 @@ class PointHistoryRepository extends EntityRepository
         $query = $qb
             ->select(
                 's.id',
+                's.fullName',
                 's.firstName',
                 's.lastName',
                 'st.title teamTitle',
                 'st.color teamColor',
                 'sc.title classTitle',
-                'SUM(ph.amount) amount'
+                'SUM(ph.amount) amount',
+                's.picture picture'
             )
             ->join('ph.student', 's')
             ->join('s.studentTeam', 'st')
@@ -385,12 +391,14 @@ class PointHistoryRepository extends EntityRepository
         $query = $qb
             ->select(
                 's.id',
+                's.fullName',
                 's.firstName',
                 's.lastName',
                 'st.title teamTitle',
                 'st.color teamColor',
                 'sc.title classTitle',
-                'SUM(ph.amount) amount'
+                'SUM(ph.amount) amount',
+                's.picture picture'
             )
             ->join('ph.student', 's')
             ->join('s.studentTeam', 'st')
@@ -494,7 +502,7 @@ class PointHistoryRepository extends EntityRepository
         $query->setHint('knp_paginator.count', sizeof($result));
 
         $pagination = $this->paginator->paginate(
-            $query,
+            $result,
             $page,
             $this->pageSize
         );

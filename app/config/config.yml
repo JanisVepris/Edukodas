@@ -91,6 +91,8 @@ fos_js_routing:
         - edukodas_points_edit
         - edukodas_points_delete
         - edukodas_user_list_update
+        - edukodas_task_list_get
+        - edukodas_search_users
 
 # Paginator
 knp_paginator:

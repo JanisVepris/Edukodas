@@ -29,6 +29,7 @@ class ProfilePictureExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFilter('profile_pic', [$this, 'profilePic']),
+            new \Twig_SimpleFilter('filename_to_pic', [$this, 'filenameToProfilePic']),
         ];
     }
 
@@ -50,6 +51,20 @@ class ProfilePictureExtension extends \Twig_Extension
         }
 
         return $this->profilePicDir . '/' . $picture;
+    }
+
+    /**
+     * @param string|null $filename
+     *
+     * @return null|string
+     */
+    public function filenameToProfilePic(string $filename = null)
+    {
+        if (!$filename) {
+            return null;
+        }
+
+        return $this->profilePicDir . '/' . $filename;
     }
 
     /**

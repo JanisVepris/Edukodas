@@ -2,26 +2,30 @@
 
 {% block main %}
     <div class="container">
-        <div class="row">
+        <div class="row" id="user-list">
             {{ form_start(filterForm) }}
 
-            <div class="input-field col s2">
+            <div class="input-field col s6 m3 offset-m3">
                 {{ form_label(filterForm.team) }}
                 {{ form_row(filterForm.team) }}
             </div>
 
-            <div class="input-field col s2">
+            <div class="input-field col s6 m3">
                 {{ form_label(filterForm.class) }}
                 {{ form_row(filterForm.class) }}
             </div>
 
             {{ form_end(filterForm) }}
-        </div>
-
-        <div class="row" id="user-list">
-            {% include "@EdukodasTemplate/Users/inc/_listUsers.html.twig" with {
-                userList: userList
-            } %}
+            <div class="col s12">
+                <ul class="collection z-depth-1">
+                    {% include "@EdukodasTemplate/Users/inc/_listUsers.html.twig" with {
+                    userList: userList
+                    } %}
+                </ul>
+            </div>
+            <div class="col s12 center-align">
+                {{ knp_pagination_render(userList) }}
+            </div>
         </div>
     </div>
 {% endblock %}

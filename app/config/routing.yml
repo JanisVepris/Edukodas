@@ -29,6 +29,10 @@ edukodas_profile:
     resource: "@EdukodasProfileBundle/Resources/config/routing.yml"
     prefix: /profile
 
+edukodas_search:
+    resource: "@EdukodasSearchBundle/Resources/config/routing.yml"
+    prefix: /search
+
 root:
     path: /
     defaults:

@@ -179,4 +179,14 @@ class Course
 
         return $this;
     }
+
+    /**
+     * Get course name appended with teacher name
+     *
+     * @return string
+     */
+    public function getExtendedName()
+    {
+        return $this->getName() . ' - ' . $this->getUser()->getFullName();
+    }
 }

@@ -15,8 +15,8 @@
 
     {% if not is_granted('ROLE_TEACHER') %}
         <span class="secondary-content">
-            {{ createdAtDate }}<br>
-            {{ createdAtTime }}
+            {{ createdAt|date('m/d') }}<br>
+            {{ createdAt|date('H:m') }}
         </span>
     {% else %}
         <div class="secondary-content">
@@ -47,8 +47,8 @@
                 </div>
             {% endif %}
             <div>
-                {{ createdAtDate }}<br>
-                {{ createdAtTime }}
+                {{ createdAt|date('m/d') }}<br>
+                {{ createdAt|date('H:m') }}
             </div>
         </div>
     {% endif %}

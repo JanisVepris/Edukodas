@@ -56,7 +56,8 @@ class PointHistoryController extends AbstractTeacherController
                 'entryOwnerId' => $pointHistory->getOwner()->getId(),
                 'taskName' => $pointHistory->getTask()->getName(),
                 'comment' => $pointHistory->getComment(),
-                'createdAt' => $pointHistory->getCreatedAt()->format('Y/m/d H:m'),
+                'createdAtDate' => $pointHistory->getCreatedAt()->format('m/d'),
+                'createdAtTime' => $pointHistory->getCreatedAt()->format('H:m'),
                 'isStudentProfile' => $isStudentProfile,
             ]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
@@ -117,7 +118,8 @@ class PointHistoryController extends AbstractTeacherController
                 'entryOwnerId' => $newPointHistory->getOwner()->getId(),
                 'taskName' => $newPointHistory->getTask()->getName(),
                 'comment' => $newPointHistory->getComment(),
-                'createdAt' => $newPointHistory->getCreatedAt()->format('Y/m/d H:m'),
+                'createdAtDate' => $pointHistory->getCreatedAt()->format('m/d'),
+                'createdAtTime' => $pointHistory->getCreatedAt()->format('H:m'),
                 'isStudentProfile' => $isStudentProfile,
             ]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {

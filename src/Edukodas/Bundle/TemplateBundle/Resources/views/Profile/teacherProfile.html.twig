@@ -3,62 +3,81 @@
 {% block main %}
     <div class="container">
         <div class="row">
-            <div class="col m12 l7">
-                <div class="card horizontal valign-wrapper {{ user.studentTeam ? user.studentTeam.color : 'blue-grey' }} lighten-1">
-                    <div class="card-image">
-                        {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
+            <div class="hide-on-med-and-up">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-image">
+                            {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
+                        </div>
                     </div>
-                    <div class="card-content white-text center-align valign" id="name-points">
-                        <h4>
-                            {{ user.fullName }}
-                        </h4>
-                        <h2><span class="green-text text-accent-3"> {{ pointsTotalPositive }}</span><br>
-                            <span class="red-text text-accent-3">{{ pointsTotalNegative }}</span></h2>
+                    <div class="card valign-wrapper {{ user.studentTeam ? user.studentTeam.color : 'blue-grey' }} lighten-1">
+                        <div class="card-content white-text center-align valign name-points">
+                            <h4>
+                                {{ user.fullName }}
+                            </h4>
+                            <h2><span class="green-text text-accent-3"> {{ pointsTotalPositive }}</span><br>
+                                <span class="red-text text-accent-3">{{ pointsTotalNegative }}</span></h2>
+                        </div>
                     </div>
                 </div>
-
-                {% if app.user.id == user.id %}
-                    <a class="waves-effect waves-light btn-large blue-grey lighten-1"
-                       style="width:100%"
-                       data-points-action="edukodas_points_add"
-                       href="#add-points-modal">
-                        <i class="material-icons right">library_add</i>
-                        <h5>{{ 'form.add_points.add'|trans }}</h5>
-                    </a>
-                {% endif %}
-                <ul class="collection z-depth-1" id="points-history-list" data-is-student-profile="0">
-                    {% for pointHistoryEntry in pointHistory %}
-                        {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig" with {
-                        entryId: pointHistoryEntry.id,
-                        amount: pointHistoryEntry.amount,
-                        studentName: pointHistoryEntry.student.fullName,
-                        teacher: pointHistoryEntry.teacher,
-                        entryOwnerId: pointHistoryEntry.owner.id,
-                        taskName: pointHistoryEntry.task.name,
-                        comment: pointHistoryEntry.comment,
-                        createdAtDate: pointHistoryEntry.createdAt|date('m/d'),
-                        createdAtTime: pointHistoryEntry.createdAt|date('H:m'),
-                        isStudentProfile: false
-                        } %}
-                    {% else %}
-                        {{ 'list.no_points'|trans }}
-                    {% endfor %}
-                </ul>
             </div>
-
-            <div class="col s12 l5">
-                {% if app.user.id == user.id %}
-                    <div class="card">
-                        <a class="waves-effect waves-light btn-large blue-grey lighten-1"
-                           style="width:100%"
-                           data-task-action="edukodas_tasks_add"
-                           href="#manage-task-modal">
-                            <i class="material-icons right">note_add</i>
-                            <h5>{{ 'form.add_tasks.add'|trans }}</h5>
-                        </a>
+            <div class="flex-container">
+                <div class="col s12 l7">
+                    <div class="hide-on-small-and-down">
+                        <div class="card horizontal valign-wrapper {{ user.studentTeam ? user.studentTeam.color : 'blue-grey' }} lighten-1">
+                            <div class="card-image">
+                                {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
+                            </div>
+                            <div class="card-content white-text center-align valign name-points">
+                                <h4>
+                                    {{ user.fullName }}
+                                </h4>
+                                <h2><span class="green-text text-accent-3"> {{ pointsTotalPositive }}</span><br>
+                                    <span class="red-text text-accent-3">{{ pointsTotalNegative }}</span></h2>
+                            </div>
+                        </div>
                     </div>
-                {% endif %}
-                {% include '@EdukodasTemplate/Profile/inc/_listTasks.html.twig' %}
+
+                    {% if app.user.id == user.id %}
+                        <a class="waves-effect waves-light btn-large blue-grey lighten-1"
+                           data-points-action="edukodas_points_add"
+                           href="#add-points-modal">
+                            <i class="material-icons right">library_add</i>
+                            <span>{{ 'form.add_points.add'|trans }}</span>
+                        </a>
+                    {% endif %}
+                    <ul class="collection z-depth-1" id="points-history-list" data-is-student-profile="0">
+                        {% for pointHistoryEntry in pointHistory %}
+                            {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig" with {
+                            entryId: pointHistoryEntry.id,
+                            amount: pointHistoryEntry.amount,
+                            studentName: pointHistoryEntry.student.fullName,
+                            teacher: pointHistoryEntry.teacher,
+                            entryOwnerId: pointHistoryEntry.owner.id,
+                            taskName: pointHistoryEntry.task.name,
+                            comment: pointHistoryEntry.comment,
+                            createdAtDate: pointHistoryEntry.createdAt|date('m/d'),
+                            createdAtTime: pointHistoryEntry.createdAt|date('H:m'),
+                            isStudentProfile: false
+                            } %}
+                        {% else %}
+                            {{ 'list.no_points'|trans }}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col s12 l5">
+                    {% if app.user.id == user.id %}
+                        <div class="card">
+                            <a class="waves-effect waves-light btn-large blue-grey lighten-1"
+                               data-task-action="edukodas_tasks_add"
+                               href="#manage-task-modal">
+                                <i class="material-icons right">note_add</i>
+                                <span>{{ 'form.add_tasks.add'|trans }}</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% include '@EdukodasTemplate/Profile/inc/_listTasks.html.twig' %}
+                </div>
             </div>
         </div>
     </div>

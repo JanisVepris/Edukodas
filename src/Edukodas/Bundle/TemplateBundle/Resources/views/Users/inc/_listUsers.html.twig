@@ -1,19 +1,22 @@
 {% for user in userList %}
     <li class="collection-item avatar valign-wrapper">
-        {% if (user.picture) %}
-            <img
-                    class="responsive-img circle"
-                    src="{{ user.picture|filename_to_pic }}"
-                    alt="{{ user.fullName }}">
-        {% else %}
-            <img
-                    class="responsive-img circle"
-                    src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}"
-                    alt="{{ user.fullName }}">
-        {% endif %}
-        <div class="col s2 valign">
+        <a href="{{ path('edukodas_student_profile', {'id' : user.id}) }}">
+            {% if (user.picture) %}
+                <img
+                        class="responsive-img circle"
+                        src="{{ user.picture|filename_to_pic }}"
+                        alt="{{ user.fullName }}">
+            {% else %}
+                <img
+                        class="responsive-img circle"
+                        src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}"
+                        alt="{{ user.fullName }}">
+            {% endif %}
+        </a>
+        <div class="col s2 valign username">
+            <a href="{{ path('edukodas_student_profile', {'id' : user.id}) }}">
             {{ user.fullName }}
-            <small>({{ user.classTitle }})</small>
+            <small>({{ user.classTitle }})</small></a>
         </div>
 
         <div class="col s12 valign">

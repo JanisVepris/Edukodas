@@ -48,11 +48,13 @@ $(document).ready(function() {
             $('#search').val($(this).text().trim());
             $('#search').trigger('change');
             hideSearchResults();
+            window.location = $(this).attr('href');
         });
     }
 
     $('.search').on('submit', function (e) {
         e.preventDefault();
+        $('.search-result > a:first').click();
     });
 
     $('.close-search').on('click', function () {

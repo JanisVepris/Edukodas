@@ -117,7 +117,7 @@ class PointHistoryController extends AbstractTeacherController
                 'entryOwnerId' => $newPointHistory->getOwner()->getId(),
                 'taskName' => $newPointHistory->getTask()->getName(),
                 'comment' => $newPointHistory->getComment(),
-                'createdAt' => $newPointHistory->getCreatedAt()->format('Y/m/d H:m'),
+                'createdAt' => $pointHistory->getCreatedAt()->format('Y/m/d H:m'),
                 'isStudentProfile' => $isStudentProfile,
             ]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {

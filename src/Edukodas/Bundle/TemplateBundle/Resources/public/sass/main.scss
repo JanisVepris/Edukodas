@@ -12,18 +12,6 @@ main {
   padding: 0 !important;
 }
 
-@media (max-width: 1064px) {
-  nav ul a {
-    padding: 0 10px;
-  }
-}
-
-@media (min-width: 992px) {
-  header {
-    z-index: 2;
-  }
-}
-
 .select-wrapper span.caret {
   content: ' ';
   display: block;
@@ -38,6 +26,8 @@ main {
   border-color: #808080 transparent transparent transparent;
 }
 
+// Profile information
+
 .card .card-content {
   width: 100%;
 }
@@ -46,8 +36,14 @@ main {
   font-weight: 400;
 }
 
+// Profile point history
+
 .collection .collection-item.avatar .secondary-content {
+  > * {
+    margin-left: 5px;
+  }
   top: 10px;
+  display: inline-flex;
 }
 
 #task-form-preloader, #points-form-preloader, #edit-points-form-preloader {
@@ -56,4 +52,78 @@ main {
 
 .form-preloader-center {
   margin: auto;
+}
+
+.search-preloader-container {
+  background-color: #fff;
+  margin-top: -15px;
+  overflow-y: auto;
+  z-index: 999;
+  padding-top: 7%;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+#search-preloader {
+  display: inline-block;
+}
+
+.team-color-search {
+  height: 40px;
+  width: 40px;
+  margin: 5px 15px;
+  display: inline-block;
+}
+#search-reasults > .search-result > a {
+  display: flex;
+  line-height: 22px;
+  padding: 14px 16px;
+  width: 100%;
+}
+
+.search-result > a > span {
+  font-size: 16px;
+  color: #26a69a;
+  display: block;
+  line-height: 22px;
+  padding: 14px 16px;
+}
+
+div[id^="delete-points-preload-"] .spinner-layer .circle-clipper .circle {
+  left: 0;
+  width: 200%;
+  height: 100%;
+}
+
+div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
+  left: -100%;
+}
+
+// Media queries
+
+@media only screen and (min-width: 992px) {
+  header {
+    z-index: 2;
+  }
+}
+
+@media only screen and (max-width: 1064px) {
+  nav ul a {
+    padding: 0 10px;
+  }
+}
+
+@media only screen and (max-width: 1281px) {
+  #name-points {
+    padding: 0;
+  }
+
+  #name-points h1 {
+    line-height: 50%;
+  }
+
+  #name-points h2 {
+    line-height: 100%;
+    margin: 0.8rem 0;
+    font-size: 2.5rem;
+  }
 }

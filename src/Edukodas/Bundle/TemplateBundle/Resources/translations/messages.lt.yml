@@ -25,7 +25,6 @@ points:
     school: Mokykloje
     class: Klasėje
   total_points: Taškų suma
-  team: Komanda
 
 user_list:
   team: Komanda
@@ -60,3 +59,5 @@ list:
   no_courses: Nėra dėstomų dalykų
   no_tasks: Nėra užduočių
   no_points: Nėra taškų
+
+Course: Dalykas

@@ -1,49 +1,59 @@
-<div class="row hide-on-med-and-up">
+<div class="hide-on-med-and-up">
     <div class="col s12">
         <div class="card">
             <div class="card-image">
                 {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
-                <div class="card-title">
-                    {{ user.fullName }} <small>({{ user.studentClass.title }})</small>
-                </div>
             </div>
         </div>
     </div>
     <div class="col s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    {{ 'points.header'|trans }}
+        <div class="card valign-wrapper {{ user.studentTeam ? user.studentTeam.color : 'blue-grey' }} lighten-1">
+            <div class="card-content white-text center-align valign">
+                <h4>
+                    {{ user.fullName }}
+                </h4>
+                <h1>{{ points | number_format }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col s12">
+        <div class="card information">
+            <div class="card-content center-align">
+                <div class="flow-text">
+                    <h4>{{ 'user_list.class'|trans }}: {{ user.studentClass.title }}</h4>
+                    <p>{{ 'points.rating.generation'|trans }}: <b>#{{ positionInGeneration }}</b></p>
+                    <p>{{ 'points.rating.team'|trans }}: <b>#{{ positionInTeam }}</b></p>
+                    <p>{{ 'points.rating.school'|trans }}: <b>#{{ positionTotal }}</b></p>
+                    <p>{{ 'points.rating.class'|trans }}: <b>#{{ positionInClass }}</b></p>
                 </div>
-                <p>{{ 'points.team'|trans }}: {{ user.studentTeam.title }}</p>
-                <p>{{ 'points.total_points'|trans }}: {{ points | number_format }}</p>
-                <p>{{ 'points.rating.generation'|trans }}: <b>#{{ positionInGeneration }}</b></p>
-                <p>{{ 'points.rating.team'|trans }}: <b>#{{ positionInTeam  }}</b></p>
-                <p>{{ 'points.rating.school'|trans }}: <b>#{{ positionTotal }}</b></p>
-                <p>{{ 'points.rating.class'|trans }}: <b>#{{ positionInClass }}</b></p>
             </div>
         </div>
     </div>
 </div>
-<div class="row hide-on-small-and-down">
-    <div class="col m12 l12">
-        <div class="card horizontal">
+<div class="hide-on-small-and-down">
+    <div class="col m12 l7">
+        <div class="card horizontal valign-wrapper {{ user.studentTeam ? user.studentTeam.color : 'blue-grey' }} lighten-1">
             <div class="card-image">
                 {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
-                <div class="card-title">
-                    {{ user.fullName }} <small>({{ user.studentClass.title }})</small>
-                </div>
             </div>
-            <div class="card-content">
-                <div class="card-title">
-                    {{ 'points.header'|trans }}
+            <div class="card-content white-text center-align valign" id="name-points">
+                <h4>
+                    {{ user.fullName }}
+                </h4>
+                <h1>{{ points | number_format }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col m12 l5">
+        <div class="card information">
+            <div class="card-content center-align">
+                <div class="flow-text">
+                    <h4>{{ 'user_list.class'|trans }}: {{ user.studentClass.title }}</h4>
+                    <p>{{ 'points.rating.generation'|trans }}: <b>#{{ positionInGeneration }}</b></p>
+                    <p>{{ 'points.rating.team'|trans }}: <b>#{{ positionInTeam }}</b></p>
+                    <p>{{ 'points.rating.school'|trans }}: <b>#{{ positionTotal }}</b></p>
+                    <p>{{ 'points.rating.class'|trans }}: <b>#{{ positionInClass }}</b></p>
                 </div>
-                <p>{{ 'points.team'|trans }}: {{ user.studentTeam.title }}</p>
-                <p>{{ 'points.total_points'|trans }}: {{ points | number_format }}</p>
-                <p>{{ 'points.rating.generation'|trans }}: <b>#{{ positionInGeneration }}</b></p>
-                <p>{{ 'points.rating.team'|trans }}: <b>#{{ positionInTeam  }}</b></p>
-                <p>{{ 'points.rating.school'|trans }}: <b>#{{ positionTotal }}</b></p>
-                <p>{{ 'points.rating.class'|trans }}: <b>#{{ positionInClass }}</b></p>
             </div>
         </div>
     </div>

@@ -6,15 +6,15 @@
                 {{ user.firstName }} {{ user.lastName }} <small>({{ user.classTitle }})</small>
             </div>
 
-            <div style="display: inline-block; width: 76%">
-                {% set maxAmount = minAmount|abs + maxAmount|abs %}
-                {% set userAmount = user.amount + minAmount|abs %}
+                <div style="display: inline-block; width: 76%">
+                    {% set minMaxAmount = minAmount|abs + maxAmount|abs %}
+                    {% set userAmount = user.amount + minAmount|abs %}
 
-                {% if maxAmount == 0 %}
-                    {% set percent = 100 %}
-                {% else %}
-                    {% set percent = userAmount / maxAmount * 100 %}
-                {% endif %}
+                    {% if minMaxAmount == 0 %}
+                        {% set percent = 100 %}
+                    {% else %}
+                        {% set percent = userAmount / minMaxAmount * 100 %}
+                    {% endif %}
 
                 <div style="width: {{ percent }}%; height: 10px;" class="{{ user.teamColor ? user.teamColor : 'white' }} lighten-1"></div>
             </div>

@@ -16,7 +16,7 @@
                                 {{ user.fullName }}
                             </h4>
                             <h2><span class="green-text text-accent-3"> {{ pointsTotalPositive }}</span><br>
-                                <span class="red-text text-accent-3">{{ pointsTotalNegative }}</span></h2>
+                                <span class="red-text text-accent-3">{{ pointsTotalNegative|abs }}</span></h2>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                                     {{ user.fullName }}
                                 </h4>
                                 <h2><span class="green-text text-accent-3"> {{ pointsTotalPositive }}</span><br>
-                                    <span class="red-text text-accent-3">{{ pointsTotalNegative }}</span></h2>
+                                    <span class="red-text text-accent-3">{{ pointsTotalNegative|abs }}</span></h2>
                             </div>
                         </div>
                     </div>

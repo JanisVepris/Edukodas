@@ -54,6 +54,16 @@ main {
   margin: auto;
 }
 
+div[id^="delete-points-preload-"] .spinner-layer .circle-clipper .circle {
+  left: 0;
+  width: 200%;
+  height: 100%;
+}
+
+div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
+  left: -100%;
+}
+
 // Media queries
 
 @media only screen and (min-width: 992px) {
@@ -83,3 +93,4 @@ main {
     font-size: 2.5rem;
   }
 }
+

@@ -21,7 +21,7 @@ $(document).ready(function() {
         if (searchString.length > 2) {
             timer = setTimeout(function () {
                 xhr = $.ajax({
-                    url: Routing.generate('edukodas_search_student', {searchString: searchString}),
+                    url: Routing.generate('edukodas_search_users', {searchString: searchString}),
                     type: 'GET',
                     beforeSend: function () {
                         $('.search-preloader-container').removeClass('hide');

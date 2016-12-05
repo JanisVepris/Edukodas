@@ -11,7 +11,7 @@ class SearchController extends Controller
      * @param string $searchString
      * @return JsonResponse
      */
-    public function searchStudentAction(string $searchString)
+    public function searchUsersAction(string $searchString)
     {
         $students = $this
             ->getDoctrine()
@@ -27,14 +27,5 @@ class SearchController extends Controller
             'students' => $students,
             'teachers' => $teachers
         ]);
-    }
-
-    /**
-     * @param string $searchString
-     * @return JsonResponse
-     */
-    public function searchTeacherAction(string $searchString)
-    {
-        return new JsonResponse();
     }
 }

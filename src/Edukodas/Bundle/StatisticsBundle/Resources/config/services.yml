@@ -17,4 +17,4 @@ services:
     class: Edukodas\Bundle\StatisticsBundle\Service\GraphService
     arguments:
       - '@edukodas.statistics'
-
+      - '@edukodas.pointhistory.repository'

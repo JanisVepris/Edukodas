@@ -520,12 +520,12 @@ class PointHistoryRepository extends EntityRepository
     {
         $qb = $this
             ->createQueryBuilder('ph')
-            ->select('t.id', 't.title', 't.color', 'ph.month', 'SUM(ph.amount) amount')
+            ->select('t.id', 't.title', 't.color', 'ph.month as month', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
             ->join('s.studentTeam', 't')
             ->groupBy('ph.year')
             ->addGroupBy('t.id')
-            ->orderBy('ph.amount', 'desc');
+            ->orderBy('month', 'asc');
 
         if ($fromDate) {
             $qb
@@ -545,12 +545,13 @@ class PointHistoryRepository extends EntityRepository
     {
         $qb = $this
             ->createQueryBuilder('ph')
-            ->select('t.id', 't.title', 't.color', 'ph.month', 'SUM(ph.amount) amount')
+            ->select('t.id', 't.title', 't.color', 'ph.month as month', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
             ->join('s.studentTeam', 't')
             ->groupBy('ph.month')
             ->addGroupBy('t.id')
-            ->orderBy('ph.amount', 'desc');
+            ->addGroupBy('s.studentTeam')
+            ->orderBy('month', 'desc');
 
         if ($fromDate) {
             $qb
@@ -566,16 +567,16 @@ class PointHistoryRepository extends EntityRepository
      *
      * @return array
      */
-    public function getTeamPointTotalGroupedByWeek(\DateTime $fromDate = null)
+    public function getTeamPointTotalGroupedByDayOfTheWeek(\DateTime $fromDate = null)
     {
         $qb = $this
             ->createQueryBuilder('ph')
-            ->select('t.id', 't.title', 't.color', 'ph.month', 'SUM(ph.amount) amount')
+            ->select('t.id', 't.title', 't.color', 'ph.month as month', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
             ->join('s.studentTeam', 't')
             ->groupBy('ph.dayOfTheWeek')
             ->addGroupBy('t.id')
-            ->orderBy('ph.amount', 'desc');
+            ->orderBy('month', 'asc');
 
         if ($fromDate) {
             $qb

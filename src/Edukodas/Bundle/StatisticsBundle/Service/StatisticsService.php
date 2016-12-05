@@ -174,44 +174,4 @@ class StatisticsService
             'max' => $this->pointHistoryRepository->findMaxPointAmountByClassAndTeam($team, $class),
         ];
     }
-
-    /**
-     * @param \DateTime|null $fromDate
-     *
-     * @return array
-     */
-    public function getTeamPointTotals(\DateTime $fromDate = null)
-    {
-        return $this->pointHistoryRepository->getTeamPointTotalSinceDate($fromDate);
-    }
-
-    /**
-     * @param \DateTime|null $fromDate
-     *
-     * @return array
-     */
-    public function getTeamPointTotalsByYear(\DateTime $fromDate = null)
-    {
-        return $this->pointHistoryRepository->getTeamPointTotalGroupedByYear($fromDate);
-    }
-
-    /**
-     * @param \DateTime|null $fromDate
-     *
-     * @return array
-     */
-    public function getTeamPointTotalsByMonth(\DateTime $fromDate = null)
-    {
-        return $this->pointHistoryRepository->getTeamPointTotalGroupedByMonth($fromDate);
-    }
-
-    /**
-     * @param \DateTime|null $fromDate
-     *
-     * @return array
-     */
-    public function getTeamPointTotalsByWeek(\DateTime $fromDate = null)
-    {
-        return $this->pointHistoryRepository->getTeamPointTotalGroupedByWeek($fromDate);
-    }
 }

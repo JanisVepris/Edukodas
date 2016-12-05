@@ -2,6 +2,7 @@
 
 namespace Edukodas\Bundle\StatisticsBundle\Service;
 
+use Edukodas\Bundle\StatisticsBundle\Entity\Repository\PointHistoryRepository;
 use Edukodas\Bundle\UserBundle\Entity\StudentClass;
 use Edukodas\Bundle\UserBundle\Entity\StudentTeam;
 
@@ -19,12 +20,18 @@ class GraphService
     private $statisticsService;
 
     /**
+     * @var PointHistoryRepository
+     */
+    private $pointHistoryRepository;
+
+    /**
      * GraphService constructor.
      * @param StatisticsService $statisticsService
      */
-    public function __construct(StatisticsService $statisticsService)
+    public function __construct(StatisticsService $statisticsService, PointHistoryRepository $pointHistoryRepository)
     {
         $this->statisticsService = $statisticsService;
+        $this->pointHistoryRepository = $pointHistoryRepository;
     }
 
     /**
@@ -36,7 +43,7 @@ class GraphService
     {
         $timespan = $this->getTimeSpanObj($timespan);
 
-        $teamTotalPoints = $this->statisticsService->getTeamPointTotals($timespan);
+        $teamTotalPoints = $this->pointHistoryRepository->getTeamPointTotalSinceDate($timespan);
 
         $graphData = [
             'labels' => [],
@@ -61,29 +68,75 @@ class GraphService
     }
 
     /**
-     * @param int $timespan
+     * @param int|null $timespan
+     *
+     * @return array
      */
-    public function getTeamLineChartGraph(int $timespan)
+    public function getTeamLineChartGraph(int $timespan = null)
     {
-        $dateFrom = $this->getTimeSpanObj($timespan);
+        $fromDate = $this->getTimeSpanObj($timespan);
+        $graphData = [];
 
-        // TODO: Pabaigt
         switch ($timespan) {
-            case self::FILTER_TIMESPAN_YEAR:
-                $teamPoints = $this->statisticsService->getTeamPointTotalsByMonth($dateFrom);
-                break;
             case self::FILTER_TIMESPAN_WEEK:
-                $teamPoints = $this->statisticsService->getTeamPointTotalsByWeek($dateFrom);
+                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByDayOfTheWeek($fromDate);
                 break;
+            case self::FILTER_TIMESPAN_MONTH:
+                // TODO: Prie entity pridet weekOfTheMonth
+                //$teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByWeek($fromDate);
+                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByMonth($fromDate);
+                break;
+            case self::FILTER_TIMESPAN_YEAR:
+                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByMonth($fromDate);
+                break;
+            case self::FILTER_TIMESPAN_ALL:
             default:
-                $teamPoints = $this->statisticsService->getTeamPointTotalsByYear($dateFrom);
+                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByMonth($fromDate);
+                //$teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByYear($fromDate);
         }
 
+        // Group team data by month
+        $groupedTeamData = [];
 
-        dump($teamPoints);
-        die;
+        foreach ($teamPoints as $teamData) {
+            $groupedTeamData[$teamData['month']][] = $teamData;
+        }
+//
+//        // Count different teams
+//        $teamCount = 0;
+//
+//        foreach ($groupedTeamData as $team) {
+//            if (count($team) > $teamCount) {
+//                $teamCount = count($team);
+//            }
+//        }
+//
+//        // Fill team data
+//        for ($i = 0; $i < 12; $i++) {
+//            for ($j = 0; $j < $teamCount; $j++) {
+//                $emptyTeamData[$i][] = [
+//
+//                ]
+//            }
+//        }
 
-        // TODO: Paruost duomenis grafikam
+        for ($i = 1; $i <= 12; $i++) {
+            $dateObj = \DateTime::createFromFormat('!m', $i);
+            $graphData['labels'][] = $dateObj->format('F');
+
+            foreach ($groupedTeamData[$i] as $key => $teamData) {
+                $graphData['datasets'][$key]['label'] = $teamData['title'];
+                $graphData['datasets'][$key]['data'][] = (int) $teamData['amount'];
+                $graphData['datasets'][$key]['borderColor'] = $teamData['color'];
+                $graphData['datasets'][$key]['fill'] = false;
+                $graphData['datasets'][$key]['lineTension'] = 0.1;
+            }
+        }
+
+        return [
+            'data' => $teamPoints,
+            'graphData' => json_encode($graphData)
+        ];
     }
 
     /**

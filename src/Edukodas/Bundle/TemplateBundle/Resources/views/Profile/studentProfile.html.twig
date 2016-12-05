@@ -39,8 +39,7 @@
                         entryOwnerId: pointHistoryEntry.owner.id,
                         taskName: pointHistoryEntry.task.name,
                         comment: pointHistoryEntry.comment,
-                        createdAtDate: pointHistoryEntry.createdAt|date('m/d'),
-                        createdAtTime: pointHistoryEntry.createdAt|date('H:m'),
+                        createdAt: pointHistoryEntry.createdAt,
                         isStudentProfile: true
                         } %}
                     {% else %}

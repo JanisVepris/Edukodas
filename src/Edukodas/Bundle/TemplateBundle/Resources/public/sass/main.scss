@@ -152,7 +152,14 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
 
 // User list
 
+
 .collection .collection-item.avatar {
+  .username {
+    padding-left: 0;
+  }
+  .align {
+    transform: translateY(-50%);
+  }
   min-height: 67px;
 }
 

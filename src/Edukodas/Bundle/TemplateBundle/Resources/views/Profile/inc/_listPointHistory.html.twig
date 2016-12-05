@@ -3,9 +3,9 @@
        style="font-style: normal;">{{ amount }}</i>
     <span class="title">
         {% if isStudentProfile %}
-            {{ teacher.fullName }}
+            <a href="{{ path('edukodas_teacher_profile', {'id' : teacher.id}) }}">{{ teacher.fullName }}</a>
         {% else %}
-            {{ studentName }}
+            <a href="{{ path('edukodas_student_profile', {'id' : student.id}) }}">{{ student.fullName }}</a>
         {% endif %}
     </span>
     <p>

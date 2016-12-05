@@ -51,7 +51,7 @@
                             {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig" with {
                             entryId: pointHistoryEntry.id,
                             amount: pointHistoryEntry.amount,
-                            studentName: pointHistoryEntry.student.fullName,
+                            student: pointHistoryEntry.student,
                             teacher: pointHistoryEntry.teacher,
                             entryOwnerId: pointHistoryEntry.owner.id,
                             taskName: pointHistoryEntry.task.name,

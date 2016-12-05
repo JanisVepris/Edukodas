@@ -1,5 +1,5 @@
 {% for user in userList %}
-    <li class="collection-item avatar">
+    <li class="collection-item avatar valign-wrapper">
         {% if (user.picture) %}
             <img
                     class="responsive-img circle"
@@ -11,30 +11,29 @@
                     src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}"
                     alt="{{ user.fullName }}">
         {% endif %}
-        <div>
-            <div style="display: inline-block; width: 18%">
-                {{ user.fullName }} <small>({{ user.classTitle }})</small>
-            </div>
+        <div class="col s2 valign">
+            {{ user.fullName }}
+            <small>({{ user.classTitle }})</small>
+        </div>
 
-                <div style="display: inline-block; width: 76%">
-                    {% set minMaxAmount = minAmount|abs + maxAmount|abs %}
-                    {% set userAmount = user.amount + minAmount|abs %}
+        <div class="col s12 valign">
+            {% set minMaxAmount = minAmount|abs + maxAmount|abs %}
+            {% set userAmount = user.amount + minAmount|abs %}
 
-                    {% if minMaxAmount == 0 %}
-                        {% set percent = 100 %}
-                    {% else %}
-                        {% set percent = userAmount / minMaxAmount * 100 %}
-                    {% endif %}
+            {% if minMaxAmount == 0 %}
+                {% set percent = 100 %}
+            {% else %}
+                {% set percent = userAmount / minMaxAmount * 100 %}
+            {% endif %}
 
-                <div style="width: {{ percent }}%; height: 10px;" class="{{ user.teamColor ? user.teamColor : 'white' }} lighten-1"></div>
-            </div>
+            <div style="width: {{ percent }}%; height: 10px;"
+                 class="{{ user.teamColor ? user.teamColor : 'white' }} lighten-1"></div>
+        </div>
 
-            <div class="secondary-content{% if (user.amount <= 0) %} red-text{% endif %}">
-                {{ user.amount }}
-            </div>
+        <div class="s1 valign {{ user.amount<=0 ? 'red-text' : 'teal-text'}} text-lighten-1">
+            {{ user.amount }}
         </div>
     </li>
 {% else %}
     {{ 'user_list.no_users'|trans }}
 {% endfor %}
-{{ knp_pagination_render(userList) }}

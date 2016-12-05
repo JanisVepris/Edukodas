@@ -98,7 +98,19 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
   left: -100%;
 }
 
+// User list
+
+.collection .collection-item.avatar {
+  min-height: 67px;
+}
+
 // Media queries
+
+@media only screen and (max-width: 424px) {
+  .pagination li .page-nav {
+    padding: 0;
+  }
+}
 
 @media only screen and (min-width: 992px) {
   header {

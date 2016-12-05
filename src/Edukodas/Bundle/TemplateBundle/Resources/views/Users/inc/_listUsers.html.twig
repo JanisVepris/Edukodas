@@ -1,6 +1,16 @@
 {% for user in userList %}
     <li class="collection-item avatar">
-        {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
+        {% if (user.picture) %}
+            <img
+                    class="responsive-img circle"
+                    src="{{ user.picture|filename_to_pic }}"
+                    alt="{{ user.firstName }} {{ user.lastName }}">
+        {% else %}
+            <img
+                    class="responsive-img circle"
+                    src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}"
+                    alt="{{ user.firstName }} {{ user.lastName }}">
+        {% endif %}
         <div>
             <div style="display: inline-block; width: 18%">
                 {{ user.firstName }} {{ user.lastName }} <small>({{ user.classTitle }})</small>

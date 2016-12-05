@@ -292,7 +292,8 @@ class PointHistoryRepository extends EntityRepository
                 'st.title teamTitle',
                 'st.color teamColor',
                 'sc.title classTitle',
-                'SUM(ph.amount) amount'
+                'SUM(ph.amount) amount',
+                's.picture picture'
             )
             ->join('ph.student', 's')
             ->join('s.studentTeam', 'st')
@@ -323,7 +324,8 @@ class PointHistoryRepository extends EntityRepository
                 'st.title teamTitle',
                 'st.color teamColor',
                 'sc.title classTitle',
-                'SUM(ph.amount) amount'
+                'SUM(ph.amount) amount',
+                's.picture picture'
             )
             ->join('ph.student', 's')
             ->join('s.studentTeam', 'st')
@@ -356,7 +358,8 @@ class PointHistoryRepository extends EntityRepository
                 'st.title teamTitle',
                 'st.color teamColor',
                 'sc.title classTitle',
-                'SUM(ph.amount) amount'
+                'SUM(ph.amount) amount',
+                's.picture picture'
             )
             ->join('ph.student', 's')
             ->join('s.studentTeam', 'st')
@@ -390,7 +393,8 @@ class PointHistoryRepository extends EntityRepository
                 'st.title teamTitle',
                 'st.color teamColor',
                 'sc.title classTitle',
-                'SUM(ph.amount) amount'
+                'SUM(ph.amount) amount',
+                's.picture picture'
             )
             ->join('ph.student', 's')
             ->join('s.studentTeam', 'st')

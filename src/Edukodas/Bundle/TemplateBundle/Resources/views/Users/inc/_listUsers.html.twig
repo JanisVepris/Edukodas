@@ -30,11 +30,10 @@
                  class="{{ user.teamColor ? user.teamColor : 'white' }} lighten-1"></div>
         </div>
 
-        <div class="s1 valign{% if (user.amount <= 0) %} red-text{% endif %}">
+        <div class="s1 valign {{ user.amount<=0 ? 'red-text' : 'teal-text'}} text-lighten-1">
             {{ user.amount }}
         </div>
     </li>
 {% else %}
     {{ 'user_list.no_users'|trans }}
 {% endfor %}
-{{ knp_pagination_render(userList) }}

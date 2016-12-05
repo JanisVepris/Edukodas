@@ -146,7 +146,7 @@ class LoadUserData extends AbstractFixture implements
 
         $manager->flush();
 
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 130; $i++) {
             $user = $this->generateUser();
 
             $this->addReference('user_' . $i, $user);

@@ -50,6 +50,8 @@ $(document).ready(function() {
         $('.search-result > a').on('click', function () {
             $('#search').val($(this).text().trim());
             $('#search').trigger('change');
+            $('#search-mobile').val($(this).text().trim());
+            $('#search-mobile').trigger('change');
             hideSearchResults();
             window.location = $(this).attr('href');
         });

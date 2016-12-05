@@ -287,6 +287,7 @@ class PointHistoryRepository extends EntityRepository
         $query = $qb
             ->select(
                 's.id',
+                's.fullName',
                 's.firstName',
                 's.lastName',
                 'st.title teamTitle',
@@ -319,6 +320,7 @@ class PointHistoryRepository extends EntityRepository
         $query = $qb
             ->select(
                 's.id',
+                's.fullName',
                 's.firstName',
                 's.lastName',
                 'st.title teamTitle',
@@ -353,6 +355,7 @@ class PointHistoryRepository extends EntityRepository
         $query = $qb
             ->select(
                 's.id',
+                's.fullName',
                 's.firstName',
                 's.lastName',
                 'st.title teamTitle',
@@ -388,6 +391,7 @@ class PointHistoryRepository extends EntityRepository
         $query = $qb
             ->select(
                 's.id',
+                's.fullName',
                 's.firstName',
                 's.lastName',
                 'st.title teamTitle',

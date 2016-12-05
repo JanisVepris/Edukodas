@@ -7,7 +7,7 @@ $(document).ready(function() {
         $('.autocomplete-content').addClass('hide');
     }
 
-    $('#search').on('input', function () {
+    var searchUsers = function () {
         if (typeof xhr != 'undefined') {
             xhr.abort();
         }
@@ -41,7 +41,10 @@ $(document).ready(function() {
         } else {
             hideSearchResults();
         }
-    });
+    }
+
+    $('#search').on('input', searchUsers);
+    $('#search-mobile').on('input', searchUsers);
 
     function searchResultLinks() {
         $('.search-result > a').on('click', function () {

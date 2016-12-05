@@ -19,9 +19,11 @@
         </div>
 
         <div class="row" id="user-list">
-            {% include "@EdukodasTemplate/Users/inc/_listUsers.html.twig" with {
-                userList: userList
-            } %}
+            <ul class="collection">
+                {% include "@EdukodasTemplate/Users/inc/_listUsers.html.twig" with {
+                    userList: userList
+                } %}
+            </ul>
         </div>
     </div>
 {% endblock %}

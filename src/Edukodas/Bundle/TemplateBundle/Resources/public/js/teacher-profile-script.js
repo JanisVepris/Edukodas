@@ -52,6 +52,7 @@ $(document).ready(function() {
         if (isStudentProfile) {
             var user_id = $('#edukodas_points_add').data('user-id');
             $('#edukodas_bundle_statisticsbundle_pointhistory_student').val(user_id);
+            $('#student-select').addClass('hide');
         }
 
         studentSelectize();

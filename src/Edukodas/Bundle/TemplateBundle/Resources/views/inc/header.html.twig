@@ -4,9 +4,12 @@
             <div class="nav-wrapper row {{ app.user.studentTeam ? app.user.studentTeam.color : 'blue-grey' }} lighten-1">
                 <a href="#" data-activates="hamburger" class="button-collapse"><i class="material-icons">menu</i>
                     <ul class="hide-on-med-and-down right">
-                        <li><a href="{{ path('root') }}"><i
-                                        class="material-icons right">account_circle</i>{{ 'menu.navigation.profile'|trans }}
-                            </a></li>
+                        <li>
+                            <a href="{{ path('root') }}">
+                                <i class="material-icons right">account_circle</i>
+                                {{ app.user.firstName|first }}. {{ app.user.lastName }}
+                            </a>
+                        </li>
                         <li><a href="{{ path('edukodas_task_list') }}"><i class="material-icons right">list</i>{{ 'menu.navigation.tasks'|trans }}</a>
                         </li>
                         <li><a href="{{ path('edukodas_graph') }}"><i
@@ -44,14 +47,17 @@
                                 </form>
                             </div>
                         </nav>
-                        <li><a href="{{ path('root') }}"><i
-                                        class="material-icons">account_circle</i>{{ 'menu.navigation.profile'|trans }}
-                            </a></li>
-                        <li><a href="#"><i class="material-icons">list</i>{{ 'menu.navigation.tasks'|trans }}</a></li>
+                        <li>
+                            <a href="{{ path('root') }}">
+                                <i class="material-icons">account_circle</i>
+                                {{ app.user.firstName|first }}. {{ app.user.lastName }}
+                            </a>
+                        </li>
+                        <li><a href="{{ path('edukodas_task_list') }}"><i class="material-icons">list</i>{{ 'menu.navigation.tasks'|trans }}</a></li>
                         <li><a href="#"><i class="material-icons">timeline</i>{{ 'menu.navigation.ratings'|trans }}</a>
                         </li>
-                        <li><a href="#"><i class="material-icons">group</i>{{ 'menu.navigation.users'|trans }}</a></li>
-                        <li><a href="#"><i class="material-icons">settings</i>{{ 'menu.navigation.settings'|trans }}</a>
+                        <li><a href="{{ path('edukodas_user_list') }}"><i class="material-icons">group</i>{{ 'menu.navigation.users'|trans }}</a></li>
+                        <li><a href="{{ path('fos_user_profile_edit') }}"><i class="material-icons">settings</i>{{ 'menu.navigation.settings'|trans }}</a>
                         </li>
                         <li><a class="red-text" href="{{ path('fos_user_security_logout') }}"><i
                                         class="material-icons red-text">exit_to_app</i>{{ 'menu.navigation.logout'|trans }}</a>

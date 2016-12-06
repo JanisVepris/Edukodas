@@ -1,4 +1,28 @@
 $(document).ready(function() {
+    function studentSelectize() {
+        var currentSelectizeValue;
+
+        $('#edukodas_bundle_statisticsbundle_pointhistory_student').selectize({
+            plugins: {
+                'no_results': { message: 'Nepavyko nieko rasti' }
+            },
+            onChange: function (value) {
+                if (!value.length || value == currentSelectizeValue) {
+                    return;
+                }
+            },
+            onBlur: function () {
+                if (this.getValue() === '') {
+                    this.setValue(currentSelectizeValue);
+                }
+            },
+            onFocus: function () {
+                currentSelectizeValue = this.getValue();
+                this.clear(true);
+            }
+        });
+    }
+
     function deletePointsButton() {
         var pointHistoryId = $(this).data('points-id');
         var url = Routing.generate('edukodas_points_delete', {pointHistoryId : pointHistoryId});
@@ -22,7 +46,6 @@ $(document).ready(function() {
     }
 
     $('.delete-points').on('click', deletePointsButton);
-
 
     function editPointHistoryButton(trigger) {
         var pointHistoryId = trigger.data('points-id');
@@ -51,7 +74,8 @@ $(document).ready(function() {
     }
 
     function editPointHistoryForm (url, pointHistoryId) {
-        $('select').material_select();
+        $('select#edukodas_bundle_statisticsbundle_pointhistory_task').material_select();
+        studentSelectize();
 
         var isStudentProfile = $('#points-history-list').data('is-student-profile');
 
@@ -114,7 +138,7 @@ $(document).ready(function() {
             $('#edukodas_bundle_statisticsbundle_pointhistory_student').val(user_id);
         }
 
-        $('select').material_select();
+        studentSelectize();
 
         var url = Routing.generate('edukodas_points_add');
 
@@ -154,11 +178,6 @@ $(document).ready(function() {
         });
     }
 
-    $('#add-points-form-back').click(function (e) {
-        e.preventDefault();
-        toggleAddPointsForm();
-    });
-
     $('.points-task-select-button').click(function (e) {
         e.preventDefault();
 
@@ -175,12 +194,49 @@ $(document).ready(function() {
         toggleAddPointsForm();
     });
 
+    function addPointHistoryButton(trigger) {
+        var url = Routing.generate('edukodas_points_add');
+
+        $.ajax({
+            url:   url,
+            type: 'POST',
+            beforeSend: function() {
+                $('#add-points-form-container').html('');
+                $('.task-list-container').addClass('hide');
+                $('#points-form-preloader').removeClass('hide');
+            },
+            success: function(data) {
+                if (data) {
+                    $('#points-form-preloader').addClass('hide');
+                    $('.task-list-container').removeClass('hide');
+                    $('#add-points-form-container').html(data);
+                    $('#add-points-form-back').click(function (e) {
+                        e.preventDefault();
+                        toggleAddPointsForm();
+                    });
+                    addPointsForm();
+                }
+            },
+            error: function() {
+                Materialize.toast('Nepavyko užkrauti formos', 4000);
+                $('#add-points-modal').modal('close');
+                $('#add-points-form-preloader').addClass('hide');
+            }
+        });
+    }
+
     $('#add-points-modal').modal({
             ready: function() {
-                addPointsForm();
+                addPointHistoryButton();
+            },
+            complete: function() {
+                $('#add-points-form-container').html('');
+                $('.task-list-container').addClass('hide');
             }
         }
     );
+
+    studentSelectize();
 
 // Tasks
 

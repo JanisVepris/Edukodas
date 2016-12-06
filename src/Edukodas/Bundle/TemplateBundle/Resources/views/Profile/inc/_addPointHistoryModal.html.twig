@@ -1,6 +1,6 @@
 <div id="add-points-modal" class="modal valign-wrapper">
     <div class="modal-content">
-        <div class="task-list-container">
+        <div class="task-list-container hide">
             {% for course in courses %}
                 <ul class="collection with-header striped">
                     <li class="collection-header">
@@ -22,38 +22,6 @@
             {% endfor %}
         </div>
         <div class="hide" id="add-points-form-container">
-            <h5 id="add-points-task-name"></h5>
-            <h6 id="add-points-task-description"></h6>
-            {{ form_start(form, {'attr': {'id': 'add-points-form'}}) }}
-            <div>
-                {{ form_label(form.student) }}
-                {{ form_widget(form.student) }}
-            </div>
-            <div>
-                {{ form_label(form.amount) }}
-                {{ form_widget(form.amount) }}
-            </div>
-            <div>
-                {{ form_label(form.comment) }}
-                {{ form_widget(form.comment) }}
-            </div>
-            {{ form_widget(form._token) }}
-            {{ form_widget(form.task, {'attr': {'class': 'hide'}}) }}
-            {% do form.teacher.setRendered %}
-            <button type="submit" class="waves-effect waves-light btn" id="add-points-submit">{{ 'form.add_points.submit'|trans }}</button>
-            <div class="preloader-wrapper small active hide" id="points-submit-preloader">
-                <div class="spinner-layer spinner-green-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div><div class="gap-patch">
-                        <div class="circle"></div>
-                    </div><div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
-            <a class="waves-effect waves-light btn right" id="add-points-form-back">{{ 'form.add_points.back'|trans }}</a>
-            {{ form_end(form) }}
         </div>
         <div class="hide valign-wrapper" id="points-form-preloader">
             <div class="form-preloader-center">

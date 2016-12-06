@@ -499,8 +499,8 @@ class PointHistoryRepository extends EntityRepository
             ->select('t.id', 't.title', 't.color', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
             ->join('s.studentTeam', 't')
-            ->orderBy('ph.amount', 'desc')
-            ->groupBy('t.id');
+            ->groupBy('t.id')
+            ->orderBy('amount', 'desc');
 
         if ($fromDate) {
             $qb
@@ -520,12 +520,12 @@ class PointHistoryRepository extends EntityRepository
     {
         $qb = $this
             ->createQueryBuilder('ph')
-            ->select('t.id', 't.title', 't.color', 'ph.month as month', 'SUM(ph.amount) amount')
+            ->select('t.id', 't.title', 't.color', 'ph.year as year', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
             ->join('s.studentTeam', 't')
             ->groupBy('ph.year')
             ->addGroupBy('t.id')
-            ->orderBy('month', 'asc');
+            ->orderBy('year', 'asc');
 
         if ($fromDate) {
             $qb
@@ -551,7 +551,7 @@ class PointHistoryRepository extends EntityRepository
             ->groupBy('ph.month')
             ->addGroupBy('t.id')
             ->addGroupBy('s.studentTeam')
-            ->orderBy('month', 'desc');
+            ->orderBy('month', 'asc');
 
         if ($fromDate) {
             $qb
@@ -571,12 +571,12 @@ class PointHistoryRepository extends EntityRepository
     {
         $qb = $this
             ->createQueryBuilder('ph')
-            ->select('t.id', 't.title', 't.color', 'ph.month as month', 'SUM(ph.amount) amount')
+            ->select('t.id', 't.title', 't.color', 'ph.dayOfTheWeek as day', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
             ->join('s.studentTeam', 't')
             ->groupBy('ph.dayOfTheWeek')
             ->addGroupBy('t.id')
-            ->orderBy('month', 'asc');
+            ->orderBy('day', 'asc');
 
         if ($fromDate) {
             $qb

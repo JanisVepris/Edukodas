@@ -65,6 +65,9 @@ $(document).ready(function() {
                 isStudentProfile: isStudentProfile
             },
             beforeSubmit: function() {
+                if ($('#edukodas_bundle_statisticsbundle_pointhistory_student').val() == '') {
+                    return false;
+                }
                 $('#add-points-submit').prop('disabled', true).hide();
                 $('#points-submit-preloader').removeClass('hide');
             },
@@ -108,6 +111,9 @@ $(document).ready(function() {
                 isStudentProfile: isStudentProfile
             },
             beforeSubmit: function() {
+                if ($('#edukodas_bundle_statisticsbundle_pointhistory_student').val() == '') {
+                    return false;
+                }
                 $('#edit-points-save').prop('disabled', true).hide();
                 $('#points-save-preloader').removeClass('hide');
             },

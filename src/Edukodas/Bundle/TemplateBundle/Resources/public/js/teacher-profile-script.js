@@ -1,115 +1,18 @@
 $(document).ready(function() {
-    function studentSelectize() {
-        var currentSelectizeValue;
-
-        $('#edukodas_bundle_statisticsbundle_pointhistory_student').selectize({
-            plugins: {
-                'no_results': { message: 'Nepavyko nieko rasti' }
+    // Point History
+    // Add points modal
+    $('#add-points-modal').modal({
+            ready: function() {
+                addPointHistoryButton();
             },
-            onChange: function (value) {
-                if (!value.length || value == currentSelectizeValue) {
-                    return;
-                }
-            },
-            onBlur: function () {
-                if (this.getValue() === '') {
-                    this.setValue(currentSelectizeValue);
-                }
-            },
-            onFocus: function () {
-                currentSelectizeValue = this.getValue();
-                this.clear(true);
+            complete: function() {
+                $('#add-points-form-container').html('');
+                $('.task-list-container').addClass('hide');
             }
-        });
-    }
+        }
+    );
 
-    function deletePointsButton() {
-        var pointHistoryId = $(this).data('points-id');
-        var url = Routing.generate('edukodas_points_delete', {pointHistoryId : pointHistoryId});
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            beforeSend: function() {
-                $('.delete-points*[data-points-id="' + pointHistoryId + '"]').prop('disabled',true).hide();
-                $('#delete-points-preload-' + pointHistoryId).removeClass('hide');
-            },
-            success: function() {
-                $('#history-points-' + pointHistoryId).remove();
-            },
-            error: function() {
-                Materialize.toast('Nepavyko ištrinti taškų', 4000);
-                $('#delete-points-preload-' + pointHistoryId).addClass('hide');
-                $('.delete-points*[data-points-id="' + pointHistoryId + '"]').prop('disabled',false).show();
-            }
-        });
-    }
-
-    $('.delete-points').on('click', deletePointsButton);
-
-    function editPointHistoryButton(trigger) {
-        var pointHistoryId = trigger.data('points-id');
-        var url = Routing.generate('edukodas_points_edit', {pointHistoryId : pointHistoryId});
-
-        $.ajax({
-            url:   url,
-            type: 'POST',
-            beforeSend: function() {
-                $('#edit-points-modal > .modal-content > .form-content').html('');
-                $('#edit-points-form-preloader').removeClass('hide');
-            },
-            success: function(data) {
-                if (data) {
-                    $('#edit-points-form-preloader').addClass('hide');
-                    $('#edit-points-modal > .modal-content > .form-content').html(data);
-                    editPointHistoryForm(url, pointHistoryId);
-                }
-            },
-            error: function() {
-                Materialize.toast('Nepavyko užkrauti formos', 4000);
-                $('#edit-points-modal').modal('close');
-                $('#edit-points-form-preloader').addClass('hide');
-            }
-        });
-    }
-
-    function editPointHistoryForm (url, pointHistoryId) {
-        $('select#edukodas_bundle_statisticsbundle_pointhistory_task').material_select();
-        studentSelectize();
-
-        var isStudentProfile = $('#points-history-list').data('is-student-profile');
-
-        $('#edit-points-form').ajaxForm({
-            url: url,
-            type: 'POST',
-            data: {
-                isStudentProfile: isStudentProfile
-            },
-            beforeSubmit: function() {
-                $('#edit-points-save').prop('disabled', true).hide();
-                $('#points-save-preloader').removeClass('hide');
-            },
-            success: function(data) {
-                if (data) {
-                    $('#history-points-' + pointHistoryId).replaceWith(data);
-                    $('.delete-points').on('click', deletePointsButton);
-                    $('#edit-points-modal').modal('close');
-                    $('#points-save-preloader').addClass('hide');
-                }
-            },
-            error: function(data) {
-                $('#points-save-preloader').addClass('hide');
-                if (data['status'] == 400) {
-                    $('#edit-points-modal > .modal-content > .form-content').html(data['responseText']);
-                    editPointHistoryForm(url);
-                } else {
-                    Materialize.toast('Klaida išsaugant taškus', 4000);
-                    $('#edit-points-save').prop('disabled', false).show();
-                }
-            }
-        });
-    }
-
+    // Edit points modal
     $('#edit-points-modal').modal({
             ready: function(modal, trigger) {
                 editPointHistoryButton(trigger);
@@ -120,25 +23,38 @@ $(document).ready(function() {
         }
     );
 
-    function toggleAddPointsForm() {
-        if ($('.task-list-container').hasClass('hide')) {
-            $('.task-list-container').removeClass('hide');
-            $('#add-points-form-container').addClass('hide');
-        } else {
-            $('.task-list-container').addClass('hide');
-            $('#add-points-form-container').removeClass('hide');
-        }
-    }
+    // Select task in add points modal
+    $('.points-task-select-button').click(function (e) {
+        e.preventDefault();
 
+        var taskId = $(this).data('taskId');
+        var amount = parseInt($(this).data('taskAmount'));
+        var taskName = $('.points-task-select-button*[data-task-id="' + taskId + '"]').text();
+        var taskDescription = $('.points-task-description*[data-task-id="' + taskId + '"]').text();
+
+        $('#add-points-task-name').html(taskName);
+        $('#add-points-task-description').html(taskDescription);
+        $('#edukodas_bundle_statisticsbundle_pointhistory_task').val(taskId);
+        $('#edukodas_bundle_statisticsbundle_pointhistory_amount').val(amount);
+
+        toggleAddPointsForm();
+    });
+
+    // Initialize delete points button
+    $('.delete-points').on('click', deletePointsButton);
+
+    // Forms
+
+    // Add points form
     function addPointsForm() {
+        studentSelectize();
+
         var isStudentProfile = $('#points-history-list').data('is-student-profile');
 
         if (isStudentProfile) {
             var user_id = $('#edukodas_points_add').data('user-id');
             $('#edukodas_bundle_statisticsbundle_pointhistory_student').val(user_id);
         }
-
-        studentSelectize();
 
         var url = Routing.generate('edukodas_points_add');
 
@@ -178,22 +94,47 @@ $(document).ready(function() {
         });
     }
 
-    $('.points-task-select-button').click(function (e) {
-        e.preventDefault();
+    // Edit points form
+    function editPointHistoryForm (url, pointHistoryId) {
+        $('select#edukodas_bundle_statisticsbundle_pointhistory_task').material_select();
+        studentSelectize();
 
-        var taskId = $(this).data('taskId');
-        var amount = parseInt($(this).data('taskAmount'));
-        var taskName = $('.points-task-select-button*[data-task-id="' + taskId + '"]').text();
-        var taskDescription = $('.points-task-description*[data-task-id="' + taskId + '"]').text();
+        var isStudentProfile = $('#points-history-list').data('is-student-profile');
 
-        $('#add-points-task-name').html(taskName);
-        $('#add-points-task-description').html(taskDescription);
-        $('#edukodas_bundle_statisticsbundle_pointhistory_task').val(taskId);
-        $('#edukodas_bundle_statisticsbundle_pointhistory_amount').val(amount);
+        $('#edit-points-form').ajaxForm({
+            url: url,
+            type: 'POST',
+            data: {
+                isStudentProfile: isStudentProfile
+            },
+            beforeSubmit: function() {
+                $('#edit-points-save').prop('disabled', true).hide();
+                $('#points-save-preloader').removeClass('hide');
+            },
+            success: function(data) {
+                if (data) {
+                    $('#history-points-' + pointHistoryId).replaceWith(data);
+                    $('.delete-points').on('click', deletePointsButton);
+                    $('#edit-points-modal').modal('close');
+                    $('#points-save-preloader').addClass('hide');
+                }
+            },
+            error: function(data) {
+                $('#points-save-preloader').addClass('hide');
+                if (data['status'] == 400) {
+                    $('#edit-points-modal > .modal-content > .form-content').html(data['responseText']);
+                    editPointHistoryForm(url);
+                } else {
+                    Materialize.toast('Klaida išsaugant taškus', 4000);
+                    $('#edit-points-save').prop('disabled', false).show();
+                }
+            }
+        });
+    }
 
-        toggleAddPointsForm();
-    });
+    // Buttons
 
+    // Add point history button
     function addPointHistoryButton(trigger) {
         var url = Routing.generate('edukodas_points_add');
 
@@ -225,18 +166,93 @@ $(document).ready(function() {
         });
     }
 
-    $('#add-points-modal').modal({
-            ready: function() {
-                addPointHistoryButton();
-            },
-            complete: function() {
-                $('#add-points-form-container').html('');
-                $('.task-list-container').addClass('hide');
-            }
-        }
-    );
+    // Edit point history button
+    function editPointHistoryButton(trigger) {
+        var pointHistoryId = trigger.data('points-id');
+        var url = Routing.generate('edukodas_points_edit', {pointHistoryId : pointHistoryId});
 
-    studentSelectize();
+        $.ajax({
+            url:   url,
+            type: 'POST',
+            beforeSend: function() {
+                $('#edit-points-modal > .modal-content > .form-content').html('');
+                $('#edit-points-form-preloader').removeClass('hide');
+            },
+            success: function(data) {
+                if (data) {
+                    $('#edit-points-form-preloader').addClass('hide');
+                    $('#edit-points-modal > .modal-content > .form-content').html(data);
+                    editPointHistoryForm(url, pointHistoryId);
+                }
+            },
+            error: function() {
+                Materialize.toast('Nepavyko užkrauti formos', 4000);
+                $('#edit-points-modal').modal('close');
+                $('#edit-points-form-preloader').addClass('hide');
+            }
+        });
+    }
+
+    // Delete points button
+    function deletePointsButton() {
+        var pointHistoryId = $(this).data('points-id');
+        var url = Routing.generate('edukodas_points_delete', {pointHistoryId : pointHistoryId});
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            beforeSend: function() {
+                $('.delete-points*[data-points-id="' + pointHistoryId + '"]').prop('disabled',true).hide();
+                $('#delete-points-preload-' + pointHistoryId).removeClass('hide');
+            },
+            success: function() {
+                $('#history-points-' + pointHistoryId).remove();
+            },
+            error: function() {
+                Materialize.toast('Nepavyko ištrinti taškų', 4000);
+                $('#delete-points-preload-' + pointHistoryId).addClass('hide');
+                $('.delete-points*[data-points-id="' + pointHistoryId + '"]').prop('disabled',false).show();
+            }
+        });
+    }
+
+    // Functions
+
+    // Toggle between task list and add points form in add points modal
+    function toggleAddPointsForm() {
+        if ($('.task-list-container').hasClass('hide')) {
+            $('.task-list-container').removeClass('hide');
+            $('#add-points-form-container').addClass('hide');
+        } else {
+            $('.task-list-container').addClass('hide');
+            $('#add-points-form-container').removeClass('hide');
+        }
+    }
+
+    // Add selectize to student select field
+    function studentSelectize() {
+        var currentSelectizeValue;
+
+        $('#edukodas_bundle_statisticsbundle_pointhistory_student').selectize({
+            plugins: {
+                'no_results': { message: 'Nepavyko nieko rasti' }
+            },
+            onChange: function (value) {
+                if (!value.length || value == currentSelectizeValue) {
+                    return;
+                }
+            },
+            onBlur: function () {
+                if (this.getValue() === '') {
+                    this.setValue(currentSelectizeValue);
+                }
+            },
+            onFocus: function () {
+                currentSelectizeValue = this.getValue();
+                this.clear(true);
+            }
+        });
+    }
 
 // Tasks
 

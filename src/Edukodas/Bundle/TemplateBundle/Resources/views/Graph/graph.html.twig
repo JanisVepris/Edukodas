@@ -96,7 +96,7 @@
 
     {% if teamLineGraph %}
         <script>
-            var data = {{ teamLineGraph.graphData|raw }};
+            var data = {{ teamLineGraph|raw }};
             var options = {
                 legend: {
                     display: false

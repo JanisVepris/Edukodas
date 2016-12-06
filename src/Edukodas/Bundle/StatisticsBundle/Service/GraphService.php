@@ -75,7 +75,6 @@ class GraphService
     public function getTeamLineChartGraph(int $timespan = null)
     {
         $fromDate = $this->getTimeSpanObj($timespan);
-        $graphData = [];
 
         switch ($timespan) {
             case self::FILTER_TIMESPAN_WEEK:
@@ -88,12 +87,29 @@ class GraphService
                 break;
             case self::FILTER_TIMESPAN_YEAR:
                 $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByMonth($fromDate);
+                $graphData = $this->formatLineChartDataGroupedByMonth($teamPoints);
                 break;
             case self::FILTER_TIMESPAN_ALL:
             default:
                 $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByMonth($fromDate);
+                $graphData = $this->formatLineChartDataGroupedByMonth($teamPoints);
                 //$teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByYear($fromDate);
         }
+
+        return json_encode($graphData);
+    }
+
+    /**
+     * @param array $teamPoints
+     *
+     * @return array
+     */
+    private function formatLineChartDataGroupedByMonth(array $teamPoints): array
+    {
+        $graphData = [];
+
+        // Team title array
+        $teamTitle = array_unique(array_column($teamPoints, 'title'));
 
         // Group team data by month
         $groupedTeamData = [];
@@ -101,42 +117,29 @@ class GraphService
         foreach ($teamPoints as $teamData) {
             $groupedTeamData[$teamData['month']][] = $teamData;
         }
-//
-//        // Count different teams
-//        $teamCount = 0;
-//
-//        foreach ($groupedTeamData as $team) {
-//            if (count($team) > $teamCount) {
-//                $teamCount = count($team);
-//            }
-//        }
-//
-//        // Fill team data
-//        for ($i = 0; $i < 12; $i++) {
-//            for ($j = 0; $j < $teamCount; $j++) {
-//                $emptyTeamData[$i][] = [
-//
-//                ]
-//            }
-//        }
 
+        // Format data for Char.js
         for ($i = 1; $i <= 12; $i++) {
             $dateObj = \DateTime::createFromFormat('!m', $i);
             $graphData['labels'][] = $dateObj->format('F');
 
-            foreach ($groupedTeamData[$i] as $key => $teamData) {
-                $graphData['datasets'][$key]['label'] = $teamData['title'];
-                $graphData['datasets'][$key]['data'][] = (int) $teamData['amount'];
-                $graphData['datasets'][$key]['borderColor'] = $teamData['color'];
-                $graphData['datasets'][$key]['fill'] = false;
-                $graphData['datasets'][$key]['lineTension'] = 0.1;
+            // Fill with empty data
+            for ($j = 0; $j < count($teamTitle); $j++) {
+                $graphData['datasets'][$j]['label'] = $teamTitle[$j];
+                $graphData['datasets'][$j]['data'][$i - 1] = (int) 0;
+                $graphData['datasets'][$j]['fill'] = false;
+                $graphData['datasets'][$j]['lineTension'] = 0.1;
+            }
+
+            // Fill with team data
+            foreach ($groupedTeamData[$i] as $teamData) {
+                $team = array_search($teamData['title'], $teamTitle);
+                $graphData['datasets'][$team]['data'][$i - 1] = (int) $teamData['amount'];
+                $graphData['datasets'][$team]['borderColor'] = $teamData['color'];
             }
         }
 
-        return [
-            'data' => $teamPoints,
-            'graphData' => json_encode($graphData)
-        ];
+        return $graphData;
     }
 
     /**

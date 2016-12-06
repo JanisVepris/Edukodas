@@ -74,7 +74,7 @@ $(document).ready(function() {
             },
             success: function(data) {
                 $('#points-history-list').prepend(data);
-                $('.delete-points').on('click', deletePointsButton);
+                $('.delete-points:first').on('click', deletePointsButton);
                 $('#add-points-modal').modal('close');
                 $('#add-points-submit').prop('disabled', false).show();
                 $('#points-submit-preloader').addClass('hide');
@@ -127,7 +127,7 @@ $(document).ready(function() {
             success: function(data) {
                 if (data) {
                     $('#history-points-' + pointHistoryId).replaceWith(data);
-                    $('.delete-points').on('click', deletePointsButton);
+                    $('#history-points-' + pointHistoryId + ' .delete-points').on('click', deletePointsButton);
                     $('#edit-points-modal').modal('close');
                     $('#points-save-preloader').addClass('hide');
                 }
@@ -221,7 +221,7 @@ $(document).ready(function() {
             success: function() {
                 $('#history-points-' + pointHistoryId).remove();
             },
-            error: function() {
+            error: function(data) {
                 Materialize.toast('Nepavyko ištrinti taškų', 4000);
                 $('#delete-points-preload-' + pointHistoryId).addClass('hide');
                 $('.delete-points*[data-points-id="' + pointHistoryId + '"]').prop('disabled',false).show();

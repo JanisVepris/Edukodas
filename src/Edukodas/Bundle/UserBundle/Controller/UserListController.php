@@ -45,7 +45,7 @@ class UserListController extends Controller
 
         $amountRange = $statisticsService->getMinMaxAmounts($team, $class);
 
-        return $this->render('@EdukodasTemplate/Users/list.html.twig', [
+        return $this->render('EdukodasTemplateBundle:Users:userList.html.twig', [
             'teamList' => $teamList,
             'classList' => $classList,
             'userList' => $userList,

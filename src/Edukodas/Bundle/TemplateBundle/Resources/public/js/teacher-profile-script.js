@@ -182,7 +182,8 @@ $(document).ready(function() {
         }
     );
 
-//
+// Tasks
+
     function manageTaskButton(trigger) {
         var taskAction = trigger.data('task-action');
         var taskId = trigger.data('task-id');
@@ -265,6 +266,7 @@ $(document).ready(function() {
     function updateTasksList(data) {
         $('#tasks-list').html(data);
         $('.delete-task').on('click', deleteTaskButton);
+        $('.collapsible').collapsible();
     }
 
     $('#manage-task-modal').modal({

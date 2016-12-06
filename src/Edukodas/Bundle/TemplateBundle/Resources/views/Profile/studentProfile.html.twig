@@ -17,16 +17,20 @@
             {# Point history #}
             <div class="col s12">
                 {% if is_granted('ROLE_TEACHER') %}
-                    <a class="btn-floating btn-small waves-effect waves-light red"
-                       id="edukodas_points_add"
-                       data-points-action="edukodas_points_add"
-                       data-user-id="{{ user.id }}"
-                       href="#add-points-modal">
-                        <i class="small material-icons">library_add</i>
-                    </a>
+                    <div class="card">
+                        <a class="waves-effect waves-light btn-large blue-grey lighten-1"
+                           style="width:100%"
+                           id="edukodas_points_add"
+                           data-points-action="edukodas_points_add"
+                           data-user-id="{{ user.id }}"
+                           href="#add-points-modal">
+                            <i class="material-icons right">library_add</i>
+                            <h5>{{ 'form.add_points.add'|trans }}</h5>
+                        </a>
+                    </div>
                 {% endif %}
 
-                <ul class="collection z-depth-1 id="points-history-list" data-is-student-profile="1">
+                <ul class="collection z-depth-1" id="points-history-list" data-is-student-profile="1">
                     {% for pointHistoryEntry in pointHistory %}
                         {# @var pointHistoryEntry \Edukodas\Bundle\StatisticsBundle\Entity\PointHistory #}
                         {% include "@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig" with {

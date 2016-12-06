@@ -489,11 +489,16 @@ class PointHistoryRepository extends EntityRepository
 
     /**
      * @param \DateTime|null $fromDate
+     * @param StudentTeam $team
+     * @param StudentClass $class
      *
      * @return array
      */
-    public function getTeamPointTotalSinceDate(\DateTime $fromDate = null)
-    {
+    public function getTeamPointTotalSinceDate(
+        \DateTime $fromDate = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
         $qb = $this
             ->createQueryBuilder('ph')
             ->select('t.id', 't.title', 't.color', 'SUM(ph.amount) amount')
@@ -508,41 +513,75 @@ class PointHistoryRepository extends EntityRepository
                 ->setParameter('dateTime', $fromDate);
         }
 
-        return $qb->getQuery()->getResult();
-    }
-
-    /**
-     * @param int $fromYear
-     *
-     * @return array
-     */
-    public function getTeamPointTotalGroupedByYear(\DateTime $fromDate = null)
-    {
-        $qb = $this
-            ->createQueryBuilder('ph')
-            ->select('t.id', 't.title', 't.color', 'ph.year as year', 'SUM(ph.amount) amount')
-            ->join('ph.student', 's')
-            ->join('s.studentTeam', 't')
-            ->groupBy('ph.year')
-            ->addGroupBy('t.id')
-            ->orderBy('year', 'asc');
-
-        if ($fromDate) {
+        if ($team) {
             $qb
-                ->where('ph.createdAt >= :fromDate')
-                ->setParameter('fromDate', $fromDate);
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
+
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
         }
 
         return $qb->getQuery()->getResult();
     }
 
     /**
-     * @param int $fromYear
+     * @param \DateTime|null $fromDate
+     * @param StudentTeam $team
+     * @param StudentClass $class
      *
      * @return array
      */
-    public function getTeamPointTotalGroupedByMonth(\DateTime $fromDate = null)
-    {
+    public function getTeamPointTotalGroupedByYear(
+        \DateTime $fromDate = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select('t.id', 't.title', 't.color', 'ph.yearAndMonth yearAndMonth', 'SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->groupBy('yearAndMonth')
+            ->addGroupBy('t.id')
+            ->orderBy('yearAndMonth', 'asc');
+
+        if ($fromDate) {
+            $qb
+                ->where('ph.createdAt >= :dateTime')
+                ->setParameter('dateTime', $fromDate);
+        }
+
+        if ($team) {
+            $qb
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
+
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param \DateTime|null $fromDate
+     * @param StudentTeam $team
+     * @param StudentClass $class
+     *
+     * @return array
+     */
+    public function getTeamPointTotalGroupedByMonth(
+        \DateTime $fromDate = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
         $qb = $this
             ->createQueryBuilder('ph')
             ->select('t.id', 't.title', 't.color', 'ph.month as month', 'SUM(ph.amount) amount')
@@ -550,25 +589,83 @@ class PointHistoryRepository extends EntityRepository
             ->join('s.studentTeam', 't')
             ->groupBy('ph.month')
             ->addGroupBy('t.id')
-            ->addGroupBy('s.studentTeam')
             ->orderBy('month', 'asc');
 
         if ($fromDate) {
             $qb
-                ->where('ph.createdAt >= :fromDate')
-                ->setParameter('fromDate', $fromDate);
+                ->where('ph.createdAt >= :dateTime')
+                ->setParameter('dateTime', $fromDate);
+        }
+
+        if ($team) {
+            $qb
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
+
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
         }
 
         return $qb->getQuery()->getResult();
     }
 
     /**
-     * @param int $fromYear
+     * @param \DateTime|null $fromDate
+     * @param StudentTeam $team
+     * @param StudentClass $class
      *
      * @return array
      */
-    public function getTeamPointTotalGroupedByDayOfTheWeek(\DateTime $fromDate = null)
-    {
+    public function getTeamPointTotalGroupedByWeek(
+        \DateTime $fromDate = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select('t.id', 't.title', 't.color', 'ph.weekOfTheYear as week', 'SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->groupBy('week')
+            ->addGroupBy('t.id')
+            ->orderBy('week', 'asc');
+
+        if ($fromDate) {
+            $qb
+                ->where('ph.createdAt >= :dateTime')
+                ->setParameter('dateTime', $fromDate);
+        }
+
+        if ($team) {
+            $qb
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
+
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param \DateTime|null $fromDate
+     * @param StudentTeam $team
+     * @param StudentClass $class
+     *
+     * @return array
+     */
+    public function getTeamPointTotalGroupedByDayOfTheWeek(
+        \DateTime $fromDate = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
         $qb = $this
             ->createQueryBuilder('ph')
             ->select('t.id', 't.title', 't.color', 'ph.dayOfTheWeek as day', 'SUM(ph.amount) amount')
@@ -580,8 +677,62 @@ class PointHistoryRepository extends EntityRepository
 
         if ($fromDate) {
             $qb
-                ->where('ph.createdAt >= :fromDate')
-                ->setParameter('fromDate', $fromDate);
+                ->where('ph.createdAt >= :dateTime')
+                ->setParameter('dateTime', $fromDate);
+        }
+
+        if ($team) {
+            $qb
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
+
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param \DateTime|null $fromDate
+     * @param StudentTeam $team
+     * @param StudentClass $class
+     *
+     * @return array
+     */
+    public function getTeamPointTotalGroupedByToday(
+        \DateTime $fromDate = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select('t.id', 't.title', 't.color', 'ph.hour hour', 'SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->groupBy('hour')
+            ->addGroupBy('t.id')
+            ->orderBy('hour', 'asc');
+
+        if ($fromDate) {
+            $qb
+                ->where('ph.createdAt >= :dateTime')
+                ->setParameter('dateTime', $fromDate);
+        }
+
+        if ($team) {
+            $qb
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
+
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
         }
 
         return $qb->getQuery()->getResult();

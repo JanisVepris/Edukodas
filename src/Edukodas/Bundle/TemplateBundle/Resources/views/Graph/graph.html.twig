@@ -33,20 +33,21 @@
                                         <canvas id="team-pie-chart"></canvas>
                                     </div>
                                     <div class="col s12 m6 l8">
-                                        <ul class="collection with-header">
-                                            <li class="collection-header"><h4>{{ 'graph.heading'|trans }}</h4></li>
-                                            {% for team in teamGraph.data  %}
-                                                <li class="collection-item">
-                                                    <span class="title"><b>{{ team.title }}</b></span>
-                                                    <p>
-                                                        {{ 'graph.teamGraph.point_list_entry'|trans({
-                                                            '%amount%': team.amount,
-                                                            '%rank%': loop.index
-                                                        })|raw }}
-                                                    </p>
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
+                                        <canvas id="team-bar-chart"></canvas>
+                                        {#<ul class="collection with-header">#}
+                                            {#<li class="collection-header"><h4>{{ 'graph.heading'|trans }}</h4></li>#}
+                                            {#{% for team in teamGraph.data  %}#}
+                                                {#<li class="collection-item">#}
+                                                    {#<span class="title"><b>{{ team.title }}</b></span>#}
+                                                    {#<p>#}
+                                                        {#{{ 'graph.teamGraph.point_list_entry'|trans({#}
+                                                            {#'%amount%': team.amount,#}
+                                                            {#'%rank%': loop.index#}
+                                                        {#})|raw }}#}
+                                                    {#</p>#}
+                                                {#</li>#}
+                                            {#{% endfor %}#}
+                                        {#</ul>#}
                                     </div>
                                 </div>
                             </div>
@@ -91,6 +92,7 @@
             };
 
             drawTeamPieChart(data, options);
+            drawTeamBarChart(data, options);
         </script>
     {% endif %}
 

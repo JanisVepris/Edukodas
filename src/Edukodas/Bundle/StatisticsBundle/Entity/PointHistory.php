@@ -83,6 +83,13 @@ class PointHistory implements OwnedEntityInterface
     private $month;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="year_and_month", type="string", length=5)
+     */
+    private $yearAndMonth;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="day_of_the_month", type="integer", length=2)
@@ -92,9 +99,23 @@ class PointHistory implements OwnedEntityInterface
     /**
      * @var int
      *
+     * @ORM\Column(name="week_of_the_year", type="integer", length=1)
+     */
+    private $weekOfTheYear;
+
+    /**
+     * @var int
+     *
      * @ORM\Column(name="day_of_the_week", type="integer", length=1)
      */
     private $dayOfTheWeek;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="hour", type="integer", length=2)
+     */
+    private $hour;
 
     /**
      * @var \DateTime
@@ -113,9 +134,12 @@ class PointHistory implements OwnedEntityInterface
         }
 
         $this->setMonth((int) $this->createdAt->format('m'));
+        $this->setWeekOfTheYear((int) $this->createdAt->format('W'));
+        $this->setYearAndMonth($this->createdAt->format('y') . '-' . $this->createdAt->format('m'));
         $this->setDayOfTheMonth((int) $this->createdAt->format('d'));
         $this->setDayOfTheWeek((int) $this->createdAt->format('N'));
         $this->setYear((int) $this->createdAt->format('Y'));
+        $this->setHour((int) $this->createdAt->format('H'));
     }
 
     /**
@@ -257,6 +281,22 @@ class PointHistory implements OwnedEntityInterface
     }
 
     /**
+     * @return string
+     */
+    public function getYearAndMonth(): string
+    {
+        return $this->yearAndMonth;
+    }
+
+    /**
+     * @param string $yearAndMonth
+     */
+    public function setYearAndMonth(string $yearAndMonth)
+    {
+        $this->yearAndMonth = $yearAndMonth;
+    }
+
+    /**
      * @return int
      */
     public function getMonth(): int
@@ -272,6 +312,24 @@ class PointHistory implements OwnedEntityInterface
     public function setMonth(int $month): PointHistory
     {
         $this->month = $month;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWeekOfTheYear(): int
+    {
+        return $this->weekOfTheYear;
+    }
+
+    /**
+     * @param int $weekOfTheYear
+     * @return PointHistory
+     */
+    public function setWeekOfTheYear(int $weekOfTheYear): PointHistory
+    {
+        $this->weekOfTheYear = $weekOfTheYear;
         return $this;
     }
 
@@ -314,6 +372,24 @@ class PointHistory implements OwnedEntityInterface
     }
 
     /**
+     * @return int
+     */
+    public function getHour(): int
+    {
+        return $this->hour;
+    }
+
+    /**
+     * @param int $hour
+     * @return PointHistory
+     */
+    public function setHour(int $hour): PointHistory
+    {
+        $this->hour = $hour;
+        return $this;
+    }
+
+    /**
      * @return \DateTime
      */
     public function getCreatedAt()
@@ -331,7 +407,6 @@ class PointHistory implements OwnedEntityInterface
 
         return $this;
     }
-
 
     /**
      * @return User

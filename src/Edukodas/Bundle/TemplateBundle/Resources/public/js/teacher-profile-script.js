@@ -47,14 +47,14 @@ $(document).ready(function() {
 
     // Add points form
     function addPointsForm() {
-        studentSelectize();
-
         var isStudentProfile = $('#points-history-list').data('is-student-profile');
 
         if (isStudentProfile) {
             var user_id = $('#edukodas_points_add').data('user-id');
             $('#edukodas_bundle_statisticsbundle_pointhistory_student').val(user_id);
         }
+
+        studentSelectize();
 
         var url = Routing.generate('edukodas_points_add');
 
@@ -99,10 +99,16 @@ $(document).ready(function() {
 
     // Edit points form
     function editPointHistoryForm (url, pointHistoryId) {
-        $('select#edukodas_bundle_statisticsbundle_pointhistory_task').material_select();
-        studentSelectize();
-
         var isStudentProfile = $('#points-history-list').data('is-student-profile');
+
+        if (isStudentProfile) {
+            var user_id = $('#edukodas_points_add').data('user-id');
+            $('#edukodas_bundle_statisticsbundle_pointhistory_student').val(user_id);
+        }
+
+        $('select#edukodas_bundle_statisticsbundle_pointhistory_task').material_select();
+
+        studentSelectize();
 
         $('#edit-points-form').ajaxForm({
             url: url,

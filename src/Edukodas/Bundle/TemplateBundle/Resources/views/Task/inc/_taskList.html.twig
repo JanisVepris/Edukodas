@@ -1,16 +1,17 @@
-<ul class="collection" id="full-task-list-container">
-    {% for task in course.tasks %}
-        <li class="row collection-item valign-wrapper">
-            <div class="col s1 center-align valign">
-                <h4 class="{% if task.points < 0 %}red-text{% else %}green-text{% endif %}">{{ task.points }}</h4>
+{% for task in course.tasks %}
+    <div class="col s12 l6">
+        <div class="card horizontal">
+            <div class="card-image col s3 grey lighten-5 activator">
+                <h1 class="lengthen-card {{ task.points < 0 ? 'red-text' : 'green-text' }} center-align activator">{{ task.points }}</h1>
             </div>
-            <div class="col s3 left-align">
-                <h5>{{ task.name }}</h5>
+            <div class="card-content col s9 activator valign-wrapper spread">
+                <span class="card-title activator valign">{{ task.name }}</span>
+                <i class="material-icons right grey-text expand-icon">expand_less</i>
             </div>
-
-            <div class="col s8">
-                {{ task.description }}
+            <div class="card-reveal">
+                <i class="material-icons right card-title grey-text">close</i>
+                <p>{{ task.description }}</p>
             </div>
-        </li>
-    {% endfor %}
-</ul>
+        </div>
+    </div>
+{% endfor %}

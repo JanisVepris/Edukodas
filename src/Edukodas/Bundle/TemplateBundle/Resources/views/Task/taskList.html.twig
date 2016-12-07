@@ -13,15 +13,17 @@
                 </div>
             </div>
             {{ form_end(filterForm) }}
-        </div>
 
-        <div id="full-task-list-container" class="row">
-            {% include "@EdukodasTemplate/Task/inc/_taskList.html.twig" with {
+            <div id="full-task-list-container" class="row">
+                {% include "@EdukodasTemplate/Task/inc/_taskList.html.twig" with {
                 course: course
-            } %}
+                } %}
+            </div>
         </div>
 
-        <div id="full-task-list-preloader" style="display: none;">
+
+
+        <div id="full-task-list-preloader" style="display: none;" class="center-align">
             <div class="preloader-wrapper big active">
                 <div class="spinner-layer spinner-blue">
                     <div class="circle-clipper left">

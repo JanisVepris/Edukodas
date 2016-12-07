@@ -60,6 +60,18 @@ a {
 
 // Task list
 
+.lengthen-card {
+  margin: 40px 0;
+}
+
+.spread {
+  justify-content: space-between;
+}
+
+.expand-icon {
+  font-size: 3rem;
+}
+
 .btn-large {
   span {
     font-size: 1.5rem;
@@ -70,7 +82,7 @@ a {
   }
 }
 
-  .collapsible-body {
+.collapsible-body {
   p {
     padding: 0;
   }

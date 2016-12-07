@@ -16,33 +16,33 @@
 {#</ul>#}
 
 {% for task in course.tasks %}
-    <div class="col s12 m6">
+    <div class="col s12 l6">
         <div class="card horizontal">
-            <div style="height: 100%; width: 40%;" class="card-image grey lighten-5 activator">
-                <h1 style="margin: 40px 0" class="{{ task.points < 0 ? 'red-text' : 'green-text' }} center-align">{{ task.points }}</h1>
+            <div class="card-image col s3 grey lighten-5 activator">
+                <h1 class="lengthen-card {{ task.points < 0 ? 'red-text' : 'green-text' }} center-align activator">{{ task.points }}</h1>
             </div>
-            <div class="card-content activator valign-wrapper">
-                <span class="card-title">{{ task.name }}</span>
-                <i class="material-icons right grey-text text-lighten-1">expand_less</i>
+            <div class="card-content col s9 activator valign-wrapper spread">
+                <span class="card-title activator valign">{{ task.name }}</span>
+                <i class="material-icons right grey-text expand-icon">expand_less</i>
             </div>
             <div class="card-reveal">
-                <span class="grey-text text-darken-4"><i class="material-icons right card-title">close</i></span>
+                <i class="material-icons right card-title grey-text">close</i>
                 <p>{{ task.description }}</p>
             </div>
         </div>
 
 
         {#<div class="card medium">#}
-            {#<div class="card-image waves-effect waves-block waves-light grey lighten-5 activator valign-wrapper" style="height: 60%; display: flex;">#}
-                {#<span style="font-size: 5rem; margin: auto;" class="activator valign center-align {{ task.points < 0 ? 'red-text' : 'green-text' }}">{{ task.points }}</span>#}
-            {#</div>#}
-            {#<div class="card-content activator valign-wrapper" style="height: 40%;">#}
-                {#<span style="margin: auto" class="card-title valign center-align activator">{{ task.name }}</span>#}
-            {#</div>#}
-            {#<div class="card-reveal">#}
-                {#<span class="card-title grey-text text-darken-4 center-align">{{ task.name }}<i class="material-icons right">close</i></span>#}
-                {#<p class="flow-text">{{ task.description }}</p>#}
-            {#</div>#}
+        {#<div class="card-image waves-effect waves-block waves-light grey lighten-5 activator valign-wrapper" style="height: 60%; display: flex;">#}
+        {#<span style="font-size: 5rem; margin: auto;" class="activator valign center-align {{ task.points < 0 ? 'red-text' : 'green-text' }}">{{ task.points }}</span>#}
+        {#</div>#}
+        {#<div class="card-content activator valign-wrapper" style="height: 40%;">#}
+        {#<span style="margin: auto" class="card-title valign center-align activator">{{ task.name }}</span>#}
+        {#</div>#}
+        {#<div class="card-reveal">#}
+        {#<span class="card-title grey-text text-darken-4 center-align">{{ task.name }}<i class="material-icons right">close</i></span>#}
+        {#<p class="flow-text">{{ task.description }}</p>#}
+        {#</div>#}
         {#</div>#}
     </div>
 {% endfor %}

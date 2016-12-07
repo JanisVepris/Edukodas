@@ -66,6 +66,10 @@ class PointHistoryController extends AbstractTeacherController
 
             return new Response($view, Response::HTTP_BAD_REQUEST);
         }
+
+        return $this->render('@EdukodasTemplate/Profile/inc/_addPointHistoryForm.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**

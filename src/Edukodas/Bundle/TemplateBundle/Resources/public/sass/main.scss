@@ -56,6 +56,7 @@ a {
   > * {
     margin-left: 5px;
   }
+  right: 20px;
   top: 10px;
   display: inline-flex;
 }
@@ -70,6 +71,28 @@ a {
 
 textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
   resize: vertical;
+}
+
+.collection .collection-item.avatar {
+  .fab-align {
+    position: absolute;
+    top: 40%;
+  }
+
+  .fixed-action-btn {
+    position: static;
+  }
+
+  p {
+    width: 80%;
+  }
+}
+
+.fixed-action-btn.horizontal ul {
+  li {
+    margin: 0 2px;
+  }
+  right: 50px;
 }
 
 // Task list

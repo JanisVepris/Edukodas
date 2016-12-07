@@ -4,7 +4,7 @@
             {% if (user.picture) %}
                 <img
                         class="responsive-img circle"
-                        src="{{ user.picture|filename_to_pic }}"
+                        src="{{ user.picture|filename_to_pic|imagine_filter('profile_small') }}"
                         alt="{{ user.fullName }}">
             {% else %}
                 <img

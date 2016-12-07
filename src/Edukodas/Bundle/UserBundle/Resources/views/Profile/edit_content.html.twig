@@ -4,7 +4,7 @@
         <div class="card horizontal">
             <div class="card-image">
                 {% if app.user.hasPicture %}
-                    <img src="{{ app.user|profile_pic }}" alt="{{ app.user.fullName }}" style="max-height: 200px;">
+                    <img src="{{ app.user|profile_pic|imagine_filter('profile_medium') }}" alt="{{ app.user.fullName }}" style="max-height: 200px;">
                 {% else %}
                     <img src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}" alt="{{ app.user.fullName }}" style="max-height: 200px;">
                 {% endif %}

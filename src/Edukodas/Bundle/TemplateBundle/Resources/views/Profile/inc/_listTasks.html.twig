@@ -1,5 +1,5 @@
 <div id="tasks-list">
-    <ul class="collapsible popout" data-collapsible="accordion">
+    <ul class="collapsible" data-collapsible="accordion">
         {% for course in user.courses %}
             <li id="course-{{ course.id }}">
                 <div class="collapsible-header">{{ course.name }}</div>

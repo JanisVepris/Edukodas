@@ -19,12 +19,14 @@ class GraphController extends Controller
         $team = $filterForm->get('team')->getData();
         $class = $filterForm->get('class')->getData();
 
-        $teamPieGraph = $graphService->getTeamPieChartGraph($timespan, $team, $class);
+        $teamPieAndBarGraph = $graphService->getTeamPieAndBarChartGraph($timespan, $team, $class);
         $teamLineGraph = $graphService->getTeamLineChartGraph($timespan, $team, $class);
+
+        //$teamLineSumGraph = $graphService->getLineChartGraphWithSums($timespan, $team, $class);
 
         return $this->render('@EdukodasTemplate/Graph/graph.html.twig', [
             'filterForm' => $filterForm->createView(),
-            'teamGraph' => $teamPieGraph,
+            'teamPieAndBarGraph' => $teamPieAndBarGraph,
             'teamLineGraph' => $teamLineGraph,
         ]);
     }

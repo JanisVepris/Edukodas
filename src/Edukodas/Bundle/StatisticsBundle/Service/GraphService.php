@@ -41,8 +41,11 @@ class GraphService
      *
      * @return array
      */
-    public function getTeamPieChartGraph(int $timespan = null, StudentTeam $team = null, StudentClass $class = null)
-    {
+    public function getTeamPieAndBarChartGraph(
+        int $timespan = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
         $timespan = $this->getTimeSpanObj($timespan);
 
         $teamTotalPoints = $this->pointHistoryRepository->getTeamPointTotalSinceDate($timespan, $team, $class);
@@ -57,15 +60,25 @@ class GraphService
             ],
         ];
 
+        $pieData = [];
+
         foreach ($teamTotalPoints as $teamData) {
             $graphData['labels'][] = $teamData['title'];
-            $graphData['datasets'][0]['data'][] = (int) max($teamData['amount'], 0);
+            $graphData['datasets'][0]['data'][] = (int) $teamData['amount'];
             $graphData['datasets'][0]['backgroundColor'][] = $teamData['color'];
+
+            $pieData['datasets'][0]['data'][] = (int) max(0, $teamData['amount']);
+        }
+
+        $pieData = array_replace_recursive($graphData, $pieData);
+
+        if (count($graphData['datasets'][0]['data']) < 2) {
+            return null;
         }
 
         return [
-            'data' => $teamTotalPoints,
-            'graphData' => json_encode($graphData)
+            'pieData' => json_encode($pieData),
+            'barData' => json_encode($graphData)
         ];
     }
 
@@ -80,276 +93,109 @@ class GraphService
 
         switch ($timespan) {
             case self::FILTER_TIMESPAN_WEEK:
-                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByDayOfTheWeek(
+                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByTimespan(
+                    '%w',
                     $fromDate,
                     $team,
                     $class
                 );
-                $graphData = $this->formatLineChartDataGroupedByDayOfTheWeek($teamPoints);
+                $graphData = $this->formatChartDataStructure($teamPoints);
                 break;
             case self::FILTER_TIMESPAN_MONTH:
-                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByWeek(
+                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByTimespan(
+                    '%U',
                     $fromDate,
                     $team,
                     $class
                 );
-                $graphData = $this->formatLineChartDataGroupedByWeek($teamPoints);
+                $graphData = $this->formatChartDataStructure($teamPoints);
                 break;
             case self::FILTER_TIMESPAN_YEAR:
-                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByMonth(
+                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByTimespan(
+                    '%m',
                     $fromDate,
                     $team,
                     $class
                 );
-                $graphData = $this->formatLineChartDataGroupedByMonth($teamPoints);
+                $graphData = $this->formatChartDataStructure($teamPoints);
                 break;
             case self::FILTER_TIMESPAN_TODAY:
-                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByToday(
+                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByTimespan(
+                    '%H',
                     $fromDate,
                     $team,
                     $class
                 );
-                $graphData = $this->formatLineChartDataGroupedByToday($teamPoints);
+                $graphData = $this->formatChartDataStructure($teamPoints);
                 break;
             case self::FILTER_TIMESPAN_ALL:
             default:
-                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByYear(
+                $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByTimespan(
+                    '%m-%Y',
                     $fromDate,
                     $team,
                     $class
                 );
-                $graphData = $this->formatLineChartDataGroupedByYear($teamPoints);
+                $graphData = $this->formatChartDataStructure($teamPoints);
+        }
+
+        if (count($graphData['datasets']) < 1) {
+            return null;
         }
 
         return json_encode($graphData);
     }
 
     /**
-     * @param array $teamPoints
+     * @param array $data
      *
      * @return array
      */
-    private function formatLineChartDataGroupedByYear(array $teamPoints): array
+    private function formatChartDataStructure(array $data)
     {
-        $graphData = [];
+        $graphData = [
+            'labels' => array_values(array_unique(array_column($data, 'date'))),
+            'datasets' => [],
+        ];
 
-        // Team title array
-        $teamTitle = array_values(array_unique(array_column($teamPoints, 'title')));
-        $teamCount = count($teamTitle);
+        $teamNames = array_unique(array_column($data, 'title'));
 
-        // Group team data by year
-        $groupedTeamData = [];
+        foreach ($teamNames as $teamName) {
+            $dataset = [
+                'label' => $teamName,
+                'fill' => false,
+                'lineTension' => 0.3,
+            ];
 
-        foreach ($teamPoints as $teamData) {
-            $groupedTeamData[$teamData['yearAndMonth']][] = $teamData;
-        }
+            $teamData = array_filter($data, function ($value) use ($teamName) {
+                return ($value['title'] === $teamName);
+            });
 
-        // Format data for Char.js
-        $i = 0;
+            $teamData = array_values($teamData);
 
-        foreach ($groupedTeamData as $key => $groupedData) {
-            $graphData['labels'][] = $key;
+            // Find differences between all dates and team dates
+            $teamDateDifferences = array_diff($graphData['labels'], array_column($teamData, 'date'));
 
-            // Fill with empty data
-            for ($j = 0; $j < $teamCount; $j++) {
-                $graphData['datasets'][$j]['label'] = $teamTitle[$j];
-                $graphData['datasets'][$j]['data'][$i] = (int) 0;
-                $graphData['datasets'][$j]['fill'] = false;
-                $graphData['datasets'][$j]['lineTension'] = 0.1;
+            // Fill missing data
+            foreach ($teamDateDifferences as $date) {
+                $teamData[] = array_replace($teamData[0], [
+                    'amount' => 0,
+                    'date' => $date
+                ]);
             }
 
-            // Fill with team data
-            foreach ($groupedData as $teamData) {
-                $team = array_search($teamData['title'], $teamTitle);
-                $graphData['datasets'][$team]['data'][$i] = (int) $teamData['amount'];
-                $graphData['datasets'][$team]['borderColor'] = $teamData['color'];
-            }
-            $i++;
-        }
+            // Sort teamData by date
+            usort($teamData, function ($a, $b) {
+                return $a['date'] <=> $b['date'];
+            });
 
-        return $graphData;
-    }
+            $dataset['data'] = array_map(function ($teamDataEntry) {
+                return $teamDataEntry['amount'];
+            }, $teamData);
 
-    /**
-     * @param array $teamPoints
-     *
-     * @return array
-     */
-    private function formatLineChartDataGroupedByMonth(array $teamPoints): array
-    {
-        $graphData = [];
+            $dataset['borderColor'] = $teamData[0]['color'];
 
-        // Team title array
-        $teamTitle = array_values(array_unique(array_column($teamPoints, 'title')));
-        $teamCount = count($teamTitle);
-
-        // Group team data by month
-        $groupedTeamData = [];
-
-        foreach ($teamPoints as $teamData) {
-            $groupedTeamData[$teamData['month']][] = $teamData;
-        }
-
-        // Format data for Char.js
-        for ($i = 1; $i <= 12; $i++) {
-            $dateObj = \DateTime::createFromFormat('!m', $i);
-            $graphData['labels'][] = $dateObj->format('F');
-
-            // Fill with empty data
-            for ($j = 0; $j < $teamCount; $j++) {
-                $graphData['datasets'][$j]['label'] = $teamTitle[$j];
-                $graphData['datasets'][$j]['data'][$i - 1] = (int) 0;
-                $graphData['datasets'][$j]['fill'] = false;
-                $graphData['datasets'][$j]['lineTension'] = 0.1;
-            }
-
-            // Fill with team data
-            if (isset($groupedTeamData[$i])) {
-                foreach ($groupedTeamData[$i] as $teamData) {
-                    $team = array_search($teamData['title'], $teamTitle);
-                    $graphData['datasets'][$team]['data'][$i - 1] = (int) $teamData['amount'];
-                    $graphData['datasets'][$team]['borderColor'] = $teamData['color'];
-                }
-            }
-        }
-
-        return $graphData;
-    }
-
-    /**
-     * @param array $teamPoints
-     *
-     * @return array
-     */
-    private function formatLineChartDataGroupedByWeek(array $teamPoints): array
-    {
-        $graphData = [];
-
-        // Team title array
-        $teamTitle = array_values(array_unique(array_column($teamPoints, 'title')));
-        $teamCount = count($teamTitle);
-
-        // Group team data by week
-        $groupedTeamData = [];
-
-        foreach ($teamPoints as $teamData) {
-            $groupedTeamData[$teamData['week']][] = $teamData;
-        }
-
-        // Format data for Char.js
-        $i = 0;
-
-        foreach ($groupedTeamData as $week => $groupedData) {
-            $dateObj = \DateTime::createFromFormat('!m', $week);
-            $graphData['labels'][] = $dateObj->format('W') . ' savaitė';
-
-            // Fill with empty data
-            for ($j = 0; $j < $teamCount; $j++) {
-                $graphData['datasets'][$j]['label'] = $teamTitle[$j];
-                $graphData['datasets'][$j]['data'][$i] = (int) 0;
-                $graphData['datasets'][$j]['fill'] = false;
-                $graphData['datasets'][$j]['lineTension'] = 0.1;
-            }
-
-            // Fill with team data
-            foreach ($groupedData as $teamData) {
-                $team = array_search($teamData['title'], $teamTitle);
-                $graphData['datasets'][$team]['data'][$i] = (int) $teamData['amount'];
-                $graphData['datasets'][$team]['borderColor'] = $teamData['color'];
-            }
-
-            $i++;
-        }
-
-        return $graphData;
-    }
-
-    /**
-     * @param array $teamPoints
-     *
-     * @return array
-     */
-    private function formatLineChartDataGroupedByDayOfTheWeek(array $teamPoints): array
-    {
-        $graphData = [];
-        $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-        // Team title array
-        $teamTitle = array_values(array_unique(array_column($teamPoints, 'title')));
-        $teamCount = count($teamTitle);
-
-        // Group team data by day of the week
-        $groupedTeamData = [];
-
-        foreach ($teamPoints as $teamData) {
-            $groupedTeamData[$teamData['day']][] = $teamData;
-        }
-
-        // Format data for Char.js
-        for ($i = 1; $i <= 7; $i++) {
-            $graphData['labels'][] = $days[$i - 1   ];
-
-            // Fill with empty data
-            for ($j = 0; $j < $teamCount; $j++) {
-                $graphData['datasets'][$j]['label'] = $teamTitle[$j];
-                $graphData['datasets'][$j]['data'][$i - 1] = (int) 0;
-                $graphData['datasets'][$j]['fill'] = false;
-                $graphData['datasets'][$j]['lineTension'] = 0.1;
-            }
-
-            // Fill with team data
-            if (isset($groupedTeamData[$i])) {
-                foreach ($groupedTeamData[$i] as $teamData) {
-                    $team = array_search($teamData['title'], $teamTitle);
-                    $graphData['datasets'][$team]['data'][$i - 1] = (int) $teamData['amount'];
-                    $graphData['datasets'][$team]['borderColor'] = $teamData['color'];
-                }
-            }
-        }
-
-        return $graphData;
-    }
-
-    /**
-     * @param array $teamPoints
-     *
-     * @return array
-     */
-    private function formatLineChartDataGroupedByToday(array $teamPoints): array
-    {
-        $graphData = [];
-
-        // Team title array
-        $teamTitle = array_values(array_unique(array_column($teamPoints, 'title')));
-        $teamCount = count($teamTitle);
-
-        // Group team data by day of the week
-        $groupedTeamData = [];
-
-        foreach ($teamPoints as $teamData) {
-            $groupedTeamData[$teamData['hour']][] = $teamData;
-        }
-
-        // Format data for Char.js
-        for ($i = 0; $i < 24; $i++) {
-            $graphData['labels'][] = $i . ' valanda';
-
-            // Fill with empty data
-            for ($j = 0; $j < $teamCount; $j++) {
-                $graphData['datasets'][$j]['label'] = $teamTitle[$j];
-                $graphData['datasets'][$j]['data'][$i] = (int) 0;
-                $graphData['datasets'][$j]['fill'] = false;
-                $graphData['datasets'][$j]['lineTension'] = 0.1;
-            }
-
-            // Fill with team data
-            if (isset($groupedTeamData[$i])) {
-                foreach ($groupedTeamData[$i] as $teamData) {
-                    $team = array_search($teamData['title'], $teamTitle);
-                    $graphData['datasets'][$team]['data'][$i] = (int) $teamData['amount'];
-                    $graphData['datasets'][$team]['borderColor'] = $teamData['color'];
-                }
-            }
+            $graphData['datasets'][] = $dataset;
         }
 
         return $graphData;

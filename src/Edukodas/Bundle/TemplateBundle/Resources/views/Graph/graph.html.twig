@@ -1,4 +1,5 @@
 {% extends "@EdukodasTemplate/base.html.twig" %}
+{% block title %}- {{ 'menu.navigation.ratings'|trans }}{% endblock %}
 
 {% block main %}
     <div class="container">
@@ -22,7 +23,7 @@
             {{ form_end(filterForm) }}
         </div>
 
-        {% if teamGraph %}
+        {% if teamPieAndBarGraph %}
             <div class="row">
                 <div class="col s12 m12">
                     <div class="card">
@@ -34,20 +35,6 @@
                                     </div>
                                     <div class="col s12 m6 l8">
                                         <canvas id="team-bar-chart"></canvas>
-                                        {#<ul class="collection with-header">#}
-                                            {#<li class="collection-header"><h4>{{ 'graph.heading'|trans }}</h4></li>#}
-                                            {#{% for team in teamGraph.data  %}#}
-                                                {#<li class="collection-item">#}
-                                                    {#<span class="title"><b>{{ team.title }}</b></span>#}
-                                                    {#<p>#}
-                                                        {#{{ 'graph.teamGraph.point_list_entry'|trans({#}
-                                                            {#'%amount%': team.amount,#}
-                                                            {#'%rank%': loop.index#}
-                                                        {#})|raw }}#}
-                                                    {#</p>#}
-                                                {#</li>#}
-                                            {#{% endfor %}#}
-                                        {#</ul>#}
                                     </div>
                                 </div>
                             </div>
@@ -82,17 +69,23 @@
 {% block javascripts %}
     {{ parent() }}
 
-    {% if teamGraph %}
+    {% if teamPieAndBarGraph %}
         <script>
-            var data = {{ teamGraph.graphData|raw }};
+            var dataPie = {{ teamPieAndBarGraph.pieData|raw }};
+            var dataBar = {{ teamPieAndBarGraph.barData|raw }};
             var options = {
                 legend: {
                     display: false
+                },
+                scales: {
+                    yAxes: [{
+                        stacked: true
+                    }]
                 }
             };
 
-            drawTeamPieChart(data, options);
-            drawTeamBarChart(data, options);
+            drawChart('#team-pie-chart', 'pie', dataPie, options);
+            drawChart('#team-bar-chart', 'bar', dataBar, options);
         </script>
     {% endif %}
 
@@ -105,7 +98,8 @@
                 }
             };
 
-            drawTeamLineChart(data, options);
+            drawChart('#team-line-chart', 'line', data, options);
         </script>
     {% endif %}
+
 {% endblock %}

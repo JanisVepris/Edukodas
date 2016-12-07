@@ -529,193 +529,33 @@ class PointHistoryRepository extends EntityRepository
     }
 
     /**
+     * @param string         $dateFormat
      * @param \DateTime|null $fromDate
-     * @param StudentTeam $team
-     * @param StudentClass $class
+     * @param StudentTeam    $team
+     * @param StudentClass   $class
      *
      * @return array
      */
-    public function getTeamPointTotalGroupedByYear(
+    public function getTeamPointTotalGroupedByTimespan(
+        string $dateFormat,
         \DateTime $fromDate = null,
         StudentTeam $team = null,
         StudentClass $class = null
     ) {
         $qb = $this
             ->createQueryBuilder('ph')
-            ->select('t.id', 't.title', 't.color', 'ph.yearAndMonth yearAndMonth', 'SUM(ph.amount) amount')
+            ->select(
+                't.id',
+                't.title',
+                't.color',
+                'SUM(ph.amount) amount,
+                DATE_FORMAT(ph.createdAt, \''. $dateFormat .'\') date'
+            )
             ->join('ph.student', 's')
             ->join('s.studentTeam', 't')
-            ->groupBy('yearAndMonth')
+            ->addGroupBy('date')
             ->addGroupBy('t.id')
-            ->orderBy('yearAndMonth', 'asc');
-
-        if ($fromDate) {
-            $qb
-                ->where('ph.createdAt >= :dateTime')
-                ->setParameter('dateTime', $fromDate);
-        }
-
-        if ($team) {
-            $qb
-                ->andWhere('s.studentTeam = :team')
-                ->setParameter('team', $team);
-        }
-
-        if ($class) {
-            $qb
-                ->andWhere('s.studentClass = :class')
-                ->setParameter('class', $class);
-        }
-
-        return $qb->getQuery()->getResult();
-    }
-
-    /**
-     * @param \DateTime|null $fromDate
-     * @param StudentTeam $team
-     * @param StudentClass $class
-     *
-     * @return array
-     */
-    public function getTeamPointTotalGroupedByMonth(
-        \DateTime $fromDate = null,
-        StudentTeam $team = null,
-        StudentClass $class = null
-    ) {
-        $qb = $this
-            ->createQueryBuilder('ph')
-            ->select('t.id', 't.title', 't.color', 'ph.month as month', 'SUM(ph.amount) amount')
-            ->join('ph.student', 's')
-            ->join('s.studentTeam', 't')
-            ->groupBy('ph.month')
-            ->addGroupBy('t.id')
-            ->orderBy('month', 'asc');
-
-        if ($fromDate) {
-            $qb
-                ->where('ph.createdAt >= :dateTime')
-                ->setParameter('dateTime', $fromDate);
-        }
-
-        if ($team) {
-            $qb
-                ->andWhere('s.studentTeam = :team')
-                ->setParameter('team', $team);
-        }
-
-        if ($class) {
-            $qb
-                ->andWhere('s.studentClass = :class')
-                ->setParameter('class', $class);
-        }
-
-        return $qb->getQuery()->getResult();
-    }
-
-    /**
-     * @param \DateTime|null $fromDate
-     * @param StudentTeam $team
-     * @param StudentClass $class
-     *
-     * @return array
-     */
-    public function getTeamPointTotalGroupedByWeek(
-        \DateTime $fromDate = null,
-        StudentTeam $team = null,
-        StudentClass $class = null
-    ) {
-        $qb = $this
-            ->createQueryBuilder('ph')
-            ->select('t.id', 't.title', 't.color', 'ph.weekOfTheYear as week', 'SUM(ph.amount) amount')
-            ->join('ph.student', 's')
-            ->join('s.studentTeam', 't')
-            ->groupBy('week')
-            ->addGroupBy('t.id')
-            ->orderBy('week', 'asc');
-
-        if ($fromDate) {
-            $qb
-                ->where('ph.createdAt >= :dateTime')
-                ->setParameter('dateTime', $fromDate);
-        }
-
-        if ($team) {
-            $qb
-                ->andWhere('s.studentTeam = :team')
-                ->setParameter('team', $team);
-        }
-
-        if ($class) {
-            $qb
-                ->andWhere('s.studentClass = :class')
-                ->setParameter('class', $class);
-        }
-
-        return $qb->getQuery()->getResult();
-    }
-
-    /**
-     * @param \DateTime|null $fromDate
-     * @param StudentTeam $team
-     * @param StudentClass $class
-     *
-     * @return array
-     */
-    public function getTeamPointTotalGroupedByDayOfTheWeek(
-        \DateTime $fromDate = null,
-        StudentTeam $team = null,
-        StudentClass $class = null
-    ) {
-        $qb = $this
-            ->createQueryBuilder('ph')
-            ->select('t.id', 't.title', 't.color', 'ph.dayOfTheWeek as day', 'SUM(ph.amount) amount')
-            ->join('ph.student', 's')
-            ->join('s.studentTeam', 't')
-            ->groupBy('ph.dayOfTheWeek')
-            ->addGroupBy('t.id')
-            ->orderBy('day', 'asc');
-
-        if ($fromDate) {
-            $qb
-                ->where('ph.createdAt >= :dateTime')
-                ->setParameter('dateTime', $fromDate);
-        }
-
-        if ($team) {
-            $qb
-                ->andWhere('s.studentTeam = :team')
-                ->setParameter('team', $team);
-        }
-
-        if ($class) {
-            $qb
-                ->andWhere('s.studentClass = :class')
-                ->setParameter('class', $class);
-        }
-
-        return $qb->getQuery()->getResult();
-    }
-
-    /**
-     * @param \DateTime|null $fromDate
-     * @param StudentTeam $team
-     * @param StudentClass $class
-     *
-     * @return array
-     */
-    public function getTeamPointTotalGroupedByToday(
-        \DateTime $fromDate = null,
-        StudentTeam $team = null,
-        StudentClass $class = null
-    ) {
-        $qb = $this
-            ->createQueryBuilder('ph')
-            ->select('t.id', 't.title', 't.color', 'ph.hour hour', 'SUM(ph.amount) amount')
-            ->join('ph.student', 's')
-            ->join('s.studentTeam', 't')
-            ->groupBy('hour')
-            ->addGroupBy('t.id')
-            ->orderBy('hour', 'asc');
+            ->orderBy('ph.createdAt', 'asc');
 
         if ($fromDate) {
             $qb

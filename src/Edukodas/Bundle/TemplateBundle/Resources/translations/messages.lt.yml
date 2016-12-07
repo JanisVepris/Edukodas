@@ -1,3 +1,4 @@
+title: Edutopas
 menu:
   navigation:
     profile: Profilis
@@ -63,4 +64,5 @@ list:
 Course: Dalykas
 
 search:
+  placeholder: Ieškoti vartotojų
   no_results: Vartotojų nerasta

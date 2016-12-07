@@ -121,7 +121,7 @@
 .selectize-dropdown,
 .selectize-input,
 .selectize-input input {
-  color: #303030;
+  color: #9e9e9e;
   font-family: inherit;
   font-size: 1rem;
   line-height: 18px;
@@ -129,7 +129,6 @@
 }
 .selectize-input,
 .selectize-control.single .selectize-input.input-active {
-  background: #ffffff;
   cursor: text;
   display: inline-block;
 }
@@ -148,9 +147,6 @@
 .selectize-control.multi .selectize-input.has-items {
   padding: 6px 8px 3px;
 }
-.selectize-input.full {
-  background-color: #ffffff;
-}
 .selectize-input.disabled,
 .selectize-input.disabled * {
   cursor: default !important;
@@ -158,6 +154,7 @@
 .selectize-input.focus {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
   padding-left: 8px;
+  background: #fff;
 }
 
 .selectize-input > * {

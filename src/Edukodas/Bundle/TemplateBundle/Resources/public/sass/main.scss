@@ -30,6 +30,10 @@ a {
   border-color: #808080 transparent transparent transparent;
 }
 
+.selectize-input.full {
+  background: transparent;
+}
+
 // Profile information
 
 .card .card-content {
@@ -40,12 +44,19 @@ a {
   font-weight: 400;
 }
 
+.row.row-card-margins-fix {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 0;
+}
+
 // Profile point history
 
 .collection .collection-item.avatar .secondary-content {
   > * {
     margin-left: 5px;
   }
+  right: 20px;
   top: 10px;
   display: inline-flex;
 }
@@ -58,7 +69,49 @@ a {
   margin: auto;
 }
 
+textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
+  resize: vertical;
+}
+
+.collection .collection-item.avatar {
+  .fab-align {
+    position: absolute;
+    top: 40%;
+  }
+
+  .fixed-action-btn {
+    position: static;
+  }
+
+  p {
+    width: 80%;
+  }
+}
+
+.fixed-action-btn.horizontal ul {
+  li {
+    margin: 0 2px;
+  }
+  right: 46px;
+}
+
 // Task list
+
+.pointer {
+  cursor: pointer;
+}
+
+.lengthen-card {
+  margin: 40px 0;
+}
+
+.spread {
+  justify-content: space-between;
+}
+
+.expand-icon {
+  font-size: 3rem;
+}
 
 .btn-large {
   span {
@@ -73,6 +126,7 @@ a {
 .collapsible-body {
   p {
     padding: 0;
+    width: 85%;
   }
   position: relative;
   padding: 20px;
@@ -86,14 +140,21 @@ a {
 }
 
 .task-buttons {
-  > * {
-    margin-left: 5px;
+  .fixed-action-btn {
+    position: static;
+  }
+  .fab-align {
+    position: absolute;
+    right: 0;
+    top: 130%;
   }
   display: flex;
   position: absolute;
   top: 10px;
   right: 20px;
 }
+
+
 
 .task-points {
   font-size: 18px;
@@ -141,6 +202,7 @@ a {
 }
 
 div[id^="delete-points-preload-"] .spinner-layer .circle-clipper .circle {
+  top: 0;
   left: 0;
   width: 200%;
   height: 100%;
@@ -152,6 +214,12 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
 
 // User list
 
+.filter-smaller {
+  .input-field {
+    margin-top: 0;
+  }
+  margin-bottom: 0;
+}
 
 .collection .collection-item.avatar {
   .username {

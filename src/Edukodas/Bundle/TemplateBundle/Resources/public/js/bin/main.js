@@ -1,7 +1,11 @@
 $(document).ready(function () {
-    $(".button-collapse").sideNav();
-
-    $(document).ready(function(){
-        $('.collapsible').collapsible();
+    $(".button-collapse").sideNav({
+        closeOnClick: true
     });
-})
+
+    $('.collapsible').collapsible();
+
+    $( window ).resize(function() {
+        $('.button-collapse').sideNav('hide');
+    });
+});

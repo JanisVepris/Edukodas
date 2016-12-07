@@ -35,6 +35,7 @@
         "friendsofsymfony/jsrouting-bundle": "^1.6",
         "knplabs/knp-paginator-bundle": "^2.5",
         "fzaninotto/faker": "^1.6",
+        "liip/imagine-bundle": "^1.6",
         "beberlei/DoctrineExtensions": "^1.0"
     },
     "require-dev": {

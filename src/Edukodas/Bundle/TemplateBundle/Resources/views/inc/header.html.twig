@@ -27,7 +27,13 @@
                     </ul>
                     <form class="col s3 hide-on-med-and-down search">
                         <div class="input-field">
-                            <input id="search" type="search" class="autocomplete" autocomplete="off" required>
+                            <input
+                                    id="search"
+                                    type="search"
+                                    class="autocomplete"
+                                    autocomplete="off"
+                                    placeholder="{{ 'search.placeholder'|trans }}"
+                                    required>
                             <label for="search"><i class="material-icons">search</i></label>
                             <i class="material-icons close-search">close</i>
                             {% include 'EdukodasTemplateBundle:inc:_searchResults.html.twig' %}
@@ -38,7 +44,12 @@
                             <div class="nav-wrapper {{ app.user.studentTeam ? app.user.studentTeam.color : 'blue-grey' }} lighten-1">
                                 <form class="search">
                                     <div class="input-field">
-                                        <input id="search-mobile" type="search" class="autocomplete" autocomplete="off"
+                                        <input
+                                                id="search-mobile"
+                                                type="search"
+                                                class="autocomplete"
+                                                autocomplete="off"
+                                                placeholder="{{ 'search.placeholder'|trans }}"
                                                required>
                                         <label for="search"><i class="material-icons">search</i></label>
                                         <i class="material-icons close-search">close</i>

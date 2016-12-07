@@ -12,26 +12,48 @@
         <i>{{ taskName }}</i><br>
         {{ comment }}
     </p>
+    <span class="secondary-content grey-text">
+        {{ createdAt|date('m/d H:m') }}
+    </span>
+    {% if is_granted('ROLE_TEACHER') %}
+        {% if app.user.id == entryOwnerId %}
+            <div class="secondary-content fab-align">
+                <div class="fixed-action-btn horizontal click-to-toggle">
+                    <a class="btn-floating btn-small blue-grey lighten-1">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a data-points-id="{{ entryId }}"
+                               data-points-action="edukodas_points_edit"
+                               class="btn-floating btn-small waves-effect waves-light blue-grey lighten-1"
+                               href="#edit-points-modal">
+                                <i class="small material-icons">mode_edit</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-points-id="{{ entryId }}"
+                               class="btn-floating btn-small waves-effect waves-light blue-grey lighten-1 delete-points"
+                               href="#delete-points">
+                                <i class="small material-icons">delete</i>
+                            </a>
+                            <div class="preloader-wrapper small active hide" id="delete-points-preload-{{ entryId }}">
+                                <div class="spinner-layer spinner-red-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-    {% if not is_granted('ROLE_TEACHER') %}
-        <span class="secondary-content">
-            {{ createdAt|date('m/d') }}<br>
-            {{ createdAt|date('H:m') }}
-        </span>
-    {% else %}
-        <div class="secondary-content">
-            {% if app.user.id == entryOwnerId %}
-                <a data-points-id="{{ entryId }}"
-                   data-points-action="edukodas_points_edit"
-                   class="btn-floating btn-small waves-effect waves-light blue-grey lighten-1"
-                   href="#edit-points-modal">
-                    <i class="small material-icons">mode_edit</i>
-                </a>
-                <a data-points-id="{{ entryId }}"
-                   class="btn-floating btn-small waves-effect waves-light blue-grey lighten-1 delete-points"
-                   href="#delete-points">
-                    <i class="small material-icons">delete</i>
-                </a>
                 <div class="preloader-wrapper small active hide" id="delete-points-preload-{{ entryId }}">
                     <div class="spinner-layer spinner-red-only">
                         <div class="circle-clipper left">
@@ -45,12 +67,8 @@
                         </div>
                     </div>
                 </div>
-            {% endif %}
-            <div>
-                {{ createdAt|date('m/d') }}<br>
-                {{ createdAt|date('H:m') }}
             </div>
-        </div>
+        {% endif %}
     {% endif %}
 </li>
 

@@ -18,6 +18,7 @@ class TaskListFilterType extends AbstractType
             ->add('course', EntityType::class, [
                 'choice_label' => 'extendedName',
                 'class' => 'Edukodas\Bundle\TasksBundle\Entity\Course',
+                'label' => false,
             ]);
     }
 }

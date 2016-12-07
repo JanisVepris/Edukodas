@@ -56,6 +56,7 @@ a {
   > * {
     margin-left: 5px;
   }
+  right: 20px;
   top: 10px;
   display: inline-flex;
 }
@@ -70,6 +71,28 @@ a {
 
 textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
   resize: vertical;
+}
+
+.collection .collection-item.avatar {
+  .fab-align {
+    position: absolute;
+    top: 40%;
+  }
+
+  .fixed-action-btn {
+    position: static;
+  }
+
+  p {
+    width: 80%;
+  }
+}
+
+.fixed-action-btn.horizontal ul {
+  li {
+    margin: 0 2px;
+  }
+  right: 46px;
 }
 
 // Task list
@@ -103,6 +126,7 @@ textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
 .collapsible-body {
   p {
     padding: 0;
+    width: 85%;
   }
   position: relative;
   padding: 20px;
@@ -116,14 +140,21 @@ textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
 }
 
 .task-buttons {
-  > * {
-    margin-left: 5px;
+  .fixed-action-btn {
+    position: static;
+  }
+  .fab-align {
+    position: absolute;
+    right: 0;
+    top: 130%;
   }
   display: flex;
   position: absolute;
   top: 10px;
   right: 20px;
 }
+
+
 
 .task-points {
   font-size: 18px;

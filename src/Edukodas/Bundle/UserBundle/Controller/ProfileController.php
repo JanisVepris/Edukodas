@@ -59,6 +59,7 @@ class ProfileController extends BaseController
         $form_picture->handleRequest($request);
 
         if ($form_picture->isValid()) {
+            $request->getSession()->getFlashBag()->clear();
             /** @var UploadedFile $picture */
             $picture = $user->getPicture();
 
@@ -97,6 +98,7 @@ class ProfileController extends BaseController
         $form_profile->handleRequest($request);
 
         if ($form_profile->isValid()) {
+            $request->getSession()->getFlashBag()->clear();
             /** @var $userManager UserManagerInterface */
             $userManager = $this->get('fos_user.user_manager');
 
@@ -128,6 +130,7 @@ class ProfileController extends BaseController
         $form_password->handleRequest($request);
 
         if ($form_password->isValid()) {
+            $request->getSession()->getFlashBag()->clear();
             /** @var $userManager UserManagerInterface */
             $userManager = $this->get('fos_user.user_manager');
 

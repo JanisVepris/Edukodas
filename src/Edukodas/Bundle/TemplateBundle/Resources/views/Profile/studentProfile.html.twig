@@ -1,5 +1,7 @@
 {% extends "EdukodasTemplateBundle::base.html.twig" %}
 
+{% block title %}- {{ user.fullName }}{% endblock %}
+
 {% block main %}
     {% if is_granted('ROLE_TEACHER') %}
         {% include "EdukodasTemplateBundle:Profile/inc:_modalStructure.html.twig" %}

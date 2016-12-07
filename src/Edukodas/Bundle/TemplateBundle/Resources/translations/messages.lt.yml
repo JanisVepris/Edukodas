@@ -1,3 +1,4 @@
+title: Edutopas
 menu:
   navigation:
     profile: Profilis
@@ -61,3 +62,7 @@ list:
   no_points: Nėra taškų
 
 Course: Dalykas
+
+search:
+  placeholder: Ieškoti vartotojų
+  no_results: Vartotojų nerasta

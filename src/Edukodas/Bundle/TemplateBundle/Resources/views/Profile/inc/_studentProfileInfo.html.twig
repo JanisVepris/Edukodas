@@ -35,10 +35,16 @@
         <div class="card-content center-align">
             <div class="flow-text">
                 <h4>{{ 'user_list.class'|trans }}: {{ user.studentClass.title }}</h4>
-                <p>{{ 'points.rating.generation'|trans }}: <b>#{{ positionInGeneration }}</b></p>
-                <p>{{ 'points.rating.team'|trans }}: <b>#{{ positionInTeam }}</b></p>
-                <p>{{ 'points.rating.school'|trans }}: <b>#{{ positionTotal }}</b></p>
-                <p>{{ 'points.rating.class'|trans }}: <b>#{{ positionInClass }}</b></p>
+                <div class="row row-card-margins-fix">
+                    <div class="left-align col s6">{{ 'points.rating.generation'|trans }}:</div>
+                    <div class="right-align col s6"><b>#{{ positionInGeneration }}</b></div>
+                    <div class="left-align col s6">{{ 'points.rating.team'|trans }}:</div>
+                    <div class="right-align col s6"><b>#{{ positionInTeam }}</b></div>
+                    <div class="left-align col s6">{{ 'points.rating.school'|trans }}:</div>
+                    <div class="right-align col s6"><b>#{{ positionTotal }}</b></div>
+                    <div class="left-align col s6">{{ 'points.rating.class'|trans }}:</div>
+                    <div class="right-align col s6"><b>#{{ positionInClass }}</b></div>
+                </div>
             </div>
         </div>
     </div>

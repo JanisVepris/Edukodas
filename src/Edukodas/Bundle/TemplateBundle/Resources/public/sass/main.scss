@@ -30,6 +30,10 @@ a {
   border-color: #808080 transparent transparent transparent;
 }
 
+.selectize-input.full {
+  background: transparent;
+}
+
 // Profile information
 
 .card .card-content {
@@ -38,6 +42,12 @@ a {
 
 .card.information b {
   font-weight: 400;
+}
+
+.row.row-card-margins-fix {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 0;
 }
 
 // Profile point history
@@ -56,6 +66,10 @@ a {
 
 .form-preloader-center {
   margin: auto;
+}
+
+textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
+  resize: vertical;
 }
 
 // Task list
@@ -153,6 +167,7 @@ a {
 }
 
 div[id^="delete-points-preload-"] .spinner-layer .circle-clipper .circle {
+  top: 0;
   left: 0;
   width: 200%;
   height: 100%;

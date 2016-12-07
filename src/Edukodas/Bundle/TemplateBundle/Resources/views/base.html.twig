@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>{% block title %}{{ "PlsAtsiminkPakeist" }}{% endblock %}</title>
+    <title>{{ 'title'|trans }} {% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -51,7 +51,7 @@
     {% block main %}{% endblock %}
 
     {% block javascripts %}
-        {% javascripts filter='?yui_js'
+        {% javascripts
         'bundles/edukodastemplate/js/jquery-2.2.4.min.js'
         'bundles/edukodastemplate/js/bin/materialize.js'
         'bundles/edukodastemplate/js/search-script.js'

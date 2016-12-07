@@ -16,22 +16,25 @@
                 </div>
             </div>
             {{ form_end(filterForm) }}
-
-            <div id="full-task-list-container" class="row">
-                {% include "@EdukodasTemplate/Task/inc/_taskList.html.twig" with {
-                course: course
-                } %}
+            <div class="col s12">
+                <div id="full-task-list-container" class="row">
+                    {% include "@EdukodasTemplate/Task/inc/_taskList.html.twig" with {
+                    course: course
+                    } %}
+                </div>
             </div>
         </div>
-        
+
         <div id="full-task-list-preloader" style="display: none;" class="center-align">
             <div class="preloader-wrapper big active">
                 <div class="spinner-layer spinner-blue">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
-                    </div><div class="gap-patch">
+                    </div>
+                    <div class="gap-patch">
                         <div class="circle"></div>
-                    </div><div class="circle-clipper right">
+                    </div>
+                    <div class="circle-clipper right">
                         <div class="circle"></div>
                     </div>
                 </div>
@@ -39,9 +42,11 @@
                 <div class="spinner-layer spinner-red">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
-                    </div><div class="gap-patch">
+                    </div>
+                    <div class="gap-patch">
                         <div class="circle"></div>
-                    </div><div class="circle-clipper right">
+                    </div>
+                    <div class="circle-clipper right">
                         <div class="circle"></div>
                     </div>
                 </div>
@@ -49,9 +54,11 @@
                 <div class="spinner-layer spinner-yellow">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
-                    </div><div class="gap-patch">
+                    </div>
+                    <div class="gap-patch">
                         <div class="circle"></div>
-                    </div><div class="circle-clipper right">
+                    </div>
+                    <div class="circle-clipper right">
                         <div class="circle"></div>
                     </div>
                 </div>
@@ -59,9 +66,11 @@
                 <div class="spinner-layer spinner-green">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
-                    </div><div class="gap-patch">
+                    </div>
+                    <div class="gap-patch">
                         <div class="circle"></div>
-                    </div><div class="circle-clipper right">
+                    </div>
+                    <div class="circle-clipper right">
                         <div class="circle"></div>
                     </div>
                 </div>

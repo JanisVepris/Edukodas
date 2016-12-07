@@ -31,12 +31,16 @@
                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
                             {% endif %}
                             <div class="input-field">
-                                <label for="username">{{ 'security.login.username'|trans }}</label>
+                                <div>
+                                    <label for="username" class="active">{{ 'security.login.username'|trans }}</label>
+                                </div>
                                 <input type="text" id="username" name="_username" value="{{ last_username }}"
                                        required="required"/>
                             </div>
                             <div class="input-field">
-                                <label for="password">{{ 'security.login.password'|trans }}</label>
+                                <div>
+                                    <label for="password" class="active">{{ 'security.login.password'|trans }}</label>
+                                </div>
                                 <input type="password" id="password" name="_password" required="required"/>
                             </div>
                             <div id="checknbutt">

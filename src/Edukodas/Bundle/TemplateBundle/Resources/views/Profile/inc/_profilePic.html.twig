@@ -1,5 +1,5 @@
-{% if (app.user.hasPicture) %}
-    <img class="responsive-img" src="{{ app.user|profile_pic }}" alt="{{ app.user.fullName }}">
+{% if (user.hasPicture) %}
+    <img class="responsive-img" src="{{ user|profile_pic }}" alt="{{ user.fullName }}">
 {% else %}
-    <img class="responsive-img" src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}" alt="{{ app.user.fullName }}">
+    <img class="responsive-img" src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}" alt="{{ user.fullName }}">
 {% endif %}

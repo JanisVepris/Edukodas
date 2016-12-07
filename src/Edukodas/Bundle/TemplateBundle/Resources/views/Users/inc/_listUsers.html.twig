@@ -1,31 +1,42 @@
 {% for user in userList %}
-    <ul class="collection">
-        <li class="collection-item dismissable">
-            <div>
-                <div style="display: inline-block; width: 18%">
-                    {{ user.firstName }} {{ user.lastName }} <small>({{ user.classTitle }})</small>
-                </div>
+    <li class="collection-item avatar valign-wrapper">
+        <a href="{{ path('edukodas_student_profile', {'id' : user.id}) }}">
+            {% if (user.picture) %}
+                <img
+                        class="responsive-img circle"
+                        src="{{ user.picture|filename_to_pic }}"
+                        alt="{{ user.fullName }}">
+            {% else %}
+                <img
+                        class="responsive-img circle"
+                        src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}"
+                        alt="{{ user.fullName }}">
+            {% endif %}
+        </a>
+        <div class="col s2 valign username">
+            <a href="{{ path('edukodas_student_profile', {'id' : user.id}) }}">
+            {{ user.fullName }}
+            <small>({{ user.classTitle }})</small></a>
+        </div>
 
-                <div style="display: inline-block; width: 76%">
-                    {% set minMaxAmount = minAmount|abs + maxAmount|abs %}
-                    {% set userAmount = user.amount + minAmount|abs %}
+        <div class="col s12 valign">
+            {% set minMaxAmount = minAmount|abs + maxAmount|abs %}
+            {% set userAmount = user.amount + minAmount|abs %}
 
-                    {% if minMaxAmount == 0 %}
-                        {% set percent = 100 %}
-                    {% else %}
-                        {% set percent = userAmount / minMaxAmount * 100 %}
-                    {% endif %}
+            {% if minMaxAmount == 0 %}
+                {% set percent = 100 %}
+            {% else %}
+                {% set percent = userAmount / minMaxAmount * 100 %}
+            {% endif %}
 
-                    <div style="width: {{ percent }}%; height: 10px;" class="{{ user.teamColor ? user.teamColor : 'white' }} lighten-1"></div>
-                </div>
+            <div style="width: {{ percent }}%; height: 10px;"
+                 class="{{ user.teamColor ? user.teamColor : 'white' }} lighten-1"></div>
+        </div>
 
-                <div class="secondary-content{% if (user.amount <= 0) %} red-text{% endif %}">
-                    {{ user.amount }}
-                </div>
-            </div>
-        </li>
-    </ul>
+        <div class="s1 valign {{ user.amount<=0 ? 'red-text' : 'teal-text'}} text-lighten-1">
+            {{ user.amount }}
+        </div>
+    </li>
 {% else %}
     {{ 'user_list.no_users'|trans }}
 {% endfor %}
-{{ knp_pagination_render(userList) }}

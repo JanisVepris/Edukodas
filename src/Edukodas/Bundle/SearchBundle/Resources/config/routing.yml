@@ -1,0 +1,3 @@
+edukodas_search_users:
+    path:     /users/{searchString}
+    defaults: { _controller: EdukodasSearchBundle:Search:searchUsers }

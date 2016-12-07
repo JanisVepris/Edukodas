@@ -61,3 +61,6 @@ list:
   no_points: Nėra taškų
 
 Course: Dalykas
+
+search:
+  no_results: Vartotojų nerasta

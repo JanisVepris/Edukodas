@@ -1,53 +1,52 @@
-{% for course in user.courses %}
-    <div class="divider"></div>
-    <div class="section">
-        <h4>{{ course.name }}</h4>
-        <table class="striped" id="course-{{ course.id }}">
-            <tbody>
+<div id="tasks-list">
+    <ul class="collapsible popout" data-collapsible="accordion">
+        {% for course in user.courses %}
+            <li id="course-{{ course.id }}">
+                <div class="collapsible-header">{{ course.name }}</div>
                 {% for task in course.tasks %}
-                    <tr id="task-{{ task.id }}">
-                        <td>
-                            <h5>{{ task.name }}</h5>
-                            {{ task.description }}
-                        </td>
-                        <td>
-                            <h5>{{ task.points }}</h5>
-                        </td>
-                        {% if app.user.id == course.user.id %}
-                            <td>
+                    <div class="collapsible-body" id="task-{{ task.id }}">
+                        <span class="collapsible-title">{{ task.name }}</span>
+                        <div class="task-buttons">
+                            {% if app.user.id == course.user.id %}
                                 <a data-task-id="{{ task.id }}" data-task-action="edukodas_tasks_edit"
-                                    class="btn-floating btn-small waves-effect waves-light red"
-                                    href="#manage-task-modal">
+                                   class="btn-floating btn-small waves-effect waves-light blue-grey lighten-1"
+                                   href="#manage-task-modal">
                                     <i class="small material-icons">mode_edit</i>
                                 </a>
-                            </td>
-                            <td>
                                 <a data-task-id="{{ task.id }}"
-                                   class="btn-floating btn-small waves-effect waves-light red delete-task"
+                                   class="btn-floating btn-small waves-effect waves-light blue-grey lighten-1 delete-task"
                                    href="#delete-task">
                                     <i class="small material-icons">delete</i>
                                 </a>
-                                <div class="preloader-wrapper small active hide" id="delete-task-preload-{{ task.id }}">
+                                <div class="preloader-wrapper small active hide"
+                                     id="delete-task-preload-{{ task.id }}">
                                     <div class="spinner-layer spinner-red-only">
                                         <div class="circle-clipper left">
                                             <div class="circle"></div>
-                                        </div><div class="gap-patch">
+                                        </div>
+                                        <div class="gap-patch">
                                             <div class="circle"></div>
-                                        </div><div class="circle-clipper right">
+                                        </div>
+                                        <div class="circle-clipper right">
                                             <div class="circle"></div>
                                         </div>
                                     </div>
                                 </div>
-                            </td>
-                        {% endif %}
-                    </tr>
+                            {% endif %}
+                            <i class="circle white-text task-points {% if task.points < 0 %}red{% else %}green{% endif %}"
+                               style="font-style: normal;">{{ task.points }}</i>
+                        </div>
+                        <p>{{ task.description }}</p>
+                    </div>
                 {% else %}
-                    {{ 'list.no_tasks'|trans }}
+                    <div class="collapsible-body">
+                        <span class="collapsible-title">{{ 'list.no_tasks'|trans }}</span>
+                    </div>
                 {% endfor %}
-            </tbody>
-        </table>
-    </div>
-{% else %}
-    <div class="divider"></div>
-    {{ 'list.no_courses'|trans }}
-{% endfor %}
+            </li>
+        {% else %}
+            <div class="divider"></div>
+            {{ 'list.no_courses'|trans }}
+        {% endfor %}
+    </ul>
+</div>

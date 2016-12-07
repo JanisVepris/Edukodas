@@ -51,7 +51,7 @@ class PointHistoryController extends AbstractTeacherController
             return $this->render('@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig', [
                 'entryId' => $pointHistory->getId(),
                 'amount' => $pointHistory->getAmount(),
-                'studentName' => $pointHistory->getStudent()->getFullName(),
+                'student' => $pointHistory->getStudent(),
                 'teacher' => $pointHistory->getTeacher(),
                 'entryOwnerId' => $pointHistory->getOwner()->getId(),
                 'taskName' => $pointHistory->getTask()->getName(),
@@ -66,6 +66,10 @@ class PointHistoryController extends AbstractTeacherController
 
             return new Response($view, Response::HTTP_BAD_REQUEST);
         }
+
+        return $this->render('@EdukodasTemplate/Profile/inc/_addPointHistoryForm.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
@@ -112,12 +116,12 @@ class PointHistoryController extends AbstractTeacherController
             return $this->render('@EdukodasTemplate/Profile/inc/_listPointHistory.html.twig', [
                 'entryId' => $newPointHistory->getId(),
                 'amount' => $newPointHistory->getAmount(),
-                'studentName' => $newPointHistory->getStudent()->getFullName(),
+                'student' => $newPointHistory->getStudent(),
                 'teacher' => $newPointHistory->getTeacher(),
                 'entryOwnerId' => $newPointHistory->getOwner()->getId(),
                 'taskName' => $newPointHistory->getTask()->getName(),
                 'comment' => $newPointHistory->getComment(),
-                'createdAt' => $newPointHistory->getCreatedAt()->format('Y/m/d H:m'),
+                'createdAt' => $pointHistory->getCreatedAt()->format('Y/m/d H:m'),
                 'isStudentProfile' => $isStudentProfile,
             ]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {

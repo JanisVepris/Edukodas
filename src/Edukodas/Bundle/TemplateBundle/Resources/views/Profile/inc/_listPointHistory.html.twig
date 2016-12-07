@@ -3,9 +3,9 @@
        style="font-style: normal;">{{ amount }}</i>
     <span class="title">
         {% if isStudentProfile %}
-            {{ teacher.fullName }}
+            <a href="{{ path('edukodas_teacher_profile', {'id' : teacher.id}) }}">{{ teacher.fullName }}</a>
         {% else %}
-            {{ studentName }}
+            <a href="{{ path('edukodas_student_profile', {'id' : student.id}) }}">{{ student.fullName }}</a>
         {% endif %}
     </span>
     <p>
@@ -15,27 +15,20 @@
 
     {% if not is_granted('ROLE_TEACHER') %}
         <span class="secondary-content">
-            {{ createdAtDate }}<br>
-            {{ createdAtTime }}
+            {{ createdAt|date('m/d') }}<br>
+            {{ createdAt|date('H:m') }}
         </span>
     {% else %}
-        <div class="col s4 right-align">
-            {{ createdAtDate }}<br>
-            {{ createdAtTime }}<br>
-            {{ comment }}
-        </div>
-        {% if app.user.id == entryOwnerId %}
-            <div class="col s1 center-align valign">
+        <div class="secondary-content">
+            {% if app.user.id == entryOwnerId %}
                 <a data-points-id="{{ entryId }}"
                    data-points-action="edukodas_points_edit"
-                   class="btn-floating btn-small waves-effect waves-light red"
+                   class="btn-floating btn-small waves-effect waves-light blue-grey lighten-1"
                    href="#edit-points-modal">
                     <i class="small material-icons">mode_edit</i>
                 </a>
-            </div>
-            <div class="col s1 center-align valign">
                 <a data-points-id="{{ entryId }}"
-                   class="btn-floating btn-small waves-effect waves-light red delete-points"
+                   class="btn-floating btn-small waves-effect waves-light blue-grey lighten-1 delete-points"
                    href="#delete-points">
                     <i class="small material-icons">delete</i>
                 </a>
@@ -52,8 +45,12 @@
                         </div>
                     </div>
                 </div>
+            {% endif %}
+            <div>
+                {{ createdAt|date('m/d') }}<br>
+                {{ createdAt|date('H:m') }}
             </div>
-        {% endif %}
+        </div>
     {% endif %}
 </li>
 

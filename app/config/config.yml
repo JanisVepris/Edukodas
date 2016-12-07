@@ -105,3 +105,42 @@ knp_paginator:
     template:
         pagination: EdukodasTemplateBundle:Pagination:sliding.html.twig # sliding pagination controls template
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+
+# Liip imagine
+liip_imagine:
+
+    resolvers:
+        default:
+            web_path:
+                web_root: '%kernel.root_dir%/../web'
+                cache_prefix: 'media/cache'
+
+    loaders:
+        default:
+            filesystem:
+                data_root: '%kernel.root_dir%/../web/'
+
+    driver:               gd
+    cache:                default
+    data_loader:          default
+    default_image:        null
+    controller:
+        filter_action:         liip_imagine.controller:filterAction
+        filter_runtime_action: liip_imagine.controller:filterRuntimeAction
+    filter_sets:
+        cache: ~
+
+        profile_large:
+            quality: 75
+            filters:
+              thumbnail: { size: [526, 526], mode: outbound, position: center}
+
+        profile_medium:
+            quality: 75
+            filters:
+              thumbnail: { size: [200, 200], mode: outbound, position: center}
+
+        profile_small:
+            quality: 50
+            filters:
+              thumbnail: { size: [44, 44], mode: outbound, position: center}

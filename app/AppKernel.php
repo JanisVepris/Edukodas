@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Edukodas\Bundle\StatisticsBundle\EdukodasStatisticsBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Edukodas\Bundle\SearchBundle\EdukodasSearchBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

@@ -3,7 +3,7 @@
     <li class="search-result">
         <a href="{{ path('edukodas_student_profile', {'id': student.id}) }}" class="valign-wrapper">
             {% if (student.hasPicture) %}
-                <img src="{{ student|profile_pic }}" alt="{{ student.fullName }}" class="circle responsive-img">
+                <img src="{{ student|profile_pic|imagine_filter('profile_small') }}" alt="{{ student.fullName }}" class="circle responsive-img">
             {% else %}
                 <div class="circle team-color-search {{ student.studentTeam.color }}"></div>
             {% endif %}
@@ -19,7 +19,7 @@
     <li class="search-result">
         <a href="{{ path('edukodas_teacher_profile', {'id': teacher.id}) }}" class="valign-wrapper">
             {% if (teacher.hasPicture) %}
-                <img src="{{ teacher|profile_pic }}" alt="{{ teacher.fullName }}" class="circle responsive-img">
+                <img src="{{ teacher|profile_pic|imagine_filter('profile_small') }}" alt="{{ teacher.fullName }}" class="circle responsive-img">
             {% else %}
                 <img
                         src="{{ asset('/bundles/edukodastemplate/image/profile-placeholder.png') }}"

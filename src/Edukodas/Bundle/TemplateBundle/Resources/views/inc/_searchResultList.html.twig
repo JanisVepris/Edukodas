@@ -30,3 +30,8 @@
         </a>
     </li>
 {% endfor %}
+{% if not (students or teachers) %}
+    <li class="search-result">
+        <span>{{ 'search.no_results'|trans }}</span>
+    </li>
+{% endif %}

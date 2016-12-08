@@ -102,7 +102,14 @@
         <script>
             var dataPie = {{ teamPieAndBarGraph.pieData|raw }};
             var dataBar = {{ teamPieAndBarGraph.barData|raw }};
-            var options = {
+
+            var optionsPie = {
+                legend: {
+                    display: false
+                }
+            };
+
+            var optionsBar = {
                 legend: {
                     display: false
                 },
@@ -113,8 +120,8 @@
                 }
             };
 
-            drawChart('#team-pie-chart', 'pie', dataPie, options);
-            drawChart('#team-bar-chart', 'bar', dataBar, options);
+            drawChart('#team-pie-chart', 'pie', dataPie, optionsPie);
+            drawChart('#team-bar-chart', 'bar', dataBar, optionsBar);
         </script>
     {% endif %}
 

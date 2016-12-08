@@ -174,4 +174,43 @@ class StatisticsService
             'max' => $this->pointHistoryRepository->findMaxPointAmountByClassAndTeam($team, $class),
         ];
     }
+
+    /**
+     * @param StudentTeam|null $team
+     * @param StudentClass|null $class
+     *
+     * @return array
+     */
+    public function getTeamStats(StudentTeam $team = null, StudentClass $class = null)
+    {
+        $qb = $this
+            ->pointHistoryRepository
+            ->createQueryBuilder('ph')
+            ->select(
+                't.id',
+                't.title',
+                't.color',
+                'SUM(ph.amount) amount'
+            )
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->groupBy('t.id')
+            ->orderBy('amount', 'desc');
+
+        if ($team) {
+            $qb
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
+
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
+        }
+
+        return $qb->getQuery()->getResult();
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -22,10 +22,19 @@
                 </div>
             </div>
             {{ form_end(filterForm) }}
+            {% if teamList %}
+                <div class="col s12">
+                    <ul class="collection z-depth-1">
+                        {% include "@EdukodasTemplate/Users/inc/_listTeams.html.twig" with {
+                            teamList: teamList
+                        } %}
+                    </ul>
+                </div>
+            {% endif %}
             <div class="col s12">
                 <ul class="collection z-depth-1">
                     {% include "@EdukodasTemplate/Users/inc/_listUsers.html.twig" with {
-                    userList: userList
+                        userList: userList
                     } %}
                 </ul>
             </div>

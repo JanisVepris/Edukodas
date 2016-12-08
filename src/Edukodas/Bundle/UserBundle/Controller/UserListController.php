@@ -21,16 +21,6 @@ class UserListController extends Controller
         $class = $filterForm->get('class')->getData();
         $team = $filterForm->get('team')->getData();
 
-        $teamList = $this
-            ->getDoctrine()
-            ->getRepository('EdukodasUserBundle:StudentTeam')
-            ->findAll();
-
-        $classList = $this
-            ->getDoctrine()
-            ->getRepository('EdukodasUserBundle:StudentClass')
-            ->findAll();
-
         $statisticsService = $this->get('edukodas.statistics');
 
         if ($team && $class) {
@@ -45,9 +35,10 @@ class UserListController extends Controller
 
         $amountRange = $statisticsService->getMinMaxAmounts($team, $class);
 
+        $teamList = $statisticsService->getTeamStats($team, $class);
+
         return $this->render('EdukodasTemplateBundle:Users:userList.html.twig', [
             'teamList' => $teamList,
-            'classList' => $classList,
             'userList' => $userList,
             'filterForm' => $filterForm->createView(),
             'maxAmount' => $amountRange['max'],

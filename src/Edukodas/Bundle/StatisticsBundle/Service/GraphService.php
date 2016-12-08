@@ -147,12 +147,15 @@ class GraphService
     }
 
     /**
+     * @param int $quantity
      * @param int|null $timespan
+     * @param StudentTeam|null $team
+     * @param StudentClass|null $class
      *
-     * @return array
+     * @return null|string
      */
     public function getTopUsersBarChartGraph(
-        int $quantity = 15,
+        int $quantity,
         int $timespan = null,
         StudentTeam $team = null,
         StudentClass $class = null

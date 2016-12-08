@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class GraphController extends Controller
 {
+    const TOP_USER_LIMIT = 15;
+
     public function indexAction(Request $request)
     {
         $filterForm = $this->createForm(GraphType::class);
@@ -21,9 +23,7 @@ class GraphController extends Controller
 
         $teamPieAndBarGraph = $graphService->getTeamPieAndBarChartGraph($timespan, $team, $class);
         $teamLineGraph = $graphService->getTeamLineChartGraph($timespan, $team, $class);
-        $topUsersGraph = $graphService->getTopUsersBarChartGraph(15, $timespan, $team, $class);
-
-        //$teamLineSumGraph = $graphService->getLineChartGraphWithSums($timespan, $team, $class);
+        $topUsersGraph = $graphService->getTopUsersBarChartGraph(static::TOP_USER_LIMIT, $timespan, $team, $class);
 
         return $this->render('@EdukodasTemplate/Graph/graph.html.twig', [
             'filterForm' => $filterForm->createView(),

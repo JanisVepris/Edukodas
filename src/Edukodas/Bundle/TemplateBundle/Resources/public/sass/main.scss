@@ -171,6 +171,8 @@ textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
   vertical-align: middle;
 }
 
+// Search
+
 .search-preloader-container {
   background-color: #fff;
   margin-top: -15px;
@@ -184,12 +186,26 @@ textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
   display: inline-block;
 }
 
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: rgba(255, 255, 255, .7);
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: rgba(255, 255, 255, .7);
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: rgba(255, 255, 255, .7);
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: rgba(255, 255, 255, .7);
+}
+
 .team-color-search {
   height: 40px;
   width: 40px;
   margin: 5px 15px;
   display: inline-block;
 }
+
 #search-reasults > .search-result > a {
   display: flex;
   line-height: 22px;
@@ -234,6 +250,65 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
     transform: translateY(-50%);
   }
   min-height: 67px;
+}
+
+// Settings
+
+.choose-image {
+  .card-action {
+    > * {
+      flex-grow: 1;
+    }
+    > a {
+      margin-top: 15px;
+    }
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  .choose-image {
+
+    .card-image {
+      max-width: 50%;
+      img {
+        border-radius: 2px 0 0 2px;
+        max-width: 100%;
+        width: auto;
+        max-height: 250px;
+      }
+    }
+
+    .card-stacked {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      position: relative;
+
+      .card-content {
+        flex-grow: 1;
+      }
+    }
+
+    .card-action {
+      >* {
+        flex-grow: 0;
+      }
+      > a {
+        margin-top: 0;
+      }
+      flex-direction: row;
+    }
+
+    .fos_user_profile_edit {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    display: flex;
+  }
 }
 
 // Media queries

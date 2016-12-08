@@ -2,12 +2,12 @@
 
 namespace Edukodas\Bundle\StatisticsBundle\Form;
 
+use Edukodas\Bundle\TasksBundle\Entity\Task;
 use Edukodas\Bundle\TasksBundle\Repository\TaskRepository;
 use Edukodas\Bundle\UserBundle\Entity\User;
 use Edukodas\Bundle\UserBundle\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,11 +23,11 @@ class PointHistoryType extends AbstractType
         $builder
             ->add('teacher', EntityType::class, [
                 'required' => false,
-                'class' => 'EdukodasUserBundle:User',
+                'class' => User::class,
                 'label' => 'form.add_points.teacher'
             ])
             ->add('task', EntityType::class, [
-                'class' => 'EdukodasTasksBundle:Task',
+                'class' => Task::class,
                 'query_builder' => function (TaskRepository $tr) use ($options) {
                     return $tr->createQueryBuilder('t')
                         ->join('t.course', 'c')
@@ -39,7 +39,7 @@ class PointHistoryType extends AbstractType
                 'label' => 'form.add_points.task',
             ])
             ->add('student', EntityType::class, [
-                'class' => 'EdukodasUserBundle:User',
+                'class' => User::class,
                 'choice_label' => 'fullName',
                 'query_builder' => function (UserRepository $ur) {
                     return $ur->createQueryBuilder('u')

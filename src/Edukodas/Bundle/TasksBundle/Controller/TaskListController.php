@@ -21,10 +21,6 @@ class TaskListController extends Controller
 
         $courseForm->get('course')->setData($course);
 
-        if (!$courseForm->isValid()) {
-            throw new HttpException(500);
-        }
-
         return $this->render('@EdukodasTemplate/Task/taskList.html.twig', [
             'filterForm' => $courseForm->createView(),
             'course' => $course,

@@ -23,7 +23,7 @@ class StudentProfileController extends Controller
         }
 
         if (!in_array('ROLE_STUDENT', $user->getRoles())) {
-            throw new HttpException(400, 'User is not student');
+            throw new HttpException(403, 'User is not student');
         }
 
         $pointHistory = $this

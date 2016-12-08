@@ -28,7 +28,7 @@ class TeacherProfileController extends Controller
         }
 
         if (!in_array('ROLE_TEACHER', $user->getRoles())) {
-            throw new HttpException(400, 'User is not teachers');
+            throw new HttpException(403, 'User is not teachers');
         }
 
         $pointHistory = $this

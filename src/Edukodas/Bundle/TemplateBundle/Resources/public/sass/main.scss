@@ -246,6 +246,62 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
   min-height: 67px;
 }
 
+// Settings
+
+.choose-image {
+  .card-action {
+    > * {
+      flex-grow: 1;
+    }
+    > a {
+      margin-top: 15px;
+    }
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  .choose-image {
+
+    .card-image {
+      max-width: 50%;
+      img {
+        border-radius: 2px 0 0 2px;
+        max-width: 100%;
+        width: auto;
+        max-height: 250px;
+      }
+    }
+
+    .card-stacked {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      position: relative;
+
+      .card-content {
+        flex-grow: 1;
+      }
+    }
+
+    .card-action {
+      >* {
+        flex-grow: 0;
+      }
+      flex-direction: row;
+    }
+
+    .fos_user_profile_edit {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    display: flex;
+  }
+}
+
 // Media queries
 
 @media only screen and (max-width: 424px) {

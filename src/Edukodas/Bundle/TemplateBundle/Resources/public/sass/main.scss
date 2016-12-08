@@ -69,6 +69,12 @@ a {
   margin: auto;
 }
 
+.preloader-wrapper.small.delete-points, .preloader-wrapper.small.delete-task {
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+}
+
 textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
   resize: vertical;
 }
@@ -153,8 +159,6 @@ textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
   top: 10px;
   right: 20px;
 }
-
-
 
 .task-points {
   font-size: 18px;

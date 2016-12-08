@@ -587,7 +587,7 @@ class PointHistoryRepository extends EntityRepository
      * @return array
      */
     public function getTopUsers(
-        int $quantity = 15,
+        int $quantity,
         \DateTime $fromDate = null,
         StudentTeam $team = null,
         StudentClass $class = null

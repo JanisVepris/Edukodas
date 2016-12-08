@@ -88,10 +88,6 @@ class PointHistoryRepository extends EntityRepository
 
         $this->getEntityManager()->getFilters()->enable('softdeleteable');
 
-        if (!$result) {
-            return 0;
-        }
-
         return $result;
     }
 
@@ -115,10 +111,6 @@ class PointHistoryRepository extends EntityRepository
             ->getSingleScalarResult();
 
         $this->getEntityManager()->getFilters()->enable('softdeleteable');
-
-        if (!$result) {
-            return 0;
-        }
 
         return $result;
     }
@@ -167,10 +159,6 @@ class PointHistoryRepository extends EntityRepository
             ->getSingleScalarResult();
 
         $this->getEntityManager()->getFilters()->enable('softdeleteable');
-
-        if (!$result) {
-            return 0;
-        }
 
         return $result;
     }

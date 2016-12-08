@@ -10,3 +10,4 @@ security:
 profile:
   edit:
     update_success: Profilis atnaujintas
+    remove: Šalinti

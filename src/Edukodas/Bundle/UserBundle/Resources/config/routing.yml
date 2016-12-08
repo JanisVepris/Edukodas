@@ -5,3 +5,4 @@ edukodas_user_list:
 edukodas_remove_picture:
   path:     /picture/remove
   defaults: { _controller: EdukodasUserBundle:Profile:removePicture }
+  methods: [DELETE]

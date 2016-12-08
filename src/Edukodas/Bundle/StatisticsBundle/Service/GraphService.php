@@ -15,22 +15,17 @@ class GraphService
     const FILTER_TIMESPAN_ALL = 5;
 
     /**
-     * @var StatisticsService
-     */
-    private $statisticsService;
-
-    /**
      * @var PointHistoryRepository
      */
     private $pointHistoryRepository;
 
     /**
      * GraphService constructor.
-     * @param StatisticsService $statisticsService
+     *
+     * @param PointHistoryRepository $pointHistoryRepository
      */
-    public function __construct(StatisticsService $statisticsService, PointHistoryRepository $pointHistoryRepository)
+    public function __construct(PointHistoryRepository $pointHistoryRepository)
     {
-        $this->statisticsService = $statisticsService;
         $this->pointHistoryRepository = $pointHistoryRepository;
     }
 

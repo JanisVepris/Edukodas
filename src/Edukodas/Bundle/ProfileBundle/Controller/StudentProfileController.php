@@ -4,6 +4,7 @@ namespace Edukodas\Bundle\ProfileBundle\Controller;
 
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use Edukodas\Bundle\StatisticsBundle\Form\PointHistoryType;
+use Edukodas\Bundle\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -15,7 +16,7 @@ class StudentProfileController extends Controller
         if ($id === null) {
             $user = $this->getUser();
         } else {
-            $user = $this->getDoctrine()->getRepository('EdukodasUserBundle:User')->find($id);
+            $user = $this->getDoctrine()->getRepository(User::class)->find($id);
         }
 
         if (!$user) {

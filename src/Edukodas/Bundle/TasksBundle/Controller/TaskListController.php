@@ -2,6 +2,7 @@
 
 namespace Edukodas\Bundle\TasksBundle\Controller;
 
+use Edukodas\Bundle\TasksBundle\Entity\Course;
 use Edukodas\Bundle\TasksBundle\Form\TaskListFilterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,7 +15,7 @@ class TaskListController extends Controller
 {
     public function showListAction()
     {
-        $course = $this->getDoctrine()->getRepository('EdukodasTasksBundle:Course')->getFirstCourse();
+        $course = $this->getDoctrine()->getRepository(Course::class)->getFirstCourse();
 
         $courseForm = $this->createForm(TaskListFilterType::class);
 
@@ -34,7 +35,7 @@ class TaskListController extends Controller
     {
         $course = $this
             ->getDoctrine()
-            ->getRepository('EdukodasTasksBundle:Course')
+            ->getRepository(Course::class)
             ->find($id);
 
         if (!$course) {

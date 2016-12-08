@@ -1,19 +1,24 @@
 edukodas_point_history_list:
     path:     /list
     defaults: { _controller: EdukodasStatisticsBundle:PointHistory:list }
+    methods:  [GET]
 
 edukodas_points_add:
     path:     /add
     defaults: { _controller: EdukodasStatisticsBundle:PointHistory:add}
+    methods:  [GET, POST]
 
 edukodas_points_edit:
     path:     /edit/{pointHistoryId}
     defaults: { _controller: EdukodasStatisticsBundle:PointHistory:edit }
+    methods:  [GET, POST]
 
 edukodas_points_delete:
     path:     /delete/{pointHistoryId}
     defaults: { _controller: EdukodasStatisticsBundle:PointHistory:delete }
+    methods:  [DELETE]
 
 edukodas_graph:
     path:     /graph
     defaults: { _controller: EdukodasStatisticsBundle:Graph:index }
+    methods:  [GET]

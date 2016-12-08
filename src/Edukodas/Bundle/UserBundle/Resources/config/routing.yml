@@ -1,7 +1,9 @@
 edukodas_user_list:
   path:     /user/list
   defaults: { _controller: EdukodasUserBundle:UserList:list }
+  methods:  [GET]
 
 edukodas_remove_picture:
   path:     /picture/remove
   defaults: { _controller: EdukodasUserBundle:Profile:removePicture }
+  methods:  [GET]

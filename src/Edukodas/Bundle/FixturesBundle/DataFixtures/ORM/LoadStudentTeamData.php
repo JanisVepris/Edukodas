@@ -8,31 +8,14 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Edukodas\Bundle\UserBundle\Entity\StudentTeam;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class LoadStudentTeamData extends AbstractFixture implements
     FixtureInterface,
-    ContainerAwareInterface,
     OrderedFixtureInterface
 {
     /**
-     * @var ContainerInterface
+     * @return array
      */
-    private $container;
-
-    /**
-     * Set container
-     *
-     * @param ContainerInterface|null $container
-     *
-     * @return void
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
-    }
-
     private function getStudentTeamData()
     {
         return [

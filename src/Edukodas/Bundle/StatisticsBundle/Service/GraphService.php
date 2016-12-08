@@ -147,6 +147,36 @@ class GraphService
     }
 
     /**
+     * @param int|null $timespan
+     *
+     * @return array
+     */
+    public function getTopUsersBarChartGraph(
+        int $quantity = 15,
+        int $timespan = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
+        $timespan = $this->getTimeSpanObj($timespan);
+
+        $topUsers = $this->pointHistoryRepository->getTopUsers($quantity, $timespan, $team, $class);
+
+        $graphData = [];
+
+        foreach ($topUsers as $user) {
+            $graphData['labels'][] = $user['fullName'];
+            $graphData['datasets'][0]['data'][] = (int) $user['amount'];
+            $graphData['datasets'][0]['backgroundColor'][] = $user['color'];
+        }
+
+        if (count($graphData['datasets']) < 1) {
+            return null;
+        }
+
+        return json_encode($graphData);
+    }
+
+    /**
      * @param array $data
      *
      * @return array

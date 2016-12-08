@@ -21,6 +21,7 @@ class GraphController extends Controller
 
         $teamPieAndBarGraph = $graphService->getTeamPieAndBarChartGraph($timespan, $team, $class);
         $teamLineGraph = $graphService->getTeamLineChartGraph($timespan, $team, $class);
+        $topUsersGraph = $graphService->getTopUsersBarChartGraph(15, $timespan, $team, $class);
 
         //$teamLineSumGraph = $graphService->getLineChartGraphWithSums($timespan, $team, $class);
 
@@ -28,6 +29,7 @@ class GraphController extends Controller
             'filterForm' => $filterForm->createView(),
             'teamPieAndBarGraph' => $teamPieAndBarGraph,
             'teamLineGraph' => $teamLineGraph,
+            'topUsersGraph' => $topUsersGraph,
         ]);
     }
 }

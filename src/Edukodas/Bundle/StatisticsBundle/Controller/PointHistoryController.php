@@ -2,9 +2,11 @@
 
 namespace Edukodas\Bundle\StatisticsBundle\Controller;
 
+use DoctrineExtensions\Query\Mysql\Pi;
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use Edukodas\Bundle\StatisticsBundle\Form\PointHistoryType;
 use Edukodas\Bundle\UserBundle\Controller\AbstractTeacherController;
+use Imagine\Image\Point;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -81,7 +83,7 @@ class PointHistoryController extends AbstractTeacherController
     {
         $pointHistory = $this
             ->getDoctrine()
-            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->getRepository(PointHistory::class)
             ->find($pointHistoryId);
 
         if (!$pointHistory) {
@@ -145,7 +147,7 @@ class PointHistoryController extends AbstractTeacherController
     {
         $pointHistory = $this
             ->getDoctrine()
-            ->getRepository('EdukodasStatisticsBundle:PointHistory')
+            ->getRepository(PointHistory::class)
             ->find($pointHistoryId);
 
         if (!$pointHistory) {

@@ -58,7 +58,7 @@ class TasksController extends AbstractTeacherController
     public function editFormAction(Request $request, int $taskId)
     {
         /** @var Task $task */
-        $task = $this->getDoctrine()->getRepository('EdukodasTasksBundle:Task')->find($taskId);
+        $task = $this->getDoctrine()->getRepository(Task::class)->find($taskId);
 
         if (!$task) {
             throw new NotFoundHttpException('Task not found');
@@ -103,7 +103,7 @@ class TasksController extends AbstractTeacherController
     {
         $user = $this->getUser();
 
-        $task = $this->getDoctrine()->getRepository('EdukodasTasksBundle:Task')->find($taskId);
+        $task = $this->getDoctrine()->getRepository(Task::class)->find($taskId);
 
         if (!$task) {
             throw new NotFoundHttpException('Task not found');

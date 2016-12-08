@@ -639,4 +639,131 @@ class PointHistoryRepository extends EntityRepository
 
         return $pagination;
     }
+
+    /**
+     * @param int $amount
+     *
+     * @return int
+     */
+    public function getStudentRanking(int $amount): int
+    {
+        $allStudentPointAmounts = $this->getStudentPointTotals();
+
+        $higherRankingStudents = $this->countHigherRankingEntries($allStudentPointAmounts, $amount);
+
+        return $higherRankingStudents + 1;
+    }
+
+    /**
+     * @param StudentTeam $team
+     * @param int $amount
+     *
+     * @return int
+     */
+    public function getStudentRankingByTeam(StudentTeam $team, int $amount): int
+    {
+        $allStudentPointAmountInTeam = $this
+            ->getStudentPointTotalsByTeam($team);
+
+        $higherRankingStudents = $this->countHigherRankingEntries($allStudentPointAmountInTeam, $amount);
+
+        return $higherRankingStudents + 1;
+    }
+
+    /**
+     * @param StudentGeneration $studentGeneration
+     * @param int $amount
+     *
+     * @return int
+     */
+    public function getStudentRankingByGeneration(StudentGeneration $studentGeneration, int $amount): int
+    {
+        $allStudentPointAmountInTeam = $this
+            ->getStudentPointTotalsByGeneration($studentGeneration);
+
+        $higherRankingStudents = $this->countHigherRankingEntries($allStudentPointAmountInTeam, $amount);
+
+        return $higherRankingStudents + 1;
+    }
+
+    /**
+     * @param StudentClass $studentClass
+     * @param int $amount
+     *
+     * @return int
+     */
+    public function getStudentRankingByClass(StudentClass $studentClass, int $amount): int
+    {
+        $allStudentPointAmountInTeam = $this
+            ->getStudentPointTotalsByClass($studentClass);
+
+        $higherRankingStudents = $this->countHigherRankingEntries($allStudentPointAmountInTeam, $amount);
+
+        return $higherRankingStudents + 1;
+    }
+
+    /**
+     * @param ArrayCollection $entries
+     * @param int $amount
+     *
+     * @return int
+     */
+    private function countHigherRankingEntries(ArrayCollection $entries, int $amount)
+    {
+        $higherRankingEntries = $entries->filter(function ($entry) use ($amount) {
+            return $entry['amount'] > $amount;
+        });
+
+        return count($higherRankingEntries);
+    }
+
+    /**
+     * @param StudentTeam|null $team
+     * @param StudentClass|null $class
+     *
+     * @return array
+     */
+    public function getMinMaxAmounts(StudentTeam $team = null, StudentClass $class = null)
+    {
+        return [
+            'min' => $this->findMinPointAmountByClassAndTeam($team, $class),
+            'max' => $this->findMaxPointAmountByClassAndTeam($team, $class),
+        ];
+    }
+
+    /**
+     * @param StudentTeam|null $team
+     * @param StudentClass|null $class
+     *
+     * @return array
+     */
+    public function getTeamStats(StudentTeam $team = null, StudentClass $class = null)
+    {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select(
+                't.id',
+                't.title',
+                't.color',
+                'SUM(ph.amount) amount'
+            )
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->groupBy('t.id')
+            ->orderBy('amount', 'desc');
+
+        if ($team) {
+            $qb
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
+
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

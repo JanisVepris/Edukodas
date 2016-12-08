@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('select').material_select();
+    $('[name=graph] select').material_select();
 
     $('[name=graph] select').on('change', function () {
         $('[name=graph]').submit();

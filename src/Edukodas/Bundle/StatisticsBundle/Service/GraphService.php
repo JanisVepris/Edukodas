@@ -161,7 +161,15 @@ class GraphService
 
         $topUsers = $this->pointHistoryRepository->getTopUsers($quantity, $timespan, $team, $class);
 
-        $graphData = [];
+        $graphData = [
+            'labels' => [],
+            'datasets' => [
+                [
+                    'data' => [],
+                    'backgroundColor' => [],
+                ]
+            ],
+        ];
 
         foreach ($topUsers as $user) {
             $graphData['labels'][] = $user['fullName'];
@@ -169,7 +177,7 @@ class GraphService
             $graphData['datasets'][0]['backgroundColor'][] = $user['color'];
         }
 
-        if (count($graphData['datasets']) < 1) {
+        if (count($graphData['datasets'][0]['data']) < 1) {
             return null;
         }
 

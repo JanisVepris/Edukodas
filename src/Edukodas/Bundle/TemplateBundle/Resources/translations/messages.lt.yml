@@ -77,3 +77,4 @@ graph:
     all: Visas laikotarpis
   class: Klasė
   team: Komanda
+  no_charts: Neužtenka duomenų grafikams sukurti

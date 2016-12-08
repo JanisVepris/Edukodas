@@ -289,6 +289,9 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
       >* {
         flex-grow: 0;
       }
+      > a {
+        margin-top: 0;
+      }
       flex-direction: row;
     }
 

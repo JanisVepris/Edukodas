@@ -34,7 +34,7 @@ class StudentProfileController extends Controller
             ->get('edukodas.pointhistory.repository')
             ->getTotalPointsByStudent($user);
 
-        $statisticsService = $this->get('edukodas.statistics');
+        $statisticsService = $this->get('edukodas.pointhistory.repository');
 
         $points = new PointHistory();
         $pointsForm = $this->createForm(PointHistoryType::class, $points, ['user' => $this->getUser()]);

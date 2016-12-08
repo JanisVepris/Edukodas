@@ -56,6 +56,9 @@ doctrine:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
                 enabled: true
+        dql:
+          string_functions:
+              DATE_FORMAT: DoctrineExtensions\Query\Mysql\DateFormat
                 
 # Swiftmailer Configuration
 swiftmailer:

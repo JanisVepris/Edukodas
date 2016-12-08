@@ -12,3 +12,9 @@ services:
     class: Edukodas\Bundle\StatisticsBundle\Service\StatisticsService
     arguments:
       - '@edukodas.pointhistory.repository'
+
+  edukodas.graph:
+    class: Edukodas\Bundle\StatisticsBundle\Service\GraphService
+    arguments:
+      - '@edukodas.statistics'
+      - '@edukodas.pointhistory.repository'

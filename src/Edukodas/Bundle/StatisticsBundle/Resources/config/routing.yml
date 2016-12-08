@@ -13,3 +13,7 @@ edukodas_points_edit:
 edukodas_points_delete:
     path:     /delete/{pointHistoryId}
     defaults: { _controller: EdukodasStatisticsBundle:PointHistory:delete }
+
+edukodas_graph:
+    path:     /graph
+    defaults: { _controller: EdukodasStatisticsBundle:Graph:index }

@@ -87,14 +87,21 @@ a {
   margin-top: 0;
 }
 
-#add-points-form {
+
+
+.modal-content {
   .materialize-textarea {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
   }
 
   .character-counter {
-    margin-bottom: 10px;
+    margin-bottom: 25px;
   }
+
+  .row {
+    margin-bottom: 0;
+  }
+
 }
 
 .fill {

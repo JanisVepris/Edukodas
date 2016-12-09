@@ -109,6 +109,7 @@ $(document).ready(function() {
         }
 
         $('select#edukodas_bundle_statisticsbundle_pointhistory_task').material_select();
+        $('#edukodas_bundle_statisticsbundle_pointhistory_comment').characterCounter();
 
         studentSelectize();
 

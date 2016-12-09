@@ -5,10 +5,13 @@ namespace Edukodas\Bundle\TasksBundle\Controller;
 use Edukodas\Bundle\TasksBundle\Entity\Course;
 use Edukodas\Bundle\TasksBundle\Form\TaskListFilterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 class TaskListController extends Controller
 {
+    /**
+     * @return Response
+     */
     public function showListAction()
     {
         $course = $this->getDoctrine()->getRepository(Course::class)->getFirstCourse();
@@ -23,17 +26,12 @@ class TaskListController extends Controller
         ]);
     }
 
-    public function getListAction($id)
+    /**
+     * @param Course $course
+     * @return Response
+     */
+    public function getListAction(Course $course)
     {
-        $course = $this
-            ->getDoctrine()
-            ->getRepository(Course::class)
-            ->find($id);
-
-        if (!$course) {
-            throw new NotFoundHttpException('Course not found.');
-        }
-
         return $this->render('@EdukodasTemplate/Task/inc/_taskList.html.twig', [
             'course' => $course
         ]);

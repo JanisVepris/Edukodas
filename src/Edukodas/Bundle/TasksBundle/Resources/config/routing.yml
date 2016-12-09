@@ -9,12 +9,12 @@ edukodas_tasks_add:
     methods:  [GET, POST]
 
 edukodas_tasks_edit:
-    path:     /edit/{taskId}
+    path:     /edit/{id}
     defaults: { _controller: EdukodasTasksBundle:Tasks:editForm }
     methods:  [GET, POST]
 
 edukodas_tasks_delete:
-    path:     /delete/{taskId}
+    path:     /delete/{id}
     defaults: { _controller: EdukodasTasksBundle:Tasks:delete }
     methods:  [DELETE]
 

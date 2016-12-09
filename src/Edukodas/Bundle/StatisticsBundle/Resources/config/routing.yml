@@ -9,12 +9,12 @@ edukodas_points_add:
     methods:  [GET, POST]
 
 edukodas_points_edit:
-    path:     /edit/{pointHistoryId}
+    path:     /edit/{id}
     defaults: { _controller: EdukodasStatisticsBundle:PointHistory:edit }
     methods:  [GET, POST]
 
 edukodas_points_delete:
-    path:     /delete/{pointHistoryId}
+    path:     /delete/{id}
     defaults: { _controller: EdukodasStatisticsBundle:PointHistory:delete }
     methods:  [DELETE]
 

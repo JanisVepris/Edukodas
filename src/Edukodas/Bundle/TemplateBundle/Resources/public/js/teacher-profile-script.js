@@ -36,6 +36,7 @@ $(document).ready(function() {
         $('#add-points-task-description').html(taskDescription);
         $('#edukodas_bundle_statisticsbundle_pointhistory_task').val(taskId);
         $('#edukodas_bundle_statisticsbundle_pointhistory_amount').val(amount);
+        $('#edukodas_bundle_statisticsbundle_pointhistory_comment').characterCounter();
 
         toggleAddPointsForm();
     });

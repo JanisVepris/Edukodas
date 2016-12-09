@@ -30,10 +30,6 @@ a {
   border-color: #808080 transparent transparent transparent;
 }
 
-.selectize-input.full {
-  background: transparent;
-}
-
 // Profile information
 
 .card .card-content {
@@ -87,8 +83,22 @@ a {
   height: 40px;
 }
 
-textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
-  resize: vertical;
+#add-points-form-container h5 {
+  margin-top: 0;
+}
+
+#add-points-form {
+  .materialize-textarea {
+    margin-bottom: 10px;
+  }
+
+  .character-counter {
+    margin-bottom: 10px;
+  }
+}
+
+.fill {
+  width: 100%;
 }
 
 .collection .collection-item.avatar {
@@ -117,10 +127,6 @@ textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
 
 .pointer {
   cursor: pointer;
-}
-
-.lengthen-card {
-  margin: 40px 0;
 }
 
 .spread {
@@ -264,7 +270,6 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
     top: 50%;
     transform: translateY(-50%);
   }
-  min-height: 67px;
 }
 
 // Settings

@@ -9,7 +9,7 @@
                         </h5>
                     </li>
                     {% for task in course.tasks %}
-                        <li data-task-id="{{ task.id }}" data-task-amount="{{ task.points }}" class="hoverable collection-item points-task-select-button" >
+                        <li data-task-id="{{ task.id }}" data-task-amount="{{ task.points }}" class="collection-item points-task-select-button" >
                             {{ task.name }}
                         </li>
                         <li data-task-id="{{ task.id }}" class="hide points-task-description blue">

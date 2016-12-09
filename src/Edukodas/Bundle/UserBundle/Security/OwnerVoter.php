@@ -41,7 +41,7 @@ class OwnerVoter extends Voter
     {
         $user = $token->getUser();
 
-        if (!$user instanceof OwnedEntityInterface) {
+        if (!$user instanceof User) {
             return false;
         }
 

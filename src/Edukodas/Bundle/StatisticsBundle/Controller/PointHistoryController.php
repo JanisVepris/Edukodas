@@ -78,7 +78,7 @@ class PointHistoryController extends Controller
      */
     public function editAction(Request $request, PointHistory $pointHistory)
     {
-        $this->denyAccessUnlessGranted('ROLE_TEACHER', 'edit');
+        $this->denyAccessUnlessGranted('edit', $pointHistory);
 
         $isStudentProfile = $request->request->get('isStudentProfile') ? true : false;
 
@@ -133,7 +133,7 @@ class PointHistoryController extends Controller
      */
     public function deleteAction(PointHistory $pointHistory)
     {
-        $this->denyAccessUnlessGranted('ROLE_TEACHER', 'delete');
+        $this->denyAccessUnlessGranted('delete', $pointHistory);
 
         $em = $this->getDoctrine()->getEntityManager();
         $em->remove($pointHistory);

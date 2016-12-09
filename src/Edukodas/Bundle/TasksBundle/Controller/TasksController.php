@@ -56,7 +56,7 @@ class TasksController extends Controller
      */
     public function editFormAction(Request $request, Task $task)
     {
-        $this->denyAccessUnlessGranted('ROLE_TEACHER', 'edit');
+        $this->denyAccessUnlessGranted('edit', $task);
 
         $user = $this->getUser();
 
@@ -95,7 +95,7 @@ class TasksController extends Controller
     {
         $user = $this->getUser();
 
-        $this->denyAccessUnlessGranted('ROLE_TEACHER', 'delete');
+        $this->denyAccessUnlessGranted('delete', $task);
 
         $em = $this->getDoctrine()->getEntityManager();
         $em->remove($task);

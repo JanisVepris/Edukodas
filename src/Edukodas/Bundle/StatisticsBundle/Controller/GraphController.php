@@ -24,11 +24,15 @@ class GraphController extends Controller
         $teamPieAndBarGraph = $graphService->getTeamPieAndBarChartGraph($timespan, $team, $class);
         $teamLineGraph = $graphService->getTeamLineChartGraph($timespan, $team, $class);
         $topUsersGraph = $graphService->getTopUsersBarChartGraph(static::TOP_USER_LIMIT, $timespan, $team, $class);
+        $teamLineCumulativeGraph = $graphService->getTeamLineCumulativeChartGraph($timespan, $team, $class);
+
+        //dump($a);die;
 
         return $this->render('@EdukodasTemplate/Graph/graph.html.twig', [
             'filterForm' => $filterForm->createView(),
             'teamPieAndBarGraph' => $teamPieAndBarGraph,
             'teamLineGraph' => $teamLineGraph,
+            'teamLineCumulativeGraph' => $teamLineCumulativeGraph,
             'topUsersGraph' => $topUsersGraph,
         ]);
     }

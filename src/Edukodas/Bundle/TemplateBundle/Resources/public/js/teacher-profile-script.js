@@ -324,12 +324,13 @@ $(document).ready(function() {
 
     function manageTaskForm(url) {
         $('select').material_select();
+        $('#edukodas_bundle_tasksbundle_task_description').characterCounter();
 
         $('#manage-task-form').ajaxForm({
             url: url,
             type: 'POST',
             beforeSubmit: function() {
-                $('#manage-task-form > button').prop('disabled', true).hide();
+                $('#manage-task-form button').prop('disabled', true).hide();
                 $('#submit-preloader').removeClass('hide');
             },
             success: function(data) {

@@ -4,27 +4,21 @@ namespace Edukodas\Bundle\ProfileBundle\Controller;
 
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use Edukodas\Bundle\StatisticsBundle\Form\PointHistoryType;
+use Edukodas\Bundle\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TeacherProfileController extends Controller
 {
     /**
-     * @param $id
+     * @param User|null $user
      * @return Response
      */
-    public function indexAction($id)
+    public function indexAction(User $user = null)
     {
-        if ($id === null) {
+        if ($user === null) {
             $user = $this->getUser();
-        } else {
-            $user = $this->getDoctrine()->getRepository('EdukodasUserBundle:User')->find($id);
-        }
-
-        if (!$user) {
-            throw new NotFoundHttpException('User not found');
         }
 
         if (!in_array('ROLE_TEACHER', $user->getRoles())) {

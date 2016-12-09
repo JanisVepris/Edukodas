@@ -36,6 +36,7 @@ $(document).ready(function() {
         $('#add-points-task-description').html(taskDescription);
         $('#edukodas_bundle_statisticsbundle_pointhistory_task').val(taskId);
         $('#edukodas_bundle_statisticsbundle_pointhistory_amount').val(amount);
+        $('#edukodas_bundle_statisticsbundle_pointhistory_comment').characterCounter();
 
         toggleAddPointsForm();
     });
@@ -153,7 +154,7 @@ $(document).ready(function() {
 
         $.ajax({
             url:   url,
-            type: 'POST',
+            type: 'GET',
             beforeSend: function() {
                 $('#add-points-form-container').html('');
                 $('.task-list-container').addClass('hide');
@@ -182,11 +183,11 @@ $(document).ready(function() {
     // Edit point history button
     function editPointHistoryButton(trigger) {
         var pointHistoryId = trigger.data('points-id');
-        var url = Routing.generate('edukodas_points_edit', {pointHistoryId : pointHistoryId});
+        var url = Routing.generate('edukodas_points_edit', {id : pointHistoryId});
 
         $.ajax({
             url:   url,
-            type: 'POST',
+            type: 'GET',
             beforeSend: function() {
                 $('#edit-points-modal > .modal-content > .form-content').html('');
                 $('#edit-points-form-preloader').removeClass('hide');
@@ -209,11 +210,11 @@ $(document).ready(function() {
     // Delete points button
     function deletePointsButton() {
         var pointHistoryId = $(this).data('points-id');
-        var url = Routing.generate('edukodas_points_delete', {pointHistoryId : pointHistoryId});
+        var url = Routing.generate('edukodas_points_delete', {id : pointHistoryId});
 
         $.ajax({
             url: url,
-            type: 'POST',
+            type: 'DELETE',
             beforeSend: function() {
                 $('.delete-points*[data-points-id="' + pointHistoryId + '"]').prop('disabled',true).hide();
                 $('#delete-points-preload-' + pointHistoryId).removeClass('hide');
@@ -272,11 +273,11 @@ $(document).ready(function() {
     function manageTaskButton(trigger) {
         var taskAction = trigger.data('task-action');
         var taskId = trigger.data('task-id');
-        var url = Routing.generate(taskAction, {taskId : taskId});
+        var url = Routing.generate(taskAction, {id : taskId});
 
         $.ajax({
             url:   url,
-            type: 'POST',
+            type: 'GET',
             beforeSend: function() {
                 $('#manage-task-modal > .modal-content > .form-content').html('');
                 $('#task-form-preloader').removeClass('hide');
@@ -298,11 +299,11 @@ $(document).ready(function() {
 
     function deleteTaskButton() {
         var taskId = $(this).data('task-id');
-        var url = Routing.generate('edukodas_tasks_delete', {taskId : taskId});
+        var url = Routing.generate('edukodas_tasks_delete', {id : taskId});
 
         $.ajax({
             url: url,
-            type: 'POST',
+            type: 'DELETE',
             beforeSend: function() {
                 $('.delete-task*[data-task-id="' + taskId + '"]').prop('disabled',true).hide();
                 $('#delete-task-preload-' + taskId).removeClass('hide');

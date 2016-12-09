@@ -29,11 +29,14 @@
                     <button class="btn waves-effect waves-light" type="submit">
                         {{ 'profile.edit.submit_picture'|trans }}
                     </button>
+                    {{ form_end(form_picture) }}
+
                     {% if app.user.hasPicture %}
-                        <a href="{{ path('edukodas_remove_picture') }}" class="waves-effect waves-light btn red darken-3">{{ 'profile.edit.remove'|trans }}</a>
+                        {{ form_start(form_remove, {'action': path('edukodas_remove_picture'), 'method': 'DELETE'}) }}
+                        {{ form_widget(form_remove) }}
+                        {{ form_end(form_remove) }}
                     {% endif %}
                 </div>
-                {{ form_end(form_picture) }}
             </div>
         </div>
     </div>

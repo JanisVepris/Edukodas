@@ -73,7 +73,7 @@ class LoadPointHistoryData extends AbstractFixture implements
         $students = $this
             ->container
             ->get('doctrine.orm.default_entity_manager')
-            ->getRepository('EdukodasUserBundle:User')
+            ->getRepository(User::class)
             ->findAllStudents();
 
         $tasks = $this->getTasks();

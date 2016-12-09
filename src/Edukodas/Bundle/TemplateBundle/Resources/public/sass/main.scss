@@ -30,10 +30,6 @@ a {
   border-color: #808080 transparent transparent transparent;
 }
 
-.selectize-input.full {
-  background: transparent;
-}
-
 // Profile information
 
 .card .card-content {
@@ -48,6 +44,18 @@ a {
   margin-left: 2rem;
   margin-right: 2rem;
   margin-bottom: 0;
+}
+
+// Teacher action modals
+
+.task-list-container {
+  .collection-item {
+    cursor: pointer;
+  }
+  .collection-item:hover {
+    transition: background-color .25s;
+    background-color: #ddd;
+  }
 }
 
 // Profile point history
@@ -75,8 +83,22 @@ a {
   height: 40px;
 }
 
-textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
-  resize: vertical;
+#add-points-form-container h5 {
+  margin-top: 0;
+}
+
+#add-points-form {
+  .materialize-textarea {
+    margin-bottom: 10px;
+  }
+
+  .character-counter {
+    margin-bottom: 10px;
+  }
+}
+
+.fill {
+  width: 100%;
 }
 
 .collection .collection-item.avatar {
@@ -105,10 +127,6 @@ textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
 
 .pointer {
   cursor: pointer;
-}
-
-.lengthen-card {
-  margin: 40px 0;
 }
 
 .spread {
@@ -189,12 +207,15 @@ textarea#edukodas_bundle_statisticsbundle_pointhistory_comment {
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: rgba(255, 255, 255, .7);
 }
+
 ::-moz-placeholder { /* Firefox 19+ */
   color: rgba(255, 255, 255, .7);
 }
+
 :-ms-input-placeholder { /* IE 10+ */
   color: rgba(255, 255, 255, .7);
 }
+
 :-moz-placeholder { /* Firefox 18- */
   color: rgba(255, 255, 255, .7);
 }
@@ -249,7 +270,6 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
     top: 50%;
     transform: translateY(-50%);
   }
-  min-height: 67px;
 }
 
 // Settings
@@ -292,7 +312,7 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
     }
 
     .card-action {
-      >* {
+      > * {
         flex-grow: 0;
       }
       > a {

@@ -4,6 +4,7 @@ namespace Edukodas\Bundle\UserBundle\Controller;
 
 use Edukodas\Bundle\UserBundle\Entity\User;
 use Edukodas\Bundle\UserBundle\Form\ProfileEditType;
+use Edukodas\Bundle\UserBundle\Form\RemoveProfilePictureType;
 use FOS\UserBundle\Controller\ProfileController as BaseController;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
@@ -153,10 +154,13 @@ class ProfileController extends BaseController
             return $response;
         }
 
+        $form_remove = $this->createForm(RemoveProfilePictureType::class);
+
         return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
             'form_profile' => $form_profile->createView(),
             'form_password' => $form_password->createView(),
             'form_picture' => $form_picture->createView(),
+            'form_remove' => $form_remove->createView(),
         ));
     }
 

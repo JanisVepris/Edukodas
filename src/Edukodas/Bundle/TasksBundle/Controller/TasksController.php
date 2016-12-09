@@ -7,7 +7,6 @@ use Edukodas\Bundle\TasksBundle\Form\TaskType;
 use Edukodas\Bundle\UserBundle\Controller\AbstractTeacherController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TasksController extends AbstractTeacherController
 {
@@ -52,18 +51,11 @@ class TasksController extends AbstractTeacherController
 
     /**
      * @param Request $request
-     * @param int $taskId
+     * @param Task $task
      * @return Response
      */
-    public function editFormAction(Request $request, int $taskId)
+    public function editFormAction(Request $request, Task $task)
     {
-        /** @var Task $task */
-        $task = $this->getDoctrine()->getRepository('EdukodasTasksBundle:Task')->find($taskId);
-
-        if (!$task) {
-            throw new NotFoundHttpException('Task not found');
-        }
-
         $this->checkOwnerOr403($task);
 
         $user = $this->getUser();
@@ -96,18 +88,12 @@ class TasksController extends AbstractTeacherController
     }
 
     /**
-     * @param int $taskId
+     * @param Task $task
      * @return Response
      */
-    public function deleteAction(int $taskId)
+    public function deleteAction(Task $task)
     {
         $user = $this->getUser();
-
-        $task = $this->getDoctrine()->getRepository('EdukodasTasksBundle:Task')->find($taskId);
-
-        if (!$task) {
-            throw new NotFoundHttpException('Task not found');
-        }
 
         $this->checkOwnerOr403($task);
 

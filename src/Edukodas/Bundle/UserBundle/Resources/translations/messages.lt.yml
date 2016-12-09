@@ -1,4 +1,5 @@
-title: Prisijungimas
+login:
+  title: Prisijungimas
 
 security:
   login:
@@ -10,3 +11,4 @@ security:
 profile:
   edit:
     update_success: Profilis atnaujintas
+    remove: Šalinti

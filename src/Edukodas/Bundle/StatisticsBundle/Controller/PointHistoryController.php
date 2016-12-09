@@ -2,14 +2,11 @@
 
 namespace Edukodas\Bundle\StatisticsBundle\Controller;
 
-use DoctrineExtensions\Query\Mysql\Pi;
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use Edukodas\Bundle\StatisticsBundle\Form\PointHistoryType;
 use Edukodas\Bundle\UserBundle\Controller\AbstractTeacherController;
-use Imagine\Image\Point;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PointHistoryController extends AbstractTeacherController
 {
@@ -76,20 +73,11 @@ class PointHistoryController extends AbstractTeacherController
 
     /**
      * @param Request $request
-     * @param int $pointHistoryId
+     * @param PointHistory $pointHistory
      * @return Response
      */
-    public function editAction(Request $request, int $pointHistoryId)
+    public function editAction(Request $request, PointHistory $pointHistory)
     {
-        $pointHistory = $this
-            ->getDoctrine()
-            ->getRepository(PointHistory::class)
-            ->find($pointHistoryId);
-
-        if (!$pointHistory) {
-            throw new NotFoundHttpException('Point history not found');
-        }
-
         $this->checkOwnerOr403($pointHistory);
 
         $isStudentProfile = $request->request->get('isStudentProfile') ? true : false;
@@ -140,20 +128,11 @@ class PointHistoryController extends AbstractTeacherController
     }
 
     /**
-     * @param int $pointHistoryId
+     * @param PointHistory $pointHistory
      * @return Response
      */
-    public function deleteAction(int $pointHistoryId)
+    public function deleteAction(PointHistory $pointHistory)
     {
-        $pointHistory = $this
-            ->getDoctrine()
-            ->getRepository(PointHistory::class)
-            ->find($pointHistoryId);
-
-        if (!$pointHistory) {
-            throw new NotFoundHttpException('Point history not found');
-        }
-
         $this->checkOwnerOr403($pointHistory);
 
         $em = $this->getDoctrine()->getEntityManager();

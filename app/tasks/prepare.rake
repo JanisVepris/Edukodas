@@ -12,7 +12,7 @@ namespace :symfony do
     task :load_fixtures do
         on roles :web do
             within release_path do
-                execute :php, 'bin/console', 'doctrine:fixtures:load --n'
+                execute :php, 'bin/console', 'doctrine:fixtures:load -n'
             end
         end
     end

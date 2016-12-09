@@ -183,7 +183,7 @@ $(document).ready(function() {
     // Edit point history button
     function editPointHistoryButton(trigger) {
         var pointHistoryId = trigger.data('points-id');
-        var url = Routing.generate('edukodas_points_edit', {pointHistoryId : pointHistoryId});
+        var url = Routing.generate('edukodas_points_edit', {id : pointHistoryId});
 
         $.ajax({
             url:   url,
@@ -210,7 +210,7 @@ $(document).ready(function() {
     // Delete points button
     function deletePointsButton() {
         var pointHistoryId = $(this).data('points-id');
-        var url = Routing.generate('edukodas_points_delete', {pointHistoryId : pointHistoryId});
+        var url = Routing.generate('edukodas_points_delete', {id : pointHistoryId});
 
         $.ajax({
             url: url,
@@ -273,7 +273,7 @@ $(document).ready(function() {
     function manageTaskButton(trigger) {
         var taskAction = trigger.data('task-action');
         var taskId = trigger.data('task-id');
-        var url = Routing.generate(taskAction, {taskId : taskId});
+        var url = Routing.generate(taskAction, {id : taskId});
 
         $.ajax({
             url:   url,
@@ -299,7 +299,7 @@ $(document).ready(function() {
 
     function deleteTaskButton() {
         var taskId = $(this).data('task-id');
-        var url = Routing.generate('edukodas_tasks_delete', {taskId : taskId});
+        var url = Routing.generate('edukodas_tasks_delete', {id : taskId});
 
         $.ajax({
             url: url,

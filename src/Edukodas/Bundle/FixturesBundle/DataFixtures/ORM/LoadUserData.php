@@ -6,8 +6,6 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Edukodas\Bundle\UserBundle\Entity\User;
 use Edukodas\Bundle\UserBundle\Entity\StudentClass;
 use Edukodas\Bundle\UserBundle\Entity\StudentGeneration;
@@ -15,15 +13,9 @@ use Edukodas\Bundle\UserBundle\Entity\StudentTeam;
 
 class LoadUserData extends AbstractFixture implements
     FixtureInterface,
-    ContainerAwareInterface,
     OrderedFixtureInterface
 {
     const BATCH_SIZE = 20;
-
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
 
     /**
      * @var StudentTeam[]
@@ -44,18 +36,6 @@ class LoadUserData extends AbstractFixture implements
      * @var \Faker\Generator
      */
     private $faker;
-
-    /**
-     * Set container
-     *
-     * @param ContainerInterface|null $container
-     *
-     * @return void
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
-    }
 
     /**
      * @return StudentTeam[]

@@ -8,7 +8,7 @@ services:
       - [setPageSize, ['%user_list_page_size%']]
       - [setPaginator, ['@knp_paginator']]
 
-  edukodas.statistics:
-    class: Edukodas\Bundle\StatisticsBundle\Service\StatisticsService
+  edukodas.graph:
+    class: Edukodas\Bundle\StatisticsBundle\Service\GraphService
     arguments:
       - '@edukodas.pointhistory.repository'

@@ -2,6 +2,7 @@
 
 namespace Edukodas\Bundle\TasksBundle\Form;
 
+use Edukodas\Bundle\TasksBundle\Entity\Course;
 use Edukodas\Bundle\TasksBundle\Repository\CourseRepository;
 use Leafo\ScssPhp\Node\Number;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,7 +21,7 @@ class TaskType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('course', EntityType::class, [
-                'class' => 'EdukodasTasksBundle:Course',
+                'class' => Course::class,
                 'query_builder' => function (CourseRepository $cr) use ($options) {
                     return $cr->createQueryBuilder('c')
                         ->where('c.user = :user')

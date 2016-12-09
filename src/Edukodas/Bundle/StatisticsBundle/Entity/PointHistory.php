@@ -80,7 +80,9 @@ class PointHistory implements OwnedEntityInterface
      */
     public function onPrePersist()
     {
-        $this->createdAt = new \DateTime('now');
+        if (!$this->createdAt) {
+            $this->createdAt = new \DateTime('now');
+        }
     }
 
     /**
@@ -209,6 +211,17 @@ class PointHistory implements OwnedEntityInterface
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     * @return PointHistory
+     */
+    public function setCreatedAt(\DateTime $createdAt): PointHistory
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     /**

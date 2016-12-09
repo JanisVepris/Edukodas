@@ -35,17 +35,6 @@ class LoadPointHistoryData extends AbstractFixture implements
     }
 
     /**
-     * @return User[]
-     */
-    private function getTeachers()
-    {
-        return [
-            $this->getReference('mokytojasa'),
-            $this->getReference('mokytojasb'),
-        ];
-    }
-
-    /**
      * @return Task[]
      */
     private function getTasks()
@@ -84,7 +73,7 @@ class LoadPointHistoryData extends AbstractFixture implements
         $students = $this
             ->container
             ->get('doctrine.orm.default_entity_manager')
-            ->getRepository('EdukodasUserBundle:User')
+            ->getRepository(User::class)
             ->findAllStudents();
 
         $tasks = $this->getTasks();
@@ -99,7 +88,8 @@ class LoadPointHistoryData extends AbstractFixture implements
                     ->setStudent($student)
                     ->setTask($randomTask)
                     ->setComment($faker->sentence)
-                    ->setAmount($faker->numberBetween(-20, 40));
+                    ->setAmount($faker->numberBetween(-20, 40))
+                    ->setCreatedAt($faker->dateTimeBetween('-2 years', 'now'));
                 $manager->persist($pointHistory);
             }
 

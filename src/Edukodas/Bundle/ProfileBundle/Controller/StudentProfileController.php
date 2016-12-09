@@ -4,26 +4,25 @@ namespace Edukodas\Bundle\ProfileBundle\Controller;
 
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use Edukodas\Bundle\StatisticsBundle\Form\PointHistoryType;
+use Edukodas\Bundle\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class StudentProfileController extends Controller
 {
-    public function indexAction($id)
+    /**
+     * @param User|null $user
+     * @return Response
+     */
+    public function indexAction(User $user = null)
     {
-        if ($id === null) {
+        if ($user === null) {
             $user = $this->getUser();
-        } else {
-            $user = $this->getDoctrine()->getRepository('EdukodasUserBundle:User')->find($id);
-        }
-
-        if (!$user) {
-            throw new NotFoundHttpException('User not found');
         }
 
         if (!in_array('ROLE_STUDENT', $user->getRoles())) {
-            throw new HttpException(400, 'User is not student');
+            throw new HttpException(403, 'User is not student');
         }
 
         $pointHistory = $this
@@ -34,7 +33,7 @@ class StudentProfileController extends Controller
             ->get('edukodas.pointhistory.repository')
             ->getTotalPointsByStudent($user);
 
-        $statisticsService = $this->get('edukodas.statistics');
+        $statisticsService = $this->get('edukodas.pointhistory.repository');
 
         $points = new PointHistory();
         $pointsForm = $this->createForm(PointHistoryType::class, $points, ['user' => $this->getUser()]);

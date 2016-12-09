@@ -1,0 +1,30 @@
+{% for team in teamList %}
+    <li class="collection-item valign-wrapper">
+        <div class="col s2 valign username">
+            {{ team.title }}
+        </div>
+
+        <div class="col s12 valign">
+            {% set maxAmount = teamList|first.amount %}
+            {% set minAmount = teamList|last.amount %}
+
+            {% set minMaxAmount = minAmount|abs + maxAmount|abs %}
+            {% set teamAmount = team.amount + minAmount|abs %}
+
+            {% if minMaxAmount == 0 %}
+                {% set percent = 100 %}
+            {% else %}
+                {% set percent = teamAmount / minMaxAmount * 100 %}
+            {% endif %}
+
+            <div style="width: {{ percent }}%; height: 10px;"
+                 class="{{ team.color }} lighten-1"></div>
+        </div>
+
+        <div class="s1 valign {{ team.amount <= 0 ? 'red-text text-lighten-1' : 'grey-text'}}">
+            {{ team.amount }}
+        </div>
+    </li>
+{% else %}
+    {{ 'user_list.no_users'|trans }}
+{% endfor %}

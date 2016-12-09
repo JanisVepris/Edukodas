@@ -52,11 +52,11 @@
 
     {% block javascripts %}
         {% javascripts
-        'bundles/edukodastemplate/js/jquery-2.2.4.min.js'
+        'bundles/edukodastemplate/js/lib/jquery-2.2.4.min.js'
         'bundles/edukodastemplate/js/bin/materialize.js'
         'bundles/edukodastemplate/js/search-script.js'
-        'bundles/edukodastemplate/js/jquery.form.js'
-        'bundles/edukodastemplate/js/selectize.js'
+        'bundles/edukodastemplate/js/lib/jquery.form.js'
+        'bundles/edukodastemplate/js/lib/selectize.js'
         'bundles/edukodastemplate/js/selectize_no_results.js'
         'bundles/fosjsrouting/js/router.js'
         'js/fos_js_routes.js'
@@ -64,6 +64,8 @@
         'bundles/edukodastemplate/js/teacher-profile-script.js'
         'bundles/edukodastemplate/js/user-list.js'
         'bundles/edukodastemplate/js/task-list.js'
+        'bundles/edukodastemplate/js/chart/Chart.min.js'
+        'bundles/edukodastemplate/js/graph.js'
         output='js/compiled/app.js' %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}

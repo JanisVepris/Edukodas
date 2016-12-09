@@ -88,10 +88,6 @@ class PointHistoryRepository extends EntityRepository
 
         $this->getEntityManager()->getFilters()->enable('softdeleteable');
 
-        if (!$result) {
-            return 0;
-        }
-
         return $result;
     }
 
@@ -115,10 +111,6 @@ class PointHistoryRepository extends EntityRepository
             ->getSingleScalarResult();
 
         $this->getEntityManager()->getFilters()->enable('softdeleteable');
-
-        if (!$result) {
-            return 0;
-        }
 
         return $result;
     }
@@ -167,10 +159,6 @@ class PointHistoryRepository extends EntityRepository
             ->getSingleScalarResult();
 
         $this->getEntityManager()->getFilters()->enable('softdeleteable');
-
-        if (!$result) {
-            return 0;
-        }
 
         return $result;
     }
@@ -488,6 +476,146 @@ class PointHistoryRepository extends EntityRepository
     }
 
     /**
+     * @param \DateTime|null $fromDate
+     * @param StudentTeam $team
+     * @param StudentClass $class
+     *
+     * @return array
+     */
+    public function getTeamPointTotalSinceDate(
+        \DateTime $fromDate = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select('t.id', 't.title', 't.color', 'SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->groupBy('t.id')
+            ->orderBy('amount', 'desc');
+
+        if ($fromDate) {
+            $qb
+                ->where('ph.createdAt >= :dateTime')
+                ->setParameter('dateTime', $fromDate);
+        }
+
+        if ($team) {
+            $qb
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
+
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param string         $dateFormat
+     * @param \DateTime|null $fromDate
+     * @param StudentTeam    $team
+     * @param StudentClass   $class
+     *
+     * @return array
+     */
+    public function getTeamPointTotalGroupedByTimespan(
+        string $dateFormat,
+        \DateTime $fromDate = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select(
+                't.id',
+                't.title',
+                't.color',
+                'SUM(ph.amount) amount,
+                DATE_FORMAT(ph.createdAt, \''. $dateFormat .'\') date'
+            )
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->addGroupBy('date')
+            ->addGroupBy('t.id')
+            ->orderBy('ph.createdAt', 'asc');
+
+        if ($fromDate) {
+            $qb
+                ->where('ph.createdAt >= :dateTime')
+                ->setParameter('dateTime', $fromDate);
+        }
+
+        if ($team) {
+            $qb
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
+
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param int $quantity
+     * @param \DateTime|null $fromDate
+     * @param StudentTeam|null $team
+     * @param StudentClass|null $class
+     *
+     * @return array
+     */
+    public function getTopUsers(
+        int $quantity,
+        \DateTime $fromDate = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select(
+                's.id',
+                's.fullName',
+                't.color',
+                'SUM(ph.amount) amount'
+            )
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->groupBy('s.id')
+            ->orderBy('amount', 'desc')
+            ->setMaxResults($quantity);
+
+        if ($fromDate) {
+            $qb
+                ->where('ph.createdAt >= :dateTime')
+                ->setParameter('dateTime', $fromDate);
+        }
+
+        if ($team) {
+            $qb
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
+
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
      * @param Query $query
      * @param int $page
      *
@@ -510,5 +638,132 @@ class PointHistoryRepository extends EntityRepository
         $this->getEntityManager()->getFilters()->enable('softdeleteable');
 
         return $pagination;
+    }
+
+    /**
+     * @param int $amount
+     *
+     * @return int
+     */
+    public function getStudentRanking(int $amount): int
+    {
+        $allStudentPointAmounts = $this->getStudentPointTotals();
+
+        $higherRankingStudents = $this->countHigherRankingEntries($allStudentPointAmounts, $amount);
+
+        return $higherRankingStudents + 1;
+    }
+
+    /**
+     * @param StudentTeam $team
+     * @param int $amount
+     *
+     * @return int
+     */
+    public function getStudentRankingByTeam(StudentTeam $team, int $amount): int
+    {
+        $allStudentPointAmountInTeam = $this
+            ->getStudentPointTotalsByTeam($team);
+
+        $higherRankingStudents = $this->countHigherRankingEntries($allStudentPointAmountInTeam, $amount);
+
+        return $higherRankingStudents + 1;
+    }
+
+    /**
+     * @param StudentGeneration $studentGeneration
+     * @param int $amount
+     *
+     * @return int
+     */
+    public function getStudentRankingByGeneration(StudentGeneration $studentGeneration, int $amount): int
+    {
+        $allStudentPointAmountInTeam = $this
+            ->getStudentPointTotalsByGeneration($studentGeneration);
+
+        $higherRankingStudents = $this->countHigherRankingEntries($allStudentPointAmountInTeam, $amount);
+
+        return $higherRankingStudents + 1;
+    }
+
+    /**
+     * @param StudentClass $studentClass
+     * @param int $amount
+     *
+     * @return int
+     */
+    public function getStudentRankingByClass(StudentClass $studentClass, int $amount): int
+    {
+        $allStudentPointAmountInTeam = $this
+            ->getStudentPointTotalsByClass($studentClass);
+
+        $higherRankingStudents = $this->countHigherRankingEntries($allStudentPointAmountInTeam, $amount);
+
+        return $higherRankingStudents + 1;
+    }
+
+    /**
+     * @param ArrayCollection $entries
+     * @param int $amount
+     *
+     * @return int
+     */
+    private function countHigherRankingEntries(ArrayCollection $entries, int $amount)
+    {
+        $higherRankingEntries = $entries->filter(function ($entry) use ($amount) {
+            return $entry['amount'] > $amount;
+        });
+
+        return count($higherRankingEntries);
+    }
+
+    /**
+     * @param StudentTeam|null $team
+     * @param StudentClass|null $class
+     *
+     * @return array
+     */
+    public function getMinMaxAmounts(StudentTeam $team = null, StudentClass $class = null)
+    {
+        return [
+            'min' => $this->findMinPointAmountByClassAndTeam($team, $class),
+            'max' => $this->findMaxPointAmountByClassAndTeam($team, $class),
+        ];
+    }
+
+    /**
+     * @param StudentTeam|null $team
+     * @param StudentClass|null $class
+     *
+     * @return array
+     */
+    public function getTeamStats(StudentTeam $team = null, StudentClass $class = null)
+    {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select(
+                't.id',
+                't.title',
+                't.color',
+                'SUM(ph.amount) amount'
+            )
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->groupBy('t.id')
+            ->orderBy('amount', 'desc');
+
+        if ($team) {
+            $qb
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
+
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }

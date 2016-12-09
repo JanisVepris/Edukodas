@@ -153,7 +153,7 @@ $(document).ready(function() {
 
         $.ajax({
             url:   url,
-            type: 'POST',
+            type: 'GET',
             beforeSend: function() {
                 $('#add-points-form-container').html('');
                 $('.task-list-container').addClass('hide');
@@ -186,7 +186,7 @@ $(document).ready(function() {
 
         $.ajax({
             url:   url,
-            type: 'POST',
+            type: 'GET',
             beforeSend: function() {
                 $('#edit-points-modal > .modal-content > .form-content').html('');
                 $('#edit-points-form-preloader').removeClass('hide');
@@ -213,7 +213,7 @@ $(document).ready(function() {
 
         $.ajax({
             url: url,
-            type: 'POST',
+            type: 'DELETE',
             beforeSend: function() {
                 $('.delete-points*[data-points-id="' + pointHistoryId + '"]').prop('disabled',true).hide();
                 $('#delete-points-preload-' + pointHistoryId).removeClass('hide');
@@ -276,7 +276,7 @@ $(document).ready(function() {
 
         $.ajax({
             url:   url,
-            type: 'POST',
+            type: 'GET',
             beforeSend: function() {
                 $('#manage-task-modal > .modal-content > .form-content').html('');
                 $('#task-form-preloader').removeClass('hide');
@@ -302,7 +302,7 @@ $(document).ready(function() {
 
         $.ajax({
             url: url,
-            type: 'POST',
+            type: 'DELETE',
             beforeSend: function() {
                 $('.delete-task*[data-task-id="' + taskId + '"]').prop('disabled',true).hide();
                 $('#delete-task-preload-' + taskId).removeClass('hide');

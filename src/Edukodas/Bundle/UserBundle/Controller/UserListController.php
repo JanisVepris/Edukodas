@@ -15,39 +15,29 @@ class UserListController extends Controller
 
         $filterForm = $this->createForm(UserListFilterType::class);
 
-
         $filterForm->handleRequest($request);
 
         $class = $filterForm->get('class')->getData();
         $team = $filterForm->get('team')->getData();
 
-        $teamList = $this
-            ->getDoctrine()
-            ->getRepository('EdukodasUserBundle:StudentTeam')
-            ->findAll();
-
-        $classList = $this
-            ->getDoctrine()
-            ->getRepository('EdukodasUserBundle:StudentClass')
-            ->findAll();
-
-        $statisticsService = $this->get('edukodas.statistics');
+        $pointHistoryRepo = $this->get('edukodas.pointhistory.repository');
 
         if ($team && $class) {
-            $userList = $statisticsService->getStudentListByTeamAndClass($team, $class, $page);
+            $userList = $pointHistoryRepo->getStudentListByTeamAndClass($team, $class, $page);
         } elseif ($team) {
-            $userList = $statisticsService->getStudentListByTeam($team, $page);
+            $userList = $pointHistoryRepo->getStudentListByTeam($team, $page);
         } elseif ($class) {
-            $userList = $statisticsService->getStudentListByClass($class, $page);
+            $userList = $pointHistoryRepo->getStudentListByClass($class, $page);
         } else {
-            $userList = $statisticsService->getStudentList($page);
+            $userList = $pointHistoryRepo->getStudentList($page);
         }
 
-        $amountRange = $statisticsService->getMinMaxAmounts($team, $class);
+        $amountRange = $pointHistoryRepo->getMinMaxAmounts($team, $class);
+
+        $teamList = $pointHistoryRepo->getTeamStats($team, $class);
 
         return $this->render('EdukodasTemplateBundle:Users:userList.html.twig', [
             'teamList' => $teamList,
-            'classList' => $classList,
             'userList' => $userList,
             'filterForm' => $filterForm->createView(),
             'maxAmount' => $amountRange['max'],

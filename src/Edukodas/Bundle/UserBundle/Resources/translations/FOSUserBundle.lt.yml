@@ -20,12 +20,12 @@ profile:
         username: 'Naudotojo vardas'
         email: 'El. paštas'
     edit:
-        header_info: Profilio informacijos keitimas
-        header_password: Slaptažodžio keitimas
+        header_info: Profilio informacija
+        header_password: Slaptažodis
         header_picture: Profilio nuotrauka
         submit: Atnaujinti
         submit_picture: Atnaujinti nuotrauką
-        file: Parinkti nuotrauką
+        file: Pasirinkti
         remove: Šalinti
     flash:
         updated: 'Profilis atnaujintas'

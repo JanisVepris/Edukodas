@@ -1,4 +1,3 @@
-title: Edutopas
 menu:
   navigation:
     profile: Profilis
@@ -66,3 +65,19 @@ Course: Dalykas
 search:
   placeholder: Ieškoti vartotojų
   no_results: Vartotojų nerasta
+
+graph:
+  headers:
+    team_points: Komandų Taškų Pasiskirstymas
+    period_points: Surinkti Taškai Per Periodą
+    top_students: Top Mokiniai
+  from:
+    label: Nuo
+    year: Metai
+    month: Mėnuo
+    week: Savaitė
+    today: Šiandien
+    all: Visas laikotarpis
+  class: Klasė
+  team: Komanda
+  no_charts: Neužtenka duomenų grafikams sukurti

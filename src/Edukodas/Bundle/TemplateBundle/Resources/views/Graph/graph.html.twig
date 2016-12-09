@@ -63,6 +63,24 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col s12 m12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">{{ 'graph.headers.cumulative_points'|trans }}</span>
+                            <div class="row">
+                                <div class="valign-wrapper">
+
+                                    <div class="col s12">
+                                        <canvas id="team-line-cumulative-chart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endif %}
 
         {% if topUsersGraph %}
@@ -130,6 +148,7 @@
     {% if teamLineGraph %}
         <script>
             var data = {{ teamLineGraph|raw }};
+            var dataSum = {{ teamLineCumulativeGraph|raw }};
             var options = {
                 legend: {
                     display: false
@@ -137,6 +156,7 @@
             };
 
             drawChart('#team-line-chart', 'line', data, options);
+            drawChart('#team-line-cumulative-chart', 'line', dataSum, options);
         </script>
     {% endif %}
 

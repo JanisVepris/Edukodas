@@ -138,8 +138,12 @@ a {
   justify-content: space-between;
 }
 
-.expand-icon {
-  font-size: 3rem;
+.flex-center {
+  justify-content: center;
+}
+
+#full-task-list-container .card {
+  min-height: 136px;
 }
 
 .btn-large {

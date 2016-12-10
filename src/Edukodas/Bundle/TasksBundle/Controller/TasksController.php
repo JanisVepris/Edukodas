@@ -4,11 +4,11 @@ namespace Edukodas\Bundle\TasksBundle\Controller;
 
 use Edukodas\Bundle\TasksBundle\Entity\Task;
 use Edukodas\Bundle\TasksBundle\Form\TaskType;
-use Edukodas\Bundle\UserBundle\Controller\AbstractTeacherController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class TasksController extends AbstractTeacherController
+class TasksController extends Controller
 {
     /**
      * @param Request $request
@@ -16,7 +16,7 @@ class TasksController extends AbstractTeacherController
      */
     public function addAction(Request $request)
     {
-        $this->checkTeacherOr403();
+        $this->denyAccessUnlessGranted('ROLE_TEACHER');
 
         $user = $this->getUser();
 
@@ -56,7 +56,7 @@ class TasksController extends AbstractTeacherController
      */
     public function editFormAction(Request $request, Task $task)
     {
-        $this->checkOwnerOr403($task);
+        $this->denyAccessUnlessGranted('edit', $task);
 
         $user = $this->getUser();
 
@@ -95,7 +95,7 @@ class TasksController extends AbstractTeacherController
     {
         $user = $this->getUser();
 
-        $this->checkOwnerOr403($task);
+        $this->denyAccessUnlessGranted('delete', $task);
 
         $em = $this->getDoctrine()->getEntityManager();
         $em->remove($task);

@@ -7,24 +7,62 @@ use Edukodas\Bundle\StatisticsBundle\Form\PointHistoryType;
 use Edukodas\Bundle\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class StudentProfileController extends Controller
+class UnifiedProfileController extends Controller
 {
     /**
      * @param User|null $user
-     * @return Response
+     * @return mixed
      */
-    public function indexAction(User $user = null)
+    public function profileAction(User $user = null)
     {
         if ($user === null) {
             $user = $this->getUser();
         }
-
-        if (!in_array('ROLE_STUDENT', $user->getRoles())) {
-            throw new HttpException(403, 'User is not student');
+        if ($user->hasRole('ROLE_TEACHER')) {
+            return $this->teacherProfileAction($user);
+        } elseif ($user->hasRole('ROLE_STUDENT')) {
+            return $this->studentProfileAction($user);
+        } else {
+            throw $this->createAccessDeniedException();
         }
+    }
 
+    /**
+     * @param User|null $user
+     * @return Response
+     */
+    public function teacherProfileAction(User $user = null)
+    {
+        $pointHistory = $this
+            ->get('edukodas.pointhistory.repository')
+            ->getRecentEntriesByTeacher($user);
+
+        $pointsTotalPositive = $this
+            ->get('edukodas.pointhistory.repository')
+            ->getTotalPositivePointsByTeacher($user);
+
+        $pointsTotalNegative = $this
+            ->get('edukodas.pointhistory.repository')
+            ->getTotalNegativePointsByTeacher($user);
+
+        $form = $this->createForm(PointHistoryType::class, new PointHistory(), ['user' => $this->getUser()]);
+
+        return $this->render('@EdukodasTemplate/Profile/teacherProfile.html.twig', [
+            'user' => $user,
+            'pointsTotalPositive' => $pointsTotalPositive,
+            'pointsTotalNegative' => $pointsTotalNegative,
+            'pointHistory' => $pointHistory,
+            'addPointsForm' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @param User|null $user
+     * @return Response
+     */
+    public function studentProfileAction(User $user = null)
+    {
         $pointHistory = $this
             ->get('edukodas.pointhistory.repository')
             ->getRecentEntriesByStudent($user);

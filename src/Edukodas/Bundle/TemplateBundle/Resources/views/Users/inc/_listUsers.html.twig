@@ -1,10 +1,10 @@
 {% for user in userList %}
     <li class="collection-item avatar valign-wrapper">
         <a href="{{ path('edukodas_unified_profile', {'username' : user.username}) }}">
-            {% if (user.picture) %}
+            {% if (user.picturePath) %}
                 <img
                         class="responsive-img circle z-depth-1"
-                        src="{{ user.picture|filename_to_pic|imagine_filter('profile_small') }}"
+                        src="{{ user.picturePath|filename_to_pic|imagine_filter('profile_small') }}"
                         alt="{{ user.fullName }}">
             {% else %}
                 <img

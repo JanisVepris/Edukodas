@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    $('#user_list_filter_team').material_select();
-    $('#user_list_filter_class').material_select();
+    $('#user_list_filter_team').selectize();
+    $('#user_list_filter_class').selectize();
 
     var selectTeam = $("#user_list_filter_team");
     var selectClass = $("#user_list_filter_class");

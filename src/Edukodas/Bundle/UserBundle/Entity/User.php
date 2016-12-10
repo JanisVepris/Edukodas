@@ -89,10 +89,6 @@ class User extends BaseUser
     private $fullName;
 
     /**
-     * User constructor.
-     */
-
-    /**
      * @var ArrayCollection|PointHistory
      *
      * @ORM\OneToMany(targetEntity="Edukodas\Bundle\StatisticsBundle\Entity\PointHistory", mappedBy="teacher")
@@ -103,13 +99,26 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(type="string", name="picture", nullable=true)
-     * @Assert\File(
+     * @Assert\Image(
      *     maxSize="2M",
-     *     mimeTypes={"image/jpeg", "image/jpg", "image/png"}
+     *     mimeTypes={"image/jpeg", "image/jpg", "image/png"},
+     *     mimeTypesMessage = "profile.edit.picture.mime_type_error",
+     *     maxSizeMessage="profile.edit.picture.max_size_error",
+     *     uploadErrorMessage="profile.edit.picture.error."
      * )
      */
     private $picture;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="picture_path", type="text", nullable=true)
+     */
+    private $picturePath;
+
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         $this->courses = new ArrayCollection();
@@ -352,11 +361,32 @@ class User extends BaseUser
     }
 
     /**
+     * @return mixed
+     */
+    public function getPicturePath()
+    {
+        return $this->picturePath;
+    }
+
+    /**
+     * @param mixed $picturePath
+     *
+     * @return User
+     */
+    public function setPicturePath($picturePath)
+    {
+        $this->picturePath = $picturePath;
+
+        return $this;
+    }
+
+
+    /**
      * @return bool
      */
     public function hasPicture()
     {
-        if ($this->getPicture()) {
+        if ($this->getPicturePath()) {
             return true;
         }
 

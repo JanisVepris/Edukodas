@@ -18,7 +18,8 @@ class ProfilePictureType extends AbstractType
             'picture',
             FileType::class,
             [
-                'required' => false
+                'required' => false,
+                'error_bubbling' => true,
             ]
         );
     }

@@ -1,13 +1,10 @@
 $(document).ready(function() {
     $('#user_list_filter_team').selectize({
-        plugins: {
-            'restore_on_backspace': {},
-            'no_results': { message: 'Nepavyko nieko rasti' }
-        }
+        plugins: ['remove_button'],
     });
     $('#user_list_filter_class').selectize({
         plugins: {
-            'restore_on_backspace': {},
+            'remove_button': {},
             'no_results': { message: 'Nepavyko nieko rasti' }
         }
     });

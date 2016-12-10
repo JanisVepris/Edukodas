@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,7 +32,7 @@ class TaskType extends AbstractType
                 'label' => 'form.add_tasks.course',
             ])
             ->add('name', TextType::class, ['label' => 'form.add_tasks.name'])
-            ->add('description', TextType::class, ['label' => 'form.add_tasks.description'])
+            ->add('description', TextareaType::class, ['label' => 'form.add_tasks.description'])
             ->add('points', NumberType::class, ['label' => 'form.add_tasks.points']);
     }
     

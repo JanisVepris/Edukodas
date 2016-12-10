@@ -41,6 +41,7 @@ class GraphType extends AbstractType
                 'choice_label' => 'title',
                 'required' => false,
                 'label' => 'graph.team'
-            ]);
+            ])
+            ->setMethod('get');
     }
 }

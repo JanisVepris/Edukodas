@@ -1,4 +1,36 @@
 {{ form_start(form, {'attr': {'id': 'manage-task-form'}}) }}
-{{ form_widget(form) }}
-<button type="submit" class="waves-effect waves-light btn">{{ 'form.edit_tasks.save'|trans }}</button>
+<div class="row">
+    <div class="col s12">
+        {{ form_row(form.course) }}
+    </div>
+    <div class="col s12 m8">
+        {{ form_row(form.name) }}
+    </div>
+    <div class="col s12 m4">
+        {{ form_row(form.points) }}
+    </div>
+    <div class="col s12">
+        {{ form_label(form.description) }}
+        {{ form_errors(form.description) }}
+        {{ form_widget(form.description, {'attr': {'class': 'materialize-textarea', 'length': '210'}}) }}
+    </div>
+
+    <button type="submit" class="waves-effect waves-light btn col s12 fill">{{ 'form.edit_tasks.save'|trans }}</button>
+
+    <div class="col s12 center">
+        <div class="preloader-wrapper small active hide" id="submit-preloader">
+            <div class="spinner-layer spinner-green-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {{ form_end(form) }}

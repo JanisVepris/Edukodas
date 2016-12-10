@@ -79,8 +79,10 @@ class GraphService
 
     /**
      * @param int|null $timespan
+     * @param StudentTeam|null $team
+     * @param StudentClass|null $class
      *
-     * @return array
+     * @return array|null
      */
     public function getTeamLineChartGraph(int $timespan = null, StudentTeam $team = null, StudentClass $class = null)
     {
@@ -94,7 +96,6 @@ class GraphService
                     $team,
                     $class
                 );
-                $graphData = $this->formatChartDataStructure($teamPoints);
                 break;
             case self::FILTER_TIMESPAN_MONTH:
                 $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByTimespan(
@@ -103,7 +104,6 @@ class GraphService
                     $team,
                     $class
                 );
-                $graphData = $this->formatChartDataStructure($teamPoints);
                 break;
             case self::FILTER_TIMESPAN_YEAR:
                 $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByTimespan(
@@ -112,7 +112,6 @@ class GraphService
                     $team,
                     $class
                 );
-                $graphData = $this->formatChartDataStructure($teamPoints);
                 break;
             case self::FILTER_TIMESPAN_TODAY:
                 $teamPoints = $this->pointHistoryRepository->getTeamPointTotalGroupedByTimespan(
@@ -121,7 +120,6 @@ class GraphService
                     $team,
                     $class
                 );
-                $graphData = $this->formatChartDataStructure($teamPoints);
                 break;
             case self::FILTER_TIMESPAN_ALL:
             default:
@@ -131,7 +129,85 @@ class GraphService
                     $team,
                     $class
                 );
-                $graphData = $this->formatChartDataStructure($teamPoints);
+        }
+
+        $graphData = $this->formatChartDataStructure($teamPoints);
+
+        if (count($graphData['datasets']) < 1) {
+            return null;
+        }
+
+        return json_encode($graphData);
+    }
+
+    /**
+     * @param int|null $timespan
+     * @param StudentTeam|null $team
+     * @param StudentClass|null $class
+     *
+     * @return array|null
+     */
+    public function getTeamLineCumulativeChartGraph(
+        int $timespan = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
+        $fromDate = $this->getTimeSpanObj($timespan);
+
+        switch ($timespan) {
+            case self::FILTER_TIMESPAN_WEEK:
+                $teamPoints = $this->pointHistoryRepository->getTeamPointSumGroupedByTimespan(
+                    '%w',
+                    $fromDate,
+                    $team,
+                    $class
+                );
+                break;
+            case self::FILTER_TIMESPAN_MONTH:
+                $teamPoints = $this->pointHistoryRepository->getTeamPointSumGroupedByTimespan(
+                    '%U',
+                    $fromDate,
+                    $team,
+                    $class
+                );
+                break;
+            case self::FILTER_TIMESPAN_YEAR:
+                $teamPoints = $this->pointHistoryRepository->getTeamPointSumGroupedByTimespan(
+                    '%m',
+                    $fromDate,
+                    $team,
+                    $class
+                );
+                break;
+            case self::FILTER_TIMESPAN_TODAY:
+                $teamPoints = $this->pointHistoryRepository->getTeamPointSumGroupedByTimespan(
+                    '%H',
+                    $fromDate,
+                    $team,
+                    $class
+                );
+                break;
+            case self::FILTER_TIMESPAN_ALL:
+            default:
+                $teamPoints = $this->pointHistoryRepository->getTeamPointSumGroupedByTimespan(
+                    '%m-%Y',
+                    $fromDate,
+                    $team,
+                    $class
+                );
+        }
+
+        $pointsBefore = $this->pointHistoryRepository->getTeamPointSumBeforeTime($fromDate, $team, $class);
+        $graphData = $this->formatChartDataStructure($teamPoints);
+
+        foreach ($graphData['datasets'] as $teamIndex => &$team) {
+            foreach ($team['data'] as $key => &$data) {
+                if ($key > 0) {
+                    $data += $team['data'][$key - 1];
+                } elseif ($fromDate) {
+                    $data += (int) $pointsBefore[$teamIndex]['amount'];
+                }
+            }
         }
 
         if (count($graphData['datasets']) < 1) {

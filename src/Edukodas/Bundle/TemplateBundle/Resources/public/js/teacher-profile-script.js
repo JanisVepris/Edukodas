@@ -36,6 +36,7 @@ $(document).ready(function() {
         $('#add-points-task-description').html(taskDescription);
         $('#edukodas_bundle_statisticsbundle_pointhistory_task').val(taskId);
         $('#edukodas_bundle_statisticsbundle_pointhistory_amount').val(amount);
+        $('#edukodas_bundle_statisticsbundle_pointhistory_comment').characterCounter();
 
         toggleAddPointsForm();
     });
@@ -108,6 +109,7 @@ $(document).ready(function() {
         }
 
         $('select#edukodas_bundle_statisticsbundle_pointhistory_task').material_select();
+        $('#edukodas_bundle_statisticsbundle_pointhistory_comment').characterCounter();
 
         studentSelectize();
 
@@ -182,7 +184,7 @@ $(document).ready(function() {
     // Edit point history button
     function editPointHistoryButton(trigger) {
         var pointHistoryId = trigger.data('points-id');
-        var url = Routing.generate('edukodas_points_edit', {pointHistoryId : pointHistoryId});
+        var url = Routing.generate('edukodas_points_edit', {id : pointHistoryId});
 
         $.ajax({
             url:   url,
@@ -209,7 +211,7 @@ $(document).ready(function() {
     // Delete points button
     function deletePointsButton() {
         var pointHistoryId = $(this).data('points-id');
-        var url = Routing.generate('edukodas_points_delete', {pointHistoryId : pointHistoryId});
+        var url = Routing.generate('edukodas_points_delete', {id : pointHistoryId});
 
         $.ajax({
             url: url,
@@ -272,7 +274,7 @@ $(document).ready(function() {
     function manageTaskButton(trigger) {
         var taskAction = trigger.data('task-action');
         var taskId = trigger.data('task-id');
-        var url = Routing.generate(taskAction, {taskId : taskId});
+        var url = Routing.generate(taskAction, {id : taskId});
 
         $.ajax({
             url:   url,
@@ -298,7 +300,7 @@ $(document).ready(function() {
 
     function deleteTaskButton() {
         var taskId = $(this).data('task-id');
-        var url = Routing.generate('edukodas_tasks_delete', {taskId : taskId});
+        var url = Routing.generate('edukodas_tasks_delete', {id : taskId});
 
         $.ajax({
             url: url,
@@ -322,12 +324,13 @@ $(document).ready(function() {
 
     function manageTaskForm(url) {
         $('select').material_select();
+        $('#edukodas_bundle_tasksbundle_task_description').characterCounter();
 
         $('#manage-task-form').ajaxForm({
             url: url,
             type: 'POST',
             beforeSubmit: function() {
-                $('#manage-task-form > button').prop('disabled', true).hide();
+                $('#manage-task-form button').prop('disabled', true).hide();
                 $('#submit-preloader').removeClass('hide');
             },
             success: function(data) {

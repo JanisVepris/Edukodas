@@ -157,6 +157,11 @@
   background: #fff;
 }
 
+.selectize-input.full {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.87);
+}
+
 .selectize-input > * {
   vertical-align: baseline;
   line-height: 3em;

@@ -1,3 +1,5 @@
+title: Edutopas
+
 menu:
   navigation:
     profile: Profilis
@@ -70,6 +72,7 @@ graph:
   headers:
     team_points: Komandų Taškų Pasiskirstymas
     period_points: Surinkti Taškai Per Periodą
+    cumulative_points: Surinktų Taškų Suma Per Periodą
     top_students: Top Mokiniai
   from:
     label: Nuo

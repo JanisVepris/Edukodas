@@ -151,12 +151,14 @@ class LoadUserData extends AbstractFixture implements
      */
     private function generateUser($username = null, $role = 'ROLE_STUDENT', $password = 'password', $enabled = true)
     {
+        $name = $this->getName();
+
         $user = new User();
         $user
             ->setUsername($username ?: $this->faker->unique()->username)
             ->setRoles([$role])
-            ->setFirstName($this->faker->firstName)
-            ->setLastName($this->faker->lastName)
+            ->setFirstName($name['first'])
+            ->setLastName($name['last'])
             ->setEmail($this->faker->unique()->safeEmail)
             ->setPlainPassword($password)
             ->setEnabled($enabled);
@@ -169,6 +171,24 @@ class LoadUserData extends AbstractFixture implements
         }
 
         return $user;
+    }
+
+    /**
+     * @return array
+     */
+    private function getName()
+    {
+        if (rand(0, 1)) {
+            return [
+                'first' => $this->faker->firstNameMale,
+                'last' => $this->faker->lastNameMale,
+            ];
+        }
+
+        return [
+            'first' => $this->faker->firstNameFemale,
+            'last' => $this->faker->lastNameFemale,
+        ];
     }
 
     /**

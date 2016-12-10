@@ -1,7 +1,15 @@
 $(document).ready(function () {
     $('#graph_timespan').material_select();
-    $('#graph_team').selectize();
-    $('#graph_class').selectize();
+    $('#graph_team').selectize({
+        plugins: {
+            'no_results': { message: 'Nepavyko nieko rasti' }
+        }
+    });
+    $('#graph_class').selectize({
+        plugins: {
+            'no_results': { message: 'Nepavyko nieko rasti' }
+        }
+    });
 
     $('[name=graph] select').on('change', function () {
         $('[name=graph]').submit();

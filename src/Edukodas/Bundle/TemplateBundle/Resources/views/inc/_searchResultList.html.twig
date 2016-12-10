@@ -1,7 +1,7 @@
 {% for student in students %}
     {# @var student \Edukodas\Bundle\UserBundle\Entity\User #}
     <li class="search-result">
-        <a href="{{ path('edukodas_student_profile', {'id': student.id}) }}" class="valign-wrapper">
+        <a href="{{ path('edukodas_unified_profile', {'username': student.username}) }}" class="valign-wrapper">
             {% if (student.hasPicture) %}
                 <img src="{{ student|profile_pic|imagine_filter('profile_small') }}" alt="{{ student.fullName }}" class="circle responsive-img">
             {% else %}
@@ -17,7 +17,7 @@
 {% for teacher in teachers %}
     {# @var teacher \Edukodas\Bundle\UserBundle\Entity\User #}
     <li class="search-result">
-        <a href="{{ path('edukodas_teacher_profile', {'id': teacher.id}) }}" class="valign-wrapper">
+        <a href="{{ path('edukodas_unified_profile', {'username': teacher.username}) }}" class="valign-wrapper">
             {% if (teacher.hasPicture) %}
                 <img src="{{ teacher|profile_pic|imagine_filter('profile_small') }}" alt="{{ teacher.fullName }}" class="circle responsive-img">
             {% else %}

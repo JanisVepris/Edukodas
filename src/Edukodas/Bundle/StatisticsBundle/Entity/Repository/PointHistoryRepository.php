@@ -275,6 +275,7 @@ class PointHistoryRepository extends EntityRepository
         $query = $qb
             ->select(
                 's.id',
+                's.username',
                 's.fullName',
                 's.firstName',
                 's.lastName',
@@ -308,6 +309,7 @@ class PointHistoryRepository extends EntityRepository
         $query = $qb
             ->select(
                 's.id',
+                's.username',
                 's.fullName',
                 's.firstName',
                 's.lastName',
@@ -343,6 +345,7 @@ class PointHistoryRepository extends EntityRepository
         $query = $qb
             ->select(
                 's.id',
+                's.username',
                 's.fullName',
                 's.firstName',
                 's.lastName',
@@ -379,6 +382,7 @@ class PointHistoryRepository extends EntityRepository
         $query = $qb
             ->select(
                 's.id',
+                's.username',
                 's.fullName',
                 's.firstName',
                 's.lastName',
@@ -615,29 +619,80 @@ class PointHistoryRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * @param Query $query
-     * @param int $page
-     *
-     * @return PaginatorInterface
-     */
-    private function getPagination(Query $query, int $page)
-    {
-        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+    public function getTeamPointSumBeforeTime(
+        \DateTime $fromDate = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select('t.id', 'SUM(ph.amount) amount')
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->groupBy('t.id')
+            ->orderBy('ph.createdAt', 'asc');
 
-        $result = $query->getResult();
+        if ($fromDate) {
+            $qb
+                ->where('ph.createdAt < :dateTime')
+                ->setParameter('dateTime', $fromDate);
+        }
 
-        $query->setHint('knp_paginator.count', sizeof($result));
+        if ($team) {
+            $qb
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
 
-        $pagination = $this->paginator->paginate(
-            $result,
-            $page,
-            $this->pageSize
-        );
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
+        }
 
-        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+        return $qb->getQuery()->getResult();
+    }
 
-        return $pagination;
+    public function getTeamPointSumGroupedByTimespan(
+        string $dateFormat,
+        \DateTime $fromDate = null,
+        StudentTeam $team = null,
+        StudentClass $class = null
+    ) {
+        $qb = $this
+            ->createQueryBuilder('ph')
+            ->select(
+                't.id',
+                't.title',
+                't.color',
+                'SUM(ph.amount) amount,
+                DATE_FORMAT(ph.createdAt, \''. $dateFormat .'\') date'
+            )
+            ->join('ph.student', 's')
+            ->join('s.studentTeam', 't')
+            ->addGroupBy('date')
+            ->addGroupBy('t.id')
+            ->orderBy('ph.createdAt', 'asc');
+
+        if ($fromDate) {
+            $qb
+                ->where('ph.createdAt >= :dateTime')
+                ->setParameter('dateTime', $fromDate);
+        }
+
+        if ($team) {
+            $qb
+                ->andWhere('s.studentTeam = :team')
+                ->setParameter('team', $team);
+        }
+
+        if ($class) {
+            $qb
+                ->andWhere('s.studentClass = :class')
+                ->setParameter('class', $class);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
     /**
@@ -765,5 +820,30 @@ class PointHistoryRepository extends EntityRepository
         }
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param Query $query
+     * @param int $page
+     *
+     * @return PaginatorInterface
+     */
+    private function getPagination(Query $query, int $page)
+    {
+        $this->getEntityManager()->getFilters()->disable('softdeleteable');
+
+        $result = $query->getResult();
+
+        $query->setHint('knp_paginator.count', sizeof($result));
+
+        $pagination = $this->paginator->paginate(
+            $result,
+            $page,
+            $this->pageSize
+        );
+
+        $this->getEntityManager()->getFilters()->enable('softdeleteable');
+
+        return $pagination;
     }
 }

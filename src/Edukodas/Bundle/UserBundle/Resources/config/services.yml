@@ -1,0 +1,6 @@
+services:
+    edukodas_bundle_user.security.owner_voter:
+        class: Edukodas\Bundle\UserBundle\Security\OwnerVoter
+        tags:
+            - { name: security.voter }
+        public: false

@@ -1,9 +1,4 @@
-edukodas_teacher_profile:
-    path:     /teacher/{id}
-    defaults: { _controller: EdukodasProfileBundle:TeacherProfile:index, id: null }
-    methods: [GET]
-
-edukodas_student_profile:
-    path: /student/{id}
-    defaults: { _controller: EdukodasProfileBundle:StudentProfile:index, id: null }
+edukodas_unified_profile:
+    path: /{username}
+    defaults: { _controller: EdukodasProfileBundle:UnifiedProfile:profile, username: null }
     methods: [GET]

@@ -1,12 +1,12 @@
 {% for task in course.tasks %}
     <div class="col s12 l6">
-        <div class="card horizontal pointer">
-            <div class="col s3 grey lighten-5 activator">
-                <h1 class="lengthen-card {{ task.points < 0 ? 'red-text' : 'green-text' }} center-align activator">{{ task.points }}</h1>
+        <div class="card horizontal">
+            <div class="col s3 grey lighten-5 activator pointer valign-wrapper flex-center">
+                <h1 class="{{ task.points < 0 ? 'red-text' : 'green-text' }} activator valign">{{ task.points }}</h1>
             </div>
-            <div class="card-content col s9 activator valign-wrapper spread">
+            <div class="card-content col s9 activator valign-wrapper spread pointer">
                 <span class="card-title activator valign">{{ task.name }}</span>
-                <i class="material-icons right grey-text expand-icon">expand_less</i>
+                <i class="material-icons right grey-text expand-icon medium">expand_less</i>
             </div>
             <div class="card-reveal">
                 <i class="material-icons right card-title grey-text">close</i>

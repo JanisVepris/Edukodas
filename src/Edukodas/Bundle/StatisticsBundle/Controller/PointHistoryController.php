@@ -4,11 +4,11 @@ namespace Edukodas\Bundle\StatisticsBundle\Controller;
 
 use Edukodas\Bundle\StatisticsBundle\Entity\PointHistory;
 use Edukodas\Bundle\StatisticsBundle\Form\PointHistoryType;
-use Edukodas\Bundle\UserBundle\Controller\AbstractTeacherController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PointHistoryController extends AbstractTeacherController
+class PointHistoryController extends Controller
 {
     /**
      * @return Response
@@ -28,7 +28,7 @@ class PointHistoryController extends AbstractTeacherController
      */
     public function addAction(Request $request)
     {
-        $this->checkTeacherOr403();
+        $this->denyAccessUnlessGranted('ROLE_TEACHER');
 
         $pointHistory = new PointHistory();
 
@@ -78,7 +78,7 @@ class PointHistoryController extends AbstractTeacherController
      */
     public function editAction(Request $request, PointHistory $pointHistory)
     {
-        $this->checkOwnerOr403($pointHistory);
+        $this->denyAccessUnlessGranted('edit', $pointHistory);
 
         $isStudentProfile = $request->request->get('isStudentProfile') ? true : false;
 
@@ -133,7 +133,7 @@ class PointHistoryController extends AbstractTeacherController
      */
     public function deleteAction(PointHistory $pointHistory)
     {
-        $this->checkOwnerOr403($pointHistory);
+        $this->denyAccessUnlessGranted('delete', $pointHistory);
 
         $em = $this->getDoctrine()->getEntityManager();
         $em->remove($pointHistory);

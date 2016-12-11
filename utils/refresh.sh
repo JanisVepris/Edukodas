@@ -6,3 +6,4 @@ bin/console doctrine:fixtures:load -n
 bin/console fos:js-routing:dump
 composer install -n -o
 bin/console assetic:dump
+bin/console liip:imagine:cache:remove

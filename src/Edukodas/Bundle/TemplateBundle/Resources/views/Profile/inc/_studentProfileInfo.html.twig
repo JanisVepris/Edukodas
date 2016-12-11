@@ -1,40 +1,60 @@
-<div class="hide-on-med-and-up">
-    <div class="col s12">
-        <div class="card">
-            <div class="card-image">
+{# Large screen #}
+<div class="col s12 hide-on-med-and-down">
+    <div class="card horizontal valign-wrapper {{ user.studentTeam.color }} lighten-1 white-text">
+        <div class="card-content center-align valign-wrapper">
+            <div class="col s4 valign">
+                <p class="flow-text"><h4>{{ user.fullName }} <small>({{ user.studentClass.title }})</small></h4></p>
+            </div>
+            <div class="col s4 valign profile-pic-container">
                 {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
             </div>
-        </div>
-        <div class="card valign-wrapper {{ user.studentTeam ? user.studentTeam.color : 'blue-grey' }} lighten-1">
-            <div class="card-content white-text center-align valign">
-                <h4>
-                    {{ user.fullName }}
-                </h4>
+            <div class="col s4 valign">
                 <h1>{{ points | number_format }}</h1>
+                <div class="row row-card-margins-fix">
+                    <div class="left-align col s6">{{ 'points.rating.generation'|trans }}:</div>
+                    <div class="right-align col s6"><b>#{{ positionInGeneration }}</b></div>
+                    <div class="left-align col s6">{{ 'points.rating.team'|trans }}:</div>
+                    <div class="right-align col s6"><b>#{{ positionInTeam }}</b></div>
+                    <div class="left-align col s6">{{ 'points.rating.school'|trans }}:</div>
+                    <div class="right-align col s6"><b>#{{ positionTotal }}</b></div>
+                    <div class="left-align col s6">{{ 'points.rating.class'|trans }}:</div>
+                    <div class="right-align col s6"><b>#{{ positionInClass }}</b></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="col m12 l7">
-    <div class="hide-on-small-and-down">
-        <div class="card horizontal valign-wrapper {{ user.studentTeam ? user.studentTeam.color : 'blue-grey' }} lighten-1">
-            <div class="card-image">
-                {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
-            </div>
-            <div class="card-content white-text center-align valign" id="name-points">
-                <h4>
-                    {{ user.fullName }}
-                </h4>
-                <h1>{{ points | number_format }}</h1>
+
+{# Medium screen #}
+<div class="col m12 hide-on-large-only">
+    <div>
+        <div class="card {{ user.studentTeam.color }} lighten-1 white-text">
+            <div class="card-content center-align valign-wrapper">
+                <div class="col s4 valign profile-pic-container">
+                    {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
+                </div>
+                <div class="col s8 valign hide-on-small-and-down">
+                    <h4>
+                        {{ user.fullName }} <small>({{ user.studentClass.title }})</small>
+                    </h4>
+                    <h3 id="name-points">{{ points | number_format }}</h3>
+                </div>
+                <div class="col s8 valign hide-on-med-and-up">
+                    <h5>
+                        {{ user.fullName }} <small>({{ user.studentClass.title }})</small>
+                    </h5>
+                    <h4 id="name-points">{{ points | number_format }}</h4>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="col s12 l5">
+
+{# Statistics for small/medium screens #}
+<div class="col m12 hide-on-large-only">
     <div class="card information">
-        <div class="card-content center-align">
+        <div class="card-content center-align {{ user.studentTeam.color }} lighten-1 white-text">
             <div class="flow-text">
-                <h4>{{ 'user_list.class'|trans }}: {{ user.studentClass.title }}</h4>
                 <div class="row row-card-margins-fix">
                     <div class="left-align col s6">{{ 'points.rating.generation'|trans }}:</div>
                     <div class="right-align col s6"><b>#{{ positionInGeneration }}</b></div>

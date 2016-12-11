@@ -51,7 +51,7 @@ class ProfileController extends BaseController
 
         if ($user->hasPicture()) {
             $user->setPicture(
-                new File($this->getParameter('profile_pic_dir') . '/' . $user->getPicture())
+                new File($this->getParameter('profile_pic_dir') . '/' . $user->getPicturePath())
             );
         }
 
@@ -71,7 +71,7 @@ class ProfileController extends BaseController
                     $filename
                 );
 
-                $user->setPicture($filename);
+                $user->setPicturePath($filename);
             }
 
             /** @var $userManager UserManagerInterface */
@@ -175,13 +175,14 @@ class ProfileController extends BaseController
             new RedirectResponse($this->generateUrl('fos_user_profile_edit'));
         }
 
-        $fullPath = $this->getParameter('profile_pic_dir') . '/' . $user->getPicture();
+        $fullPath = $this->getParameter('profile_pic_dir') . '/' . $user->getPicturePath();
 
         if (file_exists($fullPath)) {
             unlink($fullPath);
         }
 
         $user->setPicture(null);
+        $user->setPicturePath(null);
 
         $em = $this->getDoctrine()->getEntityManager();
         $em->persist($user);

@@ -160,11 +160,11 @@ a {
   p {
     padding: 0;
     width: 85%;
+    min-height: 40px;
   }
   position: relative;
   padding: 20px;
   padding-top: 10px;
-  min-height: 123px;
 }
 
 .collapsible-title {
@@ -375,4 +375,10 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
   }
 }
 
+.btn-large span {
+  font-size: 1.1rem;
+}
 
+.profile-pic-container img {
+  border: 8px solid #fff;
+}

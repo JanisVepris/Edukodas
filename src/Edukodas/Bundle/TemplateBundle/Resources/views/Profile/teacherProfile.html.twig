@@ -5,43 +5,11 @@
 {% block main %}
     <div class="container">
         <div class="row">
-            <div class="hide-on-med-and-up">
-                <div class="col s12">
-                    <div class="card">
-                        <div class="card-image">
-                            {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
-                        </div>
-                    </div>
-                    <div class="card valign-wrapper {{ user.studentTeam ? user.studentTeam.color : 'blue-grey' }} lighten-1">
-                        <div class="card-content white-text center-align valign name-points">
-                            <h4>
-                                {{ user.fullName }}
-                            </h4>
-                            <h2><span class="green-text text-accent-3"> {{ pointsTotalPositive }}</span><br>
-                                <span class="red-text text-accent-3">{{ pointsTotalNegative|abs }}</span></h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% include '@EdukodasTemplate/Profile/inc/_teacherProfileInfo.html.twig' %}
             <div class="flex-container">
                 <div class="col s12 l7">
-                    <div class="hide-on-small-and-down">
-                        <div class="card horizontal valign-wrapper {{ user.studentTeam ? user.studentTeam.color : 'blue-grey' }} lighten-1">
-                            <div class="card-image">
-                                {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
-                            </div>
-                            <div class="card-content white-text center-align valign name-points">
-                                <h4>
-                                    {{ user.fullName }}
-                                </h4>
-                                <h2><span class="green-text text-accent-3"> {{ pointsTotalPositive }}</span><br>
-                                    <span class="red-text text-accent-3">{{ pointsTotalNegative|abs }}</span></h2>
-                            </div>
-                        </div>
-                    </div>
-
                     {% if app.user.id == user.id %}
-                        <a class="waves-effect waves-light btn-large blue-grey lighten-1"
+                        <a class="waves-effect waves-light btn-large light-blue darken-2"
                            data-points-action="edukodas_points_add"
                            href="#add-points-modal">
                             <i class="material-icons right">library_add</i>
@@ -68,14 +36,12 @@
                 </div>
                 <div class="col s12 l5">
                     {% if app.user.id == user.id %}
-                        <div class="card">
-                            <a class="waves-effect waves-light btn-large blue-grey lighten-1"
-                               data-task-action="edukodas_tasks_add"
-                               href="#manage-task-modal">
-                                <i class="material-icons right">note_add</i>
-                                <span>{{ 'form.add_tasks.add'|trans }}</span>
-                            </a>
-                        </div>
+                        <a class="waves-effect waves-light btn-large light-blue darken-2"
+                           data-task-action="edukodas_tasks_add"
+                           href="#manage-task-modal">
+                            <i class="material-icons right">note_add</i>
+                            <span>{{ 'form.add_tasks.add'|trans }}</span>
+                        </a>
                     {% endif %}
                     {% include '@EdukodasTemplate/Profile/inc/_listTasks.html.twig' %}
                 </div>

@@ -44,7 +44,7 @@ class ProfilePictureExtension extends \Twig_Extension
             return null;
         }
 
-        $picture = $user->getPicture();
+        $picture = $user->getPicturePath();
 
         if ($picture instanceof File) {
             return $this->profilePicDir . '/' . $picture->getFilename();

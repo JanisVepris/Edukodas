@@ -1,0 +1,6 @@
+profile:
+  edit:
+    picture:
+      mime_type_error: Prašome įkelti JPEG arba PNG formato paveikslėlį (iki 2MB).
+      max_size_error: Įkeltas paveikslėlis yra per didelis (MAX 2MB).
+      error: Nepavyko įkelti paveikslėlio.

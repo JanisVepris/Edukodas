@@ -8,6 +8,16 @@ main {
   flex: 1 0 auto;
 }
 
-#checknbutt > * {
+.child-top-margin > * {
   margin-top: 15px;
+}
+
+.logo {
+  max-width: 200px;
+  margin: 20px auto;
+  display: block;
+}
+
+.row {
+  margin-bottom: 60px;
 }

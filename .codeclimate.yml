@@ -1,2 +1,2 @@
 exclude_paths:
-- "src/Edukodas/Bundle/TemplateBundle/Resources/public/*"
+- "src/Edukodas/Bundle/TemplateBundle/Resources/public/"

@@ -1,11 +1,13 @@
 $(document).ready(function() {
     $('#user_list_filter_team').selectize({
         plugins: {
+            'remove_button': {},
             'no_results': { message: 'Nepavyko nieko rasti' }
         }
     });
     $('#user_list_filter_class').selectize({
         plugins: {
+            'remove_button': {},
             'no_results': { message: 'Nepavyko nieko rasti' }
         }
     });

@@ -1,3 +1,5 @@
+![Edutopas Logo](src/Edukodas/Bundle/TemplateBundle/Resources/public/image/logo.png)
+
 #Edukodas
 
 [![Build Status](https://travis-ci.org/nfqakademija/Edukodas.svg?branch=develop)](https://travis-ci.org/nfqakademija/Edukodas)

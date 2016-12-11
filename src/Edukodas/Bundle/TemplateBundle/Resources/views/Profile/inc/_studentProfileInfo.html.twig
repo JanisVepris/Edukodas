@@ -25,21 +25,24 @@
     </div>
 </div>
 
-{# Medium screen #}
-<div class="col m12 hide-on-large-only">
+{# Medium/small screen #}
+<div class="col m12 s12 hide-on-large-only">
     <div>
         <div class="card {{ user.studentTeam.color }} lighten-1 white-text">
             <div class="card-content center-align valign-wrapper">
-                <div class="col s4 valign profile-pic-container">
+                <div class="col m4 valign profile-pic-container hide-on-small-and-down">
                     {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
                 </div>
-                <div class="col s8 valign hide-on-small-and-down">
+                <div class="col m8 valign hide-on-small-and-down">
                     <h4>
                         {{ user.fullName }} <small>({{ user.studentClass.title }})</small>
                     </h4>
                     <h3 id="name-points">{{ points | number_format }}</h3>
                 </div>
-                <div class="col s8 valign hide-on-med-and-up">
+                <div class="col s12 valign hide-on-med-and-up">
+                    <div class="hide-on-med-and-up profile-pic-container">
+                        {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
+                    </div>
                     <h5>
                         {{ user.fullName }} <small>({{ user.studentClass.title }})</small>
                     </h5>

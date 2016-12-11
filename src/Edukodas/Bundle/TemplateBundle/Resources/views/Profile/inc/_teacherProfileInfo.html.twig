@@ -1,0 +1,30 @@
+<div class="col s12">
+    <div class="card horizontal light-blue darken-2">
+        <div class="card-content valign-wrapper">
+            <div class="col s4 valign profile-pic-container">
+                {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
+            </div>
+            <div class="col s8 valign center-align white-text">
+                <h1 class="hide-on-med-and-down">{{ user.fullName }}</h1>
+                <h3 class="hide-on-large-only hide-on-small-and-down">{{ user.fullName }}</h3>
+                <h4 class="hide-on-med-and-up">{{ user.fullName }}</h4>
+                <div class="hide-on-small-and-down">
+                    <div class="col s6 center-align light-green-text">
+                        <h3>+{{ pointsTotalPositive }}</h3>
+                    </div>
+                    <div class="col s6 center-align orange-text text-lighten-1">
+                        <h3>{{ pointsTotalNegative }}</h3>
+                    </div>
+                </div>
+                <div class="hide-on-med-and-up">
+                    <div class="col s6 center-align light-green-text">
+                        <h4>+{{ pointsTotalPositive }}</h4>
+                    </div>
+                    <div class="col s6 center-align orange-text text-lighten-1">
+                        <h4>{{ pointsTotalNegative }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

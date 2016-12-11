@@ -10,21 +10,21 @@
                             {% if app.user.id == course.user.id %}
                                 <div class="fab-align">
                                     <div class="fixed-action-btn horizontal click-to-toggle">
-                                        <a class="btn-floating btn-small blue-grey lighten-1">
+                                        <a class="btn-floating btn-small light-blue darken-2">
                                             <i class="material-icons">menu</i>
                                         </a>
                                         <ul>
                                             <li>
                                                 <a data-task-id="{{ task.id }}"
                                                    data-task-action="edukodas_tasks_edit"
-                                                   class="btn-floating btn-small waves-effect waves-light blue-grey lighten-1"
+                                                   class="btn-floating btn-small waves-effect waves-light light-blue darken-2"
                                                    href="#manage-task-modal">
                                                     <i class="small material-icons">mode_edit</i>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a data-task-id="{{ task.id }}"
-                                                   class="btn-floating btn-small waves-effect waves-light blue-grey lighten-1 delete-task"
+                                                   class="btn-floating btn-small waves-effect waves-light orange darken-4 delete-task"
                                                    href="#delete-task">
                                                     <i class="small material-icons">delete</i>
                                                 </a>

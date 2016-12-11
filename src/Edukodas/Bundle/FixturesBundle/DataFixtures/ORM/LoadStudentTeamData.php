@@ -27,7 +27,7 @@ class LoadStudentTeamData extends AbstractFixture implements
             [
                 'refnum' => 2,
                 'title' => 'Mėlynieji',
-                'color' => 'cyan'
+                'color' => 'blue'
             ],
             [
                 'refnum' => 3,

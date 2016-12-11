@@ -301,6 +301,17 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
   }
 }
 
+.btn-large span {
+  font-size: 1.1rem;
+}
+
+.profile-pic-container img {
+  border: 8px solid #fff;
+}
+
+
+// Media queries
+
 @media only screen and (min-width: 601px) {
   .choose-image {
 
@@ -345,11 +356,13 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
   }
 }
 
-// Media queries
-
 @media only screen and (max-width: 424px) {
   .pagination li .page-nav {
     padding: 0;
+  }
+
+  .profile-pic-container img {
+    border: 3px solid #fff;
   }
 }
 
@@ -377,12 +390,4 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
   .name-points h2 {
     margin: 0;
   }
-}
-
-.btn-large span {
-  font-size: 1.1rem;
-}
-
-.profile-pic-container img {
-  border: 8px solid #fff;
 }

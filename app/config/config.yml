@@ -136,14 +136,17 @@ liip_imagine:
         profile_large:
             quality: 75
             filters:
+              upscale: { min: [350, 350] }
               thumbnail: { size: [350, 350], mode: outbound, position: center}
 
         profile_medium:
             quality: 75
             filters:
+              upscale: { min: [200, 200] }
               thumbnail: { size: [200, 200], mode: outbound, position: center}
 
         profile_small:
             quality: 50
             filters:
+              upscale: { min: [44, 44] }
               thumbnail: { size: [44, 44], mode: outbound, position: center}

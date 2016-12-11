@@ -136,7 +136,7 @@ liip_imagine:
         profile_large:
             quality: 75
             filters:
-              thumbnail: { size: [526, 526], mode: outbound, position: center}
+              thumbnail: { size: [350, 350], mode: outbound, position: center}
 
         profile_medium:
             quality: 75

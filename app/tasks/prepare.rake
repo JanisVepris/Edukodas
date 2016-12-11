@@ -35,8 +35,18 @@ namespace :symfony do
         end
     end
 
+    desc 'Clear Liip Imagine cache'
+    task :clear_liip_cache do
+        on roles :web do
+            within release_path do
+                execute :php, 'bin/console', 'liip:imagine:cache:remove'
+            end
+        end
+    end
+
     after 'deploy:updated', 'symfony:update_schema'
     after 'deploy:updated', 'symfony:load_fixtures'
     after 'deploy:updated', 'symfony:dump_js_routes'
     after 'deploy:updated', 'symfony:dump_assets'
+    after 'deploy:updated', 'symfony:clear_liip_cache'
 end

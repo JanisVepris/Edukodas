@@ -2,11 +2,13 @@ $(document).ready(function () {
     $('#graph_timespan').material_select();
     $('#graph_team').selectize({
         plugins: {
+            'remove_button': {},
             'no_results': { message: 'Nepavyko nieko rasti' }
         }
     });
     $('#graph_class').selectize({
         plugins: {
+            'remove_button': {},
             'no_results': { message: 'Nepavyko nieko rasti' }
         }
     });

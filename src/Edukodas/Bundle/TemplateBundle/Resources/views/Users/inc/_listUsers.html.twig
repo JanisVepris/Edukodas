@@ -13,19 +13,14 @@
                         alt="{{ user.fullName }}">
             {% endif %}
         </a>
-        <div class="col s11 hide-on-med-and-up valign username">
-            <a class="light-blue-text text-darken-2" href="{{ path('edukodas_unified_profile', {'username' : user.username}) }}">
+
+        <div class="col s12 l3 valign username">
+            <a href="{{ path('edukodas_unified_profile', {'username' : user.username}) }}">
                 {{ user.fullName }}
                 <small>({{ user.classTitle }})</small></a>
         </div>
 
-        <div class="col s2 hide-on-small-only valign username">
-            <a class="light-blue-text text-darken-2" href="{{ path('edukodas_unified_profile', {'username' : user.username}) }}">
-                {{ user.fullName }}
-                <small>({{ user.classTitle }})</small></a>
-        </div>
-
-        <div class="col s9 hide-on-small-only valign">
+        <div class="col l9 valign">
             {% set minMaxAmount = minAmount|abs + maxAmount|abs %}
             {% set userAmount = user.amount + minAmount|abs %}
 
@@ -35,11 +30,11 @@
                 {% set percent = userAmount / minMaxAmount * 100 %}
             {% endif %}
 
-            <div style="width: {{ percent }}%; height: 10px;"
-                 class="{{ user.teamColor ? user.teamColor : 'white' }} lighten-1"></div>
+            <div style="width: {{ percent }}%;"
+                 class="{{ user.teamColor ? user.teamColor : 'white' }} lighten-1 point-bar"></div>
         </div>
 
-        <div class="s1 valign {{ user.amount<=0 ? 'red-text text-lighten-1' : 'grey-text'}}">
+        <div class="valign {{ user.amount<=0 ? 'red-text text-lighten-1' : 'grey-text'}}">
             {{ user.amount }}
         </div>
     </li>

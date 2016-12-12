@@ -72,7 +72,7 @@ class PointHistoryRepository extends EntityRepository
      *
      * @return int
      */
-    public function getTotalPositivePointsByTeacher(User $teacher): int
+    public function getTotalPositivePointsByTeacher(User $teacher)
     {
         $this->getEntityManager()->getFilters()->disable('softdeleteable');
 
@@ -96,7 +96,7 @@ class PointHistoryRepository extends EntityRepository
      *
      * @return int
      */
-    public function getTotalNegativePointsByTeacher(User $teacher): int
+    public function getTotalNegativePointsByTeacher(User $teacher)
     {
         $this->getEntityManager()->getFilters()->disable('softdeleteable');
 
@@ -121,7 +121,7 @@ class PointHistoryRepository extends EntityRepository
      *
      * @return Collection|PointHistory[]
      */
-    public function getRecentEntriesByStudent(User $student, $maxEntries = 10): array
+    public function getRecentEntriesByStudent(User $student, $maxEntries = 10)
     {
         $this->getEntityManager()->getFilters()->disable('softdeleteable');
 
@@ -145,7 +145,7 @@ class PointHistoryRepository extends EntityRepository
      *
      * @return int
      */
-    public function getTotalPointsByStudent(User $student): int
+    public function getTotalPointsByStudent(User $student)
     {
         $this->getEntityManager()->getFilters()->disable('softdeleteable');
 
@@ -413,7 +413,7 @@ class PointHistoryRepository extends EntityRepository
      *
      * @return int
      */
-    public function findMaxPointAmountByClassAndTeam(StudentTeam $team = null, StudentClass $class = null): int
+    public function findMaxPointAmountByClassAndTeam(StudentTeam $team = null, StudentClass $class = null)
     {
         $this->getEntityManager()->getFilters()->disable('softdeleteable');
 
@@ -449,7 +449,7 @@ class PointHistoryRepository extends EntityRepository
      *
      * @return int
      */
-    public function findMinPointAmountByClassAndTeam(StudentTeam $team = null, StudentClass $class = null): int
+    public function findMinPointAmountByClassAndTeam(StudentTeam $team = null, StudentClass $class = null)
     {
         $this->getEntityManager()->getFilters()->disable('softdeleteable');
 
@@ -700,7 +700,7 @@ class PointHistoryRepository extends EntityRepository
      *
      * @return int
      */
-    public function getStudentRanking(int $amount): int
+    public function getStudentRanking(int $amount)
     {
         $allStudentPointAmounts = $this->getStudentPointTotals();
 
@@ -715,7 +715,7 @@ class PointHistoryRepository extends EntityRepository
      *
      * @return int
      */
-    public function getStudentRankingByTeam(StudentTeam $team, int $amount): int
+    public function getStudentRankingByTeam(StudentTeam $team, int $amount)
     {
         $allStudentPointAmountInTeam = $this
             ->getStudentPointTotalsByTeam($team);
@@ -731,7 +731,7 @@ class PointHistoryRepository extends EntityRepository
      *
      * @return int
      */
-    public function getStudentRankingByGeneration(StudentGeneration $studentGeneration, int $amount): int
+    public function getStudentRankingByGeneration(StudentGeneration $studentGeneration, int $amount)
     {
         $allStudentPointAmountInTeam = $this
             ->getStudentPointTotalsByGeneration($studentGeneration);
@@ -747,7 +747,7 @@ class PointHistoryRepository extends EntityRepository
      *
      * @return int
      */
-    public function getStudentRankingByClass(StudentClass $studentClass, int $amount): int
+    public function getStudentRankingByClass(StudentClass $studentClass, int $amount)
     {
         $allStudentPointAmountInTeam = $this
             ->getStudentPointTotalsByClass($studentClass);

@@ -70,10 +70,10 @@ search:
 
 graph:
   headers:
-    team_points: Komandų Taškų Pasiskirstymas
-    period_points: Surinkti Taškai Per Periodą
-    cumulative_points: Surinktų Taškų Suma Per Periodą
-    top_students: Top Mokiniai
+    team_points: Taškų suma
+    period_points: Taškų pokytis
+    cumulative_points: Taškų sumos kitimas
+    ratings: Reitingai
   from:
     label: Nuo
     year: Metai

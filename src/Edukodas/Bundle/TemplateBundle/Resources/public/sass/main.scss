@@ -188,6 +188,10 @@ a {
   right: 20px;
 }
 
+.fixed-action-btn {
+  z-index: 2;
+}
+
 .task-points {
   font-size: 18px;
   line-height: 42px;
@@ -247,6 +251,14 @@ a {
   width: 40px;
   margin: 5px 15px;
   display: inline-block;
+}
+
+#search-reasults, .search-result {
+  z-index: 9;
+}
+
+.card .card-reveal {
+  z-index: 1;
 }
 
 #search-reasults > .search-result > a {
@@ -408,6 +420,11 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
   }
 }
 
+@media only screen and (max-width: 992px) {
+  .team-color-search {
+    margin: 0;
+  }
+}
 
 @media only screen and (max-width: 1200px) {
   nav ul a {

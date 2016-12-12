@@ -253,6 +253,14 @@ a {
   display: inline-block;
 }
 
+#search-reasults, .search-result {
+  z-index: 9;
+}
+
+.card .card-reveal {
+  z-index: 1;
+}
+
 #search-reasults > .search-result > a {
   display: flex;
   line-height: 22px;

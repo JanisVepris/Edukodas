@@ -8,10 +8,6 @@ main {
   flex: 1 0 auto;
 }
 
-.search {
-  padding: 0 !important;
-}
-
 a {
   color: #26a69a;
 }
@@ -205,6 +201,18 @@ a {
 
 // Search
 
+.search {
+  .input-field {
+    flex-grow: 1;
+    max-width: 400px;
+  }
+  padding: 0 !important;
+  display: flex;
+  .input-field label.active i {
+    color: rgba(255, 255, 255, .7);
+  }
+}
+
 .search-preloader-container {
   background-color: #fff;
   margin-top: -15px;
@@ -380,9 +388,22 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
   }
 }
 
-@media only screen and (max-width: 1064px) {
+
+@media only screen and (max-width: 1200px) {
   nav ul a {
     padding: 0 10px;
+  }
+}
+
+@media only screen and (max-width: 1070px) {
+  nav ul a {
+    padding: 0 5px;
+  }
+}
+
+@media only screen and (max-width: 1010px) {
+  nav ul a {
+    padding: 0 3px;
   }
 }
 

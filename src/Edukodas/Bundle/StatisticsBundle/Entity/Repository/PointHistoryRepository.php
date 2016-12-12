@@ -493,7 +493,7 @@ class PointHistoryRepository extends EntityRepository
     ) {
         $qb = $this
             ->createQueryBuilder('ph')
-            ->select('t.id', 't.title', 't.color', 'SUM(ph.amount) amount')
+            ->select('t.id', 't.title', 't.graphColor', 'SUM(ph.amount) amount')
             ->join('ph.student', 's')
             ->join('s.studentTeam', 't')
             ->groupBy('t.id')
@@ -539,7 +539,7 @@ class PointHistoryRepository extends EntityRepository
             ->select(
                 't.id',
                 't.title',
-                't.color',
+                't.graphColor',
                 'SUM(ph.amount) amount,
                 DATE_FORMAT(ph.createdAt, \''. $dateFormat .'\') date'
             )
@@ -589,7 +589,7 @@ class PointHistoryRepository extends EntityRepository
             ->select(
                 's.id',
                 's.fullName',
-                't.color',
+                't.graphColor',
                 'SUM(ph.amount) amount'
             )
             ->join('ph.student', 's')
@@ -664,7 +664,7 @@ class PointHistoryRepository extends EntityRepository
             ->select(
                 't.id',
                 't.title',
-                't.color',
+                't.graphColor',
                 'SUM(ph.amount) amount,
                 DATE_FORMAT(ph.createdAt, \''. $dateFormat .'\') date'
             )
@@ -800,6 +800,7 @@ class PointHistoryRepository extends EntityRepository
                 't.id',
                 't.title',
                 't.color',
+                't.graphColor',
                 'SUM(ph.amount) amount'
             )
             ->join('ph.student', 's')

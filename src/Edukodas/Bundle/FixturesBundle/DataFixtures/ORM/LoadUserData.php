@@ -10,12 +10,22 @@ use Edukodas\Bundle\UserBundle\Entity\User;
 use Edukodas\Bundle\UserBundle\Entity\StudentClass;
 use Edukodas\Bundle\UserBundle\Entity\StudentGeneration;
 use Edukodas\Bundle\UserBundle\Entity\StudentTeam;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class LoadUserData extends AbstractFixture implements
+    ContainerAwareInterface,
     FixtureInterface,
     OrderedFixtureInterface
 {
     const BATCH_SIZE = 20;
+    const STUDENT_AMOUNT_PRODUCTION = 200;
+    const STUDENT_AMOUNT_DEV = 100;
+
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
 
     /**
      * @var StudentTeam[]
@@ -103,6 +113,55 @@ class LoadUserData extends AbstractFixture implements
     }
 
     /**
+     * @return array
+     */
+    private function getProdDefaultUsers()
+    {
+        return [
+            [
+                'username' => 'mokytojasa',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
+                'username' => 'mokytojasb',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
+                'username' => 'mokytojasc',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
+                'username' => 'mokytojasd',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
+                'username' => 'mokytojase',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
+                'username' => 'mokytojasf',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
+                'username' => 'mokytojasg',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
+                'username' => 'mokytojash',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
+                'username' => 'mokinysa',
+                'role' => 'ROLE_STUDENT',
+            ],
+            [
+                'username' => 'mokinysb',
+                'role' => 'ROLE_STUDENT',
+            ],
+        ];
+    }
+
+    /**
      * Loads user entities into database
      *
      * @param ObjectManager $manager
@@ -116,7 +175,14 @@ class LoadUserData extends AbstractFixture implements
         $this->generations = $this->getGenerations();
         $this->faker = \Faker\Factory::create('lt_LT');
 
-        $defaultUsers = $this->getDefaultUsers();
+        if (!$this->container->getParameter('kernel.debug')) {
+            $defaultUsers = $this->getProdDefaultUsers();
+            $studentAmount = self::STUDENT_AMOUNT_PRODUCTION;
+        } else {
+            $defaultUsers = $this->getDefaultUsers();
+            $studentAmount = self::STUDENT_AMOUNT_DEV;
+        }
+
 
         foreach ($defaultUsers as $defaultUser) {
             $user = $this->generateUser($defaultUser['username'], $defaultUser['role']);
@@ -126,7 +192,7 @@ class LoadUserData extends AbstractFixture implements
 
         $manager->flush();
 
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= $studentAmount; $i++) {
             $user = $this->generateUser();
 
             $this->addReference('user_' . $i, $user);
@@ -199,5 +265,13 @@ class LoadUserData extends AbstractFixture implements
     public function getOrder()
     {
         return 2;
+    }
+
+    /**
+     * @param ContainerInterface|null $container
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
     }
 }

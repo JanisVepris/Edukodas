@@ -6,7 +6,7 @@ use AbstractDataFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Edukodas\Bundle\TasksBundle\Entity\Course;
 
-class LoadCourseData extends AbstractDataFixture
+class LoadProdCourseData extends AbstractDataFixture
 {
     /**
      * Get courseData
@@ -56,6 +56,51 @@ class LoadCourseData extends AbstractDataFixture
                 'teacher' => $this->getReference('user_mokytojasb'),
                 'courseName' => 'Geografija',
             ],
+            [
+                'refnum' => 9,
+                'teacher' => $this->getReference('user_mokytojasc'),
+                'courseName' => 'Informatika',
+            ],
+            [
+                'refnum' => 10,
+                'teacher' => $this->getReference('user_mokytojasd'),
+                'courseName' => 'Darbeliai',
+            ],
+            [
+                'refnum' => 11,
+                'teacher' => $this->getReference('user_mokytojase'),
+                'courseName' => 'Kūno kultūra',
+            ],
+            [
+                'refnum' => 12,
+                'teacher' => $this->getReference('user_mokytojasf'),
+                'courseName' => 'Istorija',
+            ],
+            [
+                'refnum' => 13,
+                'teacher' => $this->getReference('user_mokytojasf'),
+                'courseName' => 'Politologija',
+            ],
+            [
+                'refnum' => 14,
+                'teacher' => $this->getReference('user_mokytojasg'),
+                'courseName' => 'Etika',
+            ],
+            [
+                'refnum' => 15,
+                'teacher' => $this->getReference('user_mokytojash'),
+                'courseName' => 'Matematika 2',
+            ],
+            [
+                'refnum' => 16,
+                'teacher' => $this->getReference('user_mokytojash'),
+                'courseName' => 'Fizika 2',
+            ],
+            [
+                'refnum' => 17,
+                'teacher' => $this->getReference('user_mokytojash'),
+                'courseName' => 'Chemija 2',
+            ],
         ];
     }
 
@@ -100,6 +145,6 @@ class LoadCourseData extends AbstractDataFixture
      */
     protected function getEnvironments()
     {
-        return ['dev', 'test'];
+        return ['prod'];
     }
 }

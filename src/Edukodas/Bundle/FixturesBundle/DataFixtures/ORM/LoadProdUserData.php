@@ -9,7 +9,7 @@ use Edukodas\Bundle\UserBundle\Entity\StudentClass;
 use Edukodas\Bundle\UserBundle\Entity\StudentGeneration;
 use Edukodas\Bundle\UserBundle\Entity\StudentTeam;
 
-class LoadUserData extends AbstractDataFixture
+class LoadProdUserData extends AbstractDataFixture
 {
     const BATCH_SIZE = 20;
 
@@ -88,6 +88,30 @@ class LoadUserData extends AbstractDataFixture
                 'role' => 'ROLE_TEACHER',
             ],
             [
+                'username' => 'mokytojasc',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
+                'username' => 'mokytojasd',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
+                'username' => 'mokytojase',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
+                'username' => 'mokytojasf',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
+                'username' => 'mokytojasg',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
+                'username' => 'mokytojash',
+                'role' => 'ROLE_TEACHER',
+            ],
+            [
                 'username' => 'mokinysa',
                 'role' => 'ROLE_STUDENT',
             ],
@@ -122,7 +146,7 @@ class LoadUserData extends AbstractDataFixture
 
         $manager->flush();
 
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 200; $i++) {
             $user = $this->generateUser();
 
             $this->addReference('user_' . $i, $user);
@@ -204,6 +228,6 @@ class LoadUserData extends AbstractDataFixture
      */
     protected function getEnvironments()
     {
-        return ['dev', 'test'];
+        return ['prod'];
     }
 }

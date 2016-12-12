@@ -2,15 +2,11 @@
 
 namespace UserBundle\DataFixture\ORM;
 
-use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use AbstractDataFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Edukodas\Bundle\TasksBundle\Entity\Task;
 
-class LoadTasksData extends AbstractFixture implements
-    FixtureInterface,
-    OrderedFixtureInterface
+class LoadTasksData extends AbstractDataFixture
 {
     /**
      * Get tasksData
@@ -110,7 +106,7 @@ class LoadTasksData extends AbstractFixture implements
      *
      * @return void
      */
-    public function load(ObjectManager $manager)
+    public function doLoad(ObjectManager $manager)
     {
         $faker = \Faker\Factory::create();
 
@@ -139,5 +135,15 @@ class LoadTasksData extends AbstractFixture implements
     public function getOrder()
     {
         return 4;
+    }
+
+    /**
+     * Returns the environments the fixtures may be loaded in.
+     *
+     * @return array The name of the environments.
+     */
+    protected function getEnvironments()
+    {
+        return ['dev', 'test'];
     }
 }

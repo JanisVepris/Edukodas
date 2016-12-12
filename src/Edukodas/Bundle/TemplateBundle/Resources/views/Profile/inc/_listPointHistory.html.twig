@@ -3,9 +3,9 @@
        style="font-style: normal;">{{ amount }}</i>
     <span class="title">
         {% if isStudentProfile %}
-            <a class="light-blue-text text-darken-2" href="{{ path('edukodas_unified_profile', {'username' : teacher.username}) }}">{{ teacher.fullName }}</a>
+            <a href="{{ path('edukodas_unified_profile', {'username' : teacher.username}) }}">{{ teacher.fullName }}</a>
         {% else %}
-            <a class="light-blue-text text-darken-2" href="{{ path('edukodas_unified_profile', {'username' : student.username}) }}">{{ student.fullName }}</a>
+            <a href="{{ path('edukodas_unified_profile', {'username' : student.username}) }}">{{ student.fullName }}</a>
         {% endif %}
     </span>
     <p>
@@ -19,21 +19,21 @@
         {% if app.user.id == entryOwnerId %}
             <div class="secondary-content fab-align">
                 <div class="fixed-action-btn horizontal click-to-toggle">
-                    <a class="btn-floating btn-small light-blue darken-2">
+                    <a class="btn-floating btn-small light-blue darken-4">
                         <i class="material-icons">menu</i>
                     </a>
                     <ul>
                         <li>
                             <a data-points-id="{{ entryId }}"
                                data-points-action="edukodas_points_edit"
-                               class="btn-floating btn-small waves-effect waves-light light-blue darken-2"
+                               class="btn-floating btn-small waves-effect waves-light light-blue darken-4"
                                href="#edit-points-modal">
                                 <i class="small material-icons">mode_edit</i>
                             </a>
                         </li>
                         <li>
                             <a data-points-id="{{ entryId }}"
-                               class="btn-floating btn-small waves-effect waves-light orange darken-4 delete-points"
+                               class="btn-floating btn-small waves-effect waves-light red delete-points"
                                href="#delete-points">
                                 <i class="small material-icons">delete</i>
                             </a>

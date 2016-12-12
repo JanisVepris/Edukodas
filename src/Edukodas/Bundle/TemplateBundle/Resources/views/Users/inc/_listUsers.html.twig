@@ -1,6 +1,6 @@
 {% for user in userList %}
     <li class="collection-item avatar valign-wrapper">
-        <a class="light-blue-text text-darken-2" href="{{ path('edukodas_unified_profile', {'username' : user.username}) }}">
+        <a href="{{ path('edukodas_unified_profile', {'username' : user.username}) }}">
             {% if (user.picturePath) %}
                 <img
                         class="responsive-img circle z-depth-1"
@@ -14,7 +14,7 @@
             {% endif %}
         </a>
         <div class="col s2 valign username">
-            <a class="light-blue-text text-darken-2" href="{{ path('edukodas_unified_profile', {'username' : user.username}) }}">
+            <a href="{{ path('edukodas_unified_profile', {'username' : user.username}) }}">
                 {{ user.fullName }}
                 <small>({{ user.classTitle }})</small></a>
         </div>

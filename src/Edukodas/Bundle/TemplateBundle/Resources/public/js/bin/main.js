@@ -5,7 +5,12 @@ $(document).ready(function () {
 
     $('.collapsible').collapsible();
 
-    $( window ).resize(function() {
-        $('.button-collapse').sideNav('hide');
+    var width = $(window).width();
+
+    $(window).resize(function() {
+        if ($(window).width()!=width) {
+            width = $(window).width();
+            $('.button-collapse').sideNav('hide');
+        }
     });
 });

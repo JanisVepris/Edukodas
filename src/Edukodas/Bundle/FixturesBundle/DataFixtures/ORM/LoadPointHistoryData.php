@@ -37,6 +37,20 @@ class LoadPointHistoryData extends AbstractFixture implements
     /**
      * @return Task[]
      */
+    private function getProdTasks()
+    {
+        $data = [];
+        for ($i = 1; $i <= 102; $i++) {
+            $data[] = $this->getReference('task_' . $i);
+        }
+
+        return $data;
+    }
+
+
+    /**
+     * @return Task[]
+     */
     private function getTasks()
     {
         return [
@@ -76,7 +90,11 @@ class LoadPointHistoryData extends AbstractFixture implements
             ->getRepository(User::class)
             ->findAllStudents();
 
-        $tasks = $this->getTasks();
+        if (!$this->container->getParameter('kernel.debug')) {
+            $tasks = $this->getProdTasks();
+        } else {
+            $tasks = $this->getTasks();
+        }
 
         foreach ($students as $student) {
             for ($i = 0; $i < $faker->numberBetween(10, 25); $i++) {

@@ -22,22 +22,26 @@ class LoadStudentTeamData extends AbstractFixture implements
             [
                 'refnum' => 1,
                 'title' => 'Raudonieji',
-                'color' => 'red'
+                'color' => 'red',
+                'graphColor' => 'ef5350'
             ],
             [
                 'refnum' => 2,
                 'title' => 'Mėlynieji',
-                'color' => 'blue'
+                'color' => 'blue',
+                'graphColor' => '42a5f5'
             ],
             [
                 'refnum' => 3,
                 'title' => 'Žalieji',
-                'color' => 'green'
+                'color' => 'green',
+                'graphColor' => '66bb6a'
             ],
             [
                 'refnum' => 4,
                 'title' => 'Oranžiniai',
-                'color' => 'orange'
+                'color' => 'orange',
+                'graphColor' => 'ffa726'
             ],
         ];
     }
@@ -57,6 +61,7 @@ class LoadStudentTeamData extends AbstractFixture implements
             $team = new StudentTeam();
             $team
                 ->setColor($data['color'])
+                ->setGraphColor($data['graphColor'])
                 ->setTitle($data['title']);
 
             $manager->persist($team);

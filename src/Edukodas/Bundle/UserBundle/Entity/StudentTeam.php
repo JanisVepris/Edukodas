@@ -50,6 +50,13 @@ class StudentTeam
     private $color;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="graph_color", type="string", length=6)
+     */
+    private $graphColor;
+
+    /**
      * StudentTeam constructor.
      */
     public function __construct()
@@ -169,5 +176,24 @@ class StudentTeam
     public function getColor()
     {
         return $this->color;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGraphColor(): string
+    {
+        return $this->graphColor;
+    }
+
+    /**
+     * @param string $graphColor
+     *
+     * @return StudentTeam
+     */
+    public function setGraphColor(string $graphColor): StudentTeam
+    {
+        $this->graphColor = $graphColor;
+        return $this;
     }
 }

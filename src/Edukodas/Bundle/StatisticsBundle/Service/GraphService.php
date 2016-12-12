@@ -60,7 +60,7 @@ class GraphService
         foreach ($teamTotalPoints as $teamData) {
             $graphData['labels'][] = $teamData['title'];
             $graphData['datasets'][0]['data'][] = (int) $teamData['amount'];
-            $graphData['datasets'][0]['backgroundColor'][] = $teamData['color'];
+            $graphData['datasets'][0]['backgroundColor'][] = '#' . $teamData['graphColor'];
 
             $pieData['datasets'][0]['data'][] = (int) max(0, $teamData['amount']);
         }
@@ -248,7 +248,7 @@ class GraphService
         foreach ($topUsers as $user) {
             $graphData['labels'][] = $user['fullName'];
             $graphData['datasets'][0]['data'][] = (int) $user['amount'];
-            $graphData['datasets'][0]['backgroundColor'][] = $user['color'];
+            $graphData['datasets'][0]['backgroundColor'][] = '#' . $user['graphColor'];
         }
 
         if (count($graphData['datasets'][0]['data']) < 1) {
@@ -305,7 +305,7 @@ class GraphService
                 return $teamDataEntry['amount'];
             }, $teamData);
 
-            $dataset['borderColor'] = $teamData[0]['color'];
+            $dataset['borderColor'] = '#' . $teamData[0]['graphColor'];
 
             $graphData['datasets'][] = $dataset;
         }

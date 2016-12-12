@@ -396,6 +396,11 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
   }
 }
 
+@media only screen and (max-width: 992px) {
+  .team-color-search {
+    margin: 0;
+  }
+}
 
 @media only screen and (max-width: 1200px) {
   nav ul a {

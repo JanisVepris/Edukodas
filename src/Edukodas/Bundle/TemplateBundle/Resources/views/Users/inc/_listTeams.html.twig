@@ -1,14 +1,10 @@
 {% for team in teamList %}
-    <li class="collection-item valign-wrapper">
-        <div class="col s11 hide-on-med-and-up valign">
+    <li style="padding-left: 72px" class="collection-item valign-wrapper">
+        <div class="col s3 team-name">
             {{ team.title }}
         </div>
 
-        <div class="col s1 hide-on-small-only valign">
-            {{ team.title }}
-        </div>
-
-        <div class="col s10 hide-on-small-only valign">
+        <div class="col s9 valign">
             {% set maxAmount = teamList|first.amount %}
             {% set minAmount = teamList|last.amount %}
 
@@ -21,11 +17,11 @@
                 {% set percent = teamAmount / minMaxAmount * 100 %}
             {% endif %}
 
-            <div style="width: {{ percent }}%; height: 10px;"
-                 class="{{ team.color }} lighten-1"></div>
+            <div style="width: {{ percent }}%;"
+                 class="{{ team.color }} lighten-1 point-bar"></div>
         </div>
 
-        <div class="s1 valign {{ team.amount <= 0 ? 'red-text text-lighten-1' : 'grey-text'}}">
+        <div class="valign {{ team.amount <= 0 ? 'red-text text-lighten-1' : 'grey-text'}}">
             {{ team.amount }}
         </div>
     </li>

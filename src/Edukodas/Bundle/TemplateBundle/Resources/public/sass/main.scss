@@ -294,6 +294,26 @@ div[id^="delete-points-preload-"] .spinner-layer .circle-clipper.right .circle {
   }
 }
 
+.collection .collection-item {
+  .team-name {
+    padding-left: 0;
+  }
+
+  position: relative;
+}
+
+.point-bar {
+  height: 10px;
+
+  @media only screen and (max-width: 992px) {
+    height: 3px;
+    position: absolute;
+    bottom: 3px;
+    left: 4px;
+    max-width: 98%;
+  }
+}
+
 // Settings
 
 .choose-image {

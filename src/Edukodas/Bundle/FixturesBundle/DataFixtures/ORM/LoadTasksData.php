@@ -6,101 +6,104 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Edukodas\Bundle\TasksBundle\Entity\Course;
 use Edukodas\Bundle\TasksBundle\Entity\Task;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class LoadTasksData extends AbstractFixture implements
+    ContainerAwareInterface,
     FixtureInterface,
     OrderedFixtureInterface
 {
     /**
-     * Get tasksData
-     *
-     * @return array
+     * @var ContainerInterface
      */
-    private function getTasksData()
+    protected $container;
+
+    /**
+     * @return Course[]
+     */
+    private function getProdCourses()
     {
         return [
-            [
-                'refnum' => 1,
-                'course' => $this->getReference('course_1'),
-                'taskName' => 'Namų darbai',
-            ],
-            [
-                'refnum' => 2,
-                'course' => $this->getReference('course_1'),
-                'taskName' => 'Aktyvumas',
-            ],
-            [
-                'refnum' => 3,
-                'course' => $this->getReference('course_2'),
-                'taskName' => 'Namų darbai',
-            ],
-            [
-                'refnum' => 4,
-                'course' => $this->getReference('course_2'),
-                'taskName' => 'Aktyvumas',
-            ],
-            [
-                'refnum' => 5,
-                'course' => $this->getReference('course_3'),
-                'taskName' => 'Namų darbai',
-            ],
-            [
-                'refnum' => 6,
-                'course' => $this->getReference('course_3'),
-                'taskName' => 'Aktyvumas',
-            ],
-            [
-                'refnum' => 7,
-                'course' => $this->getReference('course_4'),
-                'taskName' => 'Nauji žodžiai',
-            ],
-            [
-                'refnum' => 8,
-                'course' => $this->getReference('course_4'),
-                'taskName' => 'Aktyvumas',
-            ],
-            [
-                'refnum' => 9,
-                'course' => $this->getReference('course_5'),
-                'taskName' => 'Pamokos praleidimas',
-            ],
-            [
-                'refnum' => 10,
-                'course' => $this->getReference('course_5'),
-                'taskName' => 'Aktyvumas',
-            ],
-            [
-                'refnum' => 11,
-                'course' => $this->getReference('course_6'),
-                'taskName' => 'Trigonometrija',
-            ],
-            [
-                'refnum' => 12,
-                'course' => $this->getReference('course_6'),
-                'taskName' => 'Aktyvumas',
-            ],
-            [
-                'refnum' => 13,
-                'course' => $this->getReference('course_7'),
-                'taskName' => 'Iniciatyva',
-            ],
-            [
-                'refnum' => 14,
-                'course' => $this->getReference('course_7'),
-                'taskName' => 'Aktyvumas',
-            ],
-            [
-                'refnum' => 15,
-                'course' => $this->getReference('course_8'),
-                'taskName' => 'Iniciatyva',
-            ],
-            [
-                'refnum' => 16,
-                'course' => $this->getReference('course_8'),
-                'taskName' => 'Aktyvumas',
-            ],
+            $this->getReference('course_1'),
+            $this->getReference('course_2'),
+            $this->getReference('course_3'),
+            $this->getReference('course_4'),
+            $this->getReference('course_5'),
+            $this->getReference('course_6'),
+            $this->getReference('course_7'),
+            $this->getReference('course_8'),
+            $this->getReference('course_9'),
+            $this->getReference('course_10'),
+            $this->getReference('course_11'),
+            $this->getReference('course_12'),
+            $this->getReference('course_13'),
+            $this->getReference('course_14'),
+            $this->getReference('course_15'),
+            $this->getReference('course_16'),
+            $this->getReference('course_17'),
         ];
+    }
+
+    /**
+     * @return Course[]
+     */
+    private function getCourses()
+    {
+        return [
+            $this->getReference('course_1'),
+            $this->getReference('course_2'),
+            $this->getReference('course_3'),
+            $this->getReference('course_4'),
+            $this->getReference('course_5'),
+            $this->getReference('course_6'),
+            $this->getReference('course_7'),
+            $this->getReference('course_8'),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getTaskNames()
+    {
+        return [
+            'Namų darbai',
+            'Aktyvumas',
+            'Iniciatyva',
+            'Disciplina',
+            'Lankomumas',
+            'Kita',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function generateTasks()
+    {
+        if (!$this->container->getParameter('kernel.debug')) {
+            $courses = $this->getProdCourses();
+        } else {
+            $courses = $this->getCourses();
+        }
+
+        $taskNames = $this->getTaskNames();
+
+        $i = 1;
+        foreach ($courses as $course) {
+            foreach ($taskNames as $taskName) {
+                $tasksData[] = [
+                    'refnum' => $i,
+                    'course' => $course,
+                    'taskName' => $taskName,
+                ];
+                $i++;
+            }
+        }
+        return $tasksData;
     }
 
     /**
@@ -114,7 +117,7 @@ class LoadTasksData extends AbstractFixture implements
     {
         $faker = \Faker\Factory::create();
 
-        $data = $this->getTasksData();
+        $data = $this->generateTasks();
 
         foreach ($data as $taskData) {
             $task = new Task();
@@ -139,5 +142,13 @@ class LoadTasksData extends AbstractFixture implements
     public function getOrder()
     {
         return 4;
+    }
+
+    /**
+     * @param ContainerInterface|null $container
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
     }
 }

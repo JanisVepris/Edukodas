@@ -9,7 +9,12 @@ main {
 }
 
 .search {
+  .input-field {
+    flex-grow: 1;
+    max-width: 400px;
+  }
   padding: 0 !important;
+  display: flex;
 }
 
 a {

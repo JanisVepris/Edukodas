@@ -1,5 +1,5 @@
 <div class="col s12">
-    <div class="card horizontal light-blue darken-2">
+    <div class="card horizontal light-blue darken-4">
         <div class="card-content valign-wrapper">
             <div class="col m4 valign profile-pic-container hide-on-small-and-down">
                 {% include '@EdukodasTemplate/Profile/inc/_profilePic.html.twig' %}
@@ -12,19 +12,19 @@
                 <h3 class="hide-on-large-only hide-on-small-and-down">{{ user.fullName }}</h3>
                 <h5 class="hide-on-med-and-up">{{ user.fullName }}</h5>
                 <div class="hide-on-small-and-down">
-                    <div class="col s6 center-align light-green-text">
-                        <h3>+{{ pointsTotalPositive }}</h3>
+                    <div class="col s6 center-align white-text">
+                        <h3 class="tooltipped" data-position="top" data-delay="50" data-tooltip="Skirti taškai">+{{ pointsTotalPositive }}</h3>
                     </div>
-                    <div class="col s6 center-align orange-text text-lighten-1">
-                        <h3>{{ pointsTotalNegative }}</h3>
+                    <div class="col s6 center-align white-text">
+                        <h3 class="tooltipped" data-position="top" data-delay="50" data-tooltip="Atimti taškai">{{ pointsTotalNegative }}</h3>
                     </div>
                 </div>
                 <div class="hide-on-med-and-up">
-                    <div class="col s6 center-align light-green-text">
-                        <h5>+{{ pointsTotalPositive }}</h5>
+                    <div class="col s6 center-align white-text">
+                        <h4 class="tooltipped" data-position="top" data-delay="50" data-tooltip="Skirti taškai">+{{ pointsTotalPositive }}</h4>
                     </div>
-                    <div class="col s6 center-align orange-text text-lighten-1">
-                        <h5>{{ pointsTotalNegative }}</h5>
+                    <div class="col s6 center-align white-text">
+                        <h4 class="tooltipped" data-position="top" data-delay="50" data-tooltip="Atimti taškai">{{ pointsTotalNegative }}</h4>
                     </div>
                 </div>
             </div>

@@ -181,7 +181,7 @@ class StudentTeam
     /**
      * @return string
      */
-    public function getGraphColor(): string
+    public function getGraphColor()
     {
         return $this->graphColor;
     }
@@ -191,9 +191,10 @@ class StudentTeam
      *
      * @return StudentTeam
      */
-    public function setGraphColor(string $graphColor): StudentTeam
+    public function setGraphColor(string $graphColor)
     {
         $this->graphColor = $graphColor;
+
         return $this;
     }
 }

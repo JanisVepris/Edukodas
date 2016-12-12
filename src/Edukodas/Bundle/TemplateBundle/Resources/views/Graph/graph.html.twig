@@ -26,7 +26,7 @@
                 <div class="col s12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">{{ 'graph.headers.team_points'|trans }}</span>
+                            <span class="flow-text">{{ 'graph.headers.team_points'|trans }}</span>
                             <div class="row">
                                 <div class="valign-wrapper">
                                     <div class="col l4 hide-on-med-and-down">
@@ -46,7 +46,7 @@
                 <div class="col s12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">{{ 'graph.headers.period_points'|trans }}</span>
+                            <span class="flow-text">{{ 'graph.headers.period_points'|trans }}</span>
                             <div class="row">
                                 <div class="valign-wrapper">
 
@@ -62,7 +62,7 @@
                 <div class="col s12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">{{ 'graph.headers.cumulative_points'|trans }}</span>
+                            <span class="flow-text">{{ 'graph.headers.cumulative_points'|trans }}</span>
                             <div class="row">
                                 <div class="valign-wrapper">
 
@@ -80,7 +80,7 @@
                 <div class="col s12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">{{ 'graph.headers.top_students'|trans }}</span>
+                            <span class="flow-text">{{ 'graph.headers.ratings'|trans }}</span>
                             <div class="row">
                                 <div class="valign-wrapper">
                                     <div class="col s12">
@@ -124,6 +124,14 @@
                     display: false
                 },
                 scales: {
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }],
                     yAxes: [{
                         stacked: true
                     }]
@@ -158,6 +166,11 @@
                     display: false
                 },
                 scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }],
                     yAxes: [{
                         stacked: true
                     }]

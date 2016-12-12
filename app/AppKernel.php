@@ -38,7 +38,11 @@ class AppKernel extends Kernel
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
         }
 
-        return $bundles;
+        if (in_array($this->getEnvironment(), array('prod'))) {
+            $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
+        }
+
+            return $bundles;
     }
 
     public function getRootDir()

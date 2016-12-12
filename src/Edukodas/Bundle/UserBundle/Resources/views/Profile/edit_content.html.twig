@@ -16,7 +16,7 @@
                 {{ form_start(form_picture, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
                 <div class="card-content">
                     <div class="file-field input-field">
-                        <div class="btn">
+                        <div class="btn {{ app.user.studentTeam ? app.user.studentTeam.color ~ ' lighten-1' : 'light-blue darken-4' }}">
                             <span>{{ 'profile.edit.file'|trans }}</span>
                             {{ form_widget(form_picture.picture) }}
                         </div>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="card-action spread">
-                    <button class="btn waves-effect waves-light" type="submit">
+                    <button class="btn {{ app.user.studentTeam ? app.user.studentTeam.color ~ ' lighten-1' : 'light-blue darken-4' }} waves-effect waves-light" type="submit">
                         {{ 'profile.edit.submit_picture'|trans }}
                     </button>
                     <span class="red-text text-darken-2">{{ form_errors(form_picture) }}</span>
@@ -53,7 +53,7 @@
             </div>
             <div class="card-action">
                 <div class="center-align">
-                    <input type="submit" class="btn waves-effect waves-light"
+                    <input type="submit" class="btn {{ app.user.studentTeam ? app.user.studentTeam.color ~ ' lighten-1' : 'light-blue darken-4' }} waves-effect waves-light"
                            value="{{ 'profile.edit.submit'|trans }}"/>
                 </div>
             </div>
@@ -71,7 +71,7 @@
             </div>
             <div class="card-action">
                 <div class="center-align">
-                    <input type="submit" class="btn waves-effect waves-light"
+                    <input type="submit" class="btn {{ app.user.studentTeam ? app.user.studentTeam.color ~ ' lighten-1' : 'light-blue darken-4' }} waves-effect waves-light"
                            value="{{ 'change_password.submit'|trans }}"/>
                 </div>
             </div>

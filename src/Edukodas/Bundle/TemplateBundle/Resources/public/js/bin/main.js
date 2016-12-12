@@ -6,6 +6,8 @@ $(document).ready(function () {
     $('.collapsible').collapsible();
 
     $( window ).resize(function() {
-        $('.button-collapse').sideNav('hide');
+        if (window.innerWidth > 992){
+            $('.button-collapse').sideNav('hide');
+        }
     });
 });
